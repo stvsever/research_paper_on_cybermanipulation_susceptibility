@@ -75,14 +75,19 @@ The full workflow runs from ontology-based scenario construction through agentic
 <img src="src/backend/pipeline/full/pipeline_visualization.png" width="1200" alt="Pipeline overview for ontology-based adversarial opinion susceptibility auditing.">
 </div>
 
-1. Define the state space with separate `PROFILE`, `ATTACK`, and `OPINION` ontologies.
-2. Construct compatible factorial scenarios from selected ontology leaves.
-3. Elicit baseline opinions for each pseudoprofile and opinion target.
-4. Compile deterministic attack-vector specifications from the attack ontology.
-5. Elicit post-exposure opinions constrained to the baseline-to-goal interval.
-6. Compute adversarial effectivity as movement toward the adversarial goal.
-7. Estimate moderation, susceptibility, and robustness diagnostics.
-8. Generate the interactive dashboard and publication-ready evaluation assets.
+**I. Ontological State Spaces** — three independent input taxonomies define the admissible state space: `PROFILE` (individual-level attributes), `ATTACK` (manipulative intervention types), and `OPINION` (target belief dimensions, each leaf carrying an adversarial direction: `+1` toward the goal, `-1` away, `0` excluded).
+
+**II. Scenario Construction** — a crossed scenario generator takes the cross product of admissible leaves, so each observation is a unique tuple `(profile i, attack j, opinion k)`.
+
+**III. Agentic Measurement Pipeline** — per scenario: (1) elicit a baseline opinion score conditioned on the profile, (2) generate an attack artifact instantiating the attack in realistic format, (3) audit and repair the artifact's realism until acceptable, (4) re-elicit the same profile's opinion after exposure, and (5) check response coherence, bounds, and consistency with the reasoning trace, flagging or re-running on failure.
+
+**IV. Effect Construction** — compute the signed, direction-aware effectivity `AE_ijk = (P_ijk − B_ijk) × d_k`, where `d_k ∈ {+1, −1, 0}` is the adversarial direction at opinion leaf `k`. `AE > 0` is movement toward the attacker's goal (success), `AE < 0` is resistance/backfire, `AE = 0` is excluded. This yields a structured repeated-outcome dataset (observations nested within profiles).
+
+**V. Inferential Layer** — a multi-stage analysis over the repeated-outcome dataset: (1) repeated-outcome moderation models (path/SEM, mixed-effects, multilevel variance decomposition) testing which profile characteristics explain directional effectivity; (2) task-conditional regularized models (ridge / elastic net / LASSO per attack×opinion task) aggregated into a composite susceptibility index `CSI_i`; (3) uncertainty and rank stability via profile-cluster bootstrap (BCa intervals) and Bayesian rank stability; (4) a profile-feature dependency graph (signed correlation network, centrality, community detection, bridge variables).
+
+**VI. Outputs & Interpretation** — identify which profile characteristics increase or decrease susceptibility and toward which opinions, provide profile-level susceptibility estimates with uncertainty (`CSI` scores and intervals), surface feature interdependencies and key bridge variables, and enable generalizable insight into adversarial persuasion under structured heterogeneity.
+
+Cross-cutting **safeguards and traceability** run across all stages: ontology constraints define admissible states, realism audits constrain artifact validity, coherence checks ensure plausible responses, and full provenance logging is kept end-to-end.
 
 ---
 

@@ -18,14 +18,14 @@
 
 ## 📋 Table of Contents
 
-- [Abstract](#abstract)
-- [Test Run 1](#test-run-1)
-- [Pipeline](#pipeline)
-- [Repository Structure](#repository-structure)
-- [Setup](#setup)
-- [Manual Run](#manual-run)
-- [Citation](#citation)
-- [License](#license)
+- [🧬 Abstract](#abstract)
+- [🔬 Test Run 1](#test-run-1)
+- [🔄 Pipeline](#pipeline)
+- [🗂️ Repository Structure](#repository-structure)
+- [⚙️ Setup](#setup)
+- [🚀 Manual Run](#manual-run)
+- [📚 Citation](#citation)
+- [⚖️ License](#license)
 
 ---
 
@@ -68,6 +68,12 @@ The launcher checks for `OPENROUTER_API_KEY`, verifies the projected OpenRouter 
 
 <a id="pipeline"></a>
 ## 🔄 Pipeline
+
+The full workflow runs from ontology-constrained scenario construction through agentic measurement, directional effect construction, and inferential analysis.
+
+<div align="center">
+<img src="src/backend/pipeline/full/pipeline_visualization.png" width="1200" alt="Pipeline overview for ontology-constrained adversarial opinion susceptibility auditing.">
+</div>
 
 1. Define the state space with separate `PROFILE`, `ATTACK`, and `OPINION` ontologies.
 2. Construct compatible factorial scenarios from selected ontology leaves.

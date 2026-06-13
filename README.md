@@ -8,21 +8,40 @@
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12%2B-e9c46a.svg)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](docker/)
 
-**Stijn Van Severen<sup>1,*</sup> | Thomas De Schryver<sup>1</sup> | Mira Ostyn<sup>1</sup>**
+**Stijn Van Severen<sup>1,*</sup> · Thomas De Schryver<sup>1</sup> · Mira Ostyn<sup>1</sup>**
 
-<sup>1</sup> Ghent University | <sup>*</sup> Corresponding author
+<sup>1</sup> Ghent University · <sup>*</sup> Corresponding author
+
+---
 
 </div>
 
-## Abstract
+## 📋 Table of Contents
 
-This repository contains the backend research pipeline and first testing-run artifacts for a study on how inter-individual differences moderate susceptibility to cyber-manipulation of political opinions.
+- [Abstract](#abstract)
+- [Test Run 1](#test-run-1)
+- [Pipeline](#pipeline)
+- [Repository Structure](#repository-structure)
+- [Setup](#setup)
+- [Manual Run](#manual-run)
+- [Citation](#citation)
+- [License](#license)
+
+---
+
+<a id="abstract"></a>
+## 🧬 Abstract
+
+This repository contains the backend research pipeline and first testing-run artifacts for a study on how **inter-individual differences moderate susceptibility to cyber-manipulation of political opinions**.
 
 The workflow represents `PROFILE`, `ATTACK`, and `OPINION` as explicit hierarchical ontologies, generates ontology-constrained profile by attack by opinion scenarios, elicits baseline and post-exposure opinions with structured LLM agents, audits response coherence, computes directional adversarial effectivity, and estimates moderation with scenario-level machine-learning and statistical diagnostics.
 
-The current public evaluation record is test run 1, located at `evaluation/tests/run_1`. It uses a focused subset of the testing ontology.
+The current public evaluation record is **test run 1**, located at `evaluation/tests/run_1`. It uses a focused subset of the testing ontology.
 
-## Test Run 1
+---
+
+<a id="test-run-1"></a>
+## 🔬 Test Run 1
 
 Test run 1 is a focused factorial evaluation over 60 pseudoprofiles, 4 cyber-manipulation attack vectors, and 3 political opinion targets.
 
@@ -45,7 +64,10 @@ bash scripts/tests/run_1.sh
 
 The launcher checks for `OPENROUTER_API_KEY`, verifies the projected OpenRouter budget, and writes logs under `evaluation/tests/logs`.
 
-## Pipeline
+---
+
+<a id="pipeline"></a>
+## 🔄 Pipeline
 
 1. Define the state space with separate `PROFILE`, `ATTACK`, and `OPINION` ontologies.
 2. Construct compatible factorial scenarios from selected ontology leaves.
@@ -56,7 +78,10 @@ The launcher checks for `OPENROUTER_API_KEY`, verifies the projected OpenRouter 
 7. Estimate moderation, susceptibility, and robustness diagnostics.
 8. Generate the interactive dashboard and publication-ready evaluation assets.
 
-## Repository Structure
+---
+
+<a id="repository-structure"></a>
+## 🗂️ Repository Structure
 
 ```text
 research_paper_on_cybermanipulation_susceptibility/
@@ -92,7 +117,10 @@ research_paper_on_cybermanipulation_susceptibility/
 
 `research_report/`, local virtual environments, editor files, local frontends, and `.env` files are intentionally excluded from the repository.
 
-## Setup
+---
+
+<a id="setup"></a>
+## ⚙️ Setup
 
 ```bash
 git clone https://github.com/stvsever/research_paper_on_cybermanipulation_susceptibility.git
@@ -106,7 +134,10 @@ cp .env.example .env
 
 Add `OPENROUTER_API_KEY` to `.env` before running the pipeline.
 
-## Manual Run
+---
+
+<a id="manual-run"></a>
+## 🚀 Manual Run
 
 ```bash
 .venv/bin/python src/backend/pipeline/full/run_full_pipeline.py \
@@ -138,11 +169,14 @@ Add `OPENROUTER_API_KEY` to `.env` before running the pipeline.
   --stop-after-stage 08
 ```
 
-## Citation
+---
+
+<a id="citation"></a>
+## 📚 Citation
 
 ### APA 7
 
-Van Severen, S., De Schryver, T., & Ostyn, M. (2026). *Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Constrained Multi-Agent Simulation Approach*. Ghent University. https://github.com/stvsever/research_paper_on_cybermanipulation_susceptibility
+> Van Severen, S., De Schryver, T., & Ostyn, M. (2026). *Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Constrained Multi-Agent Simulation Approach*. Ghent University. https://github.com/stvsever/research_paper_on_cybermanipulation_susceptibility
 
 ### BibTeX
 
@@ -156,6 +190,19 @@ Van Severen, S., De Schryver, T., & Ostyn, M. (2026). *Inter-individual Differen
 }
 ```
 
-## License
+A machine-readable citation is also available in [`CITATION.cff`](CITATION.cff).
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE).
+---
+
+<a id="license"></a>
+## ⚖️ License
+
+This project is licensed under the **MIT License**; see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+Built at **Ghent University** for the course *Case Studies in the Analysis of Experimental Data*
+
+</div>

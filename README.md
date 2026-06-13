@@ -64,7 +64,7 @@ bash scripts/tests/run_1.sh
 
 The launcher checks for `OPENROUTER_API_KEY`, verifies the projected OpenRouter budget, and writes logs under `evaluation/tests/logs`.
 
-For an interactive overview of the results, open [`evaluation/tests/run_1/visuals/dashboard_results.html`](evaluation/tests/run_1/visuals/dashboard_results.html) in a browser.
+For an interactive overview of the results, open [`evaluation/tests/run_1/visuals/dashboard_results.html`](evaluation/tests/run_1/visuals/dashboard_results.html) in a browser. ${\color{red}\textsf{\\#TODO: host through GitHub Pages}}$
 
 ---
 

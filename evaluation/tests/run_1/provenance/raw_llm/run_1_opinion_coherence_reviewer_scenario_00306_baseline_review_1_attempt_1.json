@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00306_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00306",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 52.648,
+      "big_five_conscientiousness_mean_pct": 32.582,
+      "big_five_openness_to_experience_mean_pct": 54.046,
+      "heuristic_shift_sensitivity_proxy": 0.5404,
+      "resilience_index": 0.4596
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00306",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -378,
+      "confidence": 0.72,
+      "reasoning": "This 33-year-old woman is highly agreeable (91st pct) with very high tender-mindedness (87th pct) and altruism (96th pct), traits that typically prioritize humanitarian aid and social programs over military expenditure. Her low conscientiousness (33rd pct), especially low achievement striving (29th pct) and self-discipline (24th pct), suggests she is not strongly oriented toward competitive or assertive national postures. Her moderate neuroticism (53rd pct) with elevated anxiety (58th pct) and self-consciousness (64th pct) could produce some security concern, but her very low activity level (9th pct), low extraversion (22nd pct), and low positive emotions (8th pct) make large-scale, high-stimulus military spending feel mismatched with her personality. Overall, she leans moderately against a defense spending increase, valuing compassion over military buildup, but her neuroticism prevents a fully committed opposition.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.9,\n  \"consistency_score\": 0.85,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline score -378 is plausible given profile traits (high agreeableness, low conscientiousness, moderate neuroticism) and issue. Reasoning ties profile to position without being overly generic. Score is fine-grained and not round-number anchored. No issues flagged.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179567-4xzDhfmN0fHinPNKYBK3",
+    "object": "chat.completion",
+    "created": 1781179567,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.9,\n  \"consistency_score\": 0.85,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline score -378 is plausible given profile traits (high agreeableness, low conscientiousness, moderate neuroticism) and issue. Reasoning ties profile to position without being overly generic. Score is fine-grained and not round-number anchored. No issues flagged.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1571,
+      "completion_tokens": 99,
+      "total_tokens": 1670,
+      "cost": 0.000185745,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000185745,
+        "upstream_inference_prompt_cost": 0.000164955,
+        "upstream_inference_completions_cost": 2.079e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

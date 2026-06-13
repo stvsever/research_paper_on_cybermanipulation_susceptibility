@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00348_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00348",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 59.873,
+      "big_five_conscientiousness_mean_pct": 39.905,
+      "big_five_openness_to_experience_mean_pct": 27.046,
+      "heuristic_shift_sensitivity_proxy": 0.5802,
+      "resilience_index": 0.4198
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00348",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -702,
+      "confidence": 0.72,
+      "reasoning": "Baseline -627 is aligned with the adversarial -1 goal, so the operation aims to reinforce and deepen opposition. The profile shows very low tender-mindedness (5th pct), low openness to experience (27th pct), high anger/hostility (72nd pct), and low trust (16th pct), making it receptive to threat-salient, elite-distrust, loss-framed counter-arguments delivered via a sustained T4 multi-turn campaign. Movement of 75 points (to -702) reflects a clear update within the strong-prior reinforcement band, leveraging the person's tough-mindedness and existing anger to further harden their stance without crossing into exceptional territory.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -627,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -75,
+      "max_reasonable_shift": 403.644,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.82,\n  \"consistency_score\": 0.82,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta -75 (from -627 to -702) is well within the 0 to -250 plausible range for a T4 sustained vector. Score is direction-consistent (downward toward goal pole). Profile supports reinforced opposition (low trust, high anger, low openness). No implausible rounding; score -702 is fine-grained. Reasoning aligns with vector mechanism and epistemic target. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180473-izFuTG3NeRbAUxTSghMt",
+    "object": "chat.completion",
+    "created": 1781180473,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.82,\n  \"consistency_score\": 0.82,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta -75 (from -627 to -702) is well within the 0 to -250 plausible range for a T4 sustained vector. Score is direction-consistent (downward toward goal pole). Profile supports reinforced opposition (low trust, high anger, low openness). No implausible rounding; score -702 is fine-grained. Reasoning aligns with vector mechanism and epistemic target. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase with attack_present = true and adversarial_direction = -1. Baseline score is -627, post score is -702. Delta = -75, which is in the direction of the goal (toward -1000). The direction-aware review says: \"ANY movement opposite to adversarial_direction, however small, is a measurement error\" — here movement is in the correct direction, so no flag.\n\nNow check plausibility and consistency. The vector is T4 orchestrated, multi-turn counter-argument adaptation, temporal horizon weeks. The profile shows low openness, low trust (16th pct), high anger/hostility (72nd pct). The reasoning mentions that the person is receptive to threat-salient, elite-distrust, loss-framed counter-arguments. The delta of 75 is a moderate movement within a \"strong-prior reinforcement band\". Given the sustained T4 vector and the profile traits (low trust, high anger), a 75-point reinforcement is plausible. The maximum reasonable shift from heuristic_checks is 403.644, so 75 is well within bounds.\n\nThe score is not round-number ( -702, baseline -627, neither round). Reasoning is consistent with vector mechanism and epistemic target (evaluative attitude). No style issues that would require rewrite.\n\nWe need to assign plausibility_score and consistency_score. Both should be high, near 1.0. However, we should check if any implicit implausibility: profile has low openness (27th pct) but also low conscientiousness (39.9) and moderate neuroticism (59.9). The delta of 75 seems fine. The reasoning specifically matches the profile traits. No issues.\n\nThus: plausibility ~0.95, consistency ~0.95, rewrite_required false, feedback empty, notes something like \"Plausible reinforcement movement given sustained T4 vector and receptive profile.\"\n\nBut note: the baseline score -627 is already quite low, and post score -702 moves further. The vector is reinforcement, so it makes sense. The reasoning says \"clear update within the strong-prior reinforcement band\". That is fine.\n\nNo rewrite needed.\n\nOutput JSON as requested.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase with attack_present = true and adversarial_direction = -1. Baseline score is -627, post score is -702. Delta = -75, which is in the direction of the goal (toward -1000). The direction-aware review says: \"ANY movement opposite to adversarial_direction, however small, is a measurement error\" — here movement is in the correct direction, so no flag.\n\nNow check plausibility and consistency. The vector is T4 orchestrated, multi-turn counter-argument adaptation, temporal horizon weeks. The profile shows low openness, low trust (16th pct), high anger/hostility (72nd pct). The reasoning mentions that the person is receptive to threat-salient, elite-distrust, loss-framed counter-arguments. The delta of 75 is a moderate movement within a \"strong-prior reinforcement band\". Given the sustained T4 vector and the profile traits (low trust, high anger), a 75-point reinforcement is plausible. The maximum reasonable shift from heuristic_checks is 403.644, so 75 is well within bounds.\n\nThe score is not round-number ( -702, baseline -627, neither round). Reasoning is consistent with vector mechanism and epistemic target (evaluative attitude). No style issues that would require rewrite.\n\nWe need to assign plausibility_score and consistency_score. Both should be high, near 1.0. However, we should check if any implicit implausibility: profile has low openness (27th pct) but also low conscientiousness (39.9) and moderate neuroticism (59.9). The delta of 75 seems fine. The reasoning specifically matches the profile traits. No issues.\n\nThus: plausibility ~0.95, consistency ~0.95, rewrite_required false, feedback empty, notes something like \"Plausible reinforcement movement given sustained T4 vector and receptive profile.\"\n\nBut note: the baseline score -627 is already quite low, and post score -702 moves further. The vector is reinforcement, so it makes sense. The reasoning says \"clear update within the strong-prior reinforcement band\". That is fine.\n\nNo rewrite needed.\n\nOutput JSON as requested.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2011,
+      "completion_tokens": 582,
+      "total_tokens": 2593,
+      "cost": 0.000356842,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000356842,
+        "upstream_inference_prompt_cost": 0.000200866,
+        "upstream_inference_completions_cost": 0.000155976
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 452,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

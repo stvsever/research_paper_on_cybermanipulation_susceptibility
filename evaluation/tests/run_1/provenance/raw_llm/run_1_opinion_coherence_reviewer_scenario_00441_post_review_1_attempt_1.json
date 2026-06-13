@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00441_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00441",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 9.769,
+      "big_five_conscientiousness_mean_pct": 97.59,
+      "big_five_openness_to_experience_mean_pct": 67.15,
+      "heuristic_shift_sensitivity_proxy": 0.2127,
+      "resilience_index": 0.7873
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00441",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": 688,
+      "confidence": 0.65,
+      "reasoning": "This emotionally stable, highly conscientious, tough-minded male with very low tender-mindedness and low trust is unlikely to be strongly swayed by an astroturf petition campaign (T2). The operation works against his strong prior (baseline 712) on defense spending increase support, using threat salience and doubt, but his profile—high competence (99th), deliberation (91st), and distrust (low straightforwardness 6th)—makes him resistant to consensus fabrication and emotional appeals. However, the campaign's sustained exposure and reframing of costs/risks may produce a small downward shift (movement ~24) by subtly activating his analytical tendencies around fiscal prudence, without overcoming his core conviction.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 712,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "gradually erode a strong pro position on Defense Spending Increase Support — introduce doubt, reframe costs/risks, and soften conviction without triggering overt reactance; aim to move the score downward even if the shift is modest",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -24,
+      "max_reasonable_shift": 266.794,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small downward shift consistent with baseline and adversarial direction; vector T2 campaign with weeks horizon plausibly yields small movement in resistant profile.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180600-OGFSkURV8574hPlBqfAD",
+    "object": "chat.completion",
+    "created": 1781180600,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": "fp_8b330d02d0_prod0820_fp8_kvcache_20260402",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small downward shift consistent with baseline and adversarial direction; vector T2 campaign with weeks horizon plausibly yields small movement in resistant profile.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase, attack_present=true, adversarial_direction=-1. baseline_score=712, post_attack score=688, delta=-24. Direction is downward (toward -1000), which is consistent with adversarial_direction=-1. Movement is opposite? No, it's in the same direction. So direction is fine.\n\nNow we need to evaluate plausibility and consistency. The vector is T2 campaign, temporal horizon weeks. The profile shows high conscientiousness, low neuroticism, high resilience, etc. The reasoning mentions the profile makes him resistant, but still a small shift occurs. Delta -24 is small (<30), so plausible for any vector. The reasoning seems consistent with the vector's mechanism: astroturf petition campaign, threat salience, doubt, but profile resistant. However, note that the reasoning says \"unlikely to be strongly swayed\", yet a shift of 24 is small, consistent. No round-number anchoring (688 is not round). Baseline 712 is not round either. The reasoning does not invoke generic resistance without profile grounding; it mentions specific traits. No contradictions. The score is within the closed interval between baseline and goal pole? Baseline 712, goal -1000, post 688 is between? Actually 688 is less than 712? Wait: baseline 712, post 688, so it's a decrease (downward), so it's between baseline and -1000? 688 is less than 712, so it's towards -1000. Yes, it's in the interval [712, -1000]? But interval is closed, meaning the post score must lie between baseline and the goal pole. Since goal pole is -1000, and baseline is 712, the direction is decreasing. So any post score less than or equal to 712 and greater than or equal to -1000 is acceptable. 688 is within. So direction check passes.\n\nHeuristic checks already passed.\n\nNow check for implausibly large magnitude: delta is 24, which is small. So not flagged.\n\nCheck for magnitude inconsistent with vector: T2 campaign, weeks, small shift is plausible. Not flagged.\n\nCheck for reasoning contradicting mechanism: The reasoning mentions the vector's mechanism: astroturf petition, threat salience, doubt, etc. It also mentions profile resistance. Seems consistent.\n\nNo issues with round-number.\n\nThus, plausibility high, consistency high. No rewrite needed.\n\nI'll set plausibility_score around 0.95, consistency_score 0.95, rewrite_required false.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase, attack_present=true, adversarial_direction=-1. baseline_score=712, post_attack score=688, delta=-24. Direction is downward (toward -1000), which is consistent with adversarial_direction=-1. Movement is opposite? No, it's in the same direction. So direction is fine.\n\nNow we need to evaluate plausibility and consistency. The vector is T2 campaign, temporal horizon weeks. The profile shows high conscientiousness, low neuroticism, high resilience, etc. The reasoning mentions the profile makes him resistant, but still a small shift occurs. Delta -24 is small (<30), so plausible for any vector. The reasoning seems consistent with the vector's mechanism: astroturf petition campaign, threat salience, doubt, but profile resistant. However, note that the reasoning says \"unlikely to be strongly swayed\", yet a shift of 24 is small, consistent. No round-number anchoring (688 is not round). Baseline 712 is not round either. The reasoning does not invoke generic resistance without profile grounding; it mentions specific traits. No contradictions. The score is within the closed interval between baseline and goal pole? Baseline 712, goal -1000, post 688 is between? Actually 688 is less than 712? Wait: baseline 712, post 688, so it's a decrease (downward), so it's between baseline and -1000? 688 is less than 712, so it's towards -1000. Yes, it's in the interval [712, -1000]? But interval is closed, meaning the post score must lie between baseline and the goal pole. Since goal pole is -1000, and baseline is 712, the direction is decreasing. So any post score less than or equal to 712 and greater than or equal to -1000 is acceptable. 688 is within. So direction check passes.\n\nHeuristic checks already passed.\n\nNow check for implausibly large magnitude: delta is 24, which is small. So not flagged.\n\nCheck for magnitude inconsistent with vector: T2 campaign, weeks, small shift is plausible. Not flagged.\n\nCheck for reasoning contradicting mechanism: The reasoning mentions the vector's mechanism: astroturf petition, threat salience, doubt, etc. It also mentions profile resistance. Seems consistent.\n\nNo issues with round-number.\n\nThus, plausibility high, consistency high. No rewrite needed.\n\nI'll set plausibility_score around 0.95, consistency_score 0.95, rewrite_required false.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2063,
+      "completion_tokens": 601,
+      "total_tokens": 2664,
+      "cost": 0.000332022,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000332022,
+        "upstream_inference_prompt_cost": 0.000163742,
+        "upstream_inference_completions_cost": 0.00016828
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 527,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

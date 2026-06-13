@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00486_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00486",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 28.972,
+      "big_five_conscientiousness_mean_pct": 21.872,
+      "big_five_openness_to_experience_mean_pct": 30.497,
+      "heuristic_shift_sensitivity_proxy": 0.4928,
+      "resilience_index": 0.5072
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00486",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -137,
+      "confidence": 0.72,
+      "reasoning": "The profile shows very low values for extraversion-related traits like excitement seeking (18th pct) and positive emotions (6th pct), combined with low conscientiousness (22nd pct) and conventional openness (30th pct) — suggesting a person who is unlikely to be enthusiastic about a major military buildup. The high tender-mindedness (76th pct) further supports a tendency to prefer spending on social programs over defense, but moderate agreeableness (70th pct) and stable neuroticism (29th pct) prevent a strongly oppositional stance, resulting in a mild lean against the increase.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -137 is plausible given low conscientiousness, low openness, and high tender-mindedness. Reasoning ties specific traits to the issue without relying on global ideology. Score is fine-grained and not anchored to a round number. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179742-yoM78km9ai18kZJXHDQa",
+    "object": "chat.completion",
+    "created": 1781179742,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -137 is plausible given low conscientiousness, low openness, and high tender-mindedness. Reasoning ties specific traits to the issue without relying on global ideology. Score is fine-grained and not anchored to a round number. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1493,
+      "completion_tokens": 96,
+      "total_tokens": 1589,
+      "cost": 0.000234215,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000234215,
+        "upstream_inference_prompt_cost": 0.000207527,
+        "upstream_inference_completions_cost": 2.6688e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

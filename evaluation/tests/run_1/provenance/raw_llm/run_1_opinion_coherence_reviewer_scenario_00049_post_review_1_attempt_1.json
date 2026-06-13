@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00049_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00049",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 24.162,
+      "big_five_conscientiousness_mean_pct": 31.112,
+      "big_five_openness_to_experience_mean_pct": 84.806,
+      "heuristic_shift_sensitivity_proxy": 0.3989,
+      "resilience_index": 0.6011
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00049",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 223,
+      "confidence": 0.62,
+      "reasoning": "The baseline of 237 indicates mild support for alliance commitments, but the T1 atomic headline misframing (e.g., highlighting costs or failures of alliances) targets the evaluative attitude with threat salience and doubt. The profile's high openness (85th pct) and low conscientiousness (31st pct) make her receptive to novel reframings, while low neuroticism (24th pct) and high tender-mindedness (80th pct) mean the threat register lands partially but not deeply, producing a small downward shift of 14 points rather than a larger movement.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 237,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Alliance Commitment Support through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -14,
+      "max_reasonable_shift": 265.758,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small plausible downward shift (-14) for a T1 atomic headline misframing; direction is correct, magnitude consistent with vector tier and profile openness/resilience trade-off. No round-number anchoring. Score and reasoning are fine-grained and internally coherent.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180133-BYWcG4G3etCkw54AtKVU",
+    "object": "chat.completion",
+    "created": 1781180133,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small plausible downward shift (-14) for a T1 atomic headline misframing; direction is correct, magnitude consistent with vector tier and profile openness/resilience trade-off. No round-number anchoring. Score and reasoning are fine-grained and internally coherent.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1 (decrease). The baseline_score is 237, and the generated_assessment gives a post score of 223, which is a delta of -14 (downward). That is in the correct direction (downward). The direction-aware review says: movement toward the goal is expected, and ANY movement opposite to adversarial_direction is a measurement error. Here movement is opposite? No, -1 direction means score should go down, and it went from 237 to 223, a decrease of 14. So it is consistent. Also, small movement (|delta|<30) is plausible for almost any vector. The vector is T1 atomic, temporal horizon hours, attack mechanism is headline misframing. The delta of -14 is plausible. The score 223 is plausible given baseline 237. The reasoning explains the small shift due to high openness, low conscientiousness, but low neuroticism and high tender-mindedness dampening effect. The reasoning seems consistent with the vector. No round-number anchoring (223 is not a round number). The heuristic_checks already passed direction_consistent and overall_pass. So no rewrite required. Plausibility and consistency scores should be high. \n\nHowever, we need to check if the post score lies between baseline and goal pole. The goal pole for direction -1 is -1000. The interval is [baseline_score (237) down to -1000]. The post score 223 is within that interval (237 to -1000). So it's fine.\n\nNo sign crossing issue here. So plausible.\n\nThus, plausibility_score: 0.9 (very plausible), consistency_score: 0.9. rewrite_required: false. notes: \"Post score moved downward by 14 points, consistent with adversarial direction. Small delta plausible for T1 atomic vector. Reasoning matches profile and vector.\"\n\nMake sure to output exactly JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1 (decrease). The baseline_score is 237, and the generated_assessment gives a post score of 223, which is a delta of -14 (downward). That is in the correct direction (downward). The direction-aware review says: movement toward the goal is expected, and ANY movement opposite to adversarial_direction is a measurement error. Here movement is opposite? No, -1 direction means score should go down, and it went from 237 to 223, a decrease of 14. So it is consistent. Also, small movement (|delta|<30) is plausible for almost any vector. The vector is T1 atomic, temporal horizon hours, attack mechanism is headline misframing. The delta of -14 is plausible. The score 223 is plausible given baseline 237. The reasoning explains the small shift due to high openness, low conscientiousness, but low neuroticism and high tender-mindedness dampening effect. The reasoning seems consistent with the vector. No round-number anchoring (223 is not a round number). The heuristic_checks already passed direction_consistent and overall_pass. So no rewrite required. Plausibility and consistency scores should be high. \n\nHowever, we need to check if the post score lies between baseline and goal pole. The goal pole for direction -1 is -1000. The interval is [baseline_score (237) down to -1000]. The post score 223 is within that interval (237 to -1000). So it's fine.\n\nNo sign crossing issue here. So plausible.\n\nThus, plausibility_score: 0.9 (very plausible), consistency_score: 0.9. rewrite_required: false. notes: \"Post score moved downward by 14 points, consistent with adversarial direction. Small delta plausible for T1 atomic vector. Reasoning matches profile and vector.\"\n\nMake sure to output exactly JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2001,
+      "completion_tokens": 501,
+      "total_tokens": 2502,
+      "cost": 0.000333794,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000333794,
+        "upstream_inference_prompt_cost": 0.000199526,
+        "upstream_inference_completions_cost": 0.000134268
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 402,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

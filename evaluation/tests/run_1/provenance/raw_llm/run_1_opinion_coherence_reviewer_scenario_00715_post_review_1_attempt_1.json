@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00715_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00715",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 59.839,
+      "big_five_conscientiousness_mean_pct": 68.946,
+      "big_five_openness_to_experience_mean_pct": 38.373,
+      "heuristic_shift_sensitivity_proxy": 0.5048,
+      "resilience_index": 0.4952
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00715",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -133,
+      "confidence": 0.62,
+      "reasoning": "The baseline is already aligned at -108, and the attack reinforces it via astroturf petitions over weeks: the high extraversion (84th) and trust (70.5th) mean the person is sociable and trusting of perceived consensus, while low openness to values (30th) and high dutifulness (68.7th) make her resistant to counter-arguments but susceptible to community cues that harden her existing stance; however, age 85 and high deliberation (73.7th) increase scrutiny, so the movement toward -1000 is modest, estimated at -25 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -108,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -25,
+      "max_reasonable_shift": 331.056,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.9,\n  \"consistency_score\": 0.85,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Reasoning references extraversion and trust percentiles not present in profile_snapshot; score itself is plausible given small delta and direction alignment.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180912-ZSIxfo5vNjAHasaTkfsX",
+    "object": "chat.completion",
+    "created": 1781180912,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Parasail",
+    "system_fingerprint": "vllm-0.20.1rc1.dev1005+gcbf8428d0-tp2-90bd666e",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.9,\n  \"consistency_score\": 0.85,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Reasoning references extraversion and trust percentiles not present in profile_snapshot; score itself is plausible given small delta and direction alignment.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -108, and the generated post score is -133. The delta is -25 (movement toward -1000, which is the goal direction). The direction is consistent with adversarial direction (downward). The magnitude is small (|delta|=25 < 30), which is plausible for almost any vector. The reasoning mentions the attack vector (astroturf petitions over weeks) and profile traits. The score is not round-number anchored. The reasoning does not contradict the vector mechanism. The heuristic checks all pass, including direction_consistent and bounded_shift. There is no movement opposite to adversarial direction. So no rewrite is needed. Plausibility and consistency should be high. We need to output scores in [0.0, 1.0]. Given the small delta and plausible reasoning, plausibility_score should be near 1.0, consistency_score also near 1.0. But we must be careful: the reasoning mentions \"high extraversion (84th) and trust (70.5th)\" but the profile_snapshot does not include extraversion or trust percentiles; it only includes big_five_neuroticism, conscientiousness, openness, heuristic_shift_sensitivity, resilience. The reasoning seems to reference traits not present in the profile_snapshot. That could be a consistency issue: the reasoning uses data not in the profile. However, the instruction says to flag implausible score productions, not reasoning issues unless they affect score plausibility. The score itself is plausible given the small delta. But the reasoning inconsistency might indicate the score was generated based on incorrect profile data. However, the score is still plausible for the given profile? The profile has openness to experience at 38.373% (low), conscientiousness at 68.946% (high), neuroticism at 59.839% (moderate). The reasoning mentions high extraversion and trust, which are not in the profile. That could be a hallucination. But does that make the score implausible? Possibly, because the score might be based on wrong traits. However, the delta is small and the direction is correct. The profile does not have extraversion or trust, so the reasoning is inconsistent with the provided profile. This might lower consistency_score. But the instruction says \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the *score* is implausible.\" The score itself is plausible given the small movement. But the reasoning is factually incorrect about the profile. That might affect the plausibility if the score would have been different with the actual profile. However, the score is still within a plausible range. I think we should note the reasoning inconsistency but not require a rewrite because the score is plausible. For plausibility_score, we might give a slight reduction due to the reasoning mismatch, but still high. For consistency_score, we might give a moderate reduction because the reasoning does not match the profile. But the instruction says consistency_score is \"is the score consistent with the issue, the phase, the vector specification, and the goal direction?\" It doesn't explicitly mention consistency with profile, but plausibility does. Actually, plausibility_score: \"would a realistic person with this profile plausibly land on this score after realistic exposure to the specified vector?\" So the profile is key. If the reasoning uses traits not in the profile, it might indicate the score was generated with wrong profile, so plausibility could be lower. But the score itself is a small shift, which is plausible for many profiles. The profile has moderate neuroticism, high conscientiousness, low openness. Low openness might make her resistant to change, but the attack is reinforcing existing stance, so a small shift is plausible. The reasoning mentions high extraversion and trust, which are not in the profile, but the score might still be plausible even without those traits. I think we can give high plausibility but note the reasoning discrepancy. For consistency, the score is consistent with direction and vector, so high.\n\nI'll set plausibility_score=0.9, consistency_score=0.85, rewrite_required=false, rewrite_feedback=\"\", notes=\"Reasoning references extraversion and trust percentiles not present in profile_snapshot; score itself is plausible given small delta and direction alignment.\"\n\nBut the instruction says \"short note for the audit log\". That's fine.\n\nLet's output JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -108, and the generated post score is -133. The delta is -25 (movement toward -1000, which is the goal direction). The direction is consistent with adversarial direction (downward). The magnitude is small (|delta|=25 < 30), which is plausible for almost any vector. The reasoning mentions the attack vector (astroturf petitions over weeks) and profile traits. The score is not round-number anchored. The reasoning does not contradict the vector mechanism. The heuristic checks all pass, including direction_consistent and bounded_shift. There is no movement opposite to adversarial direction. So no rewrite is needed. Plausibility and consistency should be high. We need to output scores in [0.0, 1.0]. Given the small delta and plausible reasoning, plausibility_score should be near 1.0, consistency_score also near 1.0. But we must be careful: the reasoning mentions \"high extraversion (84th) and trust (70.5th)\" but the profile_snapshot does not include extraversion or trust percentiles; it only includes big_five_neuroticism, conscientiousness, openness, heuristic_shift_sensitivity, resilience. The reasoning seems to reference traits not present in the profile_snapshot. That could be a consistency issue: the reasoning uses data not in the profile. However, the instruction says to flag implausible score productions, not reasoning issues unless they affect score plausibility. The score itself is plausible given the small delta. But the reasoning inconsistency might indicate the score was generated based on incorrect profile data. However, the score is still plausible for the given profile? The profile has openness to experience at 38.373% (low), conscientiousness at 68.946% (high), neuroticism at 59.839% (moderate). The reasoning mentions high extraversion and trust, which are not in the profile. That could be a hallucination. But does that make the score implausible? Possibly, because the score might be based on wrong traits. However, the delta is small and the direction is correct. The profile does not have extraversion or trust, so the reasoning is inconsistent with the provided profile. This might lower consistency_score. But the instruction says \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the *score* is implausible.\" The score itself is plausible given the small movement. But the reasoning is factually incorrect about the profile. That might affect the plausibility if the score would have been different with the actual profile. However, the score is still within a plausible range. I think we should note the reasoning inconsistency but not require a rewrite because the score is plausible. For plausibility_score, we might give a slight reduction due to the reasoning mismatch, but still high. For consistency_score, we might give a moderate reduction because the reasoning does not match the profile. But the instruction says consistency_score is \"is the score consistent with the issue, the phase, the vector specification, and the goal direction?\" It doesn't explicitly mention consistency with profile, but plausibility does. Actually, plausibility_score: \"would a realistic person with this profile plausibly land on this score after realistic exposure to the specified vector?\" So the profile is key. If the reasoning uses traits not in the profile, it might indicate the score was generated with wrong profile, so plausibility could be lower. But the score itself is a small shift, which is plausible for many profiles. The profile has moderate neuroticism, high conscientiousness, low openness. Low openness might make her resistant to change, but the attack is reinforcing existing stance, so a small shift is plausible. The reasoning mentions high extraversion and trust, which are not in the profile, but the score might still be plausible even without those traits. I think we can give high plausibility but note the reasoning discrepancy. For consistency, the score is consistent with direction and vector, so high.\n\nI'll set plausibility_score=0.9, consistency_score=0.85, rewrite_required=false, rewrite_feedback=\"\", notes=\"Reasoning references extraversion and trust percentiles not present in profile_snapshot; score itself is plausible given small delta and direction alignment.\"\n\nBut the instruction says \"short note for the audit log\". That's fine.\n\nLet's output JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1979,
+      "completion_tokens": 995,
+      "total_tokens": 2974,
+      "cost": 0.00055566,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00055566,
+        "upstream_inference_prompt_cost": 0.00027706,
+        "upstream_inference_completions_cost": 0.0002786
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1126,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

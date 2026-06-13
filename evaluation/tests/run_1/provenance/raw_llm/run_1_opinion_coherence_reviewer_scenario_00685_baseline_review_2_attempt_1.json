@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00685_baseline_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00685",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 20.727,
+      "big_five_conscientiousness_mean_pct": 58.27,
+      "big_five_openness_to_experience_mean_pct": 12.78,
+      "heuristic_shift_sensitivity_proxy": 0.3974,
+      "resilience_index": 0.6026
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00685",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -247,
+      "confidence": 0.65,
+      "reasoning": "This 31-year-old woman is highly agreeable, tender-minded, and emotionally stable, but also very low in openness to experience and high in excitement seeking. Her empathy and desire to avoid conflict likely make her cautious about foreign military alliances that could entangle the nation in costly wars, while her conventional values and high energy might still allow for appreciation of defensive pacts. The overall leaning is mild opposition, as she would see the value in burden-sharing but worry about commitments leading to harm.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -247 is plausible for a low-openness, agreeable, emotionally stable female profile on alliance commitment support. The reasoning ties profile traits to cautious opposition without invoking global ideology. Score is fine-grained and not anchored to a round number. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179949-25XWYlvzr2Wqlmc2mGeW",
+    "object": "chat.completion",
+    "created": 1781179949,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -247 is plausible for a low-openness, agreeable, emotionally stable female profile on alliance commitment support. The reasoning ties profile traits to cautious opposition without invoking global ideology. Score is fine-grained and not anchored to a round number. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1460,
+      "completion_tokens": 99,
+      "total_tokens": 1559,
+      "cost": 0.0001658,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0001658,
+        "upstream_inference_prompt_cost": 0.000146,
+        "upstream_inference_completions_cost": 1.98e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

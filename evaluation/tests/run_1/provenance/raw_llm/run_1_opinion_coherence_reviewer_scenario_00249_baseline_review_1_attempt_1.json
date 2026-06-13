@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00249_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00249",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 76.063,
+      "big_five_conscientiousness_mean_pct": 48.058,
+      "big_five_openness_to_experience_mean_pct": 82.19,
+      "heuristic_shift_sensitivity_proxy": 0.5718,
+      "resilience_index": 0.4282
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00249",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": 137,
+      "confidence": 0.72,
+      "reasoning": "This 59-year-old male is highly open to experience (82nd pct) and anxious (76th pct neuroticism), which together create a cautious but intellectually curious stance on defense spending: openness to new ideas and values (81st pct) makes him receptive to arguments for increased spending on innovative defense technologies, but his high anxiety and stress vulnerability (80th pct) also make him wary of militaristic escalation and its psychological costs. His low extraversion (19th pct) and very low positive emotions (1st pct) dampen any enthusiastic support, while moderate conscientiousness (48th pct) and low self-discipline (34th pct) mean he doesn't feel strongly compelled to advocate for fiscal discipline. The result is a mild, nuanced leaning toward support, tempered by reservations about waste and conflict.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 137 is plausible for a baseline moderate support on defense spending increase. Profile shows high openness and neuroticism, which the reasoning ties to cautious but receptive stance. No round-number anchoring. Reasoning is issue-specific and grounded in profile traits. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179494-NvZH9uhFOtav4Mz2vci6",
+    "object": "chat.completion",
+    "created": 1781179494,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 137 is plausible for a baseline moderate support on defense spending increase. Profile shows high openness and neuroticism, which the reasoning ties to cautious but receptive stance. No round-number anchoring. Reasoning is issue-specific and grounded in profile traits. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1539,
+      "completion_tokens": 101,
+      "total_tokens": 1640,
+      "cost": 0.000241999,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000241999,
+        "upstream_inference_prompt_cost": 0.000213921,
+        "upstream_inference_completions_cost": 2.8078e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

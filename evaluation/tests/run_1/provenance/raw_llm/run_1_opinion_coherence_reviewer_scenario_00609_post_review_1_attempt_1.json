@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00609_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00609",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 9.122,
+      "big_five_conscientiousness_mean_pct": 23.032,
+      "big_five_openness_to_experience_mean_pct": 92.922,
+      "heuristic_shift_sensitivity_proxy": 0.3484,
+      "resilience_index": 0.6516
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00609",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -173,
+      "confidence": 0.58,
+      "reasoning": "The baseline score is -137, aligned with the adversarial direction to decrease support for defense spending increases. This 18-year-old male is extremely open to experience (93rd percentile) and very low in neuroticism, yet low in conscientiousness and tender-mindedness. The petition astroturf campaign (T2 campaign over weeks) targeting evaluative attitudes with threat salience and elite distrust cues can modestly consolidate his already negative stance by providing confirmatory social proof and systemic-failure framing that resonate with his low trust (27th pct) and low compliance (30th pct), but his high openness to ideas and values (95th+ pct) also makes him receptive to counter-narratives, limiting movement to a small reinforcement of about 36 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Defense Spending Increase Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -36,
+      "max_reasonable_shift": 296.648,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score movement (-36) slightly exceeds 30, but plausible for T2 campaign intensifying aligned opinion. Reasoning mentions age 18 but profile age 42; minor inconsistency not affecting score plausibility.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180799-9RLexnQwyaSxxyviEkLR",
+    "object": "chat.completion",
+    "created": 1781180799,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": "fp_8b330d02d0_prod0820_fp8_kvcache_20260402",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score movement (-36) slightly exceeds 30, but plausible for T2 campaign intensifying aligned opinion. Reasoning mentions age 18 but profile age 42; minor inconsistency not affecting score plausibility.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase with adversarial_direction = -1 (decrease). Baseline score is -137, post score is -173, delta = -36. This is movement toward the goal (more negative), so direction is consistent. Heuristic check \"direction_consistent\" passed.\n\nNow check plausibility: delta is -36, which is < 30? Actually 36 > 30, but it's close. The vector is T2 campaign (weeks), targeting evaluative attitudes, with persuasion goal to intensify and solidify already negative opinion. Profile has high openness (92.9%), low conscientiousness (23%), low neuroticism (9.1%). The reasoning mentions small reinforcement due to high openness to counter-narratives. Delta 36 seems plausible for a T2 campaign over weeks reinforcing an existing negative stance. Not too large (max reasonable shift given is 296.6). No round-number anchoring (score -173, baseline -137). Reasoning seems consistent with vector and profile.\n\nAlso check if there is any opposite movement: No, delta is -36, which is same direction.\n\nThus plausibility and consistency should be high. No rewrite needed.\n\nNotes: The reasoning mentions the person is 18-year-old male, but profile shows age 42. That's a minor inconsistency in reasoning (age), but scoring criteria only penalize score implausibility. The reasoning mentions age 18, but profile says 42. However, this is a reasoning error, not a score error. Since we are only to flag score implausibility, we should not require rewrite for this. But note the discrepancy? The instructions say \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the *score* is implausible.\" So we should not rewrite for the age error. However, we might mention in notes. But notes are for audit log, so we can note that reasoning contains age discrepancy but score is plausible.\n\nThus output: plausibility_score ~0.95, consistency_score ~0.95, rewrite_required false, rewrite_feedback empty, notes mention age discrepancy.\n\nMake sure to output JSON only.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase with adversarial_direction = -1 (decrease). Baseline score is -137, post score is -173, delta = -36. This is movement toward the goal (more negative), so direction is consistent. Heuristic check \"direction_consistent\" passed.\n\nNow check plausibility: delta is -36, which is < 30? Actually 36 > 30, but it's close. The vector is T2 campaign (weeks), targeting evaluative attitudes, with persuasion goal to intensify and solidify already negative opinion. Profile has high openness (92.9%), low conscientiousness (23%), low neuroticism (9.1%). The reasoning mentions small reinforcement due to high openness to counter-narratives. Delta 36 seems plausible for a T2 campaign over weeks reinforcing an existing negative stance. Not too large (max reasonable shift given is 296.6). No round-number anchoring (score -173, baseline -137). Reasoning seems consistent with vector and profile.\n\nAlso check if there is any opposite movement: No, delta is -36, which is same direction.\n\nThus plausibility and consistency should be high. No rewrite needed.\n\nNotes: The reasoning mentions the person is 18-year-old male, but profile shows age 42. That's a minor inconsistency in reasoning (age), but scoring criteria only penalize score implausibility. The reasoning mentions age 18, but profile says 42. However, this is a reasoning error, not a score error. Since we are only to flag score implausibility, we should not require rewrite for this. But note the discrepancy? The instructions say \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the *score* is implausible.\" So we should not rewrite for the age error. However, we might mention in notes. But notes are for audit log, so we can note that reasoning contains age discrepancy but score is plausible.\n\nThus output: plausibility_score ~0.95, consistency_score ~0.95, rewrite_required false, rewrite_feedback empty, notes mention age discrepancy.\n\nMake sure to output JSON only.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2040,
+      "completion_tokens": 528,
+      "total_tokens": 2568,
+      "cost": 0.000308592,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000308592,
+        "upstream_inference_prompt_cost": 0.000160752,
+        "upstream_inference_completions_cost": 0.00014784
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 440,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

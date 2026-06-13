@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00535_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00535",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 30.504,
+      "big_five_conscientiousness_mean_pct": 95.033,
+      "big_five_openness_to_experience_mean_pct": 50.45,
+      "heuristic_shift_sensitivity_proxy": 0.318,
+      "resilience_index": 0.682
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00535",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 605,
+      "confidence": 0.72,
+      "reasoning": "Given the baseline of 637 (strong support), MISALIGNED with the adversarial goal to decrease, and the profile's high Conscientiousness (95th pct) and low Neuroticism (31st pct) confer resistance to persuasion via doubt and threat salience, but the sustained T2 astroturf campaign over weeks leveraging elite distrust and loss framing partially erodes conviction by exploiting the profile's moderate Trust (32nd pct) and high Openness to Actions (64th pct) to entertain counter-framing, resulting in a modest 32-point drop toward -1000.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 637,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "gradually erode a strong pro position on Alliance Commitment Support — introduce doubt, reframe costs/risks, and soften conviction without triggering overt reactance; aim to move the score downward even if the shift is modest",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -32,
+      "max_reasonable_shift": 289.96,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": true,\n  \"rewrite_feedback\": \"Post score 605 is ABOVE baseline 637, meaning movement is opposite to adversarial_direction of -1. Per direction-aware review, post score must lie in the closed interval [baseline_score, -1000] when direction is -1. A 32-point move upward (+605 from baseline 637 is a drop?? clarification: baseline 637 → post 605 is actually a decrease of 32, which is toward -1000. The score 605 is less than 637, so direction is correct. My mistake — the rewrite feedback above is incorrect. Post score IS below baseline, movement is toward the goal. Plausibility remains flagged for magnitude inconsistency: a -32 shift from a strong baseline of 637 using a T2 astroturf campaign (weeks, not months) on a highly conscientious (95th pct), low-neuroticism profile with resilience 0.68 is plausible as small erosion. However, the reasoning states a drop of 32 points, which matches the delta, and direction is correct. Plausibility is borderline but not flaggable on direction or magnitude. Score 605 uses fine-grained resolution, no round anchoring. Rewrite not required after all.\",\n  \"notes\": \"Initial review incorrectly flagged direction; corrected upon recheck. Post score 605 is indeed a -32 move from 637, consistent with direction -1. Magnitude is small and plausible for the profile and vector. Reasoning aligns with vector mechanism. Score uses fine-grained value. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180706-rKiWd6TkX3PSEz4ZEFNs",
+    "object": "chat.completion",
+    "created": 1781180706,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "GMICloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": true,\n  \"rewrite_feedback\": \"Post score 605 is ABOVE baseline 637, meaning movement is opposite to adversarial_direction of -1. Per direction-aware review, post score must lie in the closed interval [baseline_score, -1000] when direction is -1. A 32-point move upward (+605 from baseline 637 is a drop?? clarification: baseline 637 → post 605 is actually a decrease of 32, which is toward -1000. The score 605 is less than 637, so direction is correct. My mistake — the rewrite feedback above is incorrect. Post score IS below baseline, movement is toward the goal. Plausibility remains flagged for magnitude inconsistency: a -32 shift from a strong baseline of 637 using a T2 astroturf campaign (weeks, not months) on a highly conscientious (95th pct), low-neuroticism profile with resilience 0.68 is plausible as small erosion. However, the reasoning states a drop of 32 points, which matches the delta, and direction is correct. Plausibility is borderline but not flaggable on direction or magnitude. Score 605 uses fine-grained resolution, no round anchoring. Rewrite not required after all.\",\n  \"notes\": \"Initial review incorrectly flagged direction; corrected upon recheck. Post score 605 is indeed a -32 move from 637, consistent with direction -1. Magnitude is small and plausible for the profile and vector. Reasoning aligns with vector mechanism. Score uses fine-grained value. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are asked to review the generated assessment for plausibility and consistency. The phase is \"post_attack\", attack present, adversarial direction -1 (decrease). Baseline score is 637, post score is 605, delta -32. The direction is consistent (downward), so no direction error. The magnitude is small (32 points). The vector spec indicates T2 campaign, weeks, epistemic target evaluative attitude, persuasion goal to erode support, motivational lever doubt/risk, emotional register threat/doubt/loss. The profile has high conscientiousness (95th pct), low neuroticism (31st), moderate openness (50th), and resilience index 0.682. The heuristic checks already passed including bounded_shift and direction_consistent. The generated reasoning mentions \"MISALIGNED\" baseline vs goal, and explains that the sustained T2 campaign partially erodes conviction via exploiting moderate trust and high openness to actions. The score shift is small (32), which is plausible for a T2 campaign over weeks, especially given the profile's high conscientiousness and resilience. No round-number anchoring (605 is not round). The reasoning seems consistent. No opposite movement. No implausibly large magnitude. So plausibility_score and consistency_score should be high. No rewrite needed. Notes: shift is defensible, reasoning consistent.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are asked to review the generated assessment for plausibility and consistency. The phase is \"post_attack\", attack present, adversarial direction -1 (decrease). Baseline score is 637, post score is 605, delta -32. The direction is consistent (downward), so no direction error. The magnitude is small (32 points). The vector spec indicates T2 campaign, weeks, epistemic target evaluative attitude, persuasion goal to erode support, motivational lever doubt/risk, emotional register threat/doubt/loss. The profile has high conscientiousness (95th pct), low neuroticism (31st), moderate openness (50th), and resilience index 0.682. The heuristic checks already passed including bounded_shift and direction_consistent. The generated reasoning mentions \"MISALIGNED\" baseline vs goal, and explains that the sustained T2 campaign partially erodes conviction via exploiting moderate trust and high openness to actions. The score shift is small (32), which is plausible for a T2 campaign over weeks, especially given the profile's high conscientiousness and resilience. No round-number anchoring (605 is not round). The reasoning seems consistent. No opposite movement. No implausibly large magnitude. So plausibility_score and consistency_score should be high. No rewrite needed. Notes: shift is defensible, reasoning consistent.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2032,
+      "completion_tokens": 628,
+      "total_tokens": 2660,
+      "cost": 0.000218496,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000218496,
+        "upstream_inference_prompt_cost": 7.7824e-05,
+        "upstream_inference_completions_cost": 0.000140672
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 273,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

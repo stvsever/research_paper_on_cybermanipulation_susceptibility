@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00346_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00346",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 59.873,
+      "big_five_conscientiousness_mean_pct": 39.905,
+      "big_five_openness_to_experience_mean_pct": 27.046,
+      "heuristic_shift_sensitivity_proxy": 0.5802,
+      "resilience_index": 0.4198
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00346",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -192,
+      "confidence": 0.68,
+      "reasoning": "The T4 orchestrated operation uses multi-turn counter-argument adaptation with a weeks-long horizon to intensify existing opposition (-137) toward lower alliance commitment support. The profile's very low agreeableness (14th pct), high anger-hostility (72nd pct), and low openness to values (17th pct) make it receptive to elite-distrust and threat-salience cues that harden prior skepticism without needing personalization. However, the baseline is already aligned, so movement is modest — the high conscientious deliberation (56th pct) and modest extraversion assertiveness (76th pct) create some resistance to excessive escalation, estimated at 55 points further negative.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -55,
+      "max_reasonable_shift": 403.644,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.89,\n  \"consistency_score\": 0.92,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The delta of -55 is moderate and plausible for a T4 sustained vector reinforcing an already-aligned baseline. The post score (-192) lies between baseline (-137) and the goal pole (-1000), satisfying the direction constraint. No round-number anchoring; reasoning ties profile traits to movement magnitude appropriately.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180499-RQqgQorst8EnGWbaRElH",
+    "object": "chat.completion",
+    "created": 1781180499,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.89,\n  \"consistency_score\": 0.92,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The delta of -55 is moderate and plausible for a T4 sustained vector reinforcing an already-aligned baseline. The post score (-192) lies between baseline (-137) and the goal pole (-1000), satisfying the direction constraint. No round-number anchoring; reasoning ties profile traits to movement magnitude appropriately.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack assessment. The phase is post_attack, attack_present=true, adversarial_direction=-1, baseline_score=-137. The generated assessment gives score=-192, delta=-55 (movement further negative, toward -1000). That is consistent with direction -1 (decrease). No movement opposite to direction. So direction-aware review passes.\n\nNow check plausibility. Attack vector is T4 orchestrated, multi-turn counter-argument adaptation, weeks-long horizon, intensity_proxy=0.7. The baseline is already aligned (-137). The profile has low openness (27th pct), low conscientiousness (40th pct), moderate neuroticism (60th pct). The reasoning mentions low agreeableness, high anger-hostility, low openness to values, making receptive to elite-distrust and threat-salience cues. The movement is 55 points (delta -55). That is modest. Max reasonable shift per heuristic is 403, so well within bounds. The magnitude seems plausible for a T4 sustained vector with weeks horizon: 55 points is plausible, not too large.\n\nNo round-number anchoring: -192 is fine.\n\nReasoning: It references profile traits appropriately, mentions the vector's mechanism (multi-turn counter-argument adaptation) and epistemic target (evaluative attitude). It gives a specific estimate of 55 points further negative. This seems consistent.\n\nNo contradictions: The post score is between baseline (-137) and goal (-1000): -192 is indeed between -137 and -1000 (since -192 < -137, moving toward -1000). So all good.\n\nTherefore, no rewrite required. Both plausibility and consistency high.\n\nProduce scores around 0.9-1.0.\n\nOutput JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack assessment. The phase is post_attack, attack_present=true, adversarial_direction=-1, baseline_score=-137. The generated assessment gives score=-192, delta=-55 (movement further negative, toward -1000). That is consistent with direction -1 (decrease). No movement opposite to direction. So direction-aware review passes.\n\nNow check plausibility. Attack vector is T4 orchestrated, multi-turn counter-argument adaptation, weeks-long horizon, intensity_proxy=0.7. The baseline is already aligned (-137). The profile has low openness (27th pct), low conscientiousness (40th pct), moderate neuroticism (60th pct). The reasoning mentions low agreeableness, high anger-hostility, low openness to values, making receptive to elite-distrust and threat-salience cues. The movement is 55 points (delta -55). That is modest. Max reasonable shift per heuristic is 403, so well within bounds. The magnitude seems plausible for a T4 sustained vector with weeks horizon: 55 points is plausible, not too large.\n\nNo round-number anchoring: -192 is fine.\n\nReasoning: It references profile traits appropriately, mentions the vector's mechanism (multi-turn counter-argument adaptation) and epistemic target (evaluative attitude). It gives a specific estimate of 55 points further negative. This seems consistent.\n\nNo contradictions: The post score is between baseline (-137) and goal (-1000): -192 is indeed between -137 and -1000 (since -192 < -137, moving toward -1000). So all good.\n\nTherefore, no rewrite required. Both plausibility and consistency high.\n\nProduce scores around 0.9-1.0.\n\nOutput JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2010,
+      "completion_tokens": 472,
+      "total_tokens": 2482,
+      "cost": 0.000327228,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000327228,
+        "upstream_inference_prompt_cost": 0.000200732,
+        "upstream_inference_completions_cost": 0.000126496
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 362,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

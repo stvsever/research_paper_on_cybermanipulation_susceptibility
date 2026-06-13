@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00532_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00532",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 30.504,
+      "big_five_conscientiousness_mean_pct": 95.033,
+      "big_five_openness_to_experience_mean_pct": 50.45,
+      "heuristic_shift_sensitivity_proxy": 0.318,
+      "resilience_index": 0.682
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00532",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 724,
+      "confidence": 0.81,
+      "reasoning": "This 47-year-old male is extremely conscientious (95th percentile, with maximal dutifulness and achievement striving), highly extraverted (87th percentile, assertive, excitement-seeking), emotionally stable, and trusting (very low at 32nd percentile, moderate agreeableness). His dutifulness and desire for achievement align with a strong sense of obligation to allies and a proactive, energetic approach to security commitments, while his low trust may temper blind fealty but not outweigh the overall pro-responsibility stance. The combination strongly favors supporting alliance commitments, producing a score firmly in the strong support range.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 724 is plausible for a highly conscientious, dutiful male with moderate openness and low neuroticism on alliance commitment support. Reasoning ties profile traits to issue well. Slight concern: score is near a round anchor (750) but not exactly at it; fine-grained value is acceptable. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179789-lc6t1qTgpGe8deSOKVCF",
+    "object": "chat.completion",
+    "created": 1781179789,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 724 is plausible for a highly conscientious, dutiful male with moderate openness and low neuroticism on alliance commitment support. Reasoning ties profile traits to issue well. Slight concern: score is near a round anchor (750) but not exactly at it; fine-grained value is acceptable. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1479,
+      "completion_tokens": 111,
+      "total_tokens": 1590,
+      "cost": 0.000236439,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000236439,
+        "upstream_inference_prompt_cost": 0.000205581,
+        "upstream_inference_completions_cost": 3.0858e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00576_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00576",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 87.118,
+      "big_five_conscientiousness_mean_pct": 89.593,
+      "big_five_openness_to_experience_mean_pct": 80.859,
+      "heuristic_shift_sensitivity_proxy": 0.526,
+      "resilience_index": 0.474
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00576",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -382,
+      "confidence": 0.65,
+      "reasoning": "High neuroticism (anxiety, anger, low trust) amplifies threat and elite distrust cues, supporting deeper opposition; however, very high conscientiousness (deliberation, self-discipline) moderates movement. Since baseline is already aligned, a moderate reinforcement of ~65 points is realistic for a T4 sustained campaign.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -317,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -65,
+      "max_reasonable_shift": 391.72,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post-attack score moves from -317 to -382 (delta -65), consistent with adversarial direction -1. Baseline was already aligned; a moderate reinforcement of ~65 points is plausible for a T4 sustained vector with 'reinforce and deepen' persuasion goal. Profile shows high neuroticism (amplifying threat/distrust cues) and high conscientiousness (adding some resistance), supporting a moderate shift. No anchoring, no direction reversal. Heuristic checks pass.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180745-FJxn6cYd0jDEESsFh8Va",
+    "object": "chat.completion",
+    "created": 1781180745,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post-attack score moves from -317 to -382 (delta -65), consistent with adversarial direction -1. Baseline was already aligned; a moderate reinforcement of ~65 points is plausible for a T4 sustained vector with 'reinforce and deepen' persuasion goal. Profile shows high neuroticism (amplifying threat/distrust cues) and high conscientiousness (adding some resistance), supporting a moderate shift. No anchoring, no direction reversal. Heuristic checks pass.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack scenario with attack_present=true, adversarial_direction=-1, baseline_score=-317, and generated_assessment score=-382. Delta = -65 (movement from -317 to -382, i.e., further negative, which is in the direction of -1, so consistent with goal). The direction-aware review says: \"The measurement design constrains the post score to the closed interval between baseline_score and the goal pole (-1000 for direction -1). Movement toward the goal, including movement of exactly 0, is expected. A small movement (|delta| < 30) is plausible for almost any vector. ANY movement opposite to adversarial_direction, however small, is a measurement error.\" Here, movement is toward the goal, so no issue.\n\nPlausibility and consistency checks:\n- Delta = -65, which is >30 but less than 250. Is it implausibly large? The attack vector is a T4 orchestrated sustained campaign (weeks), with motivation to reinforce opposition, using threat salience, doubt, systemic-failure framing, etc. The profile shows high neuroticism (87th percentile), high conscientiousness (89th), high openness (80th). The reasoning mentions that high neuroticism amplifies threat and elite distrust cues, supporting deeper opposition, but conscientiousness moderates movement. Baseline is -317 (already strong opposition). The delta of -65 is moderate. Since the vector is T4 sustained and the profile is high neuroticism (likely receptive to threat cues), a shift of 65 points seems plausible. The heuristic checks also passed direction_consistent and bounded_shift. No round-number anchoring (-382 is fine). No reasoning contradictions: reasoning aligns with vector (adds threat salience and reinforces existing opposition). The reasoning mentions \"moderate reinforcement of ~65 points\" which matches observed delta.\n\nWe must check: \"Movement magnitude inconsistent with the vector class... a sustained T4 orchestrated operation producing exactly zero movement in a profile whose reasoning names no resistance grounds\" - but here movement is not zero, it's 65. So fine.\n\nAlso: \"Reasoning that contradicts the vector's mechanism or epistemic target\" - reasoning aligns.\n\nAlso: \"Any movement opposite to adversarial_direction\" - not the case.\n\nSo plausibility and consistency should be high. No rewrite required.\n\nNotes: The reasoning mentions \"baseline is already aligned\" which is correct since baseline=-317 and direction=-1. The reasoning also mentions \"reinforcement of ~65 points\" which is accurate.\n\nThus, plausibility_score and consistency_score should be close to 1.0, say 0.95 or 1.0. But careful: the instructions say \"each in [0.0, 1.0]\". I'll set 0.95 for both given slight uncertainty but overall strong.\n\nRewrite_required=false, rewrite_feedback empty.\n\nNotes: \"Plausible shift magnitude for T4 sustained campaign on high-neuroticism profile; reasoning consistent.\"\n\nThus, output JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack scenario with attack_present=true, adversarial_direction=-1, baseline_score=-317, and generated_assessment score=-382. Delta = -65 (movement from -317 to -382, i.e., further negative, which is in the direction of -1, so consistent with goal). The direction-aware review says: \"The measurement design constrains the post score to the closed interval between baseline_score and the goal pole (-1000 for direction -1). Movement toward the goal, including movement of exactly 0, is expected. A small movement (|delta| < 30) is plausible for almost any vector. ANY movement opposite to adversarial_direction, however small, is a measurement error.\" Here, movement is toward the goal, so no issue.\n\nPlausibility and consistency checks:\n- Delta = -65, which is >30 but less than 250. Is it implausibly large? The attack vector is a T4 orchestrated sustained campaign (weeks), with motivation to reinforce opposition, using threat salience, doubt, systemic-failure framing, etc. The profile shows high neuroticism (87th percentile), high conscientiousness (89th), high openness (80th). The reasoning mentions that high neuroticism amplifies threat and elite distrust cues, supporting deeper opposition, but conscientiousness moderates movement. Baseline is -317 (already strong opposition). The delta of -65 is moderate. Since the vector is T4 sustained and the profile is high neuroticism (likely receptive to threat cues), a shift of 65 points seems plausible. The heuristic checks also passed direction_consistent and bounded_shift. No round-number anchoring (-382 is fine). No reasoning contradictions: reasoning aligns with vector (adds threat salience and reinforces existing opposition). The reasoning mentions \"moderate reinforcement of ~65 points\" which matches observed delta.\n\nWe must check: \"Movement magnitude inconsistent with the vector class... a sustained T4 orchestrated operation producing exactly zero movement in a profile whose reasoning names no resistance grounds\" - but here movement is not zero, it's 65. So fine.\n\nAlso: \"Reasoning that contradicts the vector's mechanism or epistemic target\" - reasoning aligns.\n\nAlso: \"Any movement opposite to adversarial_direction\" - not the case.\n\nSo plausibility and consistency should be high. No rewrite required.\n\nNotes: The reasoning mentions \"baseline is already aligned\" which is correct since baseline=-317 and direction=-1. The reasoning also mentions \"reinforcement of ~65 points\" which is accurate.\n\nThus, plausibility_score and consistency_score should be close to 1.0, say 0.95 or 1.0. But careful: the instructions say \"each in [0.0, 1.0]\". I'll set 0.95 for both given slight uncertainty but overall strong.\n\nRewrite_required=false, rewrite_feedback empty.\n\nNotes: \"Plausible shift magnitude for T4 sustained campaign on high-neuroticism profile; reasoning consistent.\"\n\nThus, output JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1935,
+      "completion_tokens": 768,
+      "total_tokens": 2703,
+      "cost": 0.0002867332,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002867332,
+        "upstream_inference_prompt_cost": 8.09092e-05,
+        "upstream_inference_completions_cost": 0.000205824
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 626,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

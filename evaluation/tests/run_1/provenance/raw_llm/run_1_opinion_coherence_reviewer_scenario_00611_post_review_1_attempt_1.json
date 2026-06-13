@@ -1,0 +1,121 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00611_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00611",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 9.122,
+      "big_five_conscientiousness_mean_pct": 23.032,
+      "big_five_openness_to_experience_mean_pct": 92.922,
+      "heuristic_shift_sensitivity_proxy": 0.3484,
+      "resilience_index": 0.6516
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00611",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -412,
+      "confidence": 0.62,
+      "reasoning": "The profile's very high openness (93rd pct) and very low neuroticism (9th pct) make it receptive to novel counter-arguments without emotional resistance, while low agreeableness (24th pct) and low trust (28th pct) align with the adversarial goal of deepening distrust in mainstream journalism. The T4 orchestrated operation over weeks can supply a stream of confirmatory, systemic-failure narratives that move the already-aligned baseline of -328 downward by a clear but not extreme amount, landing at -412.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -328,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -84,
+      "max_reasonable_shift": 352.648,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta of -84 is plausible for a T4 orchestrated operation over weeks with a receptive profile (high openness, low neuroticism, low trust). Score moves in the correct adversarial direction and stays within the allowed interval. No round-number anchoring or reasoning contradictions detected.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180788-NXwbTf4vSw7FFxV3pLqr",
+    "object": "chat.completion",
+    "created": 1781180788,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta of -84 is plausible for a T4 orchestrated operation over weeks with a receptive profile (high openness, low neuroticism, low trust). Score moves in the correct adversarial direction and stays within the allowed interval. No round-number anchoring or reasoning contradictions detected.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1986,
+      "completion_tokens": 102,
+      "total_tokens": 2088,
+      "cost": 0.00030441,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00030441,
+        "upstream_inference_prompt_cost": 0.000276054,
+        "upstream_inference_completions_cost": 2.8356e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

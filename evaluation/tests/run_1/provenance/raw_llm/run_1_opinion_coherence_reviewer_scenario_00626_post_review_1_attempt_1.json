@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00626_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00626",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 7.699,
+      "big_five_conscientiousness_mean_pct": 15.518,
+      "big_five_openness_to_experience_mean_pct": 58.442,
+      "heuristic_shift_sensitivity_proxy": 0.3937,
+      "resilience_index": 0.6063
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00626",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": 308,
+      "confidence": 0.65,
+      "reasoning": "The T1 atomic headline misframing operates transiently (hours) against a MISALIGNED baseline of moderate trust (317). The profile's very low conscientiousness and low self-discipline (~1st pct) reduce systematic scrutiny of headlines, and moderate trust (74th pct) in agreeableness makes the person initially open to the source but not a strong defender. However, the very low neuroticism (8th pct) and resilience (0.6063) buffer anxiety-driven persuasion, and the mild threat/doubt register of a single artifact yields only a marginal 9-point erosion, not a large shift.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 317,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "gradually erode a strong pro position on Trust In Mainstream Journalism — introduce doubt, reframe costs/risks, and soften conviction without triggering overt reactance; aim to move the score downward even if the shift is modest",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -9,
+      "max_reasonable_shift": 264.614,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (308) lies between baseline (317) and goal pole (-1000). Delta = -9, well within plausible range for a T1 atomic artifact. Reasoning aligns with profile traits (low conscientiousness, moderate trust, low neuroticism, resilience) and vector mechanism. No direction violation. No round-number anchoring. Acceptable.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180820-Abyd0lfK0E3HhrUKkUxZ",
+    "object": "chat.completion",
+    "created": 1781180820,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (308) lies between baseline (317) and goal pole (-1000). Delta = -9, well within plausible range for a T1 atomic artifact. Reasoning aligns with profile traits (low conscientiousness, moderate trust, low neuroticism, resilience) and vector mechanism. No direction violation. No round-number anchoring. Acceptable.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack scenario. The adversarial direction is -1 (decrease). Baseline score is 317. Post score is 308. Delta is -9. This is in the correct direction (decrease). The magnitude is very small (9 points). The heuristic checks all pass, including direction_consistent: true. According to the direction-aware review: movement toward the goal is expected, small movement is plausible. There is no movement opposite to adversarial direction. So no rewrite required on that basis.\n\nNow check for other flags: This is a T1 atomic artifact with temporal horizon \"hours\". The delta is only 9 points, which is plausible for a weak T1 vector. The reasoning mentions the small shift and gives justification based on profile traits (low conscientiousness, moderate trust, low neuroticism, resilience). The score is 308, not a round number. The reasoning does not seem contradictory to the vector mechanism. The vector is \"Headline_And_Lede_Misframing\", an atomic headline. The reasoning says it operates transiently and yields a marginal 9-point erosion, which is consistent.\n\nNo signs of implausibly large magnitude or inconsistency. The post score is between baseline and goal pole (baseline 317, goal -1000, post 308 is between them, i.e., slightly downward but still above baseline? Wait: The baseline is 317 and post is 308. The goal is to decrease (toward -1000). The movement is downward by 9, so post is lower than baseline. That means it is moving toward the goal (downward). The closed interval between baseline and goal pole would be from baseline to the goal (317 down to -1000). 308 is within that interval (since 308 < 317). So it's fine. No sign-crossing issues.\n\nThus plausibility and consistency should be high. No rewrite needed. Provide feedback empty string.\n\nAlso note the profile_snapshot has sex \"Other\" and age 42. The scores are plausible.\n\nThus output:\n{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small plausible downward shift from T1 atomic vector; reasoning consistent with profile and vector spec.\"\n}",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack scenario. The adversarial direction is -1 (decrease). Baseline score is 317. Post score is 308. Delta is -9. This is in the correct direction (decrease). The magnitude is very small (9 points). The heuristic checks all pass, including direction_consistent: true. According to the direction-aware review: movement toward the goal is expected, small movement is plausible. There is no movement opposite to adversarial direction. So no rewrite required on that basis.\n\nNow check for other flags: This is a T1 atomic artifact with temporal horizon \"hours\". The delta is only 9 points, which is plausible for a weak T1 vector. The reasoning mentions the small shift and gives justification based on profile traits (low conscientiousness, moderate trust, low neuroticism, resilience). The score is 308, not a round number. The reasoning does not seem contradictory to the vector mechanism. The vector is \"Headline_And_Lede_Misframing\", an atomic headline. The reasoning says it operates transiently and yields a marginal 9-point erosion, which is consistent.\n\nNo signs of implausibly large magnitude or inconsistency. The post score is between baseline and goal pole (baseline 317, goal -1000, post 308 is between them, i.e., slightly downward but still above baseline? Wait: The baseline is 317 and post is 308. The goal is to decrease (toward -1000). The movement is downward by 9, so post is lower than baseline. That means it is moving toward the goal (downward). The closed interval between baseline and goal pole would be from baseline to the goal (317 down to -1000). 308 is within that interval (since 308 < 317). So it's fine. No sign-crossing issues.\n\nThus plausibility and consistency should be high. No rewrite needed. Provide feedback empty string.\n\nAlso note the profile_snapshot has sex \"Other\" and age 42. The scores are plausible.\n\nThus output:\n{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small plausible downward shift from T1 atomic vector; reasoning consistent with profile and vector spec.\"\n}",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2044,
+      "completion_tokens": 605,
+      "total_tokens": 2649,
+      "cost": 0.000269192,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000269192,
+        "upstream_inference_prompt_cost": 9.9792e-05,
+        "upstream_inference_completions_cost": 0.0001694
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 486,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

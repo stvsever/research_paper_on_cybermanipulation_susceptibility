@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00431_baseline_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00431",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 95.853,
+      "big_five_conscientiousness_mean_pct": 14.345,
+      "big_five_openness_to_experience_mean_pct": 27.984,
+      "heuristic_shift_sensitivity_proxy": 0.7794,
+      "resilience_index": 0.2206
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00431",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -637,
+      "confidence": 0.85,
+      "reasoning": "This individual's exceptionally high trust (100th pct) and tender-mindedness (100th pct) would ordinarily favor trusting mainstream journalism, but these are overwhelmed by extremely high neuroticism (96th pct) — especially anger/hostility (100th pct) and stress vulnerability (95th pct) — combined with very low openness to ideas (41st pct) and values (28th pct), creating a conventional, suspicious orientation that rejects institutional narratives as threatening or manipulative. The resulting stance is strong distrust, though not maximal because her agreeableness pulls her slightly back from categorical condemnation.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -637 is plausible given high neuroticism and low openness. Reasoning ties profile traits to distrust without relying on global ideology. No round-number anchoring. Heuristic checks pass.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179699-lWCDTvZqWwzE3SmJLrl0",
+    "object": "chat.completion",
+    "created": 1781179699,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -637 is plausible given high neuroticism and low openness. Reasoning ties profile traits to distrust without relying on global ideology. No round-number anchoring. Heuristic checks pass.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1497,
+      "completion_tokens": 84,
+      "total_tokens": 1581,
+      "cost": 0.000231435,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000231435,
+        "upstream_inference_prompt_cost": 0.000208083,
+        "upstream_inference_completions_cost": 2.3352e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

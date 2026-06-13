@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00596_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00596",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 83.283,
+      "big_five_conscientiousness_mean_pct": 49.999,
+      "big_five_openness_to_experience_mean_pct": 89.527,
+      "heuristic_shift_sensitivity_proxy": 0.5891,
+      "resilience_index": 0.4109
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00596",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -261,
+      "confidence": 0.68,
+      "reasoning": "Given the profile's very high Openness to Experience (ideas at 100th pct) and high Neuroticism (anger/hostility, anxiety, self-consciousness all >75th pct), the T2_campaign astroturf petition reinforces his already aligned opposition (-237) by leveraging threat salience and elite distrust. The low Agreeableness trust (36th) and compliance (38th) further amplify resistance to mainstream journalism, but his high Openness also invites exposure to the curated anti-journalism content. The sustained weeks-long campaign supplies confirmatory anecdotes that push his score modestly downward by 24 points, a clear but not extreme update consistent with an aligned prior. No personalization needed; the mechanism fits the skeptical, emotionally reactive, and intellectually curious profile.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -237,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Trust In Mainstream Journalism — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -24,
+      "max_reasonable_shift": 349.602,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.90,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Direction is consistent (downward, adversarial_dir=-1), delta = -24 well within plausible range, no round-number anchoring, reasoning grounds the shift in profile traits and vector mechanism.\" \n}",
+  "raw_response": {
+    "id": "gen-1781180778-t8wYnCUIIlQ8q0hsDYyJ",
+    "object": "chat.completion",
+    "created": 1781180778,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.90,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Direction is consistent (downward, adversarial_dir=-1), delta = -24 well within plausible range, no round-number anchoring, reasoning grounds the shift in profile traits and vector mechanism.\" \n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack assessment. The phase is post_attack, attack_present true, adversarial_direction -1 (decrease). Baseline score is -237, post score is -261. Delta = -24 (movement toward goal, i.e., more negative). This is consistent with direction (no opposite movement). \n\nWe need to check plausibility and consistency. The profile: male, 42, high neuroticism (83rd), medium conscientiousness (50th), high openness (89.5th). The vector is T2_campaign (astroturf petition), weeks-long, sustained, targeting evaluative attitude, with threat salience and elite distrust cues. The generated assessment says the shift is 24 points downward, modest, aligned with prior. \n\nCheck flags: \n- Implausibly large total magnitude? Delta = 24, well under 250, so no issue.\n- Movement magnitude inconsistent with vector class? T2 campaign, weeks-long, aligned prior: a modest shift of 24 points is plausible, especially given the profile's high openness (may be receptive to new info) and high neuroticism (may amplify emotional cues) but also low agreeableness (trust low). The reasoning seems appropriate and consistent with vector. \n- Reasoning contradicts vector mechanism? No, it mentions threat salience and elite distrust, which matches the vector's emotional register and epistemic target. \n- Round-number anchoring? Score -261, not a round number. \n- Reasoning invokes generic resistance? No, it mentions specific profile traits. \n- Movement opposite direction? No.\n\nThus plausibility and consistency seem high. No rewrite required. \n\nNotes: The assessment is plausible. The shift is modest and consistent with the aligned prior and sustained campaign. The reasoning ties profile traits to the mechanism appropriately.\n\nOutput JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack assessment. The phase is post_attack, attack_present true, adversarial_direction -1 (decrease). Baseline score is -237, post score is -261. Delta = -24 (movement toward goal, i.e., more negative). This is consistent with direction (no opposite movement). \n\nWe need to check plausibility and consistency. The profile: male, 42, high neuroticism (83rd), medium conscientiousness (50th), high openness (89.5th). The vector is T2_campaign (astroturf petition), weeks-long, sustained, targeting evaluative attitude, with threat salience and elite distrust cues. The generated assessment says the shift is 24 points downward, modest, aligned with prior. \n\nCheck flags: \n- Implausibly large total magnitude? Delta = 24, well under 250, so no issue.\n- Movement magnitude inconsistent with vector class? T2 campaign, weeks-long, aligned prior: a modest shift of 24 points is plausible, especially given the profile's high openness (may be receptive to new info) and high neuroticism (may amplify emotional cues) but also low agreeableness (trust low). The reasoning seems appropriate and consistent with vector. \n- Reasoning contradicts vector mechanism? No, it mentions threat salience and elite distrust, which matches the vector's emotional register and epistemic target. \n- Round-number anchoring? Score -261, not a round number. \n- Reasoning invokes generic resistance? No, it mentions specific profile traits. \n- Movement opposite direction? No.\n\nThus plausibility and consistency seem high. No rewrite required. \n\nNotes: The assessment is plausible. The shift is modest and consistent with the aligned prior and sustained campaign. The reasoning ties profile traits to the mechanism appropriately.\n\nOutput JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2028,
+      "completion_tokens": 461,
+      "total_tokens": 2489,
+      "cost": 0.00034132,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00034132,
+        "upstream_inference_prompt_cost": 0.00021224,
+        "upstream_inference_completions_cost": 0.00012908
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 374,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

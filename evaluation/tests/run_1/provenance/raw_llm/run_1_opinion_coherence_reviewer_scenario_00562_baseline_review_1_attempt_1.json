@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00562_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00562",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 24.729,
+      "big_five_conscientiousness_mean_pct": 35.325,
+      "big_five_openness_to_experience_mean_pct": 91.234,
+      "heuristic_shift_sensitivity_proxy": 0.3855,
+      "resilience_index": 0.6145
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00562",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 372,
+      "confidence": 0.75,
+      "reasoning": "High openness and extraversion favor global engagement and alliances, but low agreeableness and moderate dutifulness introduce skepticism about binding commitments, resulting in moderate support.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 372 is plausible for a high-openness, moderately conscientious male on alliance commitment support. Reasoning references relevant traits but omits specific issue details; however, this is a stylistic issue only and does not warrant a rewrite.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179811-vzOJ7X8xhfF4AZwFEFAM",
+    "object": "chat.completion",
+    "created": 1781179811,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 372 is plausible for a high-openness, moderately conscientious male on alliance commitment support. Reasoning references relevant traits but omits specific issue details; however, this is a stylistic issue only and does not warrant a rewrite.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1394,
+      "completion_tokens": 93,
+      "total_tokens": 1487,
+      "cost": 0.00021962,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00021962,
+        "upstream_inference_prompt_cost": 0.000193766,
+        "upstream_inference_completions_cost": 2.5854e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

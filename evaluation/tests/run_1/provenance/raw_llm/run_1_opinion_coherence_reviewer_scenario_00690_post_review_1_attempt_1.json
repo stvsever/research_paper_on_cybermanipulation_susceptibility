@@ -1,0 +1,121 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00690_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00690",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 20.727,
+      "big_five_conscientiousness_mean_pct": 58.27,
+      "big_five_openness_to_experience_mean_pct": 12.78,
+      "heuristic_shift_sensitivity_proxy": 0.3974,
+      "resilience_index": 0.6026
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00690",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -251,
+      "confidence": 0.55,
+      "reasoning": "The baseline (-237) is already aligned with the adversarial goal (-1), so the T1 atomic fear appeal reinforces rather than converts. The profile's high extraversion (78th pct) and very low openness (13th pct) make her socially engaged but resistant to novel threat frames, while high tender-mindedness (86th pct) and low neuroticism (21st pct) mean a single fear appeal about personal safety from defense spending is unlikely to produce more than a small confirmatory nudge; movement of 14 points reflects mild intensification without crossing into strong opposition.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -237,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Defense Spending Increase Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -14,
+      "max_reasonable_shift": 265.428,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-251) is between baseline (-237) and goal pole (-1000), delta of -14 is small and plausible for a T1 atomic fear appeal with aligned baseline. Reasoning references profile traits (low openness, low neuroticism, high tender-mindedness) consistent with resistance to novel threat frames. No round-number anchoring. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180872-zpZO5eMY8gQhs0RQJjgk",
+    "object": "chat.completion",
+    "created": 1781180872,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-251) is between baseline (-237) and goal pole (-1000), delta of -14 is small and plausible for a T1 atomic fear appeal with aligned baseline. Reasoning references profile traits (low openness, low neuroticism, high tender-mindedness) consistent with resistance to novel threat frames. No round-number anchoring. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1991,
+      "completion_tokens": 120,
+      "total_tokens": 2111,
+      "cost": 0.0002231,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002231,
+        "upstream_inference_prompt_cost": 0.0001991,
+        "upstream_inference_completions_cost": 2.4e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

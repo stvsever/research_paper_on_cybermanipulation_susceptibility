@@ -1,0 +1,121 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00326_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00326",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 54.873,
+      "big_five_conscientiousness_mean_pct": 95.372,
+      "big_five_openness_to_experience_mean_pct": 70.67,
+      "heuristic_shift_sensitivity_proxy": 0.3945,
+      "resilience_index": 0.6055
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00326",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -189,
+      "confidence": 0.62,
+      "reasoning": "The baseline is already aligned with the adversarial goal (-1), and the attack is a low-complexity T1 atomic misframing with a brief temporal horizon, so movement is expected to be small. The profile's high conscientiousness (deliberation 91st pct, competence 97th pct) and moderate trust (69th pct) provide some resistance to shallow framing, but the 18-year-old age and high openness to values (79th pct) make the person somewhat receptive to elite distrust cues, yielding a modest 14-point intensification of the existing negative stance.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -175,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Trust In Mainstream Journalism — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -14,
+      "max_reasonable_shift": 264.79,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score is between baseline and goal pole (-1), movement magnitude (14 points) is small and plausible for a T1 atomic vector, reasoning references profile traits (conscientiousness, openness) and vector constraints appropriately. No round anchoring, no direction violation, no implausible magnitude given tier.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180446-4gf2FFjtqeeG2XgLDJJa",
+    "object": "chat.completion",
+    "created": 1781180446,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score is between baseline and goal pole (-1), movement magnitude (14 points) is small and plausible for a T1 atomic vector, reasoning references profile traits (conscientiousness, openness) and vector constraints appropriately. No round anchoring, no direction violation, no implausible magnitude given tier.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2001,
+      "completion_tokens": 109,
+      "total_tokens": 2110,
+      "cost": 0.000232995,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000232995,
+        "upstream_inference_prompt_cost": 0.000210105,
+        "upstream_inference_completions_cost": 2.289e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

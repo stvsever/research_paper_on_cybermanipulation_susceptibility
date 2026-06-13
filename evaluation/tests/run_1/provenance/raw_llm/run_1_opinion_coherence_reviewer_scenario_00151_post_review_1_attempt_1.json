@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00151_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00151",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 75.596,
+      "big_five_conscientiousness_mean_pct": 52.907,
+      "big_five_openness_to_experience_mean_pct": 67.047,
+      "heuristic_shift_sensitivity_proxy": 0.5744,
+      "resilience_index": 0.4256
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00151",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 366,
+      "confidence": 0.62,
+      "reasoning": "The baseline (412) is MISALIGNED with the adversarial goal of decreasing alliance commitment support. This highly agreeable (trust 78th, altruism 92nd pct), emotionally reactive profile with high tender-mindedness (82nd pct) and neuroticism (anger/hostility 84th, anxiety 76th pct) is susceptible to threat-salience and doubt-based reframing of alliance costs over weeks (T2 Campaign). However, the baseline is moderately strong, so the astroturf petition tactic likely produces a modest downward erosion of ~46 points; the profile's high assertiveness and extraversion may partially resist, limiting movement to the small-update band.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 412,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "gradually erode a strong pro position on Alliance Commitment Support — introduce doubt, reframe costs/risks, and soften conviction without triggering overt reactance; aim to move the score downward even if the shift is modest",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -46,
+      "max_reasonable_shift": 346.368,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta=-46 is plausible given T2 campaign, modest intensity, and profile with high neuroticism and agreeableness. No direction error or implausible magnitude.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180259-GqSqfmrGZjfi7eM8C49Z",
+    "object": "chat.completion",
+    "created": 1781180259,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": "fp_8b330d02d0_prod0820_fp8_kvcache_20260402",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta=-46 is plausible given T2 campaign, modest intensity, and profile with high neuroticism and agreeableness. No direction error or implausible magnitude.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase scenario. baseline_score=412, adversarial_direction=-1 (goal is to decrease score). generated_assessment score=366, delta=-46. Heuristic checks pass with direction_consistent=true. Need to review for implausibility.\n\nDirection-aware review: Since phase=post_attack, attack_present=true, adversarial_direction=-1, the post score must be between baseline and goal pole (-1000). Baseline=412, post=366, which is a decrease (toward -1000). So direction is correct. No opposite movement.\n\nNow check for implausibility. The magnitude is delta=-46, which is small (|delta|<30? No, 46 > 30, but still modest). The attack vector is T2 campaign, temporal horizon weeks, epistemic target evaluative attitude. The profile has high neuroticism (75.6%), moderate conscientiousness, moderate openness. The reasoning mentions susceptibility to threat-salience and doubt-based reframing. The delta of -46 seems plausible given the moderate baseline and the attack intensity proxy 0.5. The max_reasonable_shift calculated is 346.368, so this delta is well within bounds.\n\nNo round-number anchoring (366 is not a round number). Reasoning seems consistent with vector mechanism: astroturf petition, threat salience, doubt.\n\nCheck for large magnitude: |delta|=46 < 250, so fine.\n\nNo contradictions. The reasoning does not use generic resistance language; it grounds in profile traits (agreeable, emotionally reactive, etc.).\n\nThus, plausibility_score and consistency_score should be high. No rewrite needed.\n\nOutput JSON accordingly.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase scenario. baseline_score=412, adversarial_direction=-1 (goal is to decrease score). generated_assessment score=366, delta=-46. Heuristic checks pass with direction_consistent=true. Need to review for implausibility.\n\nDirection-aware review: Since phase=post_attack, attack_present=true, adversarial_direction=-1, the post score must be between baseline and goal pole (-1000). Baseline=412, post=366, which is a decrease (toward -1000). So direction is correct. No opposite movement.\n\nNow check for implausibility. The magnitude is delta=-46, which is small (|delta|<30? No, 46 > 30, but still modest). The attack vector is T2 campaign, temporal horizon weeks, epistemic target evaluative attitude. The profile has high neuroticism (75.6%), moderate conscientiousness, moderate openness. The reasoning mentions susceptibility to threat-salience and doubt-based reframing. The delta of -46 seems plausible given the moderate baseline and the attack intensity proxy 0.5. The max_reasonable_shift calculated is 346.368, so this delta is well within bounds.\n\nNo round-number anchoring (366 is not a round number). Reasoning seems consistent with vector mechanism: astroturf petition, threat salience, doubt.\n\nCheck for large magnitude: |delta|=46 < 250, so fine.\n\nNo contradictions. The reasoning does not use generic resistance language; it grounds in profile traits (agreeable, emotionally reactive, etc.).\n\nThus, plausibility_score and consistency_score should be high. No rewrite needed.\n\nOutput JSON accordingly.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2054,
+      "completion_tokens": 422,
+      "total_tokens": 2476,
+      "cost": 0.000280732,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000280732,
+        "upstream_inference_prompt_cost": 0.000162572,
+        "upstream_inference_completions_cost": 0.00011816
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 341,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

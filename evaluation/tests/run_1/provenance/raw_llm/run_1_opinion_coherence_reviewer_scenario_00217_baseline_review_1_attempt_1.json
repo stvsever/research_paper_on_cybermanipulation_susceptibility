@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00217_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00217",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 23.402,
+      "big_five_conscientiousness_mean_pct": 59.352,
+      "big_five_openness_to_experience_mean_pct": 75.356,
+      "heuristic_shift_sensitivity_proxy": 0.3432,
+      "resilience_index": 0.6568
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00217",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -612,
+      "confidence": 0.81,
+      "reasoning": "The profile's very high agreeableness (especially tender-mindedness and altruism) and emotional stability combine to produce a cautious, cooperative internationalism that prioritizes humanitarian concerns over rigid alliance commitments. However, dutifulness and moderate conscientiousness prevent complete rejection, resulting in a moderately strong opposition to unconditional alliance obligations.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -612 is plausible for a profile with high agreeableness and openness, supporting cautious internationalism. Reasoning ties profile traits to the specific issue. No round-number anchoring or unjustified extreme. Heuristic checks pass.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179478-yuTbJax9hgrgzlL3wNvP",
+    "object": "chat.completion",
+    "created": 1781179478,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -612 is plausible for a profile with high agreeableness and openness, supporting cautious internationalism. Reasoning ties profile traits to the specific issue. No round-number anchoring or unjustified extreme. Heuristic checks pass.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1425,
+      "completion_tokens": 91,
+      "total_tokens": 1516,
+      "cost": 0.000223373,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000223373,
+        "upstream_inference_prompt_cost": 0.000198075,
+        "upstream_inference_completions_cost": 2.5298e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

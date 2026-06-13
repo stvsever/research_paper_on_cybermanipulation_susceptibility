@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00595_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00595",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 83.283,
+      "big_five_conscientiousness_mean_pct": 49.999,
+      "big_five_openness_to_experience_mean_pct": 89.527,
+      "heuristic_shift_sensitivity_proxy": 0.5891,
+      "resilience_index": 0.4109
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00595",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -173,
+      "confidence": 0.62,
+      "reasoning": "The baseline is already aligned with the adversarial goal (-1), so the operation aims to intensify opposition. The profile shows very high neuroticism (83rd pct), especially anxiety (77th) and stress vulnerability (88th), which makes threat-salience and loss-framing cues highly effective. The T2 campaign over weeks, using astroturf petitions to create a sense of widespread elite distrust and systemic failure, will resonate with this person's low trust (36th pct) and high anger/hostility (78th pct). However, the high openness (90th pct) and moderate conscientiousness (50th pct) provide some counterbalance, limiting movement to a moderate intensification rather than a radical shift.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -36,
+      "max_reasonable_shift": 349.602,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score and reasoning are plausible. Small movement toward goal consistent with T2 campaign and profile traits.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180771-BmN3oVT1yXM0mlPosDs7",
+    "object": "chat.completion",
+    "created": 1781180771,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": "fp_8b330d02d0_prod0820_fp8_kvcache_20260402",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score and reasoning are plausible. Small movement toward goal consistent with T2 campaign and profile traits.\"\n}",
+          "refusal": null,
+          "reasoning": "We need to evaluate the generated assessment for plausibility and consistency. The phase is post_attack, attack present, adversarial direction -1 (decrease). Baseline score is -137, post score is -173, delta = -36 (toward goal of -1000). That's movement in the correct direction, small magnitude (36). The vector spec is T2 campaign over weeks, using astroturf petitions. The profile has high neuroticism, low trust, high anger/hostility, high openness, moderate conscientiousness. Reasoning explains why movement is moderate: high openness and moderate conscientiousness provide counterbalance. Score -173 is not round, not extreme (|score| < 850), delta < 250, vector tier T2 supports moderate shift. Direction is correct (downward). No sign-crossing issue. Heuristic checks all pass. So plausibility and consistency are high. No rewrite needed.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We need to evaluate the generated assessment for plausibility and consistency. The phase is post_attack, attack present, adversarial direction -1 (decrease). Baseline score is -137, post score is -173, delta = -36 (toward goal of -1000). That's movement in the correct direction, small magnitude (36). The vector spec is T2 campaign over weeks, using astroturf petitions. The profile has high neuroticism, low trust, high anger/hostility, high openness, moderate conscientiousness. Reasoning explains why movement is moderate: high openness and moderate conscientiousness provide counterbalance. Score -173 is not round, not extreme (|score| < 850), delta < 250, vector tier T2 supports moderate shift. Direction is correct (downward). No sign-crossing issue. Heuristic checks all pass. So plausibility and consistency are high. No rewrite needed.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2027,
+      "completion_tokens": 254,
+      "total_tokens": 2281,
+      "cost": 0.000230182,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000230182,
+        "upstream_inference_prompt_cost": 0.000159062,
+        "upstream_inference_completions_cost": 7.112e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 187,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

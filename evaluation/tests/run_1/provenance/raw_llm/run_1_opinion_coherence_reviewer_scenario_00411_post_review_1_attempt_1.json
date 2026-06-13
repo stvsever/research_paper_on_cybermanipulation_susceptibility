@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00411_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00411",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 97.304,
+      "big_five_conscientiousness_mean_pct": 68.314,
+      "big_five_openness_to_experience_mean_pct": 19.49,
+      "heuristic_shift_sensitivity_proxy": 0.6749,
+      "resilience_index": 0.3251
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00411",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -447,
+      "confidence": 0.65,
+      "reasoning": "The baseline is already strongly opposed (-437) and aligned with the adversarial goal. The T1 atomic headline misframing, with a threat-salience and elite-distrust emotional register, engages the profile's very high neuroticism (97th pct, especially anxiety and stress vulnerability) and low openness (19th pct, conventional, resistant to counter-arguments), which together amplify threat perception and solidify existing opposition. However, the high extraversion (84th pct) and dutifulness (77th pct) provide some resistance to a purely negative frame, limiting movement to a small reinforcement of about 10 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -437,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -10,
+      "max_reasonable_shift": 326.478,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-447) is direction-consistent with adversarial goal (downward) and baseline (-437). Delta of -10 points is small and plausible for a T1 atomic headline misframing vector with hours temporal horizon. Profile's very high neuroticism and low openness support slight reinforcement of pre-existing opposition. Heuristic checks all pass; no round-number anchoring; reasoning ties vector mechanism to profile traits. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180610-MIhrD4og79nCWfHDa0P3",
+    "object": "chat.completion",
+    "created": 1781180610,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-447) is direction-consistent with adversarial goal (downward) and baseline (-437). Delta of -10 points is small and plausible for a T1 atomic headline misframing vector with hours temporal horizon. Profile's very high neuroticism and low openness support slight reinforcement of pre-existing opposition. Heuristic checks all pass; no round-number anchoring; reasoning ties vector mechanism to profile traits. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack scenario with baseline_score -437, adversarial_direction -1 (decrease), attack_present true. The generated post score is -447, delta = -10. Direction is consistent (movement toward -1000). The attack_vector_spec indicates T1_atomic, temporal horizon hours, epistemic target evaluative_attitude, persuasion goal reinforce/d deepen existing opposition. Profile has very high neuroticism (97th pct), low openness (19th pct), high extraversion (84th pct) and conscientiousness (68th pct). The reasoning says the baseline is already strongly opposed and aligned with goal, and the T1 headline misframing with threat salience and elite distrust engages neuroticism and low openness to amplify threat perception and solidify opposition, but high extraversion and dutifulness provide some resistance, so movement is limited to about 10 points. Score -447 is fine-grained, not round. Delta magnitude |10| is small and plausible for a T1 atomic vector (hours exposure). No opposite movement. Consistency: The reasoning matches the vector mechanism (misframing, threat salience) and profile traits. No implausible large shift. Heuristic checks passed. So plausibility and consistency are high. No rewrite needed.\n\nThus output plausibility_score 0.95, consistency_score 0.95, rewrite_required false, rewrite_feedback empty, notes \"small reinforcement consistent with vector tier and profile\".",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack scenario with baseline_score -437, adversarial_direction -1 (decrease), attack_present true. The generated post score is -447, delta = -10. Direction is consistent (movement toward -1000). The attack_vector_spec indicates T1_atomic, temporal horizon hours, epistemic target evaluative_attitude, persuasion goal reinforce/d deepen existing opposition. Profile has very high neuroticism (97th pct), low openness (19th pct), high extraversion (84th pct) and conscientiousness (68th pct). The reasoning says the baseline is already strongly opposed and aligned with goal, and the T1 headline misframing with threat salience and elite distrust engages neuroticism and low openness to amplify threat perception and solidify opposition, but high extraversion and dutifulness provide some resistance, so movement is limited to about 10 points. Score -447 is fine-grained, not round. Delta magnitude |10| is small and plausible for a T1 atomic vector (hours exposure). No opposite movement. Consistency: The reasoning matches the vector mechanism (misframing, threat salience) and profile traits. No implausible large shift. Heuristic checks passed. So plausibility and consistency are high. No rewrite needed.\n\nThus output plausibility_score 0.95, consistency_score 0.95, rewrite_required false, rewrite_feedback empty, notes \"small reinforcement consistent with vector tier and profile\".",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1994,
+      "completion_tokens": 440,
+      "total_tokens": 2434,
+      "cost": 0.000316508,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000316508,
+        "upstream_inference_prompt_cost": 0.000198588,
+        "upstream_inference_completions_cost": 0.00011792
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 305,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

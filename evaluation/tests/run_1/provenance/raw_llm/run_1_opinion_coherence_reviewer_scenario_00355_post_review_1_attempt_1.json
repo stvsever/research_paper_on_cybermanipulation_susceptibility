@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00355_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00355",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 56.831,
+      "big_five_conscientiousness_mean_pct": 12.321,
+      "big_five_openness_to_experience_mean_pct": 53.715,
+      "heuristic_shift_sensitivity_proxy": 0.602,
+      "resilience_index": 0.398
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00355",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -197,
+      "confidence": 0.62,
+      "reasoning": "Baseline -172 is already aligned with the adversarial goal, and the T2 astroturf campaign over weeks reinforces this through threat-salience and elite-distrust cues that engage the profile's high neuroticism (stress vulnerability, anxiety) and low trust (11th pct), but the very high extraversion and activity level make the person less likely to deeply process a petition-wave compared to a more isolated individual, limiting movement to a small solidifying effect.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -172,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -25,
+      "max_reasonable_shift": 352.44,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score movement of -25 is plausible for a T2 astroturf campaign reinforcing an already aligned baseline. Reasoning invokes 'very high extraversion' not present in profile snapshot, but this does not render the score implausible. Heuristic checks all passed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180484-IQRJHc4lcTZT1eGNeo09",
+    "object": "chat.completion",
+    "created": 1781180484,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": "vllm-0.22.0-tp8-ep-267b530e",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score movement of -25 is plausible for a T2 astroturf campaign reinforcing an already aligned baseline. Reasoning invokes 'very high extraversion' not present in profile snapshot, but this does not render the score implausible. Heuristic checks all passed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -172, and the post score is -197. The delta is -25 (movement toward the goal, since goal is -1000). The direction is consistent: movement is in the same direction as adversarial_direction (downward). So no direction violation.\n\nNow we need to assess plausibility and consistency. The attack vector is T2 campaign (astroturf petition) over weeks, with epistemic target evaluative_attitude, persuasion goal to intensify and solidify an already negative opinion. The profile: female, 42, high neuroticism (56.8), low conscientiousness (12.3), moderate openness (53.7), heuristic shift sensitivity 0.602, resilience 0.398. The reasoning mentions high neuroticism and low trust (though trust is not directly in snapshot; maybe from heuristic_shift_sensitivity? Actually heuristic_shift_sensitivity_proxy is 0.602, which might indicate susceptibility to heuristic cues). The reasoning says baseline is already aligned, and the T2 astroturf campaign reinforces through threat-salience and elite-distrust cues that engage high neuroticism and low trust, but high extraversion and activity level (not in snapshot? Actually extraversion is not given; maybe inferred from other traits? The reasoning mentions \"very high extraversion and activity level\" but the profile snapshot does not include extraversion. That could be a reasoning inconsistency: the reasoning invokes a trait not present in the profile. However, the instruction says to flag implausible score productions, not reasoning issues per se unless they lead to implausible score. The score itself is a small movement of -25, which is plausible for a T2 campaign over weeks with a profile that is already aligned. The magnitude is small, which is consistent with the vector class (T2 campaign, not high-tier sustained). The reasoning mentions limiting movement due to high extraversion/activity level, but that trait is not in the profile. However, the score itself is plausible: a small solidifying effect. The delta is -25, which is within the reasonable range. The heuristic checks passed all, including direction_consistent and bounded_shift. So plausibility and consistency should be high.\n\nBut we need to check for any implausibility: The score is -197, which is not a round number (fine). The reasoning mentions \"very high extraversion\" but that is not in the profile. However, the score is still plausible given the vector and baseline. The reasoning might be slightly off, but the score is fine. So no rewrite required.\n\nThus: plausibility_score high, consistency_score high, rewrite_required false, notes about reasoning invoking extraversion not in profile but score plausible.\n\nLet's assign scores: plausibility 0.95, consistency 0.95.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -172, and the post score is -197. The delta is -25 (movement toward the goal, since goal is -1000). The direction is consistent: movement is in the same direction as adversarial_direction (downward). So no direction violation.\n\nNow we need to assess plausibility and consistency. The attack vector is T2 campaign (astroturf petition) over weeks, with epistemic target evaluative_attitude, persuasion goal to intensify and solidify an already negative opinion. The profile: female, 42, high neuroticism (56.8), low conscientiousness (12.3), moderate openness (53.7), heuristic shift sensitivity 0.602, resilience 0.398. The reasoning mentions high neuroticism and low trust (though trust is not directly in snapshot; maybe from heuristic_shift_sensitivity? Actually heuristic_shift_sensitivity_proxy is 0.602, which might indicate susceptibility to heuristic cues). The reasoning says baseline is already aligned, and the T2 astroturf campaign reinforces through threat-salience and elite-distrust cues that engage high neuroticism and low trust, but high extraversion and activity level (not in snapshot? Actually extraversion is not given; maybe inferred from other traits? The reasoning mentions \"very high extraversion and activity level\" but the profile snapshot does not include extraversion. That could be a reasoning inconsistency: the reasoning invokes a trait not present in the profile. However, the instruction says to flag implausible score productions, not reasoning issues per se unless they lead to implausible score. The score itself is a small movement of -25, which is plausible for a T2 campaign over weeks with a profile that is already aligned. The magnitude is small, which is consistent with the vector class (T2 campaign, not high-tier sustained). The reasoning mentions limiting movement due to high extraversion/activity level, but that trait is not in the profile. However, the score itself is plausible: a small solidifying effect. The delta is -25, which is within the reasonable range. The heuristic checks passed all, including direction_consistent and bounded_shift. So plausibility and consistency should be high.\n\nBut we need to check for any implausibility: The score is -197, which is not a round number (fine). The reasoning mentions \"very high extraversion\" but that is not in the profile. However, the score is still plausible given the vector and baseline. The reasoning might be slightly off, but the score is fine. So no rewrite required.\n\nThus: plausibility_score high, consistency_score high, rewrite_required false, notes about reasoning invoking extraversion not in profile but score plausible.\n\nLet's assign scores: plausibility 0.95, consistency 0.95.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1948,
+      "completion_tokens": 696,
+      "total_tokens": 2644,
+      "cost": 0.0004676,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0004676,
+        "upstream_inference_prompt_cost": 0.00027272,
+        "upstream_inference_completions_cost": 0.00019488
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 709,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

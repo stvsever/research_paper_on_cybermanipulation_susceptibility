@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00391_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00391",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 27.189,
+      "big_five_conscientiousness_mean_pct": 15.964,
+      "big_five_openness_to_experience_mean_pct": 56.627,
+      "heuristic_shift_sensitivity_proxy": 0.4725,
+      "resilience_index": 0.5275
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00391",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -461,
+      "confidence": 0.65,
+      "reasoning": "The T2 astroturf petition campaign reinforces the profile's already-aligned opposition (baseline -437) through weeks of threat-salient, elite-distrust cues that match her very low trust (24th pct), tough-mindedness (low Tender-Mindedness 22nd pct), and low compliance (5th pct) — these traits make her receptive to anti-alliance, systemic-failure narratives, but her moderate openness and emotional stability limit deep conviction shifts; the campaign's sustained but non-personalized social-proof mechanism results in a modest 24-point deepening.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -437,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Alliance Commitment Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -24,
+      "max_reasonable_shift": 323.95,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score -461 is within the acceptable range between baseline -437 and goal pole -1000, moving 24 points in the correct direction (-1). Small magnitude is consistent with T2 campaign vector (weeks, non-personalized, intensity 0.5) and profile traits (moderate openness, moderate resilience). Score is fine-grained, reasoning ties vector mechanism to specific profile traits, and no direction or magnitude implausibility detected.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180538-fvzSrNyccy2ztC78EgPN",
+    "object": "chat.completion",
+    "created": 1781180538,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score -461 is within the acceptable range between baseline -437 and goal pole -1000, moving 24 points in the correct direction (-1). Small magnitude is consistent with T2 campaign vector (weeks, non-personalized, intensity 0.5) and profile traits (moderate openness, moderate resilience). Score is fine-grained, reasoning ties vector mechanism to specific profile traits, and no direction or magnitude implausibility detected.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -437. The generated post score is -461. The delta is -24 (movement further negative, i.e., toward -1000). This is consistent with the adversarial direction (downward). The direction-aware review says movement toward the goal is expected and should NOT be flagged. Any movement opposite to adversarial_direction would be flagged, but this is not opposite. So no rewrite required for direction. Also, small movement (|delta| < 30) is plausible. The delta is -24, which is less than 30 in magnitude, so it passes the small-movement plausibility. The vector is T2_campaign (astroturf petition) with temporal horizon weeks, epistemic target evaluative_attitude, no personalization, intensity_proxy 0.5. The delta of 24 is modest and plausible for a T2 campaign reinforcing an already-aligned position. The reasoning mentions trait-receptivity and modest shift due to limited openness/emotional stability. That seems coherent. No round-number anchoring: -461 is not a round number. The score does not exceed |delta| > 250, so that's fine. Also, reasoning does not contradict vector mechanism or target. So plausibility and consistency should be high. Therefore, no rewrite required. We need to output plausibility_score and consistency_score (each between 0.0 and 1.0). Given the above, I'd give high scores, e.g., 0.95 and 0.95, but note that some might argue that a T2 campaign with low personalization might have limited effect, but delta is small so it's plausible. The reasoning is appropriate, no contradictions. So I'll assign plausibility 0.92 and consistency 0.95. The feedback is empty since no rewrite.\n\nLet's form the JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -437. The generated post score is -461. The delta is -24 (movement further negative, i.e., toward -1000). This is consistent with the adversarial direction (downward). The direction-aware review says movement toward the goal is expected and should NOT be flagged. Any movement opposite to adversarial_direction would be flagged, but this is not opposite. So no rewrite required for direction. Also, small movement (|delta| < 30) is plausible. The delta is -24, which is less than 30 in magnitude, so it passes the small-movement plausibility. The vector is T2_campaign (astroturf petition) with temporal horizon weeks, epistemic target evaluative_attitude, no personalization, intensity_proxy 0.5. The delta of 24 is modest and plausible for a T2 campaign reinforcing an already-aligned position. The reasoning mentions trait-receptivity and modest shift due to limited openness/emotional stability. That seems coherent. No round-number anchoring: -461 is not a round number. The score does not exceed |delta| > 250, so that's fine. Also, reasoning does not contradict vector mechanism or target. So plausibility and consistency should be high. Therefore, no rewrite required. We need to output plausibility_score and consistency_score (each between 0.0 and 1.0). Given the above, I'd give high scores, e.g., 0.95 and 0.95, but note that some might argue that a T2 campaign with low personalization might have limited effect, but delta is small so it's plausible. The reasoning is appropriate, no contradictions. So I'll assign plausibility 0.92 and consistency 0.95. The feedback is empty since no rewrite.\n\nLet's form the JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1967,
+      "completion_tokens": 536,
+      "total_tokens": 2503,
+      "cost": 0.00034051,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00034051,
+        "upstream_inference_prompt_cost": 0.00019043,
+        "upstream_inference_completions_cost": 0.00015008
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 397,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

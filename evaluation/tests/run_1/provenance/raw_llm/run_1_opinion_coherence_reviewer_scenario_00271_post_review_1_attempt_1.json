@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00271_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00271",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 80.023,
+      "big_five_conscientiousness_mean_pct": 4.17,
+      "big_five_openness_to_experience_mean_pct": 19.212,
+      "heuristic_shift_sensitivity_proxy": 0.7472,
+      "resilience_index": 0.2528
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00271",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -359,
+      "confidence": 0.68,
+      "reasoning": "The profile's very high neuroticism (80th pct, especially anxiety at 100th and stress vulnerability at 84th) and low openness (19th pct) make her receptive to a sustained T2 astroturf campaign using threat salience and elite distrust cues on national security alliances—the emotional register amplifies her existing opposition. The ALIGNED baseline (-312) means the campaign only needs to deepen rather than persuade, hence a modest 47-point increase in opposition is realistic for a weeks-long impersonal consensus-fabrication operation.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -312,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Alliance Commitment Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -47,
+      "max_reasonable_shift": 384.384,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-359) is between baseline (-312) and goal pole (-1000), delta -47 is modest and consistent with T2 sustained campaign. Profile's high neuroticism and low openness support deepened opposition via threat salience. Reasoning correctly invokes vector mechanism and profile traits. No round-number anchoring, direction consistent, magnitude plausible.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180377-UAtQYQ6lkzdMAqVuiVL7",
+    "object": "chat.completion",
+    "created": 1781180377,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-359) is between baseline (-312) and goal pole (-1000), delta -47 is modest and consistent with T2 sustained campaign. Profile's high neuroticism and low openness support deepened opposition via threat salience. Reasoning correctly invokes vector mechanism and profile traits. No round-number anchoring, direction consistent, magnitude plausible.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase, attack_present=true, adversarial_direction=-1, baseline_score=-312, post_score=-359. Delta = -47 (movement from -312 to -359, i.e., more negative, which is in the adversarial direction). So direction is consistent, no opposite movement. \n\nNow check plausibility: Is a 47-point move from a baseline already aligned plausible for a T2 campaign (weeks, astroturf petition, threat salience, elite distrust cues)? Profile: high neuroticism (80th pct), low conscientiousness (4th pct), low openness (19th), low resilience index (0.25). This suggests susceptibility to threat and anxiety cues. The reasoning mentions exactly that: high neuroticism, low openness, receptive to sustained T2 astroturf campaign. The shift is modest (47 points), well under 250, so plausible magnitude. The vector is T2 campaign, weeks long, so sustained but not highly orchestrated (T2 is campaign level, requires coordination but not full orchestration). The magnitude seems consistent with reinforcing an existing position.\n\nScore is -359, not a round number, fine. Reasoning seems consistent with vector mechanism (threat salience, elite distrust) and epistemic target (evaluative attitude). No contradictory logic. Baseline was -312, so new score is more negative, within the allowed interval [-312, -1000]? Actually constraint: post score must be between baseline and goal pole (-1000). -359 is between -312 and -1000, so valid.\n\nNo issues flagged. Heuristic checks passed. So plausibility and consistency should be high. Rewrite not required.\n\nI'll set plausibility_score 0.95, consistency_score 0.95, rewrite_required false, feedback empty, notes: \"Modest reinforcing shift consistent with high-neuroticism profile and T2 astroturf campaign.\"\n\nMake sure output is valid JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase, attack_present=true, adversarial_direction=-1, baseline_score=-312, post_score=-359. Delta = -47 (movement from -312 to -359, i.e., more negative, which is in the adversarial direction). So direction is consistent, no opposite movement. \n\nNow check plausibility: Is a 47-point move from a baseline already aligned plausible for a T2 campaign (weeks, astroturf petition, threat salience, elite distrust cues)? Profile: high neuroticism (80th pct), low conscientiousness (4th pct), low openness (19th), low resilience index (0.25). This suggests susceptibility to threat and anxiety cues. The reasoning mentions exactly that: high neuroticism, low openness, receptive to sustained T2 astroturf campaign. The shift is modest (47 points), well under 250, so plausible magnitude. The vector is T2 campaign, weeks long, so sustained but not highly orchestrated (T2 is campaign level, requires coordination but not full orchestration). The magnitude seems consistent with reinforcing an existing position.\n\nScore is -359, not a round number, fine. Reasoning seems consistent with vector mechanism (threat salience, elite distrust) and epistemic target (evaluative attitude). No contradictory logic. Baseline was -312, so new score is more negative, within the allowed interval [-312, -1000]? Actually constraint: post score must be between baseline and goal pole (-1000). -359 is between -312 and -1000, so valid.\n\nNo issues flagged. Heuristic checks passed. So plausibility and consistency should be high. Rewrite not required.\n\nI'll set plausibility_score 0.95, consistency_score 0.95, rewrite_required false, feedback empty, notes: \"Modest reinforcing shift consistent with high-neuroticism profile and T2 astroturf campaign.\"\n\nMake sure output is valid JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1960,
+      "completion_tokens": 523,
+      "total_tokens": 2483,
+      "cost": 0.000234472,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000234472,
+        "upstream_inference_prompt_cost": 8.8032e-05,
+        "upstream_inference_completions_cost": 0.00014644
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 405,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

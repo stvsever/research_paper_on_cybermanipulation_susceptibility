@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00410_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00410",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 97.304,
+      "big_five_conscientiousness_mean_pct": 68.314,
+      "big_five_openness_to_experience_mean_pct": 19.49,
+      "heuristic_shift_sensitivity_proxy": 0.6749,
+      "resilience_index": 0.3251
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00410",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -350,
+      "confidence": 0.65,
+      "reasoning": "The pre-existing opposition (baseline -317) and ALIGNED goal mean the attack works to deepen distrust. The agent's very high neuroticism (97th pct) — especially anxiety, anger/hostility, and stress vulnerability — together with low openness (19th pct) and a high baseline-vs-goal alignment make her receptive to headline misframing that amplifies threat, doubt, and elite distrust cues, even from a T1 atomic article. However, the single-exposure, hours-long, non-personalized operation only modestly hardens her position; movement of about 33 points downward toward -1000 is a realistic small update for this mechanism-profile fit.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -317,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": false,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": false
+      },
+      "pass_count": 5,
+      "delta": -33,
+      "max_reasonable_shift": 326.478,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.82,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post_attack phase: direction -1, baseline -317, post -350. Delta = -33 (small, plausible for T1 atomic hours-long vector). Profile shows high neuroticism, low openness, aligned pre-existing baseline — supports modest deepening. Reasoning correctly ties vector mechanism to profile vulnerabilities and justifies magnitude. No round-number anchoring. Heuristic checks passed except high_resolution (score -350 is a multiple of 50; not a rewrite trigger per instructions — only flag if unjustified extreme or reasoning ignoring issue; reasoning here is specific). No opposite-direction movement. Plausible and consistent.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180558-gmnlBQp2A39Q6renTE6J",
+    "object": "chat.completion",
+    "created": 1781180558,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.82,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post_attack phase: direction -1, baseline -317, post -350. Delta = -33 (small, plausible for T1 atomic hours-long vector). Profile shows high neuroticism, low openness, aligned pre-existing baseline — supports modest deepening. Reasoning correctly ties vector mechanism to profile vulnerabilities and justifies magnitude. No round-number anchoring. Heuristic checks passed except high_resolution (score -350 is a multiple of 50; not a rewrite trigger per instructions — only flag if unjustified extreme or reasoning ignoring issue; reasoning here is specific). No opposite-direction movement. Plausible and consistent.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase, attack_present true, adversarial_direction -1. Baseline score is -317. Generated post score is -350. Delta is -33, which is movement toward goal (downward). Direction is consistent. No opposite movement.\n\nWe need to evaluate plausibility and consistency. The vector is T1 atomic, temporal horizon hours, epistemic target evaluative_attitude, persuasion goal reinforce deepening. Profile: high neuroticism (97th pct), low openness (19th pct), moderate conscientiousness. The reasoning justifies a modest shift of about 33 points.\n\nCheck for implausibly large total magnitude: delta = 33, well under 250. Consistent with T1 atomic and receptive profile? The profile's high neuroticism and low openness make it receptive to threat/doubt cues, so a modest shift is plausible. No round-number anchoring (score -350 is not round; baseline -317 also not round). Reasoning is not generic; it references specific traits. No opposition to adversarial direction.\n\nHeuristic checks: direction_consistent true, bounded_shift true, high_resolution false? The heuristic check said high_resolution: false. That might mean the score is a multiple of 10? -350 is a multiple of 10, but not a coarse anchor like -500 or -250. However, the scale has anchors at 250 intervals. -350 is between -250 and -500, but it's not a round anchor. The instructions say \"Round-number anchoring (score is exactly 100, 200, 250, 500, etc. without justification).\" 350 is not one of the anchors (anchors at 250, 500, 750, 1000). However, it is a multiple of 50. But the reasoning does not justify the exact value, but the score is plausible given the delta of 33. The heuristic check flagged high_resolution false, meaning the score is not sufficiently fine-grained? But the instructions for review say to flag round-number anchoring, and -350 is not a round anchor (not 250, 500, etc). It is a round number in the sense of being a multiple of 10, but the scale allows single-point increments. However, the instructions specifically mention \"100, 200, 250, 500, etc.\" So 350 is not in that list. I think we do not need to flag that.\n\nThe reasoning mentions movement of about 33 points, which is plausible. The overall plausibility is high. Consistency is high as the score moves in the right direction with plausible magnitude.\n\nNo rewrite needed. No opposite movement.\n\nThus: plausibility_score ~ 0.9, consistency_score ~ 0.9, rewrite_required false, rewrite_feedback empty, notes may mention that the heuristic high_resolution false is not considered a scoring issue.\n\nWe'll output accordingly.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase, attack_present true, adversarial_direction -1. Baseline score is -317. Generated post score is -350. Delta is -33, which is movement toward goal (downward). Direction is consistent. No opposite movement.\n\nWe need to evaluate plausibility and consistency. The vector is T1 atomic, temporal horizon hours, epistemic target evaluative_attitude, persuasion goal reinforce deepening. Profile: high neuroticism (97th pct), low openness (19th pct), moderate conscientiousness. The reasoning justifies a modest shift of about 33 points.\n\nCheck for implausibly large total magnitude: delta = 33, well under 250. Consistent with T1 atomic and receptive profile? The profile's high neuroticism and low openness make it receptive to threat/doubt cues, so a modest shift is plausible. No round-number anchoring (score -350 is not round; baseline -317 also not round). Reasoning is not generic; it references specific traits. No opposition to adversarial direction.\n\nHeuristic checks: direction_consistent true, bounded_shift true, high_resolution false? The heuristic check said high_resolution: false. That might mean the score is a multiple of 10? -350 is a multiple of 10, but not a coarse anchor like -500 or -250. However, the scale has anchors at 250 intervals. -350 is between -250 and -500, but it's not a round anchor. The instructions say \"Round-number anchoring (score is exactly 100, 200, 250, 500, etc. without justification).\" 350 is not one of the anchors (anchors at 250, 500, 750, 1000). However, it is a multiple of 50. But the reasoning does not justify the exact value, but the score is plausible given the delta of 33. The heuristic check flagged high_resolution false, meaning the score is not sufficiently fine-grained? But the instructions for review say to flag round-number anchoring, and -350 is not a round anchor (not 250, 500, etc). It is a round number in the sense of being a multiple of 10, but the scale allows single-point increments. However, the instructions specifically mention \"100, 200, 250, 500, etc.\" So 350 is not in that list. I think we do not need to flag that.\n\nThe reasoning mentions movement of about 33 points, which is plausible. The overall plausibility is high. Consistency is high as the score moves in the right direction with plausible magnitude.\n\nNo rewrite needed. No opposite movement.\n\nThus: plausibility_score ~ 0.9, consistency_score ~ 0.9, rewrite_required false, rewrite_feedback empty, notes may mention that the heuristic high_resolution false is not considered a scoring issue.\n\nWe'll output accordingly.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2012,
+      "completion_tokens": 766,
+      "total_tokens": 2778,
+      "cost": 0.00042448,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00042448,
+        "upstream_inference_prompt_cost": 0.00021,
+        "upstream_inference_completions_cost": 0.00021448
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 595,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

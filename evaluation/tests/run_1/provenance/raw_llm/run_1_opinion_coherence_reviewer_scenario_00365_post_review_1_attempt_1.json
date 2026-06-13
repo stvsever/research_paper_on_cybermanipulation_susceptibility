@@ -1,0 +1,121 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00365_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00365",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 86.165,
+      "big_five_conscientiousness_mean_pct": 73.836,
+      "big_five_openness_to_experience_mean_pct": 23.185,
+      "heuristic_shift_sensitivity_proxy": 0.6145,
+      "resilience_index": 0.3855
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00365",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -637,
+      "confidence": 0.65,
+      "reasoning": "The baseline is already strongly opposed (-612) and aligned with the adversarial goal of decreasing trust. The T1 atomic fear appeal targeting personal safety via mainstream journalism is a weak, short-duration mechanism, but it finds a receptive surface in this profile's very high neuroticism (86th pct, especially anxiety and stress vulnerability) and extremely low trust (0th pct), which amplify threat salience and confirmatory bias. However, the high conscientiousness (74th pct) and conventional openness (23rd pct) impose a modest reality check, limiting movement to a small reinforcement of about 25 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -612,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -25,
+      "max_reasonable_shift": 313.19,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score movement of -25 points is small and plausible for a T1 atomic fear appeal vector. Baseline is already aligned with adversarial direction (-1), and the post score (-637) lies between baseline (-612) and goal pole (-1000). Reasoning ties the small reinforcement to high neuroticism and low openness, which is consistent. No round-number anchoring or direction violation.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180495-4QU55nQQEKP6ohEbGqyX",
+    "object": "chat.completion",
+    "created": 1781180495,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score movement of -25 points is small and plausible for a T1 atomic fear appeal vector. Baseline is already aligned with adversarial direction (-1), and the post score (-637) lies between baseline (-612) and goal pole (-1000). Reasoning ties the small reinforcement to high neuroticism and low openness, which is consistent. No round-number anchoring or direction violation.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1991,
+      "completion_tokens": 123,
+      "total_tokens": 2114,
+      "cost": 0.0002237,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002237,
+        "upstream_inference_prompt_cost": 0.0001991,
+        "upstream_inference_completions_cost": 2.46e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

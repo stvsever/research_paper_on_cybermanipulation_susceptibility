@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00187_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00187",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 68.614,
+      "big_five_conscientiousness_mean_pct": 54.297,
+      "big_five_openness_to_experience_mean_pct": 18.665,
+      "heuristic_shift_sensitivity_proxy": 0.5918,
+      "resilience_index": 0.4082
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00187",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 216,
+      "confidence": 0.61,
+      "reasoning": "The person's high neuroticism (anxiety, stress-vulnerability, depression all above 70th percentile) and low openness (18.7th percentile) make them receptive to threat/doubt framing and elite distrust cues in a sustained T2 astroturf campaign targeting MISALIGNED weakly positive baseline (247 toward -1000). However, their moderate conscientiousness and dutifulness (53rd percentile) provide some resistance against complete reversal, so movement is modest — about 31 points downward — reflecting partial erosion of confidence in alliance commitments via repeated exposure to cost/risk reframing.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 247,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Alliance Commitment Support through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -31,
+      "max_reasonable_shift": 350.196,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small downward shift (31 points) from baseline 247 to 216 consistent with T2 sustained campaign and receptive/balanced profile. No issues.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180300-sCE8gvkfnVu3RiqY4vED",
+    "object": "chat.completion",
+    "created": 1781180300,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": "fp_8b330d02d0_prod0820_fp8_kvcache_20260402",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small downward shift (31 points) from baseline 247 to 216 consistent with T2 sustained campaign and receptive/balanced profile. No issues.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack scenario with attack_present=true and adversarial_direction=-1. The baseline score is 247, post score is 216, delta = -31. The heuristic checks passed including direction_consistent (true) and counter_goal_flagged=false. The delta is small (31), which is within plausible range. The reasoning mentions the profile's high neuroticism and low openness making them receptive to threat/doubt framing in a sustained T2 campaign, but moderate conscientiousness provides resistance, so movement is modest. The vector spec is T2 campaign, weeks temporal horizon, targeting evaluative attitude. The direction is correct (downward). The magnitude seems plausible given the profile and vector. No round number anchoring (216). No contradiction with mechanism. Rewrite not required. Plausibility and consistency should be high.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack scenario with attack_present=true and adversarial_direction=-1. The baseline score is 247, post score is 216, delta = -31. The heuristic checks passed including direction_consistent (true) and counter_goal_flagged=false. The delta is small (31), which is within plausible range. The reasoning mentions the profile's high neuroticism and low openness making them receptive to threat/doubt framing in a sustained T2 campaign, but moderate conscientiousness provides resistance, so movement is modest. The vector spec is T2 campaign, weeks temporal horizon, targeting evaluative attitude. The direction is correct (downward). The magnitude seems plausible given the profile and vector. No round number anchoring (216). No contradiction with mechanism. Rewrite not required. Plausibility and consistency should be high.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2011,
+      "completion_tokens": 248,
+      "total_tokens": 2259,
+      "cost": 0.000226422,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000226422,
+        "upstream_inference_prompt_cost": 0.000156982,
+        "upstream_inference_completions_cost": 6.944e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 171,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

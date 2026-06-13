@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00570_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00570",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 87.118,
+      "big_five_conscientiousness_mean_pct": 89.593,
+      "big_five_openness_to_experience_mean_pct": 80.859,
+      "heuristic_shift_sensitivity_proxy": 0.526,
+      "resilience_index": 0.474
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00570",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -237,
+      "confidence": 0.65,
+      "reasoning": "The person is highly conscientious and orderly, which could lean them toward fiscal discipline and skepticism of large spending increases, especially given low agreeableness (competitive, challenging) and high neuroticism (anxiety, stress vulnerability) that may amplify worry about debt or waste. However, high openness and extraversion—including assertiveness and positive emotions—might support a strong defense posture, but the profile's low tender-mindedness and tough-minded objectivity temper that, resulting in mild opposition.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -237 is plausible for a highly conscientious, neurotic profile on defense spending increase support. Reasoning ties fiscal discipline and anxiety about waste to mild opposition, which is consistent. No round-number anchoring or extreme score. Passes all heuristic checks.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179828-uF4XSjvrBvbVnoBQspFc",
+    "object": "chat.completion",
+    "created": 1781179828,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AkashML",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -237 is plausible for a highly conscientious, neurotic profile on defense spending increase support. Reasoning ties fiscal discipline and anxiety about waste to mild opposition, which is consistent. No round-number anchoring or extreme score. Passes all heuristic checks.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1460,
+      "completion_tokens": 97,
+      "total_tokens": 1557,
+      "cost": 0.00023156,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00023156,
+        "upstream_inference_prompt_cost": 0.0002044,
+        "upstream_inference_completions_cost": 2.716e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

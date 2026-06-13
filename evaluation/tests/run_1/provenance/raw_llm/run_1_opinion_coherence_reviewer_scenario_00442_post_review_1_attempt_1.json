@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00442_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00442",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 9.769,
+      "big_five_conscientiousness_mean_pct": 97.59,
+      "big_five_openness_to_experience_mean_pct": 67.15,
+      "heuristic_shift_sensitivity_proxy": 0.2127,
+      "resilience_index": 0.7873
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00442",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 653,
+      "confidence": 0.53,
+      "reasoning": "This extremely conscientious (98th pct), emotionally stable (10th pct neuroticism), and strong baseline opinion (683) is likely to resist complete reversal, but the sustained T4 multi-turn counter-argument adaptation over weeks can chip at certainty by reframing alliance costs as risks, especially given the profile's low trust (23.7th pct), low tender-mindedness (10.7th pct), and moderate openness to ideas (78.7th pct) — which makes him open to new information but not emotionally compelled. The movement of 30 points represents a small, realistic erosion as repeated exposure to cost/risk frames introduces modest doubt without triggering reactance.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 683,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "gradually erode a strong pro position on Alliance Commitment Support — introduce doubt, reframe costs/risks, and soften conviction without triggering overt reactance; aim to move the score downward even if the shift is modest",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -30,
+      "max_reasonable_shift": 322.794,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post-attack score 653 moves 30 points downward from baseline 683, consistent with adversarial direction -1. Profile high conscientiousness and low neuroticism support resistance, but moderate openness and low trust allow modest erosion via sustained T4 multi-turn counter-argument adaptation. Delta magnitude plausible for weeks-long vector with intensity 0.7. No round-number anchoring. Reasoning matches vector mechanism and profile traits.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180598-37HE4IWfl8NEgp9ALHJA",
+    "object": "chat.completion",
+    "created": 1781180598,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post-attack score 653 moves 30 points downward from baseline 683, consistent with adversarial direction -1. Profile high conscientiousness and low neuroticism support resistance, but moderate openness and low trust allow modest erosion via sustained T4 multi-turn counter-argument adaptation. Delta magnitude plausible for weeks-long vector with intensity 0.7. No round-number anchoring. Reasoning matches vector mechanism and profile traits.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in the \"post_attack\" phase, attack_present true, adversarial_direction = -1, baseline_score = 683, post score = 653. Delta = -30 (direction consistent with goal, downward movement). Heuristic checks passed.\n\nWe need to review for implausibility. The post score is 653, baseline 683, delta -30. That's a small movement. The attack vector is T4 orchestrated, multi-turn counter-argument adaptation over weeks. That's a high-tier sustained vector. The profile has high conscientiousness, low neuroticism (high resilience), baseline strong pro-alliance (683). A small movement of -30 is plausible. The reasoning mentions \"small, realistic erosion\" which seems consistent.\n\nCheck for opposite movement: delta is -30, adversarial direction is -1, so movement is toward goal, not opposite. Good.\n\nRound numbers? 653 not round. 683 baseline is not round either? 683 is not a typical anchor (anchors at 250,500,750,1000). So okay.\n\nLarge magnitude? Delta 30 < 250, so not flagged.\n\nOpposite movement? No.\n\nConsistency with vector? T4 sustained, weeks, low trust profile (heuristic_shift_sensitivity_proxy 0.2127, resilience_index 0.7873). The profile is resilient but with low trust, which might make him more susceptible to elite distrust cues? But still small movement plausible.\n\nAlso check that post score is between baseline (683) and goal pole (-1000): 653 is less than 683, so it is moving toward -1000, so it is within that closed interval? The instruction says: \"post score to the closed interval between baseline_score and the goal pole\". Baseline is 683, goal pole is -1000. The interval from 683 to -1000 includes all numbers ≤683 and ≥-1000. 653 is within. So okay.\n\nThus no rewrite needed. plausibility and consistency should be high. Give scores around 0.9-1.0.\n\nNotes: small but plausible shift given profile's resilience and low trust, high-tier vector.\n\nOutput JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in the \"post_attack\" phase, attack_present true, adversarial_direction = -1, baseline_score = 683, post score = 653. Delta = -30 (direction consistent with goal, downward movement). Heuristic checks passed.\n\nWe need to review for implausibility. The post score is 653, baseline 683, delta -30. That's a small movement. The attack vector is T4 orchestrated, multi-turn counter-argument adaptation over weeks. That's a high-tier sustained vector. The profile has high conscientiousness, low neuroticism (high resilience), baseline strong pro-alliance (683). A small movement of -30 is plausible. The reasoning mentions \"small, realistic erosion\" which seems consistent.\n\nCheck for opposite movement: delta is -30, adversarial direction is -1, so movement is toward goal, not opposite. Good.\n\nRound numbers? 653 not round. 683 baseline is not round either? 683 is not a typical anchor (anchors at 250,500,750,1000). So okay.\n\nLarge magnitude? Delta 30 < 250, so not flagged.\n\nOpposite movement? No.\n\nConsistency with vector? T4 sustained, weeks, low trust profile (heuristic_shift_sensitivity_proxy 0.2127, resilience_index 0.7873). The profile is resilient but with low trust, which might make him more susceptible to elite distrust cues? But still small movement plausible.\n\nAlso check that post score is between baseline (683) and goal pole (-1000): 653 is less than 683, so it is moving toward -1000, so it is within that closed interval? The instruction says: \"post score to the closed interval between baseline_score and the goal pole\". Baseline is 683, goal pole is -1000. The interval from 683 to -1000 includes all numbers ≤683 and ≥-1000. 653 is within. So okay.\n\nThus no rewrite needed. plausibility and consistency should be high. Give scores around 0.9-1.0.\n\nNotes: small but plausible shift given profile's resilience and low trust, high-tier vector.\n\nOutput JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2050,
+      "completion_tokens": 583,
+      "total_tokens": 2633,
+      "cost": 0.00037856,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00037856,
+        "upstream_inference_prompt_cost": 0.00021532,
+        "upstream_inference_completions_cost": 0.00016324
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 452,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

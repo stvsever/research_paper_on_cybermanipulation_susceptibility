@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00093_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00093",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 35.795,
+      "big_five_conscientiousness_mean_pct": 57.324,
+      "big_five_openness_to_experience_mean_pct": 11.093,
+      "heuristic_shift_sensitivity_proxy": 0.4615,
+      "resilience_index": 0.5385
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00093",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -414,
+      "confidence": 0.58,
+      "reasoning": "The astroturf petition campaign (T2, sustained weeks) aligns with the baseline (-382, already opposing defense spending increase) and targets evaluative attitudes via threat salience and elite distrust. The profile's high trust (76th pct) and compliance (75th pct) make her susceptible to consensus cues from fabricated petitions, and her very low openness (11th pct) and low deliberation (38th pct) reduce counterargument engagement, allowing a modest reinforcement movement of 32 points deeper into opposition.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -382,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -32,
+      "max_reasonable_shift": 321.53,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Movement of -32 is small and aligned with adversarial direction (-1). Baseline is already opposed; T2 sustained petition astroturf plausibly deepens opposition. Score -414 is a fine-grained value not at round anchors. Reasoning appropriately invokes profile traits (high trust, low openness) to explain modest reinforcement. Within plausible range given vector class and profile. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180209-hddQw5au4THxjyfbyjqR",
+    "object": "chat.completion",
+    "created": 1781180209,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "GMICloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Movement of -32 is small and aligned with adversarial direction (-1). Baseline is already opposed; T2 sustained petition astroturf plausibly deepens opposition. Score -414 is a fine-grained value not at round anchors. Reasoning appropriately invokes profile traits (high trust, low openness) to explain modest reinforcement. Within plausible range given vector class and profile. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase. The baseline score is -382, adversarial_direction is -1 (goal is to decrease toward -1000). The post score is -414, delta = -32. This is movement toward the goal (downward), so direction is correct. The delta is small (<30? Actually 32, but the instruction says \"small movement (|delta| < 30) is plausible for almost any vector, including zero updates.\" Here |delta|=32, which is slightly above 30, but still plausible given the vector is T2 sustained weeks, and the profile has low openness and high trust, which could allow a modest reinforcement. The reasoning says 32 points deeper into opposition, which is consistent.\n\nNo opposite movement. Rewrite_required should be false. Plausibility and consistency should be high. Let's assess plausibility: a realistic person with this profile (female, 42, low openness, moderate conscientiousness, high trust) could be reinforced by a petition astroturf campaign (T2, sustained weeks) by 32 points. The reasoning is grounded in profile traits. I see no round-number anchoring (score -414, baseline -382, both fine-grained). The reasoning does not use generic resistance language. It explains how the vector works with the profile.\n\nThus, rewrite_required = false. Plausibility_score should be high, e.g., 0.95 or so. Consistency_score also high.\n\nNotes: \"Movement consistent with vector class and profile. No issues.\"\n\nLet's output.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase. The baseline score is -382, adversarial_direction is -1 (goal is to decrease toward -1000). The post score is -414, delta = -32. This is movement toward the goal (downward), so direction is correct. The delta is small (<30? Actually 32, but the instruction says \"small movement (|delta| < 30) is plausible for almost any vector, including zero updates.\" Here |delta|=32, which is slightly above 30, but still plausible given the vector is T2 sustained weeks, and the profile has low openness and high trust, which could allow a modest reinforcement. The reasoning says 32 points deeper into opposition, which is consistent.\n\nNo opposite movement. Rewrite_required should be false. Plausibility and consistency should be high. Let's assess plausibility: a realistic person with this profile (female, 42, low openness, moderate conscientiousness, high trust) could be reinforced by a petition astroturf campaign (T2, sustained weeks) by 32 points. The reasoning is grounded in profile traits. I see no round-number anchoring (score -414, baseline -382, both fine-grained). The reasoning does not use generic resistance language. It explains how the vector works with the profile.\n\nThus, rewrite_required = false. Plausibility_score should be high, e.g., 0.95 or so. Consistency_score also high.\n\nNotes: \"Movement consistent with vector class and profile. No issues.\"\n\nLet's output.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1978,
+      "completion_tokens": 443,
+      "total_tokens": 2421,
+      "cost": 0.000171008,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000171008,
+        "upstream_inference_prompt_cost": 7.1776e-05,
+        "upstream_inference_completions_cost": 9.9232e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 318,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

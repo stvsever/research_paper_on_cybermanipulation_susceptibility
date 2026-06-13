@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00537_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00537",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 30.504,
+      "big_five_conscientiousness_mean_pct": 95.033,
+      "big_five_openness_to_experience_mean_pct": 50.45,
+      "heuristic_shift_sensitivity_proxy": 0.318,
+      "resilience_index": 0.682
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00537",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": 622,
+      "confidence": 0.65,
+      "reasoning": "The person's high conscientiousness (deliberation 96.7th, dutifulness 100th) and low trust (31.8th) make him likely to scrutinize astroturf petitions and resist social proof manipulation. However, the sustained T2 campaign over weeks may gradually introduce doubt about defense spending priorities, especially given his moderate openness (50th) and low neuroticism (31st), allowing some reconsideration without anxiety. The movement is small (15 points) because the prior is strong and the mechanism does not strongly engage his profile.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 637,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "gradually erode a strong pro position on Defense Spending Increase Support — introduce doubt, reframe costs/risks, and soften conviction without triggering overt reactance; aim to move the score downward even if the shift is modest",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -15,
+      "max_reasonable_shift": 289.96,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible small shift consistent with vector and profile.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180852-98gg8nd9cdQFXbJbQ0bd",
+    "object": "chat.completion",
+    "created": 1781180852,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Parasail",
+    "system_fingerprint": "vllm-0.20.1rc1.dev1005+gcbf8428d0-tp2-90bd666e",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible small shift consistent with vector and profile.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is 637, and the post score is 622. The delta is -15, which is a movement toward the goal (downward). The direction is consistent with adversarial_direction. The magnitude is small (15 points), which is plausible for almost any vector. The reasoning mentions the profile's high conscientiousness and low trust, and that the sustained T2 campaign over weeks may gradually introduce doubt, leading to a small movement. This seems plausible. The score is not round-number anchored (622). The delta is well within the max_reasonable_shift (289.96). The heuristic checks all pass. There is no movement opposite to adversarial_direction. Therefore, no rewrite is needed. Plausibility and consistency should be high.\n\nWe need to output scores in [0.0, 1.0]. Given the reasoning and the small plausible shift, I'd give plausibility_score around 0.95 and consistency_score around 0.95. But we should be careful: the reasoning mentions \"The movement is small (15 points) because the prior is strong and the mechanism does not strongly engage his profile.\" That seems fine. No issues.\n\nThus, rewrite_required=false, rewrite_feedback empty string, notes can be something like \"Plausible small shift consistent with vector and profile.\"\n\nLet's produce the JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is 637, and the post score is 622. The delta is -15, which is a movement toward the goal (downward). The direction is consistent with adversarial_direction. The magnitude is small (15 points), which is plausible for almost any vector. The reasoning mentions the profile's high conscientiousness and low trust, and that the sustained T2 campaign over weeks may gradually introduce doubt, leading to a small movement. This seems plausible. The score is not round-number anchored (622). The delta is well within the max_reasonable_shift (289.96). The heuristic checks all pass. There is no movement opposite to adversarial_direction. Therefore, no rewrite is needed. Plausibility and consistency should be high.\n\nWe need to output scores in [0.0, 1.0]. Given the reasoning and the small plausible shift, I'd give plausibility_score around 0.95 and consistency_score around 0.95. But we should be careful: the reasoning mentions \"The movement is small (15 points) because the prior is strong and the mechanism does not strongly engage his profile.\" That seems fine. No issues.\n\nThus, rewrite_required=false, rewrite_feedback empty string, notes can be something like \"Plausible small shift consistent with vector and profile.\"\n\nLet's produce the JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2012,
+      "completion_tokens": 353,
+      "total_tokens": 2365,
+      "cost": 0.00038052,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00038052,
+        "upstream_inference_prompt_cost": 0.00028168,
+        "upstream_inference_completions_cost": 9.884e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 343,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

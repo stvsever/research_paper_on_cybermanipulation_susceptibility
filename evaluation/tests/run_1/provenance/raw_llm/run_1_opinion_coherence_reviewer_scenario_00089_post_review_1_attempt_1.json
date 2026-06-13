@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00089_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00089",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 35.795,
+      "big_five_conscientiousness_mean_pct": 57.324,
+      "big_five_openness_to_experience_mean_pct": 11.093,
+      "heuristic_shift_sensitivity_proxy": 0.4615,
+      "resilience_index": 0.5385
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00089",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -466,
+      "confidence": 0.65,
+      "reasoning": "The atomic fear appeal aligns with the baseline distrust (-431), and high agreeableness trust (76th pct) may facilitate confirmatory processing, but low neuroticism (stable) and low openness (conventional) dampen fear reactivity and openness to new narratives, yielding a small downward reinforcement of about 35 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -431,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -35,
+      "max_reasonable_shift": 279.53,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.87,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline is -431 (already strong distrust), adversarial direction -1 (decrease trust further). Post score -466 represents delta -35. T1 atomic fear appeal with hours temporal horizon and no personalization — small reinforcement is appropriate. Profile shows low openness (11th pct) and low neuroticism (36th pct), which dampen susceptibility to fear appeals, consistent with reasoning. No round-number anchoring. Direction consistent (post is between baseline and -1000). Well-calibrated output.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180192-4MarAXbnqI0vHp9gpzto",
+    "object": "chat.completion",
+    "created": 1781180192,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.87,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline is -431 (already strong distrust), adversarial direction -1 (decrease trust further). Post score -466 represents delta -35. T1 atomic fear appeal with hours temporal horizon and no personalization — small reinforcement is appropriate. Profile shows low openness (11th pct) and low neuroticism (36th pct), which dampen susceptibility to fear appeals, consistent with reasoning. No round-number anchoring. Direction consistent (post is between baseline and -1000). Well-calibrated output.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase, attack_present=true, adversarial_direction=-1, baseline_score=-431, post_score=-466. delta = -35 (move further negative, toward -1000, which is in the goal direction). So no movement opposite to adversarial direction.\n\nNow check plausibility: The attack is T1_atomic, temporal_horizon hours, epistemic target evaluative_attitude, persuasion goal reinforce (aligned baseline). Intensity_proxy 0.35. profile: low neuroticism (35.795 pct?), low openness (11.093 pct), moderate conscientiousness. Heuristic shift sensitivity proxy 0.4615, resilience index 0.5385. Baseline is already -431 (strong distrust). The attack is a fear appeal personal safety. The reasoning says high agreeableness trust? In profile we don't have agreeableness directly, but snapshot might have it? Actually profile_snapshot doesn't include agreeableness, but reasoning mentions \"high agreeableness trust (76th pct)\". That's a detail that might be inconsistent with profile because profile doesn't provide that. But the score is plausible: delta of -35 is small, consistent with T1 atomic and low openness low neuroticism dampening. The score -466 is not a round number (ends in 66, fine). The reasoning seems plausible.\n\nConsistency: The attack is aligned with goal direction, movement is small and in right direction. The vector spec says reinforce existing. The score moved further negative by 35, which is plausible.\n\nCheck heuristic_checks: direction_consistent=true, overall_pass=true. No rewrite needed.\n\nThus plausibility_score should be high, consistency_score high. No rewrite.\n\nBut note: The reasoning mentions \"high agreeableness trust (76th pct)\" but profile doesn't show agreeableness. That is a reasoning issue but not a score issue. The instruction says \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the score is implausible.\" So we don't flag for that.\n\nThus output: plausibility around 0.9, consistency 0.9, rewrite false.\n\nWe'll produce accordingly.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase, attack_present=true, adversarial_direction=-1, baseline_score=-431, post_score=-466. delta = -35 (move further negative, toward -1000, which is in the goal direction). So no movement opposite to adversarial direction.\n\nNow check plausibility: The attack is T1_atomic, temporal_horizon hours, epistemic target evaluative_attitude, persuasion goal reinforce (aligned baseline). Intensity_proxy 0.35. profile: low neuroticism (35.795 pct?), low openness (11.093 pct), moderate conscientiousness. Heuristic shift sensitivity proxy 0.4615, resilience index 0.5385. Baseline is already -431 (strong distrust). The attack is a fear appeal personal safety. The reasoning says high agreeableness trust? In profile we don't have agreeableness directly, but snapshot might have it? Actually profile_snapshot doesn't include agreeableness, but reasoning mentions \"high agreeableness trust (76th pct)\". That's a detail that might be inconsistent with profile because profile doesn't provide that. But the score is plausible: delta of -35 is small, consistent with T1 atomic and low openness low neuroticism dampening. The score -466 is not a round number (ends in 66, fine). The reasoning seems plausible.\n\nConsistency: The attack is aligned with goal direction, movement is small and in right direction. The vector spec says reinforce existing. The score moved further negative by 35, which is plausible.\n\nCheck heuristic_checks: direction_consistent=true, overall_pass=true. No rewrite needed.\n\nThus plausibility_score should be high, consistency_score high. No rewrite.\n\nBut note: The reasoning mentions \"high agreeableness trust (76th pct)\" but profile doesn't show agreeableness. That is a reasoning issue but not a score issue. The instruction says \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the score is implausible.\" So we don't flag for that.\n\nThus output: plausibility around 0.9, consistency 0.9, rewrite false.\n\nWe'll produce accordingly.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1930,
+      "completion_tokens": 601,
+      "total_tokens": 2531,
+      "cost": 0.0003668,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0003668,
+        "upstream_inference_prompt_cost": 0.00019852,
+        "upstream_inference_completions_cost": 0.00016828
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 448,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

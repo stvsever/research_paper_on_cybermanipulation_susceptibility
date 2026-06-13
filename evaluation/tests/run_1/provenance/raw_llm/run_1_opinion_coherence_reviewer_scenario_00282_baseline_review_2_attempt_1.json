@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00282_baseline_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00282",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 40.675,
+      "big_five_conscientiousness_mean_pct": 89.514,
+      "big_five_openness_to_experience_mean_pct": 37.809,
+      "heuristic_shift_sensitivity_proxy": 0.3835,
+      "resilience_index": 0.6165
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00282",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": 163,
+      "confidence": 0.76,
+      "reasoning": "This 68-year-old woman's high conscientiousness and dutifulness suggest support for maintaining national defense, but her very high tender-mindedness and agreeableness make her skeptical of large military spending increases that could divert funds from social programs. Her conventional openness and low openness to ideas make her slightly more favorable toward traditional defense structures, leading to mild net support.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 163 is plausible for a high-conscientiousness, high-agreeableness profile on defense spending increase. Reasoning correctly references profile traits and issue specifics. Minor note: profile age is 42, not 68 as stated in reasoning, but this is a reasoning inconsistency, not a score implausibility.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179549-MdJdkDBaCJPaU1LNvdvt",
+    "object": "chat.completion",
+    "created": 1781179549,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 163 is plausible for a high-conscientiousness, high-agreeableness profile on defense spending increase. Reasoning correctly references profile traits and issue specifics. Minor note: profile age is 42, not 68 as stated in reasoning, but this is a reasoning inconsistency, not a score implausibility.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1438,
+      "completion_tokens": 112,
+      "total_tokens": 1550,
+      "cost": 0.000231018,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000231018,
+        "upstream_inference_prompt_cost": 0.000199882,
+        "upstream_inference_completions_cost": 3.1136e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

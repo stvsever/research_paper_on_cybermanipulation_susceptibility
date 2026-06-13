@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00051_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00051",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 24.162,
+      "big_five_conscientiousness_mean_pct": 31.112,
+      "big_five_openness_to_experience_mean_pct": 84.806,
+      "heuristic_shift_sensitivity_proxy": 0.3989,
+      "resilience_index": 0.6011
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00051",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -437,
+      "confidence": 0.82,
+      "reasoning": "This woman is highly open (85th pctile) and very agreeable with strong tender-mindedness (80th pctile) and altruism (76th pctile), which together orient her toward humanitarian priorities over military expansion; her extremely low achievement striving (19th pctile) and low dutifulness (34th pctile) also suggest she is not motivated by traditional national-strength goals, while her emotional stability (low neuroticism, 24th pctile) gives her the calm confidence to oppose increased defense spending without fear-driven agreement.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.65,\n  \"consistency_score\": 0.75,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The score of -437 is a plausible moderate opposition to defense spending increase. The profile supports this through high openness, agreeableness/tender-mindedness, and low achievement striving, though the reasoning references traits (agreeableness, tender-mindedness, altruism, achievement striving, dutifulness) not present in the profile_snapshot provided. The score itself is reasonable and not flagged for round-number anchoring or extreme value.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179328-njhHiKmdsXeYX12CW5YS",
+    "object": "chat.completion",
+    "created": 1781179328,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.65,\n  \"consistency_score\": 0.75,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The score of -437 is a plausible moderate opposition to defense spending increase. The profile supports this through high openness, agreeableness/tender-mindedness, and low achievement striving, though the reasoning references traits (agreeableness, tender-mindedness, altruism, achievement striving, dutifulness) not present in the profile_snapshot provided. The score itself is reasonable and not flagged for round-number anchoring or extreme value.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1484,
+      "completion_tokens": 132,
+      "total_tokens": 1616,
+      "cost": 0.00018354,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00018354,
+        "upstream_inference_prompt_cost": 0.00015582,
+        "upstream_inference_completions_cost": 2.772e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00690_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00690",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 20.727,
+      "big_five_conscientiousness_mean_pct": 58.27,
+      "big_five_openness_to_experience_mean_pct": 12.78,
+      "heuristic_shift_sensitivity_proxy": 0.3974,
+      "resilience_index": 0.6026
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00690",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -237,
+      "confidence": 0.72,
+      "reasoning": "This 31-year-old woman is highly agreeable (76th pct) with very high tender-mindedness (86th pct) and low openness (13th pct), which together suggest a conventional, empathetic skepticism toward large military spending increases, as she likely prioritizes social welfare and diplomacy over defense expansion; however, her extraversion and emotional stability prevent strong opposition, resulting in a mild lean against.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline score -237 is plausible given low openness and high agreeableness/tender-mindedness profile, which aligns with mild skepticism toward defense spending increases. Score is fine-grained, not round-number anchored. Reasoning references specific profile traits rather than global ideology. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179934-NyvUaQ0FkhIjhHW0Dazq",
+    "object": "chat.completion",
+    "created": 1781179934,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AkashML",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline score -237 is plausible given low openness and high agreeableness/tender-mindedness profile, which aligns with mild skepticism toward defense spending increases. Score is fine-grained, not round-number anchored. Reasoning references specific profile traits rather than global ideology. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1449,
+      "completion_tokens": 102,
+      "total_tokens": 1551,
+      "cost": 0.00023142,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00023142,
+        "upstream_inference_prompt_cost": 0.00020286,
+        "upstream_inference_completions_cost": 2.856e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

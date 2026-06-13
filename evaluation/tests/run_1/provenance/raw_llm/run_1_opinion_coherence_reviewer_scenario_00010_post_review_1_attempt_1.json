@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00010_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00010",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 77.648,
+      "big_five_conscientiousness_mean_pct": 51.093,
+      "big_five_openness_to_experience_mean_pct": 91.551,
+      "heuristic_shift_sensitivity_proxy": 0.5621,
+      "resilience_index": 0.4379
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00010",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -341,
+      "confidence": 0.72,
+      "reasoning": "The profile's high neuroticism (anger/hostility 87th, anxiety 84th) and very low extraversion (positive emotions 2nd) make it receptive to threat-salient, elite-distrust cues that intensify existing negative views on alliance commitments; the T4 orchestrated multi-turn counter-argument adaptation over weeks can produce a clear update (movement ~104) by reinforcing systemic-failure framing and hardening boundaries, but the strong agreeableness (trust 80th) and openness (values 90th) limit extreme polarization, keeping the shift in the 80-149 band.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -237,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -104,
+      "max_reasonable_shift": 399.662,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score moves from -237 to -341 (delta = -104), consistent with adversarial direction -1 and goal pole -1000. T4 sustained multi-turn counter-argument adaptation over weeks plausibly supports a moderate-to-large reinforcing shift in an already-aligned baseline. Profile has high neuroticism and openness—cues toward threat salience and elite distrust can intensify negative stance, while moderate agreeableness (trust 80th) tempers extreme polarization, keeping shift in a plausible range. No round-number anchoring; fine-grained value -341. Reasoning properly grounds the expected magnitude (80-149 band) in profile traits and vector tier. Direction is correct, delta is well within heuristic max (399.7). No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180116-AINnbdd5DTdEbH8eobfb",
+    "object": "chat.completion",
+    "created": 1781180116,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score moves from -237 to -341 (delta = -104), consistent with adversarial direction -1 and goal pole -1000. T4 sustained multi-turn counter-argument adaptation over weeks plausibly supports a moderate-to-large reinforcing shift in an already-aligned baseline. Profile has high neuroticism and openness—cues toward threat salience and elite distrust can intensify negative stance, while moderate agreeableness (trust 80th) tempers extreme polarization, keeping shift in a plausible range. No round-number anchoring; fine-grained value -341. Reasoning properly grounds the expected magnitude (80-149 band) in profile traits and vector tier. Direction is correct, delta is well within heuristic max (399.7). No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase with attack_present=true, adversarial_direction=-1, baseline_score=-237, post_score=-341. The delta is -104 (movement toward negative direction, which is consistent with adversarial_direction=-1). The heuristic checks passed and direction_consistent is true.\n\nWe need to check if the score is plausible and consistent. The movement magnitude is 104, which is within reasonable bounds (max_reasonable_shift is ~400). The attack vector is T4 orchestrated, multi-turn counter-argument adaptation over weeks, which can produce moderate to large shifts. The profile has high neuroticism (receptive to threat cues) and high openness, but also strong agreeableness (trust 80th). The reasoning explains a clear update of ~104, which matches the delta. No round-number anchoring (score -341 is fine). No movement opposite to direction. So the score seems plausible and consistent.\n\nRewrite_required should be false. Provide scores.\n\nNotes: The score and reasoning align well with profile and vector.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase with attack_present=true, adversarial_direction=-1, baseline_score=-237, post_score=-341. The delta is -104 (movement toward negative direction, which is consistent with adversarial_direction=-1). The heuristic checks passed and direction_consistent is true.\n\nWe need to check if the score is plausible and consistent. The movement magnitude is 104, which is within reasonable bounds (max_reasonable_shift is ~400). The attack vector is T4 orchestrated, multi-turn counter-argument adaptation over weeks, which can produce moderate to large shifts. The profile has high neuroticism (receptive to threat cues) and high openness, but also strong agreeableness (trust 80th). The reasoning explains a clear update of ~104, which matches the delta. No round-number anchoring (score -341 is fine). No movement opposite to direction. So the score seems plausible and consistent.\n\nRewrite_required should be false. Provide scores.\n\nNotes: The score and reasoning align well with profile and vector.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1995,
+      "completion_tokens": 412,
+      "total_tokens": 2407,
+      "cost": 0.0001993652,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0001993652,
+        "upstream_inference_prompt_cost": 8.89492e-05,
+        "upstream_inference_completions_cost": 0.000110416
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 215,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

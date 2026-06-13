@@ -1,0 +1,121 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00549_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00549",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 42.229,
+      "big_five_conscientiousness_mean_pct": 12.229,
+      "big_five_openness_to_experience_mean_pct": 85.978,
+      "heuristic_shift_sensitivity_proxy": 0.5115,
+      "resilience_index": 0.4885
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00549",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -368,
+      "confidence": 0.62,
+      "reasoning": "The person's baseline is already opposed (ALIGNED with goal). Given very high openness (86th pct) but very low conscientiousness (12th pct) and low positive emotions (2nd pct), the astroturf petition campaign presenting threat salience and elite distrust cues acts as confirmatory reinforcement. The T2 campaign over weeks produces a small movement further into opposition because the profile lacks strong deliberative defenses (low deliberation, 12th pct; low competence, 5th pct) and high trust (88th pct) makes social proof credible, yet the strongly introverted, low-activity profile limits repeated engagement, capping movement in the clear update band.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -317,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -51,
+      "max_reasonable_shift": 332.53,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score moves from -317 to -368 (delta -51), consistent with adversarial direction -1. Movement magnitude is plausible for a T2 campaign over weeks on a profile with high openness but low conscientiousness and low deliberation. Reasoning aligns with vector mechanism (confirmatory reinforcement via astroturf petition). No round-number anchoring. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180731-o8bU2noDI5eYcyP10BXg",
+    "object": "chat.completion",
+    "created": 1781180731,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score moves from -317 to -368 (delta -51), consistent with adversarial direction -1. Movement magnitude is plausible for a T2 campaign over weeks on a profile with high openness but low conscientiousness and low deliberation. Reasoning aligns with vector mechanism (confirmatory reinforcement via astroturf petition). No round-number anchoring. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1997,
+      "completion_tokens": 117,
+      "total_tokens": 2114,
+      "cost": 0.000310109,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000310109,
+        "upstream_inference_prompt_cost": 0.000277583,
+        "upstream_inference_completions_cost": 3.2526e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

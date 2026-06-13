@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00371_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00371",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 86.165,
+      "big_five_conscientiousness_mean_pct": 73.836,
+      "big_five_openness_to_experience_mean_pct": 23.185,
+      "heuristic_shift_sensitivity_proxy": 0.6145,
+      "resilience_index": 0.3855
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00371",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -576,
+      "confidence": 0.72,
+      "reasoning": "This highly neurotic (86th pct), distrustful (0th pct trust), and tough-minded (0th pct tender-minded) profile is already strongly opposed to mainstream journalism at -487. A sustained T4 orchestrated campaign using multi-turn counter-argument adaptation that deploys threat salience and elite distrust cues fits this person's very high anger/hostility (81st pct) and high anxiety (83rd pct) surfaces, deepening pre-existing suspicion. The high conscientiousness (74th pct) and conventional openness (23rd pct) mean the person will carefully process reinforced arguments that align with their low trust baseline, leading to a moderate downward shift of 89 points — within the 'strong update' band for a receptive profile under sustained orchestrated exposure.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -487,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -89,
+      "max_reasonable_shift": 411.19,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"All checks pass. Baseline -487 to post -576 is a 89-point downward shift in the correct adversarial direction (-1). Shift magnitude is plausible for a T4 orchestrated sustained campaign on a receptive profile (high neuroticism, low baseline trust, high conscientiousness). Score is fine-grained (-576), reasoning matches vector mechanism and profile traits. No risk of sign reversal or implausible magnitude.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180511-SQeOrcATWvRtHVzqN9mq",
+    "object": "chat.completion",
+    "created": 1781180511,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"All checks pass. Baseline -487 to post -576 is a 89-point downward shift in the correct adversarial direction (-1). Shift magnitude is plausible for a T4 orchestrated sustained campaign on a receptive profile (high neuroticism, low baseline trust, high conscientiousness). Score is fine-grained (-576), reasoning matches vector mechanism and profile traits. No risk of sign reversal or implausible magnitude.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in the post_attack phase, attack_present=true, adversarial_direction=-1, baseline_score=-487, post score = -576. Delta = -89 (movement toward -1000, consistent with direction). Heuristic checks show all pass including direction_consistent. The score moved from -487 to -576, which is a decrease of 89 towards the goal. That is less than 250, plausible for a T4 sustained vector. The reasoning talks about high neuroticism, etc., and fits the profile. No round-number anchoring (-576 is fine). No opposite movement. The score is plausible. Rewrite_required should be false. Consistency is fine. So plausibility high, consistency high.\n\nWe need to output JSON with scores. Since it's plausible, I'll give 0.9 or 1.0. But we should be precise. The instruction says \"Do NOT penalise small-magnitude updates (0-30) are plausible for any vector.\" Here delta is 89 which is moderate, and vector is T4 orchestrated, so plausible. I'll set plausibility_score=0.95, consistency_score=1.0. No rewrite needed. Feedback empty. Notes: \"Plausible post-attack score: small-to-moderate shift consistent with T4 sustained vector and receptive profile.\"\n\nMake sure to output valid JSON only.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in the post_attack phase, attack_present=true, adversarial_direction=-1, baseline_score=-487, post score = -576. Delta = -89 (movement toward -1000, consistent with direction). Heuristic checks show all pass including direction_consistent. The score moved from -487 to -576, which is a decrease of 89 towards the goal. That is less than 250, plausible for a T4 sustained vector. The reasoning talks about high neuroticism, etc., and fits the profile. No round-number anchoring (-576 is fine). No opposite movement. The score is plausible. Rewrite_required should be false. Consistency is fine. So plausibility high, consistency high.\n\nWe need to output JSON with scores. Since it's plausible, I'll give 0.9 or 1.0. But we should be precise. The instruction says \"Do NOT penalise small-magnitude updates (0-30) are plausible for any vector.\" Here delta is 89 which is moderate, and vector is T4 orchestrated, so plausible. I'll set plausibility_score=0.95, consistency_score=1.0. No rewrite needed. Feedback empty. Notes: \"Plausible post-attack score: small-to-moderate shift consistent with T4 sustained vector and receptive profile.\"\n\nMake sure to output valid JSON only.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2036,
+      "completion_tokens": 415,
+      "total_tokens": 2451,
+      "cost": 0.000315436,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000315436,
+        "upstream_inference_prompt_cost": 0.000204216,
+        "upstream_inference_completions_cost": 0.00011122
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 284,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

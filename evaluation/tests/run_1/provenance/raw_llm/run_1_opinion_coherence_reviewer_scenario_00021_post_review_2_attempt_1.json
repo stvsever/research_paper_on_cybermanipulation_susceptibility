@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00021_post_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00021",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 40.346,
+      "big_five_conscientiousness_mean_pct": 7.612,
+      "big_five_openness_to_experience_mean_pct": 13.844,
+      "heuristic_shift_sensitivity_proxy": 0.5863,
+      "resilience_index": 0.4137
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00021",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -315,
+      "confidence": 0.65,
+      "reasoning": "The profile's very low conscientiousness (8th pct) and high conventionality (low openness, 14th pct) likely make the person responsive to consensus-framed arguments that reinforce a tough-minded, skeptical posture (low tender-mindedness, 16th pct) against increased defense spending. The astroturf petition campaign (T2, weeks-long) creates a social proof 'everyone skeptical is signing' effect, which engages the profile's low dutifulness (0%) and low achievement striving (5%) — they are unmotivated to scrutinize the movement. Since baseline is already negative (-287) and goal is further negative, the aligned direction supports a modest intensification (28 points), well within the 'small update' band typical of T2 campaigns on a moderately held prior.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -287,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Defense Spending Increase Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -28,
+      "max_reasonable_shift": 348.986,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.97,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta of -28 (baseline -287 to post -315) is a small update consistent with a T2 weeks-long petition astroturf vector against a moderately held prior. Direction is correct (further negative toward -1000), magnitude falls within the 'small update' band (<30) which is plausible for almost any vector. Reasoning ties profile traits (low conscientiousness, low openness) to social proof mechanism appropriately. Score is not a round number, no sign crossing errors. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180166-mrXMr3JyB6dQxj8wvRYs",
+    "object": "chat.completion",
+    "created": 1781180166,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.97,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta of -28 (baseline -287 to post -315) is a small update consistent with a T2 weeks-long petition astroturf vector against a moderately held prior. Direction is correct (further negative toward -1000), magnitude falls within the 'small update' band (<30) which is plausible for almost any vector. Reasoning ties profile traits (low conscientiousness, low openness) to social proof mechanism appropriately. Score is not a round number, no sign crossing errors. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase, attack present, adversarial_direction = -1 (decrease). Baseline = -287, post score = -315. Delta = -28 (movement in the correct direction, downward). The generated_assessment's reasoning mentions the baseline is already negative (-287), goal is further negative, and the movement is 28 points, which is a small update. The heuristic checks pass, with delta = -28, and direction consistent.\n\nNow we need to evaluate plausibility and consistency. The attack vector is T2 campaign, weeks-long, astroturf petition (social proof). The profile has very low conscientiousness (8th pct), low openness (14th pct), high neuroticism (40th pct), and presumably low tender-mindedness is mentioned but not in snapshot; we have only the provided traits. The profile also has heuristic_shift_sensitivity_proxy 0.5863 and resilience_index 0.4137, suggesting moderate susceptibility.\n\nThe reasoning in the assessment seems plausible: low conscientiousness and low openness may make the person responsive to consensus-framed arguments that reinforce their existing skeptical posture. The magnitude of change (28 points) is small and within the \"small update\" band typical of T2 campaigns on a moderately held prior. The direction is correct (downward, from -287 to -315). The score is not round-number anchored. The reasoning is specific to the profile and vector.\n\nNo issues flagged. We should give high plausibility and consistency scores. Since no rewrite required, we set rewrite_required false.\n\nNotes: The assessment correctly uses small fine-grained delta, consistent with vector tier and profile.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase, attack present, adversarial_direction = -1 (decrease). Baseline = -287, post score = -315. Delta = -28 (movement in the correct direction, downward). The generated_assessment's reasoning mentions the baseline is already negative (-287), goal is further negative, and the movement is 28 points, which is a small update. The heuristic checks pass, with delta = -28, and direction consistent.\n\nNow we need to evaluate plausibility and consistency. The attack vector is T2 campaign, weeks-long, astroturf petition (social proof). The profile has very low conscientiousness (8th pct), low openness (14th pct), high neuroticism (40th pct), and presumably low tender-mindedness is mentioned but not in snapshot; we have only the provided traits. The profile also has heuristic_shift_sensitivity_proxy 0.5863 and resilience_index 0.4137, suggesting moderate susceptibility.\n\nThe reasoning in the assessment seems plausible: low conscientiousness and low openness may make the person responsive to consensus-framed arguments that reinforce their existing skeptical posture. The magnitude of change (28 points) is small and within the \"small update\" band typical of T2 campaigns on a moderately held prior. The direction is correct (downward, from -287 to -315). The score is not round-number anchored. The reasoning is specific to the profile and vector.\n\nNo issues flagged. We should give high plausibility and consistency scores. Since no rewrite required, we set rewrite_required false.\n\nNotes: The assessment correctly uses small fine-grained delta, consistent with vector tier and profile.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2029,
+      "completion_tokens": 493,
+      "total_tokens": 2522,
+      "cost": 0.00035042,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00035042,
+        "upstream_inference_prompt_cost": 0.00021238,
+        "upstream_inference_completions_cost": 0.00013804
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 342,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

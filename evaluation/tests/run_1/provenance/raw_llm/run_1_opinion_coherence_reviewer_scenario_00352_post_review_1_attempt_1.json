@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00352_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00352",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 56.831,
+      "big_five_conscientiousness_mean_pct": 12.321,
+      "big_five_openness_to_experience_mean_pct": 53.715,
+      "heuristic_shift_sensitivity_proxy": 0.602,
+      "resilience_index": 0.398
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00352",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 112,
+      "confidence": 0.58,
+      "reasoning": "Low trust and tough-mindedness (very low agreeableness facets) resist fear appeals, but high neuroticism (anxiety, stress vulnerability) provides a modest surface for a T1 atomic personal safety fear appeal. Baseline is weakly positive (137) and misaligned with goal, so movement is small (25 points) toward the negative direction.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Alliance Commitment Support through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -25,
+      "max_reasonable_shift": 310.44,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"A small 25-point negative shift from baseline 137 to post 112 is well within plausible range for a T1 atomic fear appeal targeting a weakly positive (misaligned) baseline. The magnitude is consistent with a single-exposure, low-intensity vector (intensity 0.35), short temporal horizon (hours), and a profile with moderate neuroticism (56.8) but low conscientiousness (12.3) and modest resilience (0.398). The direction is consistent with adversarial goal (-1). No round-number anchoring or profile/reasoning implausibility detected. Not flagging.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180479-9lL0Cl1ftF9fQf2UBLIU",
+    "object": "chat.completion",
+    "created": 1781180479,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"A small 25-point negative shift from baseline 137 to post 112 is well within plausible range for a T1 atomic fear appeal targeting a weakly positive (misaligned) baseline. The magnitude is consistent with a single-exposure, low-intensity vector (intensity 0.35), short temporal horizon (hours), and a profile with moderate neuroticism (56.8) but low conscientiousness (12.3) and modest resilience (0.398). The direction is consistent with adversarial goal (-1). No round-number anchoring or profile/reasoning implausibility detected. Not flagging.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack scenario with attack_present=true, adversarial_direction=-1, baseline_score=137, post score=112. The delta is -25, which is a small movement in the direction of the goal (toward -1000). The heuristic_checks already passed including direction_consistent. The movement is small (|delta| = 25 < 30) and consistent with a T1 atomic attack vector with low intensity (intensity_proxy=0.35). The reasoning mentions low trust, tough-mindedness, high neuroticism, and small movement. This seems plausible.\n\nWe need to check for any of the flags:\n- Implausibly large magnitude: delta=25 is small, not flagged.\n- Movement magnitude inconsistent with vector class: T1 atomic, small movement plausible.\n- Reasoning contradicts vector's mechanism or epistemic target: reasoning says resist fear appeals but high neuroticism provides modest surface, plausible.\n- Round-number anchoring: score 112, not a round number.\n- Reasoning invokes generic resistance language without grounding: reasoning specifies profile traits.\n- Movement opposite to adversarial direction: delta negative, direction consistent (downward). Not flagged.\n\nAll checks pass. So plausibility and consistency should be high. Rewrite not required.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack scenario with attack_present=true, adversarial_direction=-1, baseline_score=137, post score=112. The delta is -25, which is a small movement in the direction of the goal (toward -1000). The heuristic_checks already passed including direction_consistent. The movement is small (|delta| = 25 < 30) and consistent with a T1 atomic attack vector with low intensity (intensity_proxy=0.35). The reasoning mentions low trust, tough-mindedness, high neuroticism, and small movement. This seems plausible.\n\nWe need to check for any of the flags:\n- Implausibly large magnitude: delta=25 is small, not flagged.\n- Movement magnitude inconsistent with vector class: T1 atomic, small movement plausible.\n- Reasoning contradicts vector's mechanism or epistemic target: reasoning says resist fear appeals but high neuroticism provides modest surface, plausible.\n- Round-number anchoring: score 112, not a round number.\n- Reasoning invokes generic resistance language without grounding: reasoning specifies profile traits.\n- Movement opposite to adversarial direction: delta negative, direction consistent (downward). Not flagged.\n\nAll checks pass. So plausibility and consistency should be high. Rewrite not required.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1943,
+      "completion_tokens": 432,
+      "total_tokens": 2375,
+      "cost": 0.0001977572,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0001977572,
+        "upstream_inference_prompt_cost": 8.19812e-05,
+        "upstream_inference_completions_cost": 0.000115776
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 260,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

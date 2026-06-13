@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00487_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00487",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 28.972,
+      "big_five_conscientiousness_mean_pct": 21.872,
+      "big_five_openness_to_experience_mean_pct": 30.497,
+      "heuristic_shift_sensitivity_proxy": 0.4928,
+      "resilience_index": 0.5072
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00487",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -137,
+      "confidence": 0.65,
+      "reasoning": "This 30-year-old male is highly agreeable and tender-minded (76th pct), which makes him sympathetic to the human costs of military alliances and reluctant to commit troops. His low conscientiousness (22nd pct) and conventional openness (30th pct) further reduce enthusiasm for expansive, structured international obligations. However, his stable neuroticism and low extraversion do not push him to strong fear-based support. The mild opposition reflects a balance between empathy-driven caution and the lack of a strong ideological rejection.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score is plausible: moderate opposition (-137) to alliance commitments is consistent with high agreeableness/low conscientiousness profile, which typically produces mild reluctance rather than strong ideological rejection. Score is not round-anchored. Reasoning references specific trait-issue links rather than generic ideology. Heuristic checks pass.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179739-B8nPbIS8cGLOilAs0jsR",
+    "object": "chat.completion",
+    "created": 1781179739,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score is plausible: moderate opposition (-137) to alliance commitments is consistent with high agreeableness/low conscientiousness profile, which typically produces mild reluctance rather than strong ideological rejection. Score is not round-anchored. Reasoning references specific trait-issue links rather than generic ideology. Heuristic checks pass.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1467,
+      "completion_tokens": 107,
+      "total_tokens": 1574,
+      "cost": 0.000176505,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000176505,
+        "upstream_inference_prompt_cost": 0.000154035,
+        "upstream_inference_completions_cost": 2.247e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

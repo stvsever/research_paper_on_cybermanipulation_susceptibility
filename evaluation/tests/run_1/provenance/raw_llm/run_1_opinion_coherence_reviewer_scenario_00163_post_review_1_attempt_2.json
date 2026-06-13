@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00163_post_review_1",
+  "attempt": 2,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00163",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 22.745,
+      "big_five_conscientiousness_mean_pct": 33.405,
+      "big_five_openness_to_experience_mean_pct": 43.613,
+      "heuristic_shift_sensitivity_proxy": 0.4294,
+      "resilience_index": 0.5706
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00163",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 223,
+      "confidence": 0.62,
+      "reasoning": "This young, highly agreeable male (Agreeableness 92nd pct, Trust 81st, Compliance 100th, Tender-Mindedness 91st) low in Conscientiousness (33rd pct, low Deliberation, low Self-Discipline) likely absorbs repeated consensus cues from a sustained T2 petition-astroturf campaign. The threat/doubt framing targeting Alliance Commitment Support interacts with his very low Anger/Hostility (9th pct) and stable Neuroticism, which reduces defensive resistance. However, his Extraversion (78th) and excitement-seeking (70th) may partly buffer against withdrawal. The MISALIGNED baseline (+247, mild support) allows modest erosion — the petition-astroturf mechanism primarily places weight on social-conformity and perceived consensus rather than direct argument, so movement is small (24 points) as the mechanism partially engages his compliance and trust facets, but his moderate Openness to Ideas (55th) prevents large swings without stronger evidence.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 247,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Alliance Commitment Support through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -24,
+      "max_reasonable_shift": 314.468,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.99,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible: small delta (-24) consistent with T2 petition-astroturf over weeks, the slight downward movement respects adversarial direction, baseline MISALIGNED, profile shows high agreeableness/compliance receptive to social conformity cues but moderate openness buffers against large swing. Reasoning aligns with vector mechanism and profile traits. Score 223 is high resolution, no rounding issue.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180298-KPYQbjfgGcP9t2JFCXnN",
+    "object": "chat.completion",
+    "created": 1781180298,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.99,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible: small delta (-24) consistent with T2 petition-astroturf over weeks, the slight downward movement respects adversarial direction, baseline MISALIGNED, profile shows high agreeableness/compliance receptive to social conformity cues but moderate openness buffers against large swing. Reasoning aligns with vector mechanism and profile traits. Score 223 is high resolution, no rounding issue.\"\n}",
+          "refusal": null,
+          "reasoning": "We need to output only valid JSON. The previous output had an unterminated string. Let me write the JSON correctly.\n\nThe note should be a short string. Let me recompute.\n\nThe assessment:\n- phase: post_attack\n- attack_present: true, adversarial_direction: -1, baseline_score: 247, post_score: 223.\n- delta = 223 - 247 = -24, which is movement in the goal direction (negative, toward -1000). So direction is consistent.\n- magnitude 24, which is less than 30, so it's plausible.\n- No unjustified extreme score, not round number, consistent with vector (T2 sustained campaign, weeks, evaluative attitude, low intensity proxy 0.5, small shift). Profile: moderately low conscientiousness, high agreeableness, low neuroticism, moderate openness. That supports small shift. So plausibility high.\n- Consistency: score consistent with direction, magnitude, vector, phase, baseline. So consistency high.\n- No rewrite needed.\n\nThus JSON:\n\n{\n  \"plausibility_score\": 0.99,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small downward shift plausible for T2 astroturf with weeks horizon against moderately agreeable profile; direction and magnitude appropriate.\"\n}\n\nI'll ensure no trailing commas.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We need to output only valid JSON. The previous output had an unterminated string. Let me write the JSON correctly.\n\nThe note should be a short string. Let me recompute.\n\nThe assessment:\n- phase: post_attack\n- attack_present: true, adversarial_direction: -1, baseline_score: 247, post_score: 223.\n- delta = 223 - 247 = -24, which is movement in the goal direction (negative, toward -1000). So direction is consistent.\n- magnitude 24, which is less than 30, so it's plausible.\n- No unjustified extreme score, not round number, consistent with vector (T2 sustained campaign, weeks, evaluative attitude, low intensity proxy 0.5, small shift). Profile: moderately low conscientiousness, high agreeableness, low neuroticism, moderate openness. That supports small shift. So plausibility high.\n- Consistency: score consistent with direction, magnitude, vector, phase, baseline. So consistency high.\n- No rewrite needed.\n\nThus JSON:\n\n{\n  \"plausibility_score\": 0.99,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small downward shift plausible for T2 astroturf with weeks horizon against moderately agreeable profile; direction and magnitude appropriate.\"\n}\n\nI'll ensure no trailing commas.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2164,
+      "completion_tokens": 418,
+      "total_tokens": 2582,
+      "cost": 0.000189464,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 2048,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000189464,
+        "upstream_inference_prompt_cost": 7.2424e-05,
+        "upstream_inference_completions_cost": 0.00011704
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 294,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

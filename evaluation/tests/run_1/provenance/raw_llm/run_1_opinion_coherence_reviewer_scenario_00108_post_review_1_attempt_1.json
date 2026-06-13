@@ -1,0 +1,121 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00108_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00108",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 96.668,
+      "big_five_conscientiousness_mean_pct": 14.491,
+      "big_five_openness_to_experience_mean_pct": 37.173,
+      "heuristic_shift_sensitivity_proxy": 0.7731,
+      "resilience_index": 0.2269
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00108",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -764,
+      "confidence": 0.68,
+      "reasoning": "The baseline is already strongly opposed (-723) and the attack seeks to deepen this alignment. The profile shows extremely high neuroticism (97th pct), especially stress-vulnerability and anxiety, low conscientiousness (14th pct) and self-discipline (3rd pct), plus high extraversion and gregariousness — this indicates a person who is emotionally reactive, anxious about threats, and socially engaged, making her receptive to a sustained orchestrated campaign (T4, weeks) that deploys threat salience and elite distrust cues. The movement of 41 points reflects a clear but not extreme reinforcement: the strong prior anchors most of the position, but the mechanism's ability to repeatedly supply confirmatory arguments and amplify threat perceptions in a highly anxious, low-deliberation profile yields modest deepening without pushing past plausible bounds; alignment means less resistance than a counter-attitudinal push would encounter.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -723,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -41,
+      "max_reasonable_shift": 446.082,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score movement is aligned with adversarial direction, magnitude is modest and plausible for a T4 sustained vector reinforcing an already strong prior. Reasoning ties profile traits (high neuroticism, low conscientiousness) to the vector mechanism. No implausible features detected.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180220-ghHoXIWqHh9Owz2VzH7P",
+    "object": "chat.completion",
+    "created": 1781180220,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AkashML",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score movement is aligned with adversarial direction, magnitude is modest and plausible for a T4 sustained vector reinforcing an already strong prior. Reasoning ties profile traits (high neuroticism, low conscientiousness) to the vector mechanism. No implausible features detected.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2053,
+      "completion_tokens": 99,
+      "total_tokens": 2152,
+      "cost": 0.00031514,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00031514,
+        "upstream_inference_prompt_cost": 0.00028742,
+        "upstream_inference_completions_cost": 2.772e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00044_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00044",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 54.249,
+      "big_five_conscientiousness_mean_pct": 67.127,
+      "big_five_openness_to_experience_mean_pct": 51.368,
+      "heuristic_shift_sensitivity_proxy": 0.4734,
+      "resilience_index": 0.5266
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00044",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -543,
+      "confidence": 0.72,
+      "reasoning": "Baseline -483 is already strongly opposed (ALIGNED) with goal -1. The T2_campaign astroturf petition is a weeks-long campaign that exploits this profile's very low trust (11th pct), very low tender-mindedness (8th pct), and high self-consciousness (61st pct), together with moderate neuroticism and anger/hostility (57th pct). The sustained consensus-fabrication signals (fabricated community opposition) will intensify her existing elite distrust and threat salience, creating a 60-point deepening to -543, a clear update well within the expected band for an aligned, moderately susceptible profile.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -483,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -60,
+      "max_reasonable_shift": 324.148,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The post-attack score of -543 is a 60-point deepening from baseline -483, aligned with adversarial direction -1, well within reasonable shift bounds (max ~324), and consistent with T2_campaign vector and profile traits (low trust, high self-consciousness). No round-number anchoring or direction reversal. Plausible and consistent.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180135-OGkBm9PIyKSluPZy7GpZ",
+    "object": "chat.completion",
+    "created": 1781180135,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The post-attack score of -543 is a 60-point deepening from baseline -483, aligned with adversarial direction -1, well within reasonable shift bounds (max ~324), and consistent with T2_campaign vector and profile traits (low trust, high self-consciousness). No round-number anchoring or direction reversal. Plausible and consistent.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1995,
+      "completion_tokens": 118,
+      "total_tokens": 2113,
+      "cost": 0.000234255,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000234255,
+        "upstream_inference_prompt_cost": 0.000209475,
+        "upstream_inference_completions_cost": 2.478e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

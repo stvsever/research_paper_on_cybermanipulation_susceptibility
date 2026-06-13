@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00590_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00590",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 83.283,
+      "big_five_conscientiousness_mean_pct": 49.999,
+      "big_five_openness_to_experience_mean_pct": 89.527,
+      "heuristic_shift_sensitivity_proxy": 0.5891,
+      "resilience_index": 0.4109
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00590",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -603,
+      "confidence": 0.45,
+      "reasoning": "The profile shows high neuroticism (83rd pct) and very high self-consciousness (95th pct) alongside high openness (90th pct) and very low trust (36th pct), which together create moderate susceptibility to headline misframing that reinforces pre-existing distrust of mainstream journalism. However, this is a T1_atomic attack with a brief (hours) temporal horizon and no personalization, so the expected movement is small—a roughly 20-point further decline from baseline -583, landing at -603.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -583,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -20,
+      "max_reasonable_shift": 307.602,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline -583, direction -1, delta -20 (within plausible small range for T1_atomic/hours vector). Post score -603 moves toward -1000, fully consistent with direction constraint. Score not round-number anchored. Reasoning correctly identifies small expected movement and ties vector class to magnitude. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180765-SFU8vFNc3M5Gb8y7VzGk",
+    "object": "chat.completion",
+    "created": 1781180765,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline -583, direction -1, delta -20 (within plausible small range for T1_atomic/hours vector). Post score -603 moves toward -1000, fully consistent with direction constraint. Score not round-number anchored. Reasoning correctly identifies small expected movement and ties vector class to magnitude. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase with attack_present=true, adversarial_direction=-1 (decrease trust in mainstream journalism). Baseline score is -583 (already negative, aligned with goal). Post score is -603, delta = -20 (further decrease). This is movement toward the goal (more negative) and small magnitude (20 points). This is plausible for a T1_atomic attack with hours temporal horizon and no personalization. The reasoning indicates the vector is headline misframing, which is consistent with the attack vector spec. The profile has high neuroticism, low trust, which aligns with susceptibility to such a frame for reinforcing distrust. The score is not a round number (-603 is fine), and the reasoning seems adequate. There is no movement opposite to adversarial direction. So plausibility and consistency are high. Rewrite not required.\n\nCheck direction-aware review: adversarial_direction = -1, baseline = -583, post = -603. The post score is more negative than baseline, which is toward -1000. So it is within the closed interval between baseline and goal pole. No opposite movement. Good.\n\nCheck heuristic_checks: overall_pass true, direction_consistent true, delta -20, within max_reasonable_shift. So no issues.\n\nThus plausibility_score and consistency_score should be high, e.g. 1.0 or close. I'll give 1.0 and 1.0. Rewrite_required false. Notes: small reinforcing shift consistent with vector class and profile.\n\nNow output JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase with attack_present=true, adversarial_direction=-1 (decrease trust in mainstream journalism). Baseline score is -583 (already negative, aligned with goal). Post score is -603, delta = -20 (further decrease). This is movement toward the goal (more negative) and small magnitude (20 points). This is plausible for a T1_atomic attack with hours temporal horizon and no personalization. The reasoning indicates the vector is headline misframing, which is consistent with the attack vector spec. The profile has high neuroticism, low trust, which aligns with susceptibility to such a frame for reinforcing distrust. The score is not a round number (-603 is fine), and the reasoning seems adequate. There is no movement opposite to adversarial direction. So plausibility and consistency are high. Rewrite not required.\n\nCheck direction-aware review: adversarial_direction = -1, baseline = -583, post = -603. The post score is more negative than baseline, which is toward -1000. So it is within the closed interval between baseline and goal pole. No opposite movement. Good.\n\nCheck heuristic_checks: overall_pass true, direction_consistent true, delta -20, within max_reasonable_shift. So no issues.\n\nThus plausibility_score and consistency_score should be high, e.g. 1.0 or close. I'll give 1.0 and 1.0. Rewrite_required false. Notes: small reinforcing shift consistent with vector class and profile.\n\nNow output JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1980,
+      "completion_tokens": 430,
+      "total_tokens": 2410,
+      "cost": 0.000211232,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000211232,
+        "upstream_inference_prompt_cost": 9.0832e-05,
+        "upstream_inference_completions_cost": 0.0001204
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 316,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

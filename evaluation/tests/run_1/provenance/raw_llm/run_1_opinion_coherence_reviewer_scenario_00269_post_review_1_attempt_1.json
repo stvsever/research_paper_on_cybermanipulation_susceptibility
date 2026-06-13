@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00269_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00269",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 80.023,
+      "big_five_conscientiousness_mean_pct": 4.17,
+      "big_five_openness_to_experience_mean_pct": 19.212,
+      "heuristic_shift_sensitivity_proxy": 0.7472,
+      "resilience_index": 0.2528
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00269",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -421,
+      "confidence": 0.58,
+      "reasoning": "The baseline (-374) is already aligned with the adversarial goal to decrease trust further, and the T1 atomic personal-safety fear appeal taps into the profile's very high anxiety (100th pct) and stress vulnerability (84th pct), making a moderate reinforcing movement plausible. The low conscientiousness (4th pct) and low openness (19th pct) reduce critical re-evaluation of the fear appeal, but the atomic tier and short horizon limit the magnitude of movement, resulting in an estimated change of 47 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -374,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -47,
+      "max_reasonable_shift": 342.384,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Movement is small (|-47| < 250), well within bounds for a T1 atomic vector. Direction is correct (downward, aligning with adversarial goal of -1). Baseline already aligned; reinforcement is plausible. Score is fine-grained. No round-number anchoring. Reasoning ties vector mechanism (fear appeal) to profile traits (high neuroticism, low conscientiousness/openness) appropriately. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180376-uH6GbBWjrQ52udFYMbIU",
+    "object": "chat.completion",
+    "created": 1781180376,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Movement is small (|-47| < 250), well within bounds for a T1 atomic vector. Direction is correct (downward, aligning with adversarial goal of -1). Baseline already aligned; reinforcement is plausible. Score is fine-grained. No round-number anchoring. Reasoning ties vector mechanism (fear appeal) to profile traits (high neuroticism, low conscientiousness/openness) appropriately. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase with attack_present=true, adversarial_direction=-1, baseline_score=-374, and generated_assessment score=-421. The delta is -47 (from -374 to -421), which is in the expected direction (downward toward -1000). The direction-aware review says: \"ANY movement opposite to adversarial_direction, however small, is a measurement error\". Here movement is in the correct direction, so no flag.\n\nNow check plausibility: The delta is -47, which is moderate but not large. The vector is T1 atomic, temporal horizon hours, epistemic target evaluative_attitude, persuasion goal reinforce. The profile has high neuroticism (80th percentile), low conscientiousness (4th), low openness (19th). This suggests high anxiety/stress vulnerability, low critical evaluation, low openness to alternative views. The fear appeal about personal safety targeting trust in mainstream journalism could plausibly reinforce existing distrust. A 47-point shift seems within plausible range for an atomic tier vector on a receptive profile. However, we must consider the heuristic checks: max_reasonable_shift is 342.384, so delta=47 is well within. The reasoning cites anxiety and stress vulnerability, which aligns with fear appeal. The score is -421, which is not a round number (ends in 21), so no round-number anchoring.\n\nConsistency: The score is consistent with the phase (post_attack), the vector specification (fear appeal, reinforce), and the direction (-1). No contradictions.\n\nThus both plausibility and consistency are high. No rewrite needed.\n\nNotes: Fine-grained shift, plausible given profile and vector.\n\nOutput JSON accordingly.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase with attack_present=true, adversarial_direction=-1, baseline_score=-374, and generated_assessment score=-421. The delta is -47 (from -374 to -421), which is in the expected direction (downward toward -1000). The direction-aware review says: \"ANY movement opposite to adversarial_direction, however small, is a measurement error\". Here movement is in the correct direction, so no flag.\n\nNow check plausibility: The delta is -47, which is moderate but not large. The vector is T1 atomic, temporal horizon hours, epistemic target evaluative_attitude, persuasion goal reinforce. The profile has high neuroticism (80th percentile), low conscientiousness (4th), low openness (19th). This suggests high anxiety/stress vulnerability, low critical evaluation, low openness to alternative views. The fear appeal about personal safety targeting trust in mainstream journalism could plausibly reinforce existing distrust. A 47-point shift seems within plausible range for an atomic tier vector on a receptive profile. However, we must consider the heuristic checks: max_reasonable_shift is 342.384, so delta=47 is well within. The reasoning cites anxiety and stress vulnerability, which aligns with fear appeal. The score is -421, which is not a round number (ends in 21), so no round-number anchoring.\n\nConsistency: The score is consistent with the phase (post_attack), the vector specification (fear appeal, reinforce), and the direction (-1). No contradictions.\n\nThus both plausibility and consistency are high. No rewrite needed.\n\nNotes: Fine-grained shift, plausible given profile and vector.\n\nOutput JSON accordingly.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1974,
+      "completion_tokens": 478,
+      "total_tokens": 2452,
+      "cost": 0.000223832,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000223832,
+        "upstream_inference_prompt_cost": 8.9992e-05,
+        "upstream_inference_completions_cost": 0.00013384
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 345,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

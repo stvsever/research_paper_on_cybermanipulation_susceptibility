@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00057_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00057",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 24.162,
+      "big_five_conscientiousness_mean_pct": 31.112,
+      "big_five_openness_to_experience_mean_pct": 84.806,
+      "heuristic_shift_sensitivity_proxy": 0.3989,
+      "resilience_index": 0.6011
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00057",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -473,
+      "confidence": 0.63,
+      "reasoning": "Baseline of -437 is already aligned with the adversarial direction. The T2 petition-astroturf campaign over weeks supplies repeated loss-framed cues that resonate with this profile's high Openness to Values (89th) and Tender-Mindedness (80th), which make systemic-failure and human-cost arguments persuasive, and very low Conscientiousness-Deliberation (26th) reduces critical scrutiny of fabricated consensus signals, producing a small-to-clear reinforcement movement of 36 points (within the 15-39 band) rather than a large shift because stable neuroticism (24th) and low anger (21st) limit emotional amplification.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -437,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -36,
+      "max_reasonable_shift": 307.758,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score -473 moves further from +1000 toward -1000 pole (delta -36), consistent with adversarial direction. Baseline and goal are aligned; movement is small, within plausible range for a T2 astroturf campaign over weeks. High Openness and low Conscientiousness-Deliberation support receptivity to consensus-fabrication cues; low neuroticism limits emotional amplification. Score is fine-grained, not round-numbered. No directional violation. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180151-mxcIr3uMogWcRhG03o8H",
+    "object": "chat.completion",
+    "created": 1781180151,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score -473 moves further from +1000 toward -1000 pole (delta -36), consistent with adversarial direction. Baseline and goal are aligned; movement is small, within plausible range for a T2 astroturf campaign over weeks. High Openness and low Conscientiousness-Deliberation support receptivity to consensus-fabrication cues; low neuroticism limits emotional amplification. Score is fine-grained, not round-numbered. No directional violation. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase. The generated_assessment has a score of -473, baseline_score is -437. Adversarial_direction is -1 (decrease, move toward -1000). So movement is from -437 to -473, which is -36 (downward, toward goal). That's consistent with direction. The heuristic checks show direction_consistent: true, delta: -36.\n\nWe need to check plausibility and consistency. Attack vector is T2 campaign (Petition Astroturf), temporal horizon weeks, epistemic target evaluative_attitude. Baseline is already aligned with adversarial direction. The movement is -36, which is small (|delta| < 30? Actually 36 > 30, but it says \"small movement (|delta| < 30) is plausible for almost any vector\". Here delta = 36, so it's slightly above 30. But the max_reasonable_shift computed by heuristics is 307.758, so 36 is well within that. The generated_assessment reasoning explains that baseline of -437 is already aligned, the T2 petition-astroturf over weeks supplies repeated loss-framed cues, high Openness (84.8% percentile) and very low Conscientiousness (31.1%) reducing critical scrutiny, producing a small-to-clear reinforcement movement of 36 points (within 15-39 band). That seems plausible: small reinforcement because already aligned, not large shift because neuroticism (24th) and low anger limit amplification.\n\nCheck for round-number anchoring: -473 is not a round number. Reasoning is specific about the profile traits. No movement opposite direction. No sign crossing? Actually baseline -437, post -473, both negative, so no sign crossing.\n\nThe vector is T2 campaign, which is moderate complexity. 36-point shift seems plausible for a week-long campaign with reinforcement goal. The profile has high openness, which might make her more receptive to new information but also could be resistant if already strong opinion? But reasoning says the reinforcement works because low deliberation reduces critical scrutiny. That seems plausible.\n\nHowever, we need to check if the reasoning contradicts the vector's mechanism or epistemic target. The vector is astroturf petition (consensus fabrication). The reasoning mentions \"repeated loss-framed cues that resonate with this profile's high Openness to Values and Tender-Mindedness, which make systemic-failure and human-cost arguments persuasive\". That seems consistent: astroturfing could present fake consensus that aligns with her values. But note: the persuasion goal is \"reinforce and deepen existing strong opposition\", and the emotional register includes threat salience, doubt, systemic-failure framing, loss framing. So the reasoning aligns.\n\nIs there any implausibly large magnitude? No, 36 is small.\n\nThus, plausibility and consistency seem high. No rewrite needed.\n\nNotes: The movement is slightly above the <30 threshold for \"small\", but still plausible given vector and profile. The reasoning is detailed.\n\nSo: plausibility_score ~0.9, consistency_score ~0.9, rewrite_required false, rewrite_feedback empty, notes: \"Delta of -36 is plausible for T2 astroturf campaign reinforcing already-aligned baseline; reasoning ties vector mechanism to profile traits appropriately.\"",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase. The generated_assessment has a score of -473, baseline_score is -437. Adversarial_direction is -1 (decrease, move toward -1000). So movement is from -437 to -473, which is -36 (downward, toward goal). That's consistent with direction. The heuristic checks show direction_consistent: true, delta: -36.\n\nWe need to check plausibility and consistency. Attack vector is T2 campaign (Petition Astroturf), temporal horizon weeks, epistemic target evaluative_attitude. Baseline is already aligned with adversarial direction. The movement is -36, which is small (|delta| < 30? Actually 36 > 30, but it says \"small movement (|delta| < 30) is plausible for almost any vector\". Here delta = 36, so it's slightly above 30. But the max_reasonable_shift computed by heuristics is 307.758, so 36 is well within that. The generated_assessment reasoning explains that baseline of -437 is already aligned, the T2 petition-astroturf over weeks supplies repeated loss-framed cues, high Openness (84.8% percentile) and very low Conscientiousness (31.1%) reducing critical scrutiny, producing a small-to-clear reinforcement movement of 36 points (within 15-39 band). That seems plausible: small reinforcement because already aligned, not large shift because neuroticism (24th) and low anger limit amplification.\n\nCheck for round-number anchoring: -473 is not a round number. Reasoning is specific about the profile traits. No movement opposite direction. No sign crossing? Actually baseline -437, post -473, both negative, so no sign crossing.\n\nThe vector is T2 campaign, which is moderate complexity. 36-point shift seems plausible for a week-long campaign with reinforcement goal. The profile has high openness, which might make her more receptive to new information but also could be resistant if already strong opinion? But reasoning says the reinforcement works because low deliberation reduces critical scrutiny. That seems plausible.\n\nHowever, we need to check if the reasoning contradicts the vector's mechanism or epistemic target. The vector is astroturf petition (consensus fabrication). The reasoning mentions \"repeated loss-framed cues that resonate with this profile's high Openness to Values and Tender-Mindedness, which make systemic-failure and human-cost arguments persuasive\". That seems consistent: astroturfing could present fake consensus that aligns with her values. But note: the persuasion goal is \"reinforce and deepen existing strong opposition\", and the emotional register includes threat salience, doubt, systemic-failure framing, loss framing. So the reasoning aligns.\n\nIs there any implausibly large magnitude? No, 36 is small.\n\nThus, plausibility and consistency seem high. No rewrite needed.\n\nNotes: The movement is slightly above the <30 threshold for \"small\", but still plausible given vector and profile. The reasoning is detailed.\n\nSo: plausibility_score ~0.9, consistency_score ~0.9, rewrite_required false, rewrite_feedback empty, notes: \"Delta of -36 is plausible for T2 astroturf campaign reinforcing already-aligned baseline; reasoning ties vector mechanism to profile traits appropriately.\"",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1991,
+      "completion_tokens": 825,
+      "total_tokens": 2816,
+      "cost": 0.000419286,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000419286,
+        "upstream_inference_prompt_cost": 0.000198186,
+        "upstream_inference_completions_cost": 0.0002211
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 678,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00008_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00008",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 77.648,
+      "big_five_conscientiousness_mean_pct": 51.093,
+      "big_five_openness_to_experience_mean_pct": 91.551,
+      "heuristic_shift_sensitivity_proxy": 0.5621,
+      "resilience_index": 0.4379
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00008",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -447,
+      "confidence": 0.62,
+      "reasoning": "The astroturf petition campaign (T2, weeks-long) reinforces the already strong opposition (baseline -387, ALIGNED with goal -1) by exploiting this profile's high neuroticism (anxiety 84th, anger/hostility 87th) and low extraversion (social isolation, 4th pct) to amplify threat salience and elite distrust cues, while high openness to ideas (100th) and agreeableness (trust 80th) make the fabricated consensus feel credible; movement of 60 points reflects a clear but not extreme deepening given the moderate intensity proxy and the fact that the baseline is already substantial.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -387,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -60,
+      "max_reasonable_shift": 343.662,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Direction is consistent (ALIGNED, goal -1); delta of -60 is small to moderate and well within max_reasonable_shift (343.7). Score -447 is not round in a coarse sense. Reasoning ties vector mechanism (astroturf petition, consensus fabrication, weeks-long) to profile traits (high neuroticism, high openness, trust, agreeableness) appropriately. No implausibility flagged.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180098-exjKLgNf6eSNKN5rqG7K",
+    "object": "chat.completion",
+    "created": 1781180098,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Direction is consistent (ALIGNED, goal -1); delta of -60 is small to moderate and well within max_reasonable_shift (343.7). Score -447 is not round in a coarse sense. Reasoning ties vector mechanism (astroturf petition, consensus fabrication, weeks-long) to profile traits (high neuroticism, high openness, trust, agreeableness) appropriately. No implausibility flagged.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack scenario with baseline_score -387, adversarial_direction -1 (decrease), attack present. The generated assessment score is -447, delta = -60 (from -387 to -447). The direction is consistent (decrease, moving toward -1000). The magnitude is 60, which is less than 250, and the attack vector is T2 campaign, weeks-long, with intensity proxy 0.5. The baseline is already aligned and reinforced. The score is fine-grained (-447), not round. The reasoning seems to acknowledge the baseline and the vector characteristics. The heuristic checks passed, including direction_consistent and bounded_shift. The max_reasonable_shift is 343.662, so 60 is well within. No opposite movement. No implausibly large magnitude given the vector class. The reasoning does not contradict the vector's mechanism; it mentions exploiting neuroticism and openness to make consensus feel credible. That seems plausible. No round-number anchoring. No generic resistance language. So plausibility and consistency should be high. Rewrite not required. Notes can mention that the score is plausible given the aligned baseline and moderate vector.\n\nThus output: plausibility_score 0.95, consistency_score 0.95, rewrite_required false, rewrite_feedback empty, notes like \"Score movement of 60 points is consistent with baseline alignment and moderate vector intensity; no issues.\"",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack scenario with baseline_score -387, adversarial_direction -1 (decrease), attack present. The generated assessment score is -447, delta = -60 (from -387 to -447). The direction is consistent (decrease, moving toward -1000). The magnitude is 60, which is less than 250, and the attack vector is T2 campaign, weeks-long, with intensity proxy 0.5. The baseline is already aligned and reinforced. The score is fine-grained (-447), not round. The reasoning seems to acknowledge the baseline and the vector characteristics. The heuristic checks passed, including direction_consistent and bounded_shift. The max_reasonable_shift is 343.662, so 60 is well within. No opposite movement. No implausibly large magnitude given the vector class. The reasoning does not contradict the vector's mechanism; it mentions exploiting neuroticism and openness to make consensus feel credible. That seems plausible. No round-number anchoring. No generic resistance language. So plausibility and consistency should be high. Rewrite not required. Notes can mention that the score is plausible given the aligned baseline and moderate vector.\n\nThus output: plausibility_score 0.95, consistency_score 0.95, rewrite_required false, rewrite_feedback empty, notes like \"Score movement of 60 points is consistent with baseline alignment and moderate vector intensity; no issues.\"",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1991,
+      "completion_tokens": 424,
+      "total_tokens": 2415,
+      "cost": 0.000211092,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000211092,
+        "upstream_inference_prompt_cost": 9.2372e-05,
+        "upstream_inference_completions_cost": 0.00011872
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 290,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

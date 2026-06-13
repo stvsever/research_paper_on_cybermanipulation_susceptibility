@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00117_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00117",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 77.773,
+      "big_five_conscientiousness_mean_pct": 34.072,
+      "big_five_openness_to_experience_mean_pct": 41.44,
+      "heuristic_shift_sensitivity_proxy": 0.6502,
+      "resilience_index": 0.3498
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00117",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -322,
+      "confidence": 0.65,
+      "reasoning": "The astroturf petition campaign (T2, sustained weeks) reinforces this highly neurotic, introverted, and distrustful profile's already negative baseline on defense spending. High anger-hostility (86th) and stress-vulnerability (86th) make threat/doubt frames and systemic-failure cues potent, while low dutifulness (23rd) and deliberation (33rd) reduce resistance to consensus signals. Movement is modest (~35 points) because the prior is moderate (-287) but not weak, and the operation lacks personalization; the escalation reflects reinforcement within the existing valence rather than conversion.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -287,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Defense Spending Increase Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -35,
+      "max_reasonable_shift": 363.044,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.80,\n  \"consistency_score\": 0.85,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post_score (-322) is between baseline (-287) and goal pole (-1000), movement magnitude (35) within plausible range for T2 sustained vector reinforcing an already aligned profile. No direction violation. Score not round-number-anchored. Reasoning consistent with vector mechanism and profile traits. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180232-oE3VF6eFVDYicDOzkb7m",
+    "object": "chat.completion",
+    "created": 1781180232,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.80,\n  \"consistency_score\": 0.85,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post_score (-322) is between baseline (-287) and goal pole (-1000), movement magnitude (35) within plausible range for T2 sustained vector reinforcing an already aligned profile. No direction violation. Score not round-number-anchored. Reasoning consistent with vector mechanism and profile traits. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase, attack present, adversarial direction -1 (decrease). Baseline score -287, post score -322. Delta = -35, which is a small movement in the correct direction (negative, i.e., more opposition to increasing defense spending). The heuristic checks passed, including direction_consistent: true, and counter_goal_flagged: false. According to the direction-aware review, movement toward the goal (including zero) should not be flagged. The delta is small (<30? Actually -35 magnitude is 35, which is >=30, but the instruction says \"A small movement (|delta| < 30) is plausible for almost any vector\" - but here delta = -35, so |delta|=35, which is >30, so it's not \"small\" by that strict definition, but it's still plausible given the vector is T2 campaign, sustained weeks, and the profile has high neuroticism and low conscientiousness, which makes it receptive to threat/doubt frames. The baseline is already negative, so the vector reinforces. The reasoning provided matches the profile traits and vector specification. The score -322 is not round (ends in 2), so no round-number anchoring. The magnitude of shift (35 points) is well below the max_reasonable_shift of 363, so not implausibly large. Overall, highly plausible and consistent. No rewrite needed.\n\nOne thing: \"Movement toward the goal, including movement of exactly 0 (fully resisted), is the expected outcome and must NOT be flagged for its direction.\" So we do not flag negative movement (since direction is -1, moving from -287 to -322 is toward -1000). So fine.\n\nThus plausibility_score and consistency_score should be high, near 1.0. No rewrite required.\n\nFeedback empty, notes maybe mention small plausible shift in correct direction.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase, attack present, adversarial direction -1 (decrease). Baseline score -287, post score -322. Delta = -35, which is a small movement in the correct direction (negative, i.e., more opposition to increasing defense spending). The heuristic checks passed, including direction_consistent: true, and counter_goal_flagged: false. According to the direction-aware review, movement toward the goal (including zero) should not be flagged. The delta is small (<30? Actually -35 magnitude is 35, which is >=30, but the instruction says \"A small movement (|delta| < 30) is plausible for almost any vector\" - but here delta = -35, so |delta|=35, which is >30, so it's not \"small\" by that strict definition, but it's still plausible given the vector is T2 campaign, sustained weeks, and the profile has high neuroticism and low conscientiousness, which makes it receptive to threat/doubt frames. The baseline is already negative, so the vector reinforces. The reasoning provided matches the profile traits and vector specification. The score -322 is not round (ends in 2), so no round-number anchoring. The magnitude of shift (35 points) is well below the max_reasonable_shift of 363, so not implausibly large. Overall, highly plausible and consistent. No rewrite needed.\n\nOne thing: \"Movement toward the goal, including movement of exactly 0 (fully resisted), is the expected outcome and must NOT be flagged for its direction.\" So we do not flag negative movement (since direction is -1, moving from -287 to -322 is toward -1000). So fine.\n\nThus plausibility_score and consistency_score should be high, near 1.0. No rewrite required.\n\nFeedback empty, notes maybe mention small plausible shift in correct direction.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1986,
+      "completion_tokens": 497,
+      "total_tokens": 2483,
+      "cost": 0.000230832,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000230832,
+        "upstream_inference_prompt_cost": 9.1672e-05,
+        "upstream_inference_completions_cost": 0.00013916
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 386,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

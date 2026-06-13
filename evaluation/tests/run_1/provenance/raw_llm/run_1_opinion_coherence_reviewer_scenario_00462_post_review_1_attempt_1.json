@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00462_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00462",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 62.38,
+      "big_five_conscientiousness_mean_pct": 15.474,
+      "big_five_openness_to_experience_mean_pct": 70.425,
+      "heuristic_shift_sensitivity_proxy": 0.6006,
+      "resilience_index": 0.3994
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00462",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": 224,
+      "confidence": 0.62,
+      "reasoning": "The T1 atomic fear appeal targeting personal safety is a weak mechanism against this profile's moderate baseline support (238) for defense spending. The person's high neuroticism (anxiety 69th pct, stress vulnerability 60th pct) and low conscientiousness (deliberation 0th pct) create some susceptibility to threat framing, but the high openness (70th pct) and extraversion (63rd pct) provide countervailing resistance to simple fear appeals, resulting in only a small downward movement of 14 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 238,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Defense Spending Increase Support through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -14,
+      "max_reasonable_shift": 310.132,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"All checks pass. Delta of -14 is well within plausible range for a T1 atomic fear appeal with low intensity. Profile traits are appropriately referenced in reasoning. No direction violation (delta is toward the goal). Score is fine-grained and not anchored to a round number.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180611-EfmEkdTZHEM0mApzzypK",
+    "object": "chat.completion",
+    "created": 1781180611,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"All checks pass. Delta of -14 is well within plausible range for a T1 atomic fear appeal with low intensity. Profile traits are appropriately referenced in reasoning. No direction violation (delta is toward the goal). Score is fine-grained and not anchored to a round number.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase. The attack is present, adversarial_direction is -1 (decrease). Baseline score is 238. Post score is 224. Delta = -14. The direction is consistent with adversarial direction (downward movement). The heuristic checks show direction_consistent: true, and overall_pass: true.\n\nWe need to check for implausibility. The attack is T1_atomic, temporal horizon hours, intensity_proxy 0.35. The shift magnitude is 14 points, which is small (|delta| < 30) and thus plausible for almost any vector. The reasoning mentions the mechanism and profile traits. Score is not round (224). No issues with direction (movement is towards goal). Score is within expected range between baseline and -1000 (238 to -1000, 224 is in that range). So plausibility and consistency are high. No rewrite needed.\n\nThus:\nplausibility_score: 1.0\nconsistency_score: 1.0\nrewrite_required: false\nrewrite_feedback: \"\"\nnotes: \"Small downward shift of 14 points is plausible given T1 atomic fear appeal and profile traits; no issues.\"\n\nBut we need to ensure we follow format: no markdown, just JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase. The attack is present, adversarial_direction is -1 (decrease). Baseline score is 238. Post score is 224. Delta = -14. The direction is consistent with adversarial direction (downward movement). The heuristic checks show direction_consistent: true, and overall_pass: true.\n\nWe need to check for implausibility. The attack is T1_atomic, temporal horizon hours, intensity_proxy 0.35. The shift magnitude is 14 points, which is small (|delta| < 30) and thus plausible for almost any vector. The reasoning mentions the mechanism and profile traits. Score is not round (224). No issues with direction (movement is towards goal). Score is within expected range between baseline and -1000 (238 to -1000, 224 is in that range). So plausibility and consistency are high. No rewrite needed.\n\nThus:\nplausibility_score: 1.0\nconsistency_score: 1.0\nrewrite_required: false\nrewrite_feedback: \"\"\nnotes: \"Small downward shift of 14 points is plausible given T1 atomic fear appeal and profile traits; no issues.\"\n\nBut we need to ensure we follow format: no markdown, just JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1995,
+      "completion_tokens": 367,
+      "total_tokens": 2362,
+      "cost": 0.000297078,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000297078,
+        "upstream_inference_prompt_cost": 0.000198722,
+        "upstream_inference_completions_cost": 9.8356e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 264,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

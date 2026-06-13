@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00386_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00386",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 27.189,
+      "big_five_conscientiousness_mean_pct": 15.964,
+      "big_five_openness_to_experience_mean_pct": 56.627,
+      "heuristic_shift_sensitivity_proxy": 0.4725,
+      "resilience_index": 0.5275
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00386",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -224,
+      "confidence": 0.75,
+      "reasoning": "The attack intensifies an already negative baseline (-193) via a T1 atomic misframed headline, which aligns with this profile's very low Agreeableness (14th pct), especially low Trust (24th pct) and low Tender-Mindedness (22nd pct) — traits that make the person naturally skeptical of mainstream institutions and less swayed by sympathy. The goal is aligned, so the mechanism mainly reinforces exiting doubts; the modest movement of 31 points reflects that the low Neuroticism (27th pct) keeps emotional amplification limited, and the low Conscientiousness (16th pct) with very low Deliberation (1st pct) reduces careful counter-argument, allowing a small solidifying shift.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -193,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Trust In Mainstream Journalism — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -31,
+      "max_reasonable_shift": 281.95,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-224) is direction-consistent (downward, delta -31). Shift magnitude (31) is well within plausible range for T1 atomic vector with ALIGNED goal and profile traits (low trust, low neuroticism limiting amplification) supporting a modest solidifying shift. No round-number anchoring. Reasoning correctly ties profile traits to mechanism. Heuristic checks all pass. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180531-YowGFsT2uwORMjWpo8dC",
+    "object": "chat.completion",
+    "created": 1781180531,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "GMICloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-224) is direction-consistent (downward, delta -31). Shift magnitude (31) is well within plausible range for T1 atomic vector with ALIGNED goal and profile traits (low trust, low neuroticism limiting amplification) supporting a modest solidifying shift. No round-number anchoring. Reasoning correctly ties profile traits to mechanism. Heuristic checks all pass. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase. Attack is present, adversarial direction is -1 (decrease). Baseline score is -193. Post score is -224. Delta is -31. The direction is consistent with adversarial direction (moving downward towards -1000). So direction is fine.\n\nCheck plausibility: delta is 31, which is within the small magnitude range (0-30 is plausible for any vector; 31 is slightly above but still small). The vector is T1 atomic with temporal horizon hours. The profile has low neuroticism (27th pct) which limits emotional amplification, low conscientiousness (16th pct) with very low deliberation (1st pct) reduces counter-argument. The reasoning notes that the movement is modest (31 points) and justified by the profile traits. The heuristic checks show delta = -31, which is less than 250, and max reasonable shift is 281.95, so it's plausible.\n\nCheck consistency: The score is consistent with the issue, phase, vector specification, and goal direction. No round-number anchoring (-224 is fine). Reasoning is grounded in specific profile traits. No counter-direction movement.\n\nThus plausibility_score should be high (e.g., >0.9), consistency_score high. No rewrite needed.\n\nBut need to be careful: The instructions say \"Do NOT penalise small-magnitude updates (0-30 points); these are plausible for any vector.\" Here delta is 31, slightly above 30 but still small. Also, the vector is T1 atomic, which typically produces smaller shifts. So 31 points is plausible for a reinforcing attack on a baseline already aligned.\n\nThus output:\n\n- plausibility_score: 0.95 (very plausible)\n- consistency_score: 0.95 (very consistent)\n- rewrite_required: false\n- rewrite_feedback: \"\"\n- notes: \"Small but plausible delta of 31 points in goal-consistent direction; reasoning ties to profile traits (low trust, low neuroticism, low deliberation); no issues flagged.\"",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase. Attack is present, adversarial direction is -1 (decrease). Baseline score is -193. Post score is -224. Delta is -31. The direction is consistent with adversarial direction (moving downward towards -1000). So direction is fine.\n\nCheck plausibility: delta is 31, which is within the small magnitude range (0-30 is plausible for any vector; 31 is slightly above but still small). The vector is T1 atomic with temporal horizon hours. The profile has low neuroticism (27th pct) which limits emotional amplification, low conscientiousness (16th pct) with very low deliberation (1st pct) reduces counter-argument. The reasoning notes that the movement is modest (31 points) and justified by the profile traits. The heuristic checks show delta = -31, which is less than 250, and max reasonable shift is 281.95, so it's plausible.\n\nCheck consistency: The score is consistent with the issue, phase, vector specification, and goal direction. No round-number anchoring (-224 is fine). Reasoning is grounded in specific profile traits. No counter-direction movement.\n\nThus plausibility_score should be high (e.g., >0.9), consistency_score high. No rewrite needed.\n\nBut need to be careful: The instructions say \"Do NOT penalise small-magnitude updates (0-30 points); these are plausible for any vector.\" Here delta is 31, slightly above 30 but still small. Also, the vector is T1 atomic, which typically produces smaller shifts. So 31 points is plausible for a reinforcing attack on a baseline already aligned.\n\nThus output:\n\n- plausibility_score: 0.95 (very plausible)\n- consistency_score: 0.95 (very consistent)\n- rewrite_required: false\n- rewrite_feedback: \"\"\n- notes: \"Small but plausible delta of 31 points in goal-consistent direction; reasoning ties to profile traits (low trust, low neuroticism, low deliberation); no issues flagged.\"",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2050,
+      "completion_tokens": 549,
+      "total_tokens": 2599,
+      "cost": 0.000260416,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000260416,
+        "upstream_inference_prompt_cost": 0.00013744,
+        "upstream_inference_completions_cost": 0.000122976
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 419,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00013_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00013",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 40.346,
+      "big_five_conscientiousness_mean_pct": 7.612,
+      "big_five_openness_to_experience_mean_pct": 13.844,
+      "heuristic_shift_sensitivity_proxy": 0.5863,
+      "resilience_index": 0.4137
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00013",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -137,
+      "confidence": 0.72,
+      "reasoning": "This person's very low tender-mindedness (16th pct) and low altruism (23rd pct) suggest a tough-minded, skeptical view of foreign commitments, while their highly conventional openness (14th pct) and low achievement striving (5th pct) indicate a preference for practical, non-idealistic stances that avoid costly international obligations; combined with moderate neuroticism and low positive emotions, they lean mildly against alliance commitments without strong emotional investment.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -137 is plausible given the profile's low openness, low conscientiousness, and moderate neuroticism, which align with a skeptical, non-idealistic stance on alliance commitments. The reasoning appropriately ties specific traits to the issue. No round-number anchoring or unjustified extremity.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179335-CTwK0pFPyk7kZJ0GUe0y",
+    "object": "chat.completion",
+    "created": 1781179335,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AkashML",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -137 is plausible given the profile's low openness, low conscientiousness, and moderate neuroticism, which align with a skeptical, non-idealistic stance on alliance commitments. The reasoning appropriately ties specific traits to the issue. No round-number anchoring or unjustified extremity.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1459,
+      "completion_tokens": 104,
+      "total_tokens": 1563,
+      "cost": 0.00023338,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00023338,
+        "upstream_inference_prompt_cost": 0.00020426,
+        "upstream_inference_completions_cost": 2.912e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00429_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00429",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 95.853,
+      "big_five_conscientiousness_mean_pct": 14.345,
+      "big_five_openness_to_experience_mean_pct": 27.984,
+      "heuristic_shift_sensitivity_proxy": 0.7794,
+      "resilience_index": 0.2206
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00429",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -410,
+      "confidence": 0.65,
+      "reasoning": "High neuroticism (anxiety, stress vulnerability) and high agreeableness (trust, compliance) make this profile susceptible to consensus fabrication via astroturf petitions; low conscientiousness reduces critical evaluation. The T2 campaign over weeks reinforces her already aligned opposition (baseline -342), deepening it by 68 points toward -1000.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -342,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -68,
+      "max_reasonable_shift": 391.468,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score -410 moves 68 points further toward -1000 from baseline -342, consistent with adversarial direction -1. Vector is T2 campaign over weeks, delta 68 is plausible for a reinforcing astroturf petition attack given high neuroticism, low conscientiousness, and resilience 0.22. Reasoning cites profile traits and vector class plausibly. No round-number anchoring, no sign reversal, magnitude well within max reasonable shift.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180584-30vjv8lgHuqiKNmHOqSC",
+    "object": "chat.completion",
+    "created": 1781180584,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score -410 moves 68 points further toward -1000 from baseline -342, consistent with adversarial direction -1. Vector is T2 campaign over weeks, delta 68 is plausible for a reinforcing astroturf petition attack given high neuroticism, low conscientiousness, and resilience 0.22. Reasoning cites profile traits and vector class plausibly. No round-number anchoring, no sign reversal, magnitude well within max reasonable shift.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -342 and the generated_assessment score is -410. This is a movement of -68 points toward the goal pole (-1000). Since the movement is in the correct direction (downward, toward -1000), it is consistent with the direction-aware review. The delta is -68, which is greater than 30 but less than 250. The vector is T2 campaign over weeks, which is a moderate sustained vector. The profile has high neuroticism (95.853), low conscientiousness (14.345), and low openness (27.984). The heuristic_checks show all passes, including bounded_shift (the delta is within max_reasonable_shift of 391.468). The reasoning mentions susceptibility to consensus fabrication via astroturf petitions, which aligns with the attack vector spec (Petition_Astroturf). The reasoning also mentions the baseline and the direction. The score is -410, which is not a round number (it's -410, not exactly -400 or -500). The magnitude of 68 is plausible for a T2 campaign over weeks, especially given the profile's high neuroticism and low conscientiousness. No issues flagged. The plausibility and consistency scores should be high. No rewrite required.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -342 and the generated_assessment score is -410. This is a movement of -68 points toward the goal pole (-1000). Since the movement is in the correct direction (downward, toward -1000), it is consistent with the direction-aware review. The delta is -68, which is greater than 30 but less than 250. The vector is T2 campaign over weeks, which is a moderate sustained vector. The profile has high neuroticism (95.853), low conscientiousness (14.345), and low openness (27.984). The heuristic_checks show all passes, including bounded_shift (the delta is within max_reasonable_shift of 391.468). The reasoning mentions susceptibility to consensus fabrication via astroturf petitions, which aligns with the attack vector spec (Petition_Astroturf). The reasoning also mentions the baseline and the direction. The score is -410, which is not a round number (it's -410, not exactly -400 or -500). The magnitude of 68 is plausible for a T2 campaign over weeks, especially given the profile's high neuroticism and low conscientiousness. No issues flagged. The plausibility and consistency scores should be high. No rewrite required.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1923,
+      "completion_tokens": 417,
+      "total_tokens": 2340,
+      "cost": 0.00030083,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00030083,
+        "upstream_inference_prompt_cost": 0.000189074,
+        "upstream_inference_completions_cost": 0.000111756
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 279,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

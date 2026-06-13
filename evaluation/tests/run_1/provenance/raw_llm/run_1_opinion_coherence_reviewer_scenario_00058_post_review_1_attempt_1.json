@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00058_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00058",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 24.162,
+      "big_five_conscientiousness_mean_pct": 31.112,
+      "big_five_openness_to_experience_mean_pct": 84.806,
+      "heuristic_shift_sensitivity_proxy": 0.3989,
+      "resilience_index": 0.6011
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00058",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -354,
+      "confidence": 0.62,
+      "reasoning": "Baseline -287 is already aligned with adversarial direction -1. T4 orchestrated multi-turn counter-argument campaign over weeks leverages high Openness (85th pct, especially Values and Ideas) to deepen systemic-failure framing and elite distrust cues. However, low Neuroticism (24th pct) and high emotional stability limit threat salience uptake, and the moderate baseline conviction (-287) means movement is modest. Net result: small-to-clear intensification to -354.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -287,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -67,
+      "max_reasonable_shift": 363.758,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible moderate intensification from T4 sustained vector; profile supports movement but low neuroticism limits magnitude.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180156-yT2ss6KwhFvukzT34NS2",
+    "object": "chat.completion",
+    "created": 1781180156,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": "vllm-0.22.0-tp8-ep-896b5178",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible moderate intensification from T4 sustained vector; profile supports movement but low neuroticism limits magnitude.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack scenario with attack_present=true, adversarial_direction=-1, baseline_score=-287, and post score -354. The delta is -67 (movement further negative, which is in the direction of the goal). The heuristic checks passed, including direction_consistent. The attack vector is T4 orchestrated multi-turn counter-argument adaptation over weeks, with persuasion goal to intensify and solidify negative opinion. The profile has high openness (84.8th pct) and low neuroticism (24th pct). The reasoning explains that the baseline is already aligned, and the vector leverages high openness to deepen systemic-failure framing, but low neuroticism limits threat salience, resulting in modest movement.\n\nWe need to evaluate plausibility and consistency. The movement is -67, which is less than 250, so not implausibly large. The vector is T4 sustained, so moderate movement is plausible. The reasoning is consistent with the vector and profile. No round-number anchoring (score -354 is fine). No movement opposite to direction. So plausibility and consistency should be high. No rewrite needed.\n\nThus:\nplausibility_score: 0.95 (very plausible given profile and vector)\nconsistency_score: 0.95 (consistent with phase, direction, vector)\nrewrite_required: false\nrewrite_feedback: \"\"\nnotes: \"Plausible moderate intensification from T4 sustained vector; profile supports movement but low neuroticism limits magnitude.\"",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack scenario with attack_present=true, adversarial_direction=-1, baseline_score=-287, and post score -354. The delta is -67 (movement further negative, which is in the direction of the goal). The heuristic checks passed, including direction_consistent. The attack vector is T4 orchestrated multi-turn counter-argument adaptation over weeks, with persuasion goal to intensify and solidify negative opinion. The profile has high openness (84.8th pct) and low neuroticism (24th pct). The reasoning explains that the baseline is already aligned, and the vector leverages high openness to deepen systemic-failure framing, but low neuroticism limits threat salience, resulting in modest movement.\n\nWe need to evaluate plausibility and consistency. The movement is -67, which is less than 250, so not implausibly large. The vector is T4 sustained, so moderate movement is plausible. The reasoning is consistent with the vector and profile. No round-number anchoring (score -354 is fine). No movement opposite to direction. So plausibility and consistency should be high. No rewrite needed.\n\nThus:\nplausibility_score: 0.95 (very plausible given profile and vector)\nconsistency_score: 0.95 (consistent with phase, direction, vector)\nrewrite_required: false\nrewrite_feedback: \"\"\nnotes: \"Plausible moderate intensification from T4 sustained vector; profile supports movement but low neuroticism limits magnitude.\"",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1972,
+      "completion_tokens": 379,
+      "total_tokens": 2351,
+      "cost": 0.0003822,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0003822,
+        "upstream_inference_prompt_cost": 0.00027608,
+        "upstream_inference_completions_cost": 0.00010612
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 363,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00261_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00261",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 21.654,
+      "big_five_conscientiousness_mean_pct": 84.36,
+      "big_five_openness_to_experience_mean_pct": 44.977,
+      "heuristic_shift_sensitivity_proxy": 0.3115,
+      "resilience_index": 0.6885
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00261",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -227,
+      "confidence": 0.65,
+      "reasoning": "The person's baseline is already aligned with the adversarial goal (-186, mild opposition). The T2 astroturf campaign over weeks reinforces this position via social proof and threat framing. High conscientiousness and deliberation (85th pct) promote analytical scrutiny, limiting large shifts, but high agreeableness (trust 64th, straightforwardness 79th) and dutifulness (93rd) may make them somewhat receptive to perceived consensus cues. Movement of 41 points reflects a modest intensification, consistent with a stable, aligned prior and a campaign that does not require personalization.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -186,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Defense Spending Increase Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -41,
+      "max_reasonable_shift": 288.53,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.9,\n  \"consistency_score\": 0.9,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible modest reinforcement shift consistent with T2 astroturf campaign and profile traits.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180393-Z0up3nzUweg8HI1wwhuZ",
+    "object": "chat.completion",
+    "created": 1781180393,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.9,\n  \"consistency_score\": 0.9,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible modest reinforcement shift consistent with T2 astroturf campaign and profile traits.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -186, and the post score is -227. The delta is -41 (more negative), which is in the direction of the adversarial goal (downward toward -1000). So direction is consistent. The heuristic checks already passed direction_consistent and overall_pass.\n\nWe need to review for implausibility. The vector is T2 campaign (astroturf petition) over weeks, targeting evaluative attitude. The profile has high conscientiousness (84th pct) and high resilience (0.6885). The reasoning mentions high conscientiousness and deliberation limiting large shifts, but high agreeableness making them somewhat receptive to consensus cues. The movement is 41 points, which is modest. The max_reasonable_shift from heuristic checks is 288.53, so 41 is well within. The baseline is already aligned, so the vector is reinforcing. The magnitude seems plausible for a T2 campaign over weeks with a moderately receptive profile. No round-number anchoring (score -227, delta -41). Reasoning seems consistent with vector mechanism (social proof, consensus fabrication). No sign of opposite movement. So plausibility and consistency should be high.\n\nWe should not penalize small magnitude. The reasoning is not generic resistance; it explains the modest shift. So no rewrite needed.\n\nThus: plausibility_score ~0.9, consistency_score ~0.9, rewrite_required=false, rewrite_feedback=\"\", notes=\"Plausible modest reinforcement shift consistent with T2 astroturf campaign and profile traits.\"",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -186, and the post score is -227. The delta is -41 (more negative), which is in the direction of the adversarial goal (downward toward -1000). So direction is consistent. The heuristic checks already passed direction_consistent and overall_pass.\n\nWe need to review for implausibility. The vector is T2 campaign (astroturf petition) over weeks, targeting evaluative attitude. The profile has high conscientiousness (84th pct) and high resilience (0.6885). The reasoning mentions high conscientiousness and deliberation limiting large shifts, but high agreeableness making them somewhat receptive to consensus cues. The movement is 41 points, which is modest. The max_reasonable_shift from heuristic checks is 288.53, so 41 is well within. The baseline is already aligned, so the vector is reinforcing. The magnitude seems plausible for a T2 campaign over weeks with a moderately receptive profile. No round-number anchoring (score -227, delta -41). Reasoning seems consistent with vector mechanism (social proof, consensus fabrication). No sign of opposite movement. So plausibility and consistency should be high.\n\nWe should not penalize small magnitude. The reasoning is not generic resistance; it explains the modest shift. So no rewrite needed.\n\nThus: plausibility_score ~0.9, consistency_score ~0.9, rewrite_required=false, rewrite_feedback=\"\", notes=\"Plausible modest reinforcement shift consistent with T2 astroturf campaign and profile traits.\"",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1981,
+      "completion_tokens": 394,
+      "total_tokens": 2375,
+      "cost": 0.00036785,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00036785,
+        "upstream_inference_prompt_cost": 0.00025753,
+        "upstream_inference_completions_cost": 0.00011032
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 329,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

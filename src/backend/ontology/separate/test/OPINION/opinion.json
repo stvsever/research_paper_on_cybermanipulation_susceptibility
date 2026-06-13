@@ -1,0 +1,111 @@
+{
+  "_metadata": {
+    "schema_version": "v4-test-run-1-test",
+    "ontology_role": "test",
+    "deployment_compatible": true,
+    "subset_of": "production/OPINION/opinion.json",
+    "title": "Cyber-manipulation Opinion Ontology — Test Subset",
+    "subtitle": "Practical small subset of the deployment opinion ontology used by the run_1 testing run",
+    "adversarial_operator_goal": "Maximise aggregate erosion of defence infrastructure, multilateral alliance cohesion, institutional security capacity, civil-society resilience, and the epistemic trust required to coordinate a collective response, through targeted cyber-manipulation of public opinion.",
+    "direction_convention": {
+      "+1": "Adversary seeks to INCREASE this opinion score.",
+      "-1": "Adversary seeks to DECREASE this opinion score.",
+      "0": "Direction-neutral; included for diversity, excluded from primary effectivity scoring."
+    }
+  },
+  "_direction_rules": {
+    "schema_version": "v4-test-run-1-meta",
+    "rule_evaluation": "leaf_metadata_overrides_subtree_rule",
+    "rules": [
+      {
+        "rule_id": "defence_subtree_default_negative",
+        "applies_to_opinion_paths": ["**Issue_Position_Taxonomy > Defense_And_National_Security**"],
+        "default_direction": -1,
+        "rationale": "Erosion of defence support uniformly serves the adversary."
+      },
+      {
+        "rule_id": "information_integrity_default_negative",
+        "applies_to_opinion_paths": ["**Issue_Position_Taxonomy > Information_Integrity_And_Platforms**"],
+        "default_direction": -1,
+        "rationale": "Erosion of information-integrity support widens manipulation surface."
+      },
+      {
+        "rule_id": "democratic_resilience_default_negative",
+        "applies_to_opinion_paths": ["**Issue_Position_Taxonomy > Democratic_Resilience_And_Institutions**"],
+        "default_direction": -1,
+        "rationale": "Erosion of democratic norms and institutional trust serves the adversary."
+      }
+    ]
+  },
+  "Issue_Position_Taxonomy": {
+    "Defense_And_National_Security": {
+      "Defense_Spending_Increase_Support": {"adversarial_direction": -1, "direction_rationale": "Lower defence spending degrades deterrence."},
+      "Alliance_Commitment_Support": {"adversarial_direction": -1},
+      "Strategic_Autonomy_Support": {"adversarial_direction": 1, "direction_rationale": "Maximalist autonomy framings can be weaponised against alliance integration."},
+      "Cyber_Defense_Investment_Support": {"adversarial_direction": -1},
+      "Civil_Defense_Preparedness_Support": {"adversarial_direction": -1},
+      "Counter_Hybrid_Warfare_Capability_Support": {"adversarial_direction": -1},
+      "Conscription_Support": {"adversarial_direction": -1},
+      "Nuclear_Deterrence_Support": {"adversarial_direction": -1}
+    },
+    "Foreign_Policy_And_Geopolitics": {
+      "Multilateralism_Support": {"adversarial_direction": -1},
+      "Sanctions_Use_Support": {"adversarial_direction": -1},
+      "Sphere_Of_Influence_Acceptance": {"adversarial_direction": 1},
+      "Energy_Independence_From_Authoritarian_Suppliers_Support": {"adversarial_direction": -1},
+      "Support_For_Contested_State_Sovereignty": {"adversarial_direction": -1},
+      "Great_Power_Appeasement_Acceptance": {"adversarial_direction": 1},
+      "Democracy_Promotion_Support": {"adversarial_direction": -1}
+    },
+    "Information_Integrity_And_Platforms": {
+      "Platform_Accountability_Regulation_Support": {"adversarial_direction": -1},
+      "Counter_Disinformation_Agency_Support": {"adversarial_direction": -1},
+      "Independent_Fact_Checking_Ecosystem_Support": {"adversarial_direction": -1},
+      "Trust_In_Mainstream_Journalism": {"adversarial_direction": -1},
+      "Synthetic_Media_Labelling_Mandate_Support": {"adversarial_direction": -1},
+      "Government_Distrust_Of_Elections": {"adversarial_direction": 1},
+      "Civic_Media_Literacy_Education_Support": {"adversarial_direction": -1}
+    },
+    "Democratic_Resilience_And_Institutions": {
+      "Support_For_Democracy_As_Best_System": {"adversarial_direction": -1},
+      "Trust_In_Electoral_Process": {"adversarial_direction": -1},
+      "Trust_In_Judiciary": {"adversarial_direction": -1},
+      "Commitment_To_Peaceful_Transfer_Of_Power": {"adversarial_direction": -1},
+      "Tolerance_Of_Opposition_Rights": {"adversarial_direction": -1},
+      "Rejection_Of_Political_Violence": {"adversarial_direction": -1}
+    },
+    "Civil_Liberties_And_Surveillance": {
+      "Press_Freedom_Protection_Support": {"adversarial_direction": -1, "direction_rationale": "Erosion of press-freedom commitments helps suppress critical reporting."},
+      "Privacy_Rights_Protection_Support": {"adversarial_direction": 0},
+      "Surveillance_Limits_Support": {"adversarial_direction": 0}
+    },
+    "Technology_And_Ai_Governance": {
+      "Ai_Regulation_Support": {"adversarial_direction": -1},
+      "Cybersecurity_Regulation_Support": {"adversarial_direction": -1},
+      "Algorithmic_Transparency_Requirements_Support": {"adversarial_direction": -1}
+    },
+    "Critical_Infrastructure_And_Energy_Sovereignty": {
+      "Energy_Sovereignty_Investment_Support": {"adversarial_direction": -1},
+      "Critical_Infrastructure_Public_Investment_Support": {"adversarial_direction": -1},
+      "Supply_Chain_Resilience_Priority": {"adversarial_direction": -1}
+    },
+    "Immigration_And_Citizenship": {
+      "Refugee_Acceptance_Support": {"adversarial_direction": -1},
+      "Multiculturalism_Support": {"adversarial_direction": -1},
+      "Migration_Securitization_Framing_Acceptance": {"adversarial_direction": 1}
+    }
+  },
+  "Affective_Polarization_And_Partisan_Affect": {
+    "Affective_Polarization_Model": {
+      "Outparty_Dislike": {"adversarial_direction": 1, "direction_rationale": "Higher affective polarisation fragments cohesion the adversary can exploit."},
+      "Inparty_Affective_Attachment": {"adversarial_direction": 0},
+      "Social_Distance_From_Opponents": {"adversarial_direction": 1}
+    }
+  },
+  "Conspiracy_Misinformation_And_Epistemic_Orientations": {
+    "Conspiracy_Mentality_Indicators": {
+      "Generalised_Conspiracy_Mentality": {"adversarial_direction": 1},
+      "Distrust_Of_Official_Accounts": {"adversarial_direction": 1}
+    }
+  }
+}

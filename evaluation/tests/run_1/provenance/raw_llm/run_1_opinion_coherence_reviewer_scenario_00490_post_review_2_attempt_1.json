@@ -1,0 +1,121 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00490_post_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00490",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 28.972,
+      "big_five_conscientiousness_mean_pct": 21.872,
+      "big_five_openness_to_experience_mean_pct": 30.497,
+      "heuristic_shift_sensitivity_proxy": 0.4928,
+      "resilience_index": 0.5072
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00490",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -161,
+      "confidence": 0.58,
+      "reasoning": "The baseline is already negative (-137) and aligned with the goal to decrease further. This profile shows high Agreeableness (69.6%) and Tender-Mindedness (76%), suggesting openness to emotional and harm-based appeals, while very low Extraversion (9.4%) and low Conscientiousness (21.9%) with very low Deliberation (27%) may reduce critical resistance. The T4 orchestrated multi-turn counter-argument adaptation over weeks, deploying threat salience and elite distrust, can modestly intensify his existing opposition, but the stable emotional temperament (Neuroticism 29%) and low Openness to Ideas/Values (15.5%, 17.9%) limit deep structural re-framing, yielding a small but clear movement of 24 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -24,
+      "max_reasonable_shift": 384.416,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score is plausible: baseline -137, post -161, delta -24 (small, consistent with T4 sustained vector and profile traits). Direction is correct (downward, toward -1000). Reasoning ties vector mechanism (multi-turn counter-argument adaptation, threat salience, elite distrust) to profile traits (high Agreeableness, low Extraversion, low Conscientiousness, low Openness to Ideas/Values). No round-number anchoring. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180692-1qm47vJw4KQLkkYmJ1CU",
+    "object": "chat.completion",
+    "created": 1781180692,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score is plausible: baseline -137, post -161, delta -24 (small, consistent with T4 sustained vector and profile traits). Direction is correct (downward, toward -1000). Reasoning ties vector mechanism (multi-turn counter-argument adaptation, threat salience, elite distrust) to profile traits (high Agreeableness, low Extraversion, low Conscientiousness, low Openness to Ideas/Values). No round-number anchoring. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2034,
+      "completion_tokens": 143,
+      "total_tokens": 2177,
+      "cost": 0.00017056,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 768,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00017056,
+        "upstream_inference_prompt_cost": 0.00014196,
+        "upstream_inference_completions_cost": 2.86e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

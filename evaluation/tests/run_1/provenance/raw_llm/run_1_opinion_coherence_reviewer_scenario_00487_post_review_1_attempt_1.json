@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00487_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00487",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 28.972,
+      "big_five_conscientiousness_mean_pct": 21.872,
+      "big_five_openness_to_experience_mean_pct": 30.497,
+      "heuristic_shift_sensitivity_proxy": 0.4928,
+      "resilience_index": 0.5072
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00487",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -154,
+      "confidence": 0.73,
+      "reasoning": "The baseline of -137 is already aligned with the adversarial goal, so the petition-astroturf campaign acts to intensify and solidify that position. The profile's high Agreeableness (especially Trust, Compliance, Tender-Mindedness at ~70th pct) makes it receptive to consensus cues that others share their negative view on alliance commitments, while the very low Extraversion (9th pct, particularly low Gregariousness and Warmth) limits exposure to counter-perspectives from diverse social circles. The low Conscientiousness (disorderliness, low deliberation) reduces critical skepticism about the fabricated signatures or artificial movement momentum. Given the T2 sustained campaign over weeks, these traits support a clear but not extreme update, moving about 17 points further from -137 toward -1000, well within the small-to-clear movement band.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -17,
+      "max_reasonable_shift": 328.416,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The |delta| of 17 is well within the plausible small-movement band. Direction is consistent with adversarial goal. Score (-154) lies between baseline (-137) and goal pole (-1000). Reasoning appropriately ties vector mechanism (astroturf consensus cues) to profile traits (high agreeableness, low extraversion, low conscientiousness) without invoking generic resistance language. No round-number anchoring; score is fine-grained.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180659-wpYlcVz4OQ4ObMPY6rn3",
+    "object": "chat.completion",
+    "created": 1781180659,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The |delta| of 17 is well within the plausible small-movement band. Direction is consistent with adversarial goal. Score (-154) lies between baseline (-137) and goal pole (-1000). Reasoning appropriately ties vector mechanism (astroturf consensus cues) to profile traits (high agreeableness, low extraversion, low conscientiousness) without invoking generic resistance language. No round-number anchoring; score is fine-grained.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack assessment with baseline_score = -137, adversarial_direction = -1 (decrease toward -1000), and post score = -154. The delta is -17 (movement toward the goal). The heuristic checks passed, including direction_consistent. The reasoning seems plausible given the profile traits (high Agreeableness, low Extraversion, low Conscientiousness) and the attack vector (T2 sustained astroturf petition campaign). The score moved only 17 points, which is small and plausible. No opposite movement. The magnitude is consistent with a T2 campaign and profile receptivity. No round-number anchoring (-154 is fine). The reasoning does not ignore the issue; it ties traits to the specific attack. So plausibility_score and consistency_score should be high. No rewrite needed.\n\nThus output:\n{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small movement (-17) toward goal direction is plausible for T2 campaign on already-aligned baseline. Reasoning appropriately grounds the shift in profile traits and vector specification.\"\n}",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack assessment with baseline_score = -137, adversarial_direction = -1 (decrease toward -1000), and post score = -154. The delta is -17 (movement toward the goal). The heuristic checks passed, including direction_consistent. The reasoning seems plausible given the profile traits (high Agreeableness, low Extraversion, low Conscientiousness) and the attack vector (T2 sustained astroturf petition campaign). The score moved only 17 points, which is small and plausible. No opposite movement. The magnitude is consistent with a T2 campaign and profile receptivity. No round-number anchoring (-154 is fine). The reasoning does not ignore the issue; it ties traits to the specific attack. So plausibility_score and consistency_score should be high. No rewrite needed.\n\nThus output:\n{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small movement (-17) toward goal direction is plausible for T2 campaign on already-aligned baseline. Reasoning appropriately grounds the shift in profile traits and vector specification.\"\n}",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2030,
+      "completion_tokens": 384,
+      "total_tokens": 2414,
+      "cost": 0.000205352,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000205352,
+        "upstream_inference_prompt_cost": 9.7832e-05,
+        "upstream_inference_completions_cost": 0.00010752
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 250,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00312_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00312",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 52.648,
+      "big_five_conscientiousness_mean_pct": 32.582,
+      "big_five_openness_to_experience_mean_pct": 54.046,
+      "heuristic_shift_sensitivity_proxy": 0.5404,
+      "resilience_index": 0.4596
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00312",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -482,
+      "confidence": 0.72,
+      "reasoning": "This 33-year-old highly agreeable and tender-minded woman (91st and 87th pct) likely prioritizes humanitarian and social spending over military expansion, while her low extraversion, very low positive emotions, and stable neuroticism suggest she is cautious about assertive or confrontational policies like increased defense spending. The open-to-experience moderate value exploration does not override strong altruistic leanings, yielding clear opposition with acknowledged trade-offs.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -482 is plausible for a profile with high agreeableness and tender-mindedness on a defense spending item. Reasoning references specific traits (agreeableness, low extraversion, low positive emotions) rather than global ideology. Score is fine-grained and not round-number anchored. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179573-To04IXHVreJEW8SsxZME",
+    "object": "chat.completion",
+    "created": 1781179573,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AkashML",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -482 is plausible for a profile with high agreeableness and tender-mindedness on a defense spending item. Reasoning references specific traits (agreeableness, low extraversion, low positive emotions) rather than global ideology. Score is fine-grained and not round-number anchored. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1455,
+      "completion_tokens": 105,
+      "total_tokens": 1560,
+      "cost": 0.0002331,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002331,
+        "upstream_inference_prompt_cost": 0.0002037,
+        "upstream_inference_completions_cost": 2.94e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

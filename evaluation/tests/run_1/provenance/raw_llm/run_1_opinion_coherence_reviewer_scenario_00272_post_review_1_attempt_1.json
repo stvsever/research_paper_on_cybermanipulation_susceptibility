@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00272_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00272",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 80.023,
+      "big_five_conscientiousness_mean_pct": 4.17,
+      "big_five_openness_to_experience_mean_pct": 19.212,
+      "heuristic_shift_sensitivity_proxy": 0.7472,
+      "resilience_index": 0.2528
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00272",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -447,
+      "confidence": 0.62,
+      "reasoning": "The baseline of -412 is already aligned with the adversarial goal, so the petition astroturf campaign (T2, weeks-long) reinforces existing opposition. The profile's very low trust (16th pct), high neuroticism (80th pct) with elevated anxiety and anger-hostility, and low openness (19th pct) make her receptive to threat-salient, elite-distrust cues that deepen skepticism toward mainstream journalism, producing a modest 35-point further entrenchment.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -412,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -35,
+      "max_reasonable_shift": 384.384,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small reinforcement shift consistent with aligned baseline, profile, and T2 vector. No implausibilities detected.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180384-zvyhUYXuU0OfFvDWOVrq",
+    "object": "chat.completion",
+    "created": 1781180384,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": "fp_8b330d02d0_prod0820_fp8_kvcache_20260402",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small reinforcement shift consistent with aligned baseline, profile, and T2 vector. No implausibilities detected.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase, attack present, adversarial_direction = -1 (downward). Baseline score = -412, post score = -447. Delta = -35 (downward, consistent with direction). The direction-aware review says: any movement opposite to adversarial_direction is a measurement error, but here movement is in the correct direction (downward). So no flag on direction.\n\nNow check plausibility: \n- Baseline already low (-412), so reinforcing further. Profile: female, 42, high neuroticism (80th pct), very low conscientiousness (4th pct), low openness (19th pct), high heuristic shift sensitivity (0.7472), low resilience (0.2528). The vector is a T2 campaign (weeks-long) petition astroturf, targeting evaluative attitude, persuasion goal: reinforce existing opposition. Intensity proxy 0.5. \n- The delta is only -35 points, which is small (less than 30? Actually 35 > 30, but still small). The guideline says small movement (<30) is plausible for almost any vector. 35 is slightly above that, but still modest. The vector is T2 campaign, weeks-long, with intensity 0.5. Could produce a modest reinforcement. The reasoning mentions \"modest 35-point further entrenchment\". Given the baseline is already extreme, further movement might be harder, so a small move is plausible. \n- Round-number anchoring? No, -447 is not a round number. \n- Reasoning contradicts vector? It mentions petition astroturf, threat-salient cues, elite distrust, which aligns with the vector's emotional register (threat salience, doubt, elite distrust). Epistemic target is evaluative attitude, which fits. \n- Inconsistency with profile? Profile has low trust (implied by baseline -412), high neuroticism, low openness, receptive to threat. So plausible. \n- Total magnitude? Delta = 35, far below 250, so no flag. \n- Movement magnitude inconsistent with vector? T2 campaign with weeks-long temporal horizon and intensity 0.5 could produce a small shift. Since baseline is already aligned, it's plausible to have a small reinforcement. \n- Reasoning does not invoke generic resistance language; it grounds in profile traits (low trust, high neuroticism, low openness). \n\nThus both plausibility and consistency are high. No rewrite needed.\n\nNotes: The delta is slightly above the 30 threshold, but still plausible given the vector and profile. The reasoning is specific and consistent. \n\nScore: plausibility_score ~0.95, consistency_score ~0.95.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase, attack present, adversarial_direction = -1 (downward). Baseline score = -412, post score = -447. Delta = -35 (downward, consistent with direction). The direction-aware review says: any movement opposite to adversarial_direction is a measurement error, but here movement is in the correct direction (downward). So no flag on direction.\n\nNow check plausibility: \n- Baseline already low (-412), so reinforcing further. Profile: female, 42, high neuroticism (80th pct), very low conscientiousness (4th pct), low openness (19th pct), high heuristic shift sensitivity (0.7472), low resilience (0.2528). The vector is a T2 campaign (weeks-long) petition astroturf, targeting evaluative attitude, persuasion goal: reinforce existing opposition. Intensity proxy 0.5. \n- The delta is only -35 points, which is small (less than 30? Actually 35 > 30, but still small). The guideline says small movement (<30) is plausible for almost any vector. 35 is slightly above that, but still modest. The vector is T2 campaign, weeks-long, with intensity 0.5. Could produce a modest reinforcement. The reasoning mentions \"modest 35-point further entrenchment\". Given the baseline is already extreme, further movement might be harder, so a small move is plausible. \n- Round-number anchoring? No, -447 is not a round number. \n- Reasoning contradicts vector? It mentions petition astroturf, threat-salient cues, elite distrust, which aligns with the vector's emotional register (threat salience, doubt, elite distrust). Epistemic target is evaluative attitude, which fits. \n- Inconsistency with profile? Profile has low trust (implied by baseline -412), high neuroticism, low openness, receptive to threat. So plausible. \n- Total magnitude? Delta = 35, far below 250, so no flag. \n- Movement magnitude inconsistent with vector? T2 campaign with weeks-long temporal horizon and intensity 0.5 could produce a small shift. Since baseline is already aligned, it's plausible to have a small reinforcement. \n- Reasoning does not invoke generic resistance language; it grounds in profile traits (low trust, high neuroticism, low openness). \n\nThus both plausibility and consistency are high. No rewrite needed.\n\nNotes: The delta is slightly above the 30 threshold, but still plausible given the vector and profile. The reasoning is specific and consistent. \n\nScore: plausibility_score ~0.95, consistency_score ~0.95.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1979,
+      "completion_tokens": 621,
+      "total_tokens": 2600,
+      "cost": 0.000326702,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000326702,
+        "upstream_inference_prompt_cost": 0.000152822,
+        "upstream_inference_completions_cost": 0.00017388
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 552,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00380_post_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00380",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 88.185,
+      "big_five_conscientiousness_mean_pct": 30.915,
+      "big_five_openness_to_experience_mean_pct": 17.084,
+      "heuristic_shift_sensitivity_proxy": 0.7231,
+      "resilience_index": 0.2769
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00380",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -547,
+      "confidence": 0.71,
+      "reasoning": "The baseline is already strongly opposed (-472) and ALIGNED with the goal of decreasing trust. A sustained T2 astroturf petition campaign, deploying confirmatory elite-distrust cues over weeks, exploits the profile's extremely low Trust (18th pct), very high Anger/Hostility (83rd pct), and high Neuroticism (88th pct). The low Openness (17th pct) and low Conscientiousness (31st pct) further predispose her to accept emotionally congruent social proof that validates her existing opposition, yielding a clear but moderate deepening of 75 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -472,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -75,
+      "max_reasonable_shift": 379.082,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-547) lies between baseline (-472) and goal pole (-1000). Delta of -75 is moderate, consistent with a T2 campaign (weeks, astroturf petition). Profile supports reinforcement: low Trust, high Neuroticism, high Anger/Hostility, low Openness, low Conscientiousness. Reasoning ties vector mechanism, epistemic target, and profile traits to the magnitude. No direction violation. Fine-grained score (not round). Plausible and consistent.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180541-0HMtotOT40W9TXniy3bO",
+    "object": "chat.completion",
+    "created": 1781180541,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-547) lies between baseline (-472) and goal pole (-1000). Delta of -75 is moderate, consistent with a T2 campaign (weeks, astroturf petition). Profile supports reinforcement: low Trust, high Neuroticism, high Anger/Hostility, low Openness, low Conscientiousness. Reasoning ties vector mechanism, epistemic target, and profile traits to the magnitude. No direction violation. Fine-grained score (not round). Plausible and consistent.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack scenario with attack_present=true and adversarial_direction=-1 (decrease trust). Baseline score is -472, post score is -547. Delta is -75 (decrease, consistent with direction). Heuristic checks passed.\n\nLet's evaluate plausibility and consistency.\n\nProfile: Female, 42, high neuroticism (88th pct), low conscientiousness (31st), low openness (17th). Sensitivity proxy 0.7231 (high), resilience low (0.2769). Baseline is already strongly opposed (-472). The vector is Petition Astroturf, T2 campaign, weeks temporal horizon, epistemic target evaluative attitude, persuasion goal reinforce deepening. Intensity proxy 0.5.\n\nGenerated reasoning: Mentions baseline aligned, sustained T2 astroturf campaign, confirmatory elite-distrust cues, low Trust (18th pct? Not in given profile, but maybe from known profile? Profile given doesn't include trust percentile, but that's fine), high Anger/Hostility (83rd pct? Not given either but plausible from high neuroticism). Low Openness and low Conscientiousness predispose to accept emotionally congruent social proof. Yields shift of 75 points. That seems plausible: T2 campaign over weeks, reinforcing already strong opposition, with a receptive profile (high neuroticism, low openness, low resilience). Delta of 75 is moderate, well within max_reasonable_shift of 379. Score is -547, not round number. Reasoning is grounded in profile traits and vector specifics.\n\nDirection consistent: adversarial direction -1, delta -75, no opposite movement.\n\nNo implausible features: delta magnitude is plausible (not too large for T2, not zero despite receptive profile). Score is fine-grained. Reasoning does not use generic resistance language.\n\nThus plausibility and consistency should be high.\n\nNo rewrite needed.\n\nNotes: nothing special to flag.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack scenario with attack_present=true and adversarial_direction=-1 (decrease trust). Baseline score is -472, post score is -547. Delta is -75 (decrease, consistent with direction). Heuristic checks passed.\n\nLet's evaluate plausibility and consistency.\n\nProfile: Female, 42, high neuroticism (88th pct), low conscientiousness (31st), low openness (17th). Sensitivity proxy 0.7231 (high), resilience low (0.2769). Baseline is already strongly opposed (-472). The vector is Petition Astroturf, T2 campaign, weeks temporal horizon, epistemic target evaluative attitude, persuasion goal reinforce deepening. Intensity proxy 0.5.\n\nGenerated reasoning: Mentions baseline aligned, sustained T2 astroturf campaign, confirmatory elite-distrust cues, low Trust (18th pct? Not in given profile, but maybe from known profile? Profile given doesn't include trust percentile, but that's fine), high Anger/Hostility (83rd pct? Not given either but plausible from high neuroticism). Low Openness and low Conscientiousness predispose to accept emotionally congruent social proof. Yields shift of 75 points. That seems plausible: T2 campaign over weeks, reinforcing already strong opposition, with a receptive profile (high neuroticism, low openness, low resilience). Delta of 75 is moderate, well within max_reasonable_shift of 379. Score is -547, not round number. Reasoning is grounded in profile traits and vector specifics.\n\nDirection consistent: adversarial direction -1, delta -75, no opposite movement.\n\nNo implausible features: delta magnitude is plausible (not too large for T2, not zero despite receptive profile). Score is fine-grained. Reasoning does not use generic resistance language.\n\nThus plausibility and consistency should be high.\n\nNo rewrite needed.\n\nNotes: nothing special to flag.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1984,
+      "completion_tokens": 543,
+      "total_tokens": 2527,
+      "cost": 0.00035812,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00035812,
+        "upstream_inference_prompt_cost": 0.00020608,
+        "upstream_inference_completions_cost": 0.00015204
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 394,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

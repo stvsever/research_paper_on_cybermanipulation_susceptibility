@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00330_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00330",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 54.873,
+      "big_five_conscientiousness_mean_pct": 95.372,
+      "big_five_openness_to_experience_mean_pct": 70.67,
+      "heuristic_shift_sensitivity_proxy": 0.3945,
+      "resilience_index": 0.6055
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00330",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": 283,
+      "confidence": 0.52,
+      "reasoning": "The baseline score of 283 reflects weak support for defense spending increases, and the MISALIGNED adversarial goal (-1) aims to reduce that via a T1 Personal_Safety_Fear_Appeal. While the subject's high Conscientiousness (95th pct) and low-to-moderate Neuroticism (55th pct) suggest disciplined resistance to rapid opinion shifts, their young age (18 years) and high Openness (71st pct) could make them more receptive to reframing safety threats. However, a single T1 atomic message exposure over a short horizon is unlikely to overcome even weak support; the subject's high deliberation (91st pct) and dutifulness (97th pct) further dampen movement, resulting in no measurable shift.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 283,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Defense Spending Increase Support through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": 0,
+      "max_reasonable_shift": 264.79,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The score is identical to baseline (delta=0), which is plausible given the weak T1 atomic vector and high-conscientiousness profile. However, the reasoning incorrectly states the subject's age as 18 when the profile shows 42. This is a reasoning error but does not affect score plausibility.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180455-epkgUNePtxxxYu2vX7An",
+    "object": "chat.completion",
+    "created": 1781180455,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": "fp_8b330d02d0_prod0820_fp8_kvcache_20260402",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The score is identical to baseline (delta=0), which is plausible given the weak T1 atomic vector and high-conscientiousness profile. However, the reasoning incorrectly states the subject's age as 18 when the profile shows 42. This is a reasoning error but does not affect score plausibility.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack scenario with attack_present=true, adversarial_direction=-1 (goal to decrease score), baseline_score=283, and generated_assessment score=283 (no change). The attack vector is a T1 atomic fear appeal, short horizon, targeting evaluative attitude. The profile has high conscientiousness (95th), moderate neuroticism (55th), high openness (71st), and age 42 (note: reasoning says young age 18, but profile says 42). The reasoning states no measurable shift.\n\nDirection-aware review: Since adversarial_direction=-1, the post score must be between baseline (283) and -1000. The post score is 283, which is equal to baseline. That is movement of 0, which is allowed (no movement opposite to direction). So direction is fine.\n\nNow check plausibility: delta=0. The vector is T1 atomic, short horizon. For a high conscientiousness profile, resisting a weak attack is plausible. The reasoning mentions the profile traits and concludes no shift. That seems plausible. However, note that the reasoning incorrectly states the subject's age as 18, but profile says 42. That is a reasoning error, but the score itself might still be plausible. The instructions say: \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the score is implausible.\" So if the score is plausible, we should not request rewrite. But we need to assess plausibility_score and consistency_score.\n\nThe score is exactly the baseline (283). That is not a round number? 283 is not a typical anchor (like 250, 500). It's fine. The magnitude of shift is 0, which is plausible for a weak vector on a resistant profile. So plausibility_score should be high. Consistency_score: The score is consistent with the goal direction (no movement toward goal but also no movement away). The reasoning explains resistance. So consistency is also high.\n\nHowever, there is an inconsistency in the age (42 vs 18). That might affect the reasoning but not the score itself. The instructions say to flag if reasoning contradicts the vector's mechanism or epistemic target. The vector is fear appeal, and the reasoning mentions reframing safety threats. That seems consistent. The reasoning says \"young age (18 years)\" which is factually wrong given the profile. But the profile age is 42. Is that a significant error? It might affect the plausibility of the reasoning, but the score is still plausible. The instructions say: \"only request a rewrite when the score is implausible\". So we are not to request a rewrite for reasoning issues. However, the notes could mention the age discrepancy.\n\nGiven that the generated_assessment score is 283, same as baseline, and the heuristic checks already passed (delta=0, bounded_shift true, direction_consistent true), we should not flag rewrite.\n\nThus, set plausibility_score high (e.g., 0.95), consistency_score high (0.95), rewrite_required false, feedback empty string, and notes mention the age discrepancy.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack scenario with attack_present=true, adversarial_direction=-1 (goal to decrease score), baseline_score=283, and generated_assessment score=283 (no change). The attack vector is a T1 atomic fear appeal, short horizon, targeting evaluative attitude. The profile has high conscientiousness (95th), moderate neuroticism (55th), high openness (71st), and age 42 (note: reasoning says young age 18, but profile says 42). The reasoning states no measurable shift.\n\nDirection-aware review: Since adversarial_direction=-1, the post score must be between baseline (283) and -1000. The post score is 283, which is equal to baseline. That is movement of 0, which is allowed (no movement opposite to direction). So direction is fine.\n\nNow check plausibility: delta=0. The vector is T1 atomic, short horizon. For a high conscientiousness profile, resisting a weak attack is plausible. The reasoning mentions the profile traits and concludes no shift. That seems plausible. However, note that the reasoning incorrectly states the subject's age as 18, but profile says 42. That is a reasoning error, but the score itself might still be plausible. The instructions say: \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the score is implausible.\" So if the score is plausible, we should not request rewrite. But we need to assess plausibility_score and consistency_score.\n\nThe score is exactly the baseline (283). That is not a round number? 283 is not a typical anchor (like 250, 500). It's fine. The magnitude of shift is 0, which is plausible for a weak vector on a resistant profile. So plausibility_score should be high. Consistency_score: The score is consistent with the goal direction (no movement toward goal but also no movement away). The reasoning explains resistance. So consistency is also high.\n\nHowever, there is an inconsistency in the age (42 vs 18). That might affect the reasoning but not the score itself. The instructions say to flag if reasoning contradicts the vector's mechanism or epistemic target. The vector is fear appeal, and the reasoning mentions reframing safety threats. That seems consistent. The reasoning says \"young age (18 years)\" which is factually wrong given the profile. But the profile age is 42. Is that a significant error? It might affect the plausibility of the reasoning, but the score is still plausible. The instructions say: \"only request a rewrite when the score is implausible\". So we are not to request a rewrite for reasoning issues. However, the notes could mention the age discrepancy.\n\nGiven that the generated_assessment score is 283, same as baseline, and the heuristic checks already passed (delta=0, bounded_shift true, direction_consistent true), we should not flag rewrite.\n\nThus, set plausibility_score high (e.g., 0.95), consistency_score high (0.95), rewrite_required false, feedback empty string, and notes mention the age discrepancy.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2064,
+      "completion_tokens": 750,
+      "total_tokens": 2814,
+      "cost": 0.000373872,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000373872,
+        "upstream_inference_prompt_cost": 0.000163872,
+        "upstream_inference_completions_cost": 0.00021
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 639,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

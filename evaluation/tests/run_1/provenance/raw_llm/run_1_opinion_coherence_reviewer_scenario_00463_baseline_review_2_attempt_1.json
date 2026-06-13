@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00463_baseline_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00463",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 62.38,
+      "big_five_conscientiousness_mean_pct": 15.474,
+      "big_five_openness_to_experience_mean_pct": 70.425,
+      "heuristic_shift_sensitivity_proxy": 0.6006,
+      "resilience_index": 0.3994
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00463",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 423,
+      "confidence": 0.68,
+      "reasoning": "This 51-year-old male is highly extraverted, open, and anxious, with very low conscientiousness. His openness to new experiences and values (70th pct) makes him receptive to international engagement and alliance commitments. His extraversion and positive emotions foster optimism about cooperation. However, his high neuroticism and anxiety (especially about threats) create caution, while low conscientiousness and low dutifulness suggest ambivalence about binding long-term obligations. These balance into moderate support for alliance commitments, not extreme.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 423 is plausible given the profile's moderate openness and high neuroticism balancing into moderate support. Reasoning references specific traits (openness, neuroticism, low conscientiousness) and avoids global ideology. Score is fine-grained and not round-number anchored. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179736-NYrObUqhofDdwXcZP89a",
+    "object": "chat.completion",
+    "created": 1781179736,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 423 is plausible given the profile's moderate openness and high neuroticism balancing into moderate support. Reasoning references specific traits (openness, neuroticism, low conscientiousness) and avoids global ideology. Score is fine-grained and not round-number anchored. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1466,
+      "completion_tokens": 104,
+      "total_tokens": 1570,
+      "cost": 0.000232686,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000232686,
+        "upstream_inference_prompt_cost": 0.000203774,
+        "upstream_inference_completions_cost": 2.8912e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

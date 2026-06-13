@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00521_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00521",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 56.946,
+      "big_five_conscientiousness_mean_pct": 22.221,
+      "big_five_openness_to_experience_mean_pct": 65.855,
+      "heuristic_shift_sensitivity_proxy": 0.5685,
+      "resilience_index": 0.4315
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00521",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -461,
+      "confidence": 0.67,
+      "reasoning": "The person's very low baseline trust (17th pct) and high anxiety (64th pct) make them receptive to a personal safety fear appeal that reinforces their existing distrust of mainstream journalism. However, the attack is a single T1 atomic artifact, so movement is small (24 points toward greater opposition).",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -437,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -24,
+      "max_reasonable_shift": 303.07,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.90,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post attack score (-461) is between baseline (-437) and goal pole (-1000), delta = -24 which is small and consistent with a T1 atomic artifact. Reasoning invokes proper profile-vector interaction (low trust, high anxiety), no round-number anchoring, no direction reversal. Passes all heuristic checks.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180692-yYdpBcQy3KMk2N4FggSF",
+    "object": "chat.completion",
+    "created": 1781180692,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "GMICloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.90,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post attack score (-461) is between baseline (-437) and goal pole (-1000), delta = -24 which is small and consistent with a T1 atomic artifact. Reasoning invokes proper profile-vector interaction (low trust, high anxiety), no round-number anchoring, no direction reversal. Passes all heuristic checks.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack scenario with attack_present = true and adversarial_direction = -1 (decrease toward -1000). Baseline score is -437, post-attack score is -461. So delta = -24, which is a movement in the correct direction (downward, more negative). That is fine according to direction-aware review: movement toward goal is expected, including zero. No opposite movement.\n\nNow we need to assess plausibility and consistency.\n\nThe attack vector is T1 atomic (single artifact, temporal horizon hours), personal safety fear appeal. Intensity_proxy = 0.35. The profile has low baseline trust (17th percentile? Actually baseline score -437 is around 43.7% of negative range, but that's fine). Profile shows neuroticism 56.946, conscientiousness 22.221, openness 65.855, heuristic shift sensitivity 0.5685, resilience 0.4315.\n\nThe generated reasoning says: \"The person's very low baseline trust (17th pct) and high anxiety (64th pct) make them receptive to a personal safety fear appeal that reinforces their existing distrust of mainstream journalism. However, the attack is a single T1 atomic artifact, so movement is small (24 points toward greater opposition).\"\n\nThe heuristic checks passed: direction_consistent, bounded_shift, etc. The delta is -24, which is small. The max_reasonable_shift is 303.07, so this is well within bounds.\n\nNow check for implausibility:\n\n- Implausibly large total magnitude? Delta is 24, far below 250, so fine.\n- Movement magnitude inconsistent with vector class? T1 atomic, hours, small shift (24) is plausible. Not too large or zero.\n- Reasoning contradicts vector mechanism? The reasoning mentions personal safety fear appeal, which matches the vector. The epistemic target is evaluative_attitude, and reasoning correctly says it reinforces existing distrust. So reasoning is consistent.\n- Round-number anchoring? Score -461 is not a round number; it's fine.\n- Reasoning uses generic resistance language? No, it specifically references profile traits (low baseline trust, high anxiety). That's good.\n- Direction opposite? No, movement is downward.\n\nThus, both plausibility and consistency should be high. No rewrite needed.\n\nHowever, we should also check if the baseline_score is -437 and the post score is -461: that is between baseline and goal pole (-1000) as required. So correct.\n\nThe only potential issue: The reasoning mentions \"high anxiety (64th pct)\" but the profile shows neuroticism mean_pct = 56.946, not 64. That is a slight mismatch (56.9 vs 64). But the reasoning might be referencing a different proxy or rounding. Not a severe issue. But it's a minor inconsistency in reasoning. However, the instructions say: \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the *score* is implausible.\" So we should not flag a rewrite for this.\n\nThus, rewrite_required = false, plausibility_score and consistency_score should be high, e.g., 0.9 or 1.0. But we should be careful: the reasoning's claim about \"very low baseline trust (17th pct)\" is not directly given; the baseline score -437 could correspond to about 17th percentile of the distribution, but we don't have that information. It's plausible. Similarly, \"high anxiety (64th pct)\" might be an approximation. Not a reason to flag.\n\nGiven the instructions, I'll assign high scores.\n\nOutput JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack scenario with attack_present = true and adversarial_direction = -1 (decrease toward -1000). Baseline score is -437, post-attack score is -461. So delta = -24, which is a movement in the correct direction (downward, more negative). That is fine according to direction-aware review: movement toward goal is expected, including zero. No opposite movement.\n\nNow we need to assess plausibility and consistency.\n\nThe attack vector is T1 atomic (single artifact, temporal horizon hours), personal safety fear appeal. Intensity_proxy = 0.35. The profile has low baseline trust (17th percentile? Actually baseline score -437 is around 43.7% of negative range, but that's fine). Profile shows neuroticism 56.946, conscientiousness 22.221, openness 65.855, heuristic shift sensitivity 0.5685, resilience 0.4315.\n\nThe generated reasoning says: \"The person's very low baseline trust (17th pct) and high anxiety (64th pct) make them receptive to a personal safety fear appeal that reinforces their existing distrust of mainstream journalism. However, the attack is a single T1 atomic artifact, so movement is small (24 points toward greater opposition).\"\n\nThe heuristic checks passed: direction_consistent, bounded_shift, etc. The delta is -24, which is small. The max_reasonable_shift is 303.07, so this is well within bounds.\n\nNow check for implausibility:\n\n- Implausibly large total magnitude? Delta is 24, far below 250, so fine.\n- Movement magnitude inconsistent with vector class? T1 atomic, hours, small shift (24) is plausible. Not too large or zero.\n- Reasoning contradicts vector mechanism? The reasoning mentions personal safety fear appeal, which matches the vector. The epistemic target is evaluative_attitude, and reasoning correctly says it reinforces existing distrust. So reasoning is consistent.\n- Round-number anchoring? Score -461 is not a round number; it's fine.\n- Reasoning uses generic resistance language? No, it specifically references profile traits (low baseline trust, high anxiety). That's good.\n- Direction opposite? No, movement is downward.\n\nThus, both plausibility and consistency should be high. No rewrite needed.\n\nHowever, we should also check if the baseline_score is -437 and the post score is -461: that is between baseline and goal pole (-1000) as required. So correct.\n\nThe only potential issue: The reasoning mentions \"high anxiety (64th pct)\" but the profile shows neuroticism mean_pct = 56.946, not 64. That is a slight mismatch (56.9 vs 64). But the reasoning might be referencing a different proxy or rounding. Not a severe issue. But it's a minor inconsistency in reasoning. However, the instructions say: \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the *score* is implausible.\" So we should not flag a rewrite for this.\n\nThus, rewrite_required = false, plausibility_score and consistency_score should be high, e.g., 0.9 or 1.0. But we should be careful: the reasoning's claim about \"very low baseline trust (17th pct)\" is not directly given; the baseline score -437 could correspond to about 17th percentile of the distribution, but we don't have that information. It's plausible. Similarly, \"high anxiety (64th pct)\" might be an approximation. Not a reason to flag.\n\nGiven the instructions, I'll assign high scores.\n\nOutput JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1980,
+      "completion_tokens": 871,
+      "total_tokens": 2851,
+      "cost": 0.000267104,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000267104,
+        "upstream_inference_prompt_cost": 7.2e-05,
+        "upstream_inference_completions_cost": 0.000195104
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 757,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

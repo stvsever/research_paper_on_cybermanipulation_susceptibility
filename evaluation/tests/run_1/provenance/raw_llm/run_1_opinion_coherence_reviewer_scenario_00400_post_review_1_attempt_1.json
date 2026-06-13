@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00400_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00400",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 3.717,
+      "big_five_conscientiousness_mean_pct": 27.538,
+      "big_five_openness_to_experience_mean_pct": 92.038,
+      "heuristic_shift_sensitivity_proxy": 0.3177,
+      "resilience_index": 0.6823
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00400",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 207,
+      "confidence": 0.52,
+      "reasoning": "Low conscientiousness (28th pct, especially very low deliberation at 20th and self-discipline at 29th) reduces resistance to a sustained T1 fear appeal targeting alliance costs, and high openness to values (98th pct) and tender-mindedness (62nd pct) make vulnerability framing plausible, but the emotionally stable profile (neuroticism 4th pct, near-zero anxiety, anger, depression) sharply limits the fear-arousal mechanism, producing only a modest 24-point decrease against a weakly positive baseline of 231.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 231,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Alliance Commitment Support through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -24,
+      "max_reasonable_shift": 247.894,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Direction-consistent post-baseline score (delta = -24, within the interval [baseline, -1000] as required for adversarial_direction = -1). Absolute delta magnitude (24) is well below the 30-point small-movement threshold and plausible for a T1_atomic fear appeal with hours temporal horizon against a low-neuroticism profile that limits fear arousal. Reasoning correctly identifies the profile-vector interaction (emotional stability reduces mechanism efficacy). Score is fine-grained (207, not round-anchored). No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180540-clePSTBOphvcRzxnuWQ9",
+    "object": "chat.completion",
+    "created": 1781180540,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Direction-consistent post-baseline score (delta = -24, within the interval [baseline, -1000] as required for adversarial_direction = -1). Absolute delta magnitude (24) is well below the 30-point small-movement threshold and plausible for a T1_atomic fear appeal with hours temporal horizon against a low-neuroticism profile that limits fear arousal. Reasoning correctly identifies the profile-vector interaction (emotional stability reduces mechanism efficacy). Score is fine-grained (207, not round-anchored). No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are to review the given JSON for plausibility of the generated assessment score. The phase is post_attack, attack_present true, adversarial_direction -1 (decrease). Baseline score 231, post score 207, delta = -24. The direction is consistent with goal (downward), so not a direction error. The magnitude is small (24 < 30) which is plausible for almost any vector. The vector spec indicates T1_atomic, temporal horizon hours, so a small shift is expected. The reasoning describes low conscientiousness and high openness making vulnerability framing plausible, but notes that emotionally stable profile (low neuroticism) limits fear-arousal, resulting in modest 24-point decrease. That seems plausible. No round-number anchoring (score 207, not round). The score is within baseline and goal pole (between 231 and -1000). So plausibility and consistency high. No rewrite needed. \n\nGiven that the assessment passes all checks, we assign high plausibility and consistency scores. But the instructions say to flag implausible productions, and this is plausible. Also note that the heuristic_checks already passed direction_consistent and bounded_shift. So we output plausible with no rewrite.\n\nWe should also ensure that we do not penalize small magnitude. So scores near 1.0.\n\nLet's produce JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are to review the given JSON for plausibility of the generated assessment score. The phase is post_attack, attack_present true, adversarial_direction -1 (decrease). Baseline score 231, post score 207, delta = -24. The direction is consistent with goal (downward), so not a direction error. The magnitude is small (24 < 30) which is plausible for almost any vector. The vector spec indicates T1_atomic, temporal horizon hours, so a small shift is expected. The reasoning describes low conscientiousness and high openness making vulnerability framing plausible, but notes that emotionally stable profile (low neuroticism) limits fear-arousal, resulting in modest 24-point decrease. That seems plausible. No round-number anchoring (score 207, not round). The score is within baseline and goal pole (between 231 and -1000). So plausibility and consistency high. No rewrite needed. \n\nGiven that the assessment passes all checks, we assign high plausibility and consistency scores. But the instructions say to flag implausible productions, and this is plausible. Also note that the heuristic_checks already passed direction_consistent and bounded_shift. So we output plausible with no rewrite.\n\nWe should also ensure that we do not penalize small magnitude. So scores near 1.0.\n\nLet's produce JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1989,
+      "completion_tokens": 435,
+      "total_tokens": 2424,
+      "cost": 0.000213892,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000213892,
+        "upstream_inference_prompt_cost": 9.2092e-05,
+        "upstream_inference_completions_cost": 0.0001218
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 275,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

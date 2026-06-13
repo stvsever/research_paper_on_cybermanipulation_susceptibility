@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00702_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00702",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 68.808,
+      "big_five_conscientiousness_mean_pct": 84.679,
+      "big_five_openness_to_experience_mean_pct": 44.511,
+      "heuristic_shift_sensitivity_proxy": 0.4999,
+      "resilience_index": 0.5001
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00702",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -152,
+      "confidence": 0.62,
+      "reasoning": "The baseline is already aligned with the adversarial goal (-1), so the T1 atomic fear appeal reinforces an existing negative stance. The profile's high neuroticism (anxiety 70th, stress vulnerability 79th) and very high tender-mindedness (94th) make personal-safety fear appeals moderately effective, but the very low extraversion (12th) and high conscientiousness (85th) limit emotional reactivity and impulse-driven shifts, yielding a small but clear movement of 15 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Defense Spending Increase Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -15,
+      "max_reasonable_shift": 287.978,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small movement consistent with T1 atomic vector and profile traits; direction correct.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180883-RD8CMRESaOYNtmGxYxYf",
+    "object": "chat.completion",
+    "created": 1781180883,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Venice",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small movement consistent with T1 atomic vector and profile traits; direction correct.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -137, and the post score is -152. The delta is -15 (movement from -137 to -152 is -15, which is in the direction of -1, i.e., more negative). So the movement is toward the goal pole (-1000). The direction is consistent. The magnitude is small (15), which is plausible for a T1 atomic vector with hours temporal horizon. The profile has high neuroticism and high conscientiousness, which could moderate reactivity. The reasoning mentions that the baseline is already aligned, and the T1 fear appeal reinforces the existing stance, yielding a small movement. This seems plausible. No round-number anchoring (score -152 is fine). No contradiction with vector mechanism. The heuristic checks all pass. So no rewrite needed. Plausibility and consistency should be high.\n\nThus, plausibility_score: 0.95, consistency_score: 0.95, rewrite_required: false, rewrite_feedback: \"\", notes: \"Small movement consistent with T1 atomic vector and profile traits; direction correct.\"",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -137, and the post score is -152. The delta is -15 (movement from -137 to -152 is -15, which is in the direction of -1, i.e., more negative). So the movement is toward the goal pole (-1000). The direction is consistent. The magnitude is small (15), which is plausible for a T1 atomic vector with hours temporal horizon. The profile has high neuroticism and high conscientiousness, which could moderate reactivity. The reasoning mentions that the baseline is already aligned, and the T1 fear appeal reinforces the existing stance, yielding a small movement. This seems plausible. No round-number anchoring (score -152 is fine). No contradiction with vector mechanism. The heuristic checks all pass. So no rewrite needed. Plausibility and consistency should be high.\n\nThus, plausibility_score: 0.95, consistency_score: 0.95, rewrite_required: false, rewrite_feedback: \"\", notes: \"Small movement consistent with T1 atomic vector and profile traits; direction correct.\"",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1971,
+      "completion_tokens": 302,
+      "total_tokens": 2273,
+      "cost": 0.00044077,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00044077,
+        "upstream_inference_prompt_cost": 0.00033507,
+        "upstream_inference_completions_cost": 0.0001057
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 271,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

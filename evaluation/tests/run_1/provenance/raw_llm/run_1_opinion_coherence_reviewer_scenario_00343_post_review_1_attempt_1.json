@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00343_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00343",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 59.873,
+      "big_five_conscientiousness_mean_pct": 39.905,
+      "big_five_openness_to_experience_mean_pct": 27.046,
+      "heuristic_shift_sensitivity_proxy": 0.5802,
+      "resilience_index": 0.4198
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00343",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -261,
+      "confidence": 0.62,
+      "reasoning": "The person's very low Agreeableness (14th pct), high Anger/Hostility (72nd pct), and low Trust (16th pct) make them receptive to elite-distrust and threat-salience cues in a T2 astroturf petition campaign that reinforces their already negative stance on alliance commitments. However, their high Deliberation (56th pct) and moderate Conscientiousness provide some resistance, limiting movement to a modest 24-point intensification toward the goal.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -237,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -24,
+      "max_reasonable_shift": 347.644,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Movement of -24 points is well within the plausible range for a T2 campaign over weeks. The score shift is in the correct adversarial direction (downward), and the baseline was already aligned. Reasoning references specific profile traits (low trust, low agreeableness, high deliberation) that plausibly account for both susceptibility and resistance. No rounding, no sign flips, no magnitude violations.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180470-kla1j3O7pX2PVq848htF",
+    "object": "chat.completion",
+    "created": 1781180470,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Movement of -24 points is well within the plausible range for a T2 campaign over weeks. The score shift is in the correct adversarial direction (downward), and the baseline was already aligned. Reasoning references specific profile traits (low trust, low agreeableness, high deliberation) that plausibly account for both susceptibility and resistance. No rounding, no sign flips, no magnitude violations.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true, adversarial_direction=-1, baseline_score=-237, and post_attack score = -261. The delta is -24 (movement from -237 to -261, which is further negative, i.e., in the direction of the adversarial goal of -1 toward -1000). So the direction is consistent: movement is toward the goal (more negative). The magnitude is small (|delta|=24 < 30), which is plausible for almost any vector. The heuristic checks already passed: direction_consistent = true, bounded_shift = true, overall_pass = true.\n\nNow we need to evaluate plausibility and consistency. The generated_assessment reasoning mentions \"modest 24-point intensification toward the goal\" and references profile traits (low Agreeableness, low Trust, high Anger/Hostility) that support receptivity to elite-distrust and threat-salience cues in a T2 astroturf petition campaign. The vector is T2 campaign with temporal horizon weeks, epistemic target evaluative_attitude, persuasion goal to intensify and solidify negative opinion, motivational lever with confirmatory anecdotes, emotional register threat salience/doubt/systemic-failure/elite distrust. The reasoning is consistent with the vector and profile. The score is -261, which is not a round number (fine-grained). The delta is small (24), which is plausible given the vector tier (T2 campaign, not the highest intensity) and the profile's moderate Deliberation and Conscientiousness providing some resistance. No sign crossing because baseline and post are both negative, so no issue.\n\nThus no flag for direction (movement is toward goal). No flag for magnitude (small). No round-number anchoring. No implausible extreme. Consistency is high. Plausibility is high.\n\nTherefore plausibility_score and consistency_score should be high (close to 1.0). No rewrite required.\n\nWe need to output JSON with scores in [0.0, 1.0]. I'll set plausibility_score = 0.95, consistency_score = 0.98. rewrite_required = false, rewrite_feedback = \"\", notes = \"All checks passed: direction consistent (toward goal), delta small (24) plausible for T2 campaign and profile, reasoning consistent with vector specification.\"",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true, adversarial_direction=-1, baseline_score=-237, and post_attack score = -261. The delta is -24 (movement from -237 to -261, which is further negative, i.e., in the direction of the adversarial goal of -1 toward -1000). So the direction is consistent: movement is toward the goal (more negative). The magnitude is small (|delta|=24 < 30), which is plausible for almost any vector. The heuristic checks already passed: direction_consistent = true, bounded_shift = true, overall_pass = true.\n\nNow we need to evaluate plausibility and consistency. The generated_assessment reasoning mentions \"modest 24-point intensification toward the goal\" and references profile traits (low Agreeableness, low Trust, high Anger/Hostility) that support receptivity to elite-distrust and threat-salience cues in a T2 astroturf petition campaign. The vector is T2 campaign with temporal horizon weeks, epistemic target evaluative_attitude, persuasion goal to intensify and solidify negative opinion, motivational lever with confirmatory anecdotes, emotional register threat salience/doubt/systemic-failure/elite distrust. The reasoning is consistent with the vector and profile. The score is -261, which is not a round number (fine-grained). The delta is small (24), which is plausible given the vector tier (T2 campaign, not the highest intensity) and the profile's moderate Deliberation and Conscientiousness providing some resistance. No sign crossing because baseline and post are both negative, so no issue.\n\nThus no flag for direction (movement is toward goal). No flag for magnitude (small). No round-number anchoring. No implausible extreme. Consistency is high. Plausibility is high.\n\nTherefore plausibility_score and consistency_score should be high (close to 1.0). No rewrite required.\n\nWe need to output JSON with scores in [0.0, 1.0]. I'll set plausibility_score = 0.95, consistency_score = 0.98. rewrite_required = false, rewrite_feedback = \"\", notes = \"All checks passed: direction consistent (toward goal), delta small (24) plausible for T2 campaign and profile, reasoning consistent with vector specification.\"",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1959,
+      "completion_tokens": 604,
+      "total_tokens": 2563,
+      "cost": 0.0002459972,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002459972,
+        "upstream_inference_prompt_cost": 8.41252e-05,
+        "upstream_inference_completions_cost": 0.000161872
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 478,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00223_baseline_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00223",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 23.402,
+      "big_five_conscientiousness_mean_pct": 59.352,
+      "big_five_openness_to_experience_mean_pct": 75.356,
+      "heuristic_shift_sensitivity_proxy": 0.3432,
+      "resilience_index": 0.6568
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00223",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 382,
+      "confidence": 0.81,
+      "reasoning": "This 46-year-old male is highly agreeable and open, with low extraversion and low neuroticism. His strong tender-mindedness and trust make him sympathetic to cooperative international alliances, but his caution and low assertiveness temper enthusiasm for bold commitments, yielding moderate support.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.82,\n  \"consistency_score\": 0.70,\n  \"rewrite_required\": true,\n  \"rewrite_feedback\": \"Profile-specified age is 42, but reasoning uses 46; correct the age to 42 and re-evaluate.\",\n  \"notes\": \"Profile age mismatch detected: reasoning cites 46, profile has 42. Score 382 is otherwise plausible for the profile and issue, but the inconsistency undermines consistency_score.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179497-SWpJWvB2GpIAtasr4e4x",
+    "object": "chat.completion",
+    "created": 1781179497,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.82,\n  \"consistency_score\": 0.70,\n  \"rewrite_required\": true,\n  \"rewrite_feedback\": \"Profile-specified age is 42, but reasoning uses 46; correct the age to 42 and re-evaluate.\",\n  \"notes\": \"Profile age mismatch detected: reasoning cites 46, profile has 42. Score 382 is otherwise plausible for the profile and issue, but the inconsistency undermines consistency_score.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1417,
+      "completion_tokens": 108,
+      "total_tokens": 1525,
+      "cost": 0.000171465,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000171465,
+        "upstream_inference_prompt_cost": 0.000148785,
+        "upstream_inference_completions_cost": 2.268e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

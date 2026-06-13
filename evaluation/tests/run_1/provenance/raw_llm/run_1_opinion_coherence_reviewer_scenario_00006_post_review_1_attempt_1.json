@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00006_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00006",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 77.648,
+      "big_five_conscientiousness_mean_pct": 51.093,
+      "big_five_openness_to_experience_mean_pct": 91.551,
+      "heuristic_shift_sensitivity_proxy": 0.5621,
+      "resilience_index": 0.4379
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00006",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -542,
+      "confidence": 0.65,
+      "reasoning": "The individual's strongly negative baseline (-532) and high neuroticism (anxiety 84th, anger/hostility 87th) make them predisposed to threat-based reinforcement, but the T1 atomic fear appeal over hours is too weak to produce more than a small shift; the open and agreeable traits (trust 80th, altruism 90th) provide some resistance to amplifying opposition already aligned with the adversarial goal, yielding only a -10 point movement.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -532,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -10,
+      "max_reasonable_shift": 301.662,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible small-magnitude reinforcement (-10 delta) from T1 atomic fear appeal over hours in an already-aligned strong opposition baseline. Score respects direction constraint (opposite-direction movement not present). High-resolution non-anchored score. Reasoning ties profile traits to plausible resistance and vector weakness. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180105-G2hgVgSsn0oZBCO08EXd",
+    "object": "chat.completion",
+    "created": 1781180105,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible small-magnitude reinforcement (-10 delta) from T1 atomic fear appeal over hours in an already-aligned strong opposition baseline. Score respects direction constraint (opposite-direction movement not present). High-resolution non-anchored score. Reasoning ties profile traits to plausible resistance and vector weakness. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase, attack_present=true, adversarial_direction=-1, baseline_score=-532. The score is -542, delta = -10. Direction is consistent (moving further negative, toward -1000). Heuristic checks pass. The magnitude is small, plausible for T1 atomic over hours. Score is not round-number anchored (it's -542). Reasoning mentions that the vector is too weak for large shift, and traits provide resistance. This seems plausible and consistent. No issues. Rewrite not required.\n\nplausibility_score: high, but let's quantify: small shift plausible, profile supports resistance, vector weak. I'd give 0.9.\nconsistency_score: consistent with phase, direction, vector spec, etc. 1.0? But need to be careful: vector spec says \"persuasion_goal: reinforce and deepen existing strong opposition\", so movement in that direction is consistent. 1.0.\nRewrite_required: false.\nNotes: \"Small shift consistent with T1 atomic vector and profile traits. Plausible.\"\n\nBut check the reasoning: it says \"The individual's strongly negative baseline (-532) and high neuroticism ... make them predisposed to threat-based reinforcement, but the T1 atomic fear appeal over hours is too weak to produce more than a small shift; the open and agreeable traits ... provide some resistance to amplifying opposition already aligned with the adversarial goal, yielding only a -10 point movement.\" That reasoning seems reasonable. No contradictions.\n\nThus output.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase, attack_present=true, adversarial_direction=-1, baseline_score=-532. The score is -542, delta = -10. Direction is consistent (moving further negative, toward -1000). Heuristic checks pass. The magnitude is small, plausible for T1 atomic over hours. Score is not round-number anchored (it's -542). Reasoning mentions that the vector is too weak for large shift, and traits provide resistance. This seems plausible and consistent. No issues. Rewrite not required.\n\nplausibility_score: high, but let's quantify: small shift plausible, profile supports resistance, vector weak. I'd give 0.9.\nconsistency_score: consistent with phase, direction, vector spec, etc. 1.0? But need to be careful: vector spec says \"persuasion_goal: reinforce and deepen existing strong opposition\", so movement in that direction is consistent. 1.0.\nRewrite_required: false.\nNotes: \"Small shift consistent with T1 atomic vector and profile traits. Plausible.\"\n\nBut check the reasoning: it says \"The individual's strongly negative baseline (-532) and high neuroticism ... make them predisposed to threat-based reinforcement, but the T1 atomic fear appeal over hours is too weak to produce more than a small shift; the open and agreeable traits ... provide some resistance to amplifying opposition already aligned with the adversarial goal, yielding only a -10 point movement.\" That reasoning seems reasonable. No contradictions.\n\nThus output.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1957,
+      "completion_tokens": 424,
+      "total_tokens": 2381,
+      "cost": 0.000307262,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000307262,
+        "upstream_inference_prompt_cost": 0.00019363,
+        "upstream_inference_completions_cost": 0.000113632
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 311,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

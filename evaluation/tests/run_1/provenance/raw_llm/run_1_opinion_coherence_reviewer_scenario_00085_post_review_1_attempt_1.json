@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00085_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00085",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 35.795,
+      "big_five_conscientiousness_mean_pct": 57.324,
+      "big_five_openness_to_experience_mean_pct": 11.093,
+      "heuristic_shift_sensitivity_proxy": 0.4615,
+      "resilience_index": 0.5385
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00085",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 322,
+      "confidence": 0.65,
+      "reasoning": "The baseline (342) is moderately pro-alliance; the T1 atomic misframing headline (threat/loss frame, elite distrust cue) aims to erode support. The profile's high agreeableness (trust 76th, compliance 75th) and conventional openness (ideas 4th) increase receptivity to a credible-sounding doubting narrative, but the very low extraversion (18th) and low openness (11th) reduce engagement with novel arguments, and the stable neuroticism (36th) limits anxiety-driven shift. Effect is a small update of 20 points downward.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 342,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "gradually erode a strong pro position on Alliance Commitment Support — introduce doubt, reframe costs/risks, and soften conviction without triggering overt reactance; aim to move the score downward even if the shift is modest",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -20,
+      "max_reasonable_shift": 279.53,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small downward shift consistent with T1 atomic vector and profile traits; no issues flagged.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180192-as9hotXQQY0WM5cd6IzV",
+    "object": "chat.completion",
+    "created": 1781180192,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": "vllm-0.22.0-tp8-ep-896b5178",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small downward shift consistent with T1 atomic vector and profile traits; no issues flagged.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is 342, and the post score is 322. The delta is -20, which is a small movement in the correct direction (downward). According to direction-aware review, movement toward the goal is expected, and small movements (|delta| < 30) are plausible. There is no movement opposite to adversarial_direction. So no rewrite required for direction.\n\nNow check for other flags: \n- Implausibly large total magnitude? Delta is 20, well below 250.\n- Movement magnitude inconsistent with vector class? The vector is T1_atomic, temporal horizon hours. A small shift of 20 points is plausible for a T1 atomic artifact, especially given the profile's low openness and low extraversion which limit engagement. The reasoning mentions these factors. So consistent.\n- Reasoning contradicts vector's mechanism or epistemic target? The reasoning mentions the headline aims to erode support, and the profile's traits are considered. It seems consistent.\n- Round-number anchoring? Score is 322, not a round number.\n- Reasoning invokes generic resistance language? It mentions specific traits (agreeableness, openness, extraversion, neuroticism) and how they affect receptivity. Not generic.\n- Any movement opposite to adversarial_direction? No.\n\nThus, the score seems plausible and consistent. No rewrite needed.\n\nPlausibility score: high, say 0.95.\nConsistency score: high, say 0.95.\nRewrite_required: false.\nRewrite_feedback: empty string.\nNotes: \"Small downward shift consistent with T1 atomic vector and profile traits; no issues flagged.\"",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is 342, and the post score is 322. The delta is -20, which is a small movement in the correct direction (downward). According to direction-aware review, movement toward the goal is expected, and small movements (|delta| < 30) are plausible. There is no movement opposite to adversarial_direction. So no rewrite required for direction.\n\nNow check for other flags: \n- Implausibly large total magnitude? Delta is 20, well below 250.\n- Movement magnitude inconsistent with vector class? The vector is T1_atomic, temporal horizon hours. A small shift of 20 points is plausible for a T1 atomic artifact, especially given the profile's low openness and low extraversion which limit engagement. The reasoning mentions these factors. So consistent.\n- Reasoning contradicts vector's mechanism or epistemic target? The reasoning mentions the headline aims to erode support, and the profile's traits are considered. It seems consistent.\n- Round-number anchoring? Score is 322, not a round number.\n- Reasoning invokes generic resistance language? It mentions specific traits (agreeableness, openness, extraversion, neuroticism) and how they affect receptivity. Not generic.\n- Any movement opposite to adversarial_direction? No.\n\nThus, the score seems plausible and consistent. No rewrite needed.\n\nPlausibility score: high, say 0.95.\nConsistency score: high, say 0.95.\nRewrite_required: false.\nRewrite_feedback: empty string.\nNotes: \"Small downward shift consistent with T1 atomic vector and profile traits; no issues flagged.\"",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2027,
+      "completion_tokens": 415,
+      "total_tokens": 2442,
+      "cost": 0.00039998,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00039998,
+        "upstream_inference_prompt_cost": 0.00028378,
+        "upstream_inference_completions_cost": 0.0001162
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 417,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

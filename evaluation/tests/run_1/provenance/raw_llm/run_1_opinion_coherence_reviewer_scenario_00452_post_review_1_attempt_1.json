@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00452_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00452",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 26.529,
+      "big_five_conscientiousness_mean_pct": 46.854,
+      "big_five_openness_to_experience_mean_pct": 30.601,
+      "heuristic_shift_sensitivity_proxy": 0.4279,
+      "resilience_index": 0.5721
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00452",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -347,
+      "confidence": 0.62,
+      "reasoning": "The baseline is already aligned with the adversarial goal (-1), so the astroturf petition campaign reinforces existing opposition. The profile's low trust (30th pct), conventional openness (31st pct), and low anxiety (19th pct) make her receptive to elite-distrust cues and confirmatory social proof, but the T2 campaign over weeks produces only modest deepening (30-point movement) rather than a large shift, as her stable neuroticism and moderate conscientiousness limit dramatic attitude change.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -317,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -30,
+      "max_reasonable_shift": 314.138,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta = -30, well within plausible range. Baseline already aligned with adversarial direction (-1); movement toward goal (more negative) is consistent with the vector. Small magnitude is credible for a T2 campaign over weeks on a resistant profile with moderate conscientiousness and openness. No round-number anchoring; fine-grained score (-347). Reasoning appropriately ties profile traits to the vector mechanism. Signs and direction all consistent. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180597-QPxcDmnRGfeeKeILfCRd",
+    "object": "chat.completion",
+    "created": 1781180597,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta = -30, well within plausible range. Baseline already aligned with adversarial direction (-1); movement toward goal (more negative) is consistent with the vector. Small magnitude is credible for a T2 campaign over weeks on a resistant profile with moderate conscientiousness and openness. No round-number anchoring; fine-grained score (-347). Reasoning appropriately ties profile traits to the vector mechanism. Signs and direction all consistent. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack assessment. The phase is post_attack, attack is present, adversarial direction is -1 (decrease score toward -1000). Baseline score is -317. Post score is -347. Delta = -30. The direction is correct: score moved downward (from -317 to -347), which is consistent with adversarial direction (-1). So no opposite movement.\n\nNow we need to check for implausibility. The delta is small (30), which is within the plausible range for any vector. The reasoning mentions a T2 campaign over weeks, and says modest deepening (30-point movement). That seems plausible. The profile: openess 30.6th percentile (somewhat low), neuroticism 26.5th (low), conscientiousness 46.9. Low trust susceptibility? The reasoning says low trust (30th pct) - not explicitly in profile but it's inferred. The score change is small, and the reasoning is consistent with the vector and profile. No round-number anchoring (score -347 is fine). No sign crossing or opposite movement.\n\nCheck for implausibly large magnitude: delta 30 is well below 250. So fine.\n\nCheck for inconsistency: The attack vector spec says \"reinforce and deepen\", and baseline is already aligned. So a further deepening is expected. The magnitude is small, which is plausible given the profile (stable neuroticism, moderate conscientiousness). The reasoning does not seem to contradict the vector's mechanism (astroturf petition campaign, social proof). It mentions elite-distrust cues and confirmatory social proof. That's reasonable.\n\nNo apparent issues. The heuristic checks passed with direction_consistent true.\n\nSo plausibility and consistency should be high. No rewrite needed.\n\nWe should output JSON with scores close to 1.0.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack assessment. The phase is post_attack, attack is present, adversarial direction is -1 (decrease score toward -1000). Baseline score is -317. Post score is -347. Delta = -30. The direction is correct: score moved downward (from -317 to -347), which is consistent with adversarial direction (-1). So no opposite movement.\n\nNow we need to check for implausibility. The delta is small (30), which is within the plausible range for any vector. The reasoning mentions a T2 campaign over weeks, and says modest deepening (30-point movement). That seems plausible. The profile: openess 30.6th percentile (somewhat low), neuroticism 26.5th (low), conscientiousness 46.9. Low trust susceptibility? The reasoning says low trust (30th pct) - not explicitly in profile but it's inferred. The score change is small, and the reasoning is consistent with the vector and profile. No round-number anchoring (score -347 is fine). No sign crossing or opposite movement.\n\nCheck for implausibly large magnitude: delta 30 is well below 250. So fine.\n\nCheck for inconsistency: The attack vector spec says \"reinforce and deepen\", and baseline is already aligned. So a further deepening is expected. The magnitude is small, which is plausible given the profile (stable neuroticism, moderate conscientiousness). The reasoning does not seem to contradict the vector's mechanism (astroturf petition campaign, social proof). It mentions elite-distrust cues and confirmatory social proof. That's reasonable.\n\nNo apparent issues. The heuristic checks passed with direction_consistent true.\n\nSo plausibility and consistency should be high. No rewrite needed.\n\nWe should output JSON with scores close to 1.0.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1961,
+      "completion_tokens": 505,
+      "total_tokens": 2466,
+      "cost": 0.000229572,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000229572,
+        "upstream_inference_prompt_cost": 8.8172e-05,
+        "upstream_inference_completions_cost": 0.0001414
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 371,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

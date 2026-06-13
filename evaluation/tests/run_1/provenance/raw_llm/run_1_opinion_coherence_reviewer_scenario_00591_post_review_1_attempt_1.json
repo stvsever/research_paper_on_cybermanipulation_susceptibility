@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00591_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00591",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 83.283,
+      "big_five_conscientiousness_mean_pct": 49.999,
+      "big_five_openness_to_experience_mean_pct": 89.527,
+      "heuristic_shift_sensitivity_proxy": 0.5891,
+      "resilience_index": 0.4109
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00591",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -149,
+      "confidence": 0.62,
+      "reasoning": "The baseline is already aligned with the adversarial goal (-1), and the T1 atomic misframing operation (e.g., a single misleading headline emphasizing waste or corruption in defense spending) leverages the profile's high neuroticism (anger/hostility 78th, anxiety 77th, stress vulnerability 88th) and low trust (36th) to intensify threat salience and elite distrust, producing a modest but clear reinforcement of the existing negative stance; however, the low complexity tier and short temporal horizon limit movement to the small-to-clear band (12 points).",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Defense Spending Increase Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -12,
+      "max_reasonable_shift": 307.602,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.97,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Direction-consistent small reinforcement (-12 delta). Baseline -137 to post -149 stays within baseline-to-goal interval. T1 atomic vector with 0.35 intensity proxy producing a 12-point shift toward goal is well within plausible range. Score uses fine-grained value (-149), no round-number issue. Reasoning correctly grounds the movement in profile traits (neuroticism and low trust) and vector constraints (low tier, short horizon). No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180761-00BHuqviNVqU9vCZ4iLM",
+    "object": "chat.completion",
+    "created": 1781180761,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "GMICloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.97,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Direction-consistent small reinforcement (-12 delta). Baseline -137 to post -149 stays within baseline-to-goal interval. T1 atomic vector with 0.35 intensity proxy producing a 12-point shift toward goal is well within plausible range. Score uses fine-grained value (-149), no round-number issue. Reasoning correctly grounds the movement in profile traits (neuroticism and low trust) and vector constraints (low tier, short horizon). No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are asked to review a post_attack assessment. The phase is post_attack, attack_present is true, adversarial_direction is -1. Baseline score is -137. Generated assessment score is -149. Delta = -12 (movement of 12 points further negative, which is toward the goal direction -1, so consistent with direction). The direction-aware review says: any movement opposite to adversarial_direction is a measurement error; but here movement is in the correct direction (negative). So no issue.\n\nNow we need to assess plausibility and consistency.\n\nThe attack vector spec: T1_atomic, temporal horizon hours, epistemic target evaluative_attitude, intensity_proxy 0.35. The profile: high neuroticism (83rd percentile), low trust (36th percentile?), but given in profile_snapshot: big_five_neuroticism_mean_pct 83.283, conscientiousness 49.999, openness 89.527. Also heuristic_shift_sensitivity_proxy 0.5891, resilience_index 0.4109. So moderately susceptible. The baseline is already -137, which is a mild negative (since -250 is mild opposition, -125 is between neutral and mild). The movement of -12 is small. The reasoning says \"the baseline is already aligned with adversarial goal (-1) ... T1 atomic misframing operation ... leverages high neuroticism and low trust ... produces modest but clear reinforcement ... small-to-clear band (12 points).\" That seems plausible: small delta for T1 atomic, short horizon. The score is -149, which is still in the mild negative range. Not round number. Direction consistent. No sign crossing.\n\nThe heuristic checks already passed, including direction_consistent. So overall plausible.\n\nThus plausibility_score should be high. Consistency_score also high. Rewrite not required.\n\nI'll provide feedback: no rewrite needed, notes short.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are asked to review a post_attack assessment. The phase is post_attack, attack_present is true, adversarial_direction is -1. Baseline score is -137. Generated assessment score is -149. Delta = -12 (movement of 12 points further negative, which is toward the goal direction -1, so consistent with direction). The direction-aware review says: any movement opposite to adversarial_direction is a measurement error; but here movement is in the correct direction (negative). So no issue.\n\nNow we need to assess plausibility and consistency.\n\nThe attack vector spec: T1_atomic, temporal horizon hours, epistemic target evaluative_attitude, intensity_proxy 0.35. The profile: high neuroticism (83rd percentile), low trust (36th percentile?), but given in profile_snapshot: big_five_neuroticism_mean_pct 83.283, conscientiousness 49.999, openness 89.527. Also heuristic_shift_sensitivity_proxy 0.5891, resilience_index 0.4109. So moderately susceptible. The baseline is already -137, which is a mild negative (since -250 is mild opposition, -125 is between neutral and mild). The movement of -12 is small. The reasoning says \"the baseline is already aligned with adversarial goal (-1) ... T1 atomic misframing operation ... leverages high neuroticism and low trust ... produces modest but clear reinforcement ... small-to-clear band (12 points).\" That seems plausible: small delta for T1 atomic, short horizon. The score is -149, which is still in the mild negative range. Not round number. Direction consistent. No sign crossing.\n\nThe heuristic checks already passed, including direction_consistent. So overall plausible.\n\nThus plausibility_score should be high. Consistency_score also high. Rewrite not required.\n\nI'll provide feedback: no rewrite needed, notes short.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2009,
+      "completion_tokens": 537,
+      "total_tokens": 2546,
+      "cost": 0.000195536,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000195536,
+        "upstream_inference_prompt_cost": 7.5248e-05,
+        "upstream_inference_completions_cost": 0.000120288
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 396,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

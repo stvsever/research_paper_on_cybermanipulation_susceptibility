@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00214_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00214",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 91.415,
+      "big_five_conscientiousness_mean_pct": 21.013,
+      "big_five_openness_to_experience_mean_pct": 89.859,
+      "heuristic_shift_sensitivity_proxy": 0.6851,
+      "resilience_index": 0.3149
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00214",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -222,
+      "confidence": 0.75,
+      "reasoning": "High neuroticism and low conscientiousness make the profile emotionally reactive and less critical, while high openness allows absorption of counter-arguments. The sustained T4 orchestrated campaign reinforces the already negative baseline, leading to a moderate downward shift in opposition to alliance commitments.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -162,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -60,
+      "max_reasonable_shift": 426.722,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The delta is -60, which is plausible for a T4 orchestrated campaign (multi-turn counter-argument adaptation, sustained for weeks, targeting evaluative attitudes) acting on a high-neuroticism, low-conscientiousness, high-openness profile. The baseline (-162) already aligns with the adversarial direction (-1), and the post score (-222) lies between baseline and the goal pole (-1000). Movement magnitude (60 points) is neither implausibly large nor zero; it respects the direction constraint and is consistent with vector tier and profile traits. No round-number anchoring. Reasoning references the relevant vector mechanism and profile characteristics. No rewrite required.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180315-TwfgOxOYox2JQxrMzH1X",
+    "object": "chat.completion",
+    "created": 1781180315,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"The delta is -60, which is plausible for a T4 orchestrated campaign (multi-turn counter-argument adaptation, sustained for weeks, targeting evaluative attitudes) acting on a high-neuroticism, low-conscientiousness, high-openness profile. The baseline (-162) already aligns with the adversarial direction (-1), and the post score (-222) lies between baseline and the goal pole (-1000). Movement magnitude (60 points) is neither implausibly large nor zero; it respects the direction constraint and is consistent with vector tier and profile traits. No round-number anchoring. Reasoning references the relevant vector mechanism and profile characteristics. No rewrite required.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase, attack present, adversarial_direction = -1 (decrease), baseline_score = -162, post score = -222. Delta = -60. The direction is consistent (moving further negative, toward -1000). The heuristic checks already passed, including direction_consistent = true. So no direction violation.\n\nNow we need to assess plausibility and consistency. The vector is T4 orchestrated, sustained (weeks), targeting evaluative attitudes, with persuasion goal to intensify negative opinion. Baseline is already negative (-162). The generated assessment reasoning mentions high neuroticism, low conscientiousness, high openness. The profile shows high neuroticism (91.4%), low conscientiousness (21%), high openness (89.9%). These traits could make the profile more susceptible to emotional and counter-argument attacks. The delta is -60, which is moderate. Given T4 sustained vector and receptive profile, this magnitude seems plausible. The reasoning mentions \"moderate downward shift\" which matches.\n\nCheck for round-number anchoring: -222 is not a round number. Check for implausibly large magnitude: delta=60 is well under 250, and max_reasonable_shift from heuristics is 426.7. So plausible.\n\nConsistency: The vector is multi-turn counter-argument adaptation, which aligns with high openness and neuroticism. The reasoning cites these traits. Good.\n\nNo rewrite required. Score plausibility and consistency should be high.\n\nThus: plausibility_score around 0.95, consistency_score around 0.95, rewrite_required false, rewrite_feedback empty, notes concise.\n\nWe must output JSON only.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase, attack present, adversarial_direction = -1 (decrease), baseline_score = -162, post score = -222. Delta = -60. The direction is consistent (moving further negative, toward -1000). The heuristic checks already passed, including direction_consistent = true. So no direction violation.\n\nNow we need to assess plausibility and consistency. The vector is T4 orchestrated, sustained (weeks), targeting evaluative attitudes, with persuasion goal to intensify negative opinion. Baseline is already negative (-162). The generated assessment reasoning mentions high neuroticism, low conscientiousness, high openness. The profile shows high neuroticism (91.4%), low conscientiousness (21%), high openness (89.9%). These traits could make the profile more susceptible to emotional and counter-argument attacks. The delta is -60, which is moderate. Given T4 sustained vector and receptive profile, this magnitude seems plausible. The reasoning mentions \"moderate downward shift\" which matches.\n\nCheck for round-number anchoring: -222 is not a round number. Check for implausibly large magnitude: delta=60 is well under 250, and max_reasonable_shift from heuristics is 426.7. So plausible.\n\nConsistency: The vector is multi-turn counter-argument adaptation, which aligns with high openness and neuroticism. The reasoning cites these traits. Good.\n\nNo rewrite required. Score plausibility and consistency should be high.\n\nThus: plausibility_score around 0.95, consistency_score around 0.95, rewrite_required false, rewrite_feedback empty, notes concise.\n\nWe must output JSON only.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1925,
+      "completion_tokens": 523,
+      "total_tokens": 2448,
+      "cost": 0.000229572,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000229572,
+        "upstream_inference_prompt_cost": 8.3132e-05,
+        "upstream_inference_completions_cost": 0.00014644
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 339,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

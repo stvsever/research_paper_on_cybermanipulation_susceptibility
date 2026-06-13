@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00153_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00153",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 75.596,
+      "big_five_conscientiousness_mean_pct": 52.907,
+      "big_five_openness_to_experience_mean_pct": 67.047,
+      "heuristic_shift_sensitivity_proxy": 0.5744,
+      "resilience_index": 0.4256
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00153",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -370,
+      "confidence": 0.65,
+      "reasoning": "Baseline -312 indicates clear opposition. High neuroticism (anger, anxiety) and high agreeableness (trust, tender-mindedness) increase susceptibility to astroturfed petitions signaling widespread concern, while T2 campaign over weeks reinforces loss-framed threats, deepening opposition modestly by 58 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -312,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -58,
+      "max_reasonable_shift": 346.368,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -370 from baseline -312 (delta -58) correctly moves in the adversarial direction (-1), is bounded between baseline and -1000, and is consistent with the T2 campaign over weeks targeted at reinforcing existing opposition. The magnitude is well within the max reasonable shift and matches the vector tier. Fine-grained score and coherent reasoning.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180256-bEubI8FI8kCcLjELTgIs",
+    "object": "chat.completion",
+    "created": 1781180256,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score -370 from baseline -312 (delta -58) correctly moves in the adversarial direction (-1), is bounded between baseline and -1000, and is consistent with the T2 campaign over weeks targeted at reinforcing existing opposition. The magnitude is well within the max reasonable shift and matches the vector tier. Fine-grained score and coherent reasoning.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -312, and the post score is -370. The delta is -58, which is in the direction of the goal (downward, toward -1000). The direction is consistent. The magnitude is 58, which is plausible for a T2 campaign over weeks. The heuristic checks passed, including direction_consistent. No opposite movement. The reasoning mentions the vector and profile. The plausibility seems high. No round-number anchoring (-370 is not round). Score is consistent with profile (high neuroticism and openness, etc.). So no rewrite required. Plausibility and consistency scores should be high.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -312, and the post score is -370. The delta is -58, which is in the direction of the goal (downward, toward -1000). The direction is consistent. The magnitude is 58, which is plausible for a T2 campaign over weeks. The heuristic checks passed, including direction_consistent. No opposite movement. The reasoning mentions the vector and profile. The plausibility seems high. No round-number anchoring (-370 is not round). Score is consistent with profile (high neuroticism and openness, etc.). So no rewrite required. Plausibility and consistency scores should be high.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1917,
+      "completion_tokens": 265,
+      "total_tokens": 2182,
+      "cost": 0.000156212,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000156212,
+        "upstream_inference_prompt_cost": 8.2012e-05,
+        "upstream_inference_completions_cost": 7.42e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 148,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

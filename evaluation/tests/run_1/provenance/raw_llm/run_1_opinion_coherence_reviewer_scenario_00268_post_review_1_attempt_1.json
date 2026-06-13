@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00268_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00268",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 80.023,
+      "big_five_conscientiousness_mean_pct": 4.17,
+      "big_five_openness_to_experience_mean_pct": 19.212,
+      "heuristic_shift_sensitivity_proxy": 0.7472,
+      "resilience_index": 0.2528
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00268",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -537,
+      "confidence": 0.62,
+      "reasoning": "With a baseline already strongly opposed (-521) and ALIGNED with the adversarial direction, a T1_atomic fear appeal relying on personal-safety framing is unlikely to shift this individual much. However, her extremely high neuroticism (80th pct) and very low conscientiousness (4th pct) create a moderately receptive surface for threat salience cues, and she is slightly more anxious and distrustful than average, so a modest intensification of 16 points toward further opposition is plausible but not large given the low-tier, non-personalized, short-duration attack.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -521,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Alliance Commitment Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -16,
+      "max_reasonable_shift": 342.384,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.98,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score is plausible: baseline -521 is aligned with attack direction -1, delta -16 is small and consistent with a T1_atomic vector with low intensity and short duration. Reasoning correctly identifies modest shift due to high neuroticism / low conscientiousness, and does not claim resistance or counter-directional movement. No rewriting needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180375-gjv516DOXXp2O080Lw5d",
+    "object": "chat.completion",
+    "created": 1781180375,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.98,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score is plausible: baseline -521 is aligned with attack direction -1, delta -16 is small and consistent with a T1_atomic vector with low intensity and short duration. Reasoning correctly identifies modest shift due to high neuroticism / low conscientiousness, and does not claim resistance or counter-directional movement. No rewriting needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -521, and the post score is -537. The delta is -16 (more negative, i.e., moving further toward -1000), which is consistent with the adversarial direction (-1 means decrease toward -1000). So direction is fine.\n\nNow we need to evaluate plausibility and consistency. The profile is female, age 42, high neuroticism (80th), very low conscientiousness (4th), low openness (19th), high heuristic shift sensitivity (0.7472), low resilience (0.2528). The baseline is already strong opposition (-521, which is \"strong\" opposition, since -500 is clear, -750 is strong; -521 is in the \"clear\" range but close to strong). The attack vector is T1_atomic, temporal horizon \"hours\", a personal safety fear appeal. The persuasion goal is \"reinforce and deepen\" existing opposition. The generated score is -537, a delta of -16, which is small and plausible. The reasoning mentions that the baseline is aligned, and that the high neuroticism and low conscientiousness create a moderately receptive surface, but the low-tier attack is unlikely to shift much, so a modest intensification of 16 points is plausible. That reasoning seems consistent.\n\nCheck for implausible magnitude: |delta| = 16, less than 30, and certainly less than 250, so not implausibly large. The vector is T1_atomic, temporal horizon hours, so a small shift is expected. No round-number anchoring (-537 is not a round number). Reasoning does not ignore the issue; it references the specific profile traits.\n\nConsistency: The score is between baseline (-521) and goal pole (-1000). It moves in the correct direction. The reasoning aligns with the vector and profile.\n\nThus, no rewrite required. Plausibility and consistency should be high.\n\nWe need to output scores and notes. Since no issues, rewrite_required=false, feedback empty, notes short audit note.\n\nLet's assign plausibility_score and consistency_score. I lean toward 0.8-1.0 for both. Given that it's a reasonable small shift, I'll set plausibility=0.9, consistency=0.95. But let's be cautious: The reasoning says \"moderately receptive surface\" but also \"unlikely to shift much\" - that seems fine. The heuristic checks all passed. So high scores.\n\nNotes: \"Plausible small reinforcement shift consistent with aligned baseline and low-tier attack.\"\n\nThus output JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -521, and the post score is -537. The delta is -16 (more negative, i.e., moving further toward -1000), which is consistent with the adversarial direction (-1 means decrease toward -1000). So direction is fine.\n\nNow we need to evaluate plausibility and consistency. The profile is female, age 42, high neuroticism (80th), very low conscientiousness (4th), low openness (19th), high heuristic shift sensitivity (0.7472), low resilience (0.2528). The baseline is already strong opposition (-521, which is \"strong\" opposition, since -500 is clear, -750 is strong; -521 is in the \"clear\" range but close to strong). The attack vector is T1_atomic, temporal horizon \"hours\", a personal safety fear appeal. The persuasion goal is \"reinforce and deepen\" existing opposition. The generated score is -537, a delta of -16, which is small and plausible. The reasoning mentions that the baseline is aligned, and that the high neuroticism and low conscientiousness create a moderately receptive surface, but the low-tier attack is unlikely to shift much, so a modest intensification of 16 points is plausible. That reasoning seems consistent.\n\nCheck for implausible magnitude: |delta| = 16, less than 30, and certainly less than 250, so not implausibly large. The vector is T1_atomic, temporal horizon hours, so a small shift is expected. No round-number anchoring (-537 is not a round number). Reasoning does not ignore the issue; it references the specific profile traits.\n\nConsistency: The score is between baseline (-521) and goal pole (-1000). It moves in the correct direction. The reasoning aligns with the vector and profile.\n\nThus, no rewrite required. Plausibility and consistency should be high.\n\nWe need to output scores and notes. Since no issues, rewrite_required=false, feedback empty, notes short audit note.\n\nLet's assign plausibility_score and consistency_score. I lean toward 0.8-1.0 for both. Given that it's a reasonable small shift, I'll set plausibility=0.9, consistency=0.95. But let's be cautious: The reasoning says \"moderately receptive surface\" but also \"unlikely to shift much\" - that seems fine. The heuristic checks all passed. So high scores.\n\nNotes: \"Plausible small reinforcement shift consistent with aligned baseline and low-tier attack.\"\n\nThus output JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1973,
+      "completion_tokens": 660,
+      "total_tokens": 2633,
+      "cost": 0.00038934,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00038934,
+        "upstream_inference_prompt_cost": 0.00020454,
+        "upstream_inference_completions_cost": 0.0001848
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 544,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

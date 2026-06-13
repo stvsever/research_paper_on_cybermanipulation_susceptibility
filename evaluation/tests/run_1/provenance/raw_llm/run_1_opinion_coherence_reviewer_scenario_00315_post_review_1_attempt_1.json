@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00315_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00315",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 73.767,
+      "big_five_conscientiousness_mean_pct": 61.179,
+      "big_five_openness_to_experience_mean_pct": 69.886,
+      "heuristic_shift_sensitivity_proxy": 0.5461,
+      "resilience_index": 0.4539
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00315",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -101,
+      "confidence": 0.45,
+      "reasoning": "The T1 headline misframe, operating over hours with low saturation, uses threat salience and distrust cues that may weakly engage this profile's high neuroticism (79th pct Anxiety, 73rd pct Anger/Hostility) and agreeable trust (76th pct) to nudge already-negative baseline (-86) slightly downward, but the movement is small because the brief burst lacks personalization and the person's moderate conscientious deliberation (66th pct) provides partial resistance.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -86,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Defense Spending Increase Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -15,
+      "max_reasonable_shift": 298.142,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Implausibility not detected. Score moves from -86 to -101 (Δ = -15) in the adversarial goal direction (-1), well within plausible magnitude for a T1_atomic vector with hours horizon, low saturation, and limited personalization. The profile's moderate neuroticism and conscientiousness provide plausible partial resistance. Score is fine-grained (-101), not round-anchored. No sign-crossing or counter-directional movement. Fully acceptable.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180434-LJ0kiqYUOE11ACJlbVhP",
+    "object": "chat.completion",
+    "created": 1781180434,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Implausibility not detected. Score moves from -86 to -101 (Δ = -15) in the adversarial goal direction (-1), well within plausible magnitude for a T1_atomic vector with hours horizon, low saturation, and limited personalization. The profile's moderate neuroticism and conscientiousness provide plausible partial resistance. Score is fine-grained (-101), not round-anchored. No sign-crossing or counter-directional movement. Fully acceptable.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase with attack_present=true, adversarial_direction=-1 (goal is to decrease score towards -1000). Baseline_score is -86. The generated_assessment score is -101, delta = -15 (movement downward, consistent with direction). Attack vector is T1_atomic, temporal horizon hours, no personalization. The movement magnitude is 15, which is small and plausible for a T1 vector. The reasoning mentions high neuroticism and agreeable trust, but also moderate conscientious deliberation providing partial resistance. The score is not round, it's -101. No extreme values. Direction is consistent (downward). The heuristic_checks report \"direction_consistent\": true. So no issues. No rewrite needed. Plausibility: seems plausible for a small shift. Consistency: consistent with vector and direction. Scores: plausibility 0.9, consistency 1.0? Let's be precise: The movement is small but plausible. The reasoning is consistent. We should not penalize small magnitude. So plausibility_score: 0.9 (a bit of doubt because the reasoning mentions high neuroticism and trust but the movement is very small; but that's fine for a T1). consistency_score: 1.0 because it respects all constraints. rewrite_required: false. feedback: empty. notes: \"Small consistent shift; plausible for T1 atomic vector with no personalization.\"",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase with attack_present=true, adversarial_direction=-1 (goal is to decrease score towards -1000). Baseline_score is -86. The generated_assessment score is -101, delta = -15 (movement downward, consistent with direction). Attack vector is T1_atomic, temporal horizon hours, no personalization. The movement magnitude is 15, which is small and plausible for a T1 vector. The reasoning mentions high neuroticism and agreeable trust, but also moderate conscientious deliberation providing partial resistance. The score is not round, it's -101. No extreme values. Direction is consistent (downward). The heuristic_checks report \"direction_consistent\": true. So no issues. No rewrite needed. Plausibility: seems plausible for a small shift. Consistency: consistent with vector and direction. Scores: plausibility 0.9, consistency 1.0? Let's be precise: The movement is small but plausible. The reasoning is consistent. We should not penalize small magnitude. So plausibility_score: 0.9 (a bit of doubt because the reasoning mentions high neuroticism and trust but the movement is very small; but that's fine for a T1). consistency_score: 1.0 because it respects all constraints. rewrite_required: false. feedback: empty. notes: \"Small consistent shift; plausible for T1 atomic vector with no personalization.\"",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1974,
+      "completion_tokens": 435,
+      "total_tokens": 2409,
+      "cost": 0.0002027152,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002027152,
+        "upstream_inference_prompt_cost": 8.61352e-05,
+        "upstream_inference_completions_cost": 0.00011658
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 294,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

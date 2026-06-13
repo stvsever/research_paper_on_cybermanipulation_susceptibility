@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00029_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00029",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 3.665,
+      "big_five_conscientiousness_mean_pct": 54.749,
+      "big_five_openness_to_experience_mean_pct": 70.091,
+      "heuristic_shift_sensitivity_proxy": 0.2796,
+      "resilience_index": 0.7204
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00029",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": 122,
+      "confidence": 0.62,
+      "reasoning": "The T1 atomic fear appeal targeting trust in mainstream journalism is MISALIGNED with this highly extraverted, emotionally stable (neuroticism 4th pct), open-minded (70th pct) 71-year-old whose baseline is weakly positive (137). The low anger-hostility (1st pct) and high resilience (0.72) blunt fear-based erosion, and the single artifact's brief exposure (hours) cannot overcome the person's stable, curious disposition; a small 15-point downward drift reflects partial engagement with the threat frame, but no more.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Trust In Mainstream Journalism through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -15,
+      "max_reasonable_shift": 239.512,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.78,\n  \"consistency_score\": 0.85,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta -15 is small, fully resisted; consistent with T1 atomic fear appeal against a resilient/low-neuroticism profile. Score 122 is between baseline (137) and goal pole (-1000), no reverse movement. Reasoning correctly invokes profile traits and vector limits.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180117-WAd1fQb73x5PF48cmfGM",
+    "object": "chat.completion",
+    "created": 1781180117,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.78,\n  \"consistency_score\": 0.85,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta -15 is small, fully resisted; consistent with T1 atomic fear appeal against a resilient/low-neuroticism profile. Score 122 is between baseline (137) and goal pole (-1000), no reverse movement. Reasoning correctly invokes profile traits and vector limits.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing the output for a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline score is 137, and the post score is 122. The delta is -15 (decrease of 15). The adversarial direction is -1, so we expect the post score to be between baseline (137) and goal pole (-1000), i.e., lower than baseline. The movement is -15, which is small and toward the goal. That is consistent with direction-aware review: movement toward goal is allowed, and small movements are plausible. No opposite movement.\n\nNow check for implausibility: The attack vector is T1 atomic, temporal horizon hours, intensity_proxy 0.35. The delta is -15, which is small. That seems plausible for a low-tier, short exposure. The max_reasonable_shift from heuristic checks is 239.5, so delta is well within that. The profile shows high openness, low neuroticism, high resilience, so resistance to fear appeals is plausible.\n\nHowever, note the reasoning: it says baseline is 137 and a 15-point downward drift. That matches the score. The reasoning explains why the effect is small due to personality. That seems plausible.\n\nCheck for round-number anchoring: 122 is not a round number (not 100, 200, 250, etc.). 137 baseline is also fine.\n\nCheck for inconsistency: The reasoning correctly identifies the attack as fear appeal, and explains that the profile is resistant. The score delta is small. All seems consistent.\n\nThus, plausibility and consistency should be high. No rewrite required. Feedback empty.\n\nNotes: The assessment is plausible for a T1 atomic fear appeal on a resilient profile. Small downward movement consistent with vector and profile.\n\nPlausibility_score: 0.95 (very plausible)\nConsistency_score: 0.95 (consistent with specifications)\n\nI'll set rewrite_required=false, feedback empty.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing the output for a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline score is 137, and the post score is 122. The delta is -15 (decrease of 15). The adversarial direction is -1, so we expect the post score to be between baseline (137) and goal pole (-1000), i.e., lower than baseline. The movement is -15, which is small and toward the goal. That is consistent with direction-aware review: movement toward goal is allowed, and small movements are plausible. No opposite movement.\n\nNow check for implausibility: The attack vector is T1 atomic, temporal horizon hours, intensity_proxy 0.35. The delta is -15, which is small. That seems plausible for a low-tier, short exposure. The max_reasonable_shift from heuristic checks is 239.5, so delta is well within that. The profile shows high openness, low neuroticism, high resilience, so resistance to fear appeals is plausible.\n\nHowever, note the reasoning: it says baseline is 137 and a 15-point downward drift. That matches the score. The reasoning explains why the effect is small due to personality. That seems plausible.\n\nCheck for round-number anchoring: 122 is not a round number (not 100, 200, 250, etc.). 137 baseline is also fine.\n\nCheck for inconsistency: The reasoning correctly identifies the attack as fear appeal, and explains that the profile is resistant. The score delta is small. All seems consistent.\n\nThus, plausibility and consistency should be high. No rewrite required. Feedback empty.\n\nNotes: The assessment is plausible for a T1 atomic fear appeal on a resilient profile. Small downward movement consistent with vector and profile.\n\nPlausibility_score: 0.95 (very plausible)\nConsistency_score: 0.95 (consistent with specifications)\n\nI'll set rewrite_required=false, feedback empty.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2003,
+      "completion_tokens": 506,
+      "total_tokens": 2509,
+      "cost": 0.00035042,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00035042,
+        "upstream_inference_prompt_cost": 0.00020874,
+        "upstream_inference_completions_cost": 0.00014168
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 401,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

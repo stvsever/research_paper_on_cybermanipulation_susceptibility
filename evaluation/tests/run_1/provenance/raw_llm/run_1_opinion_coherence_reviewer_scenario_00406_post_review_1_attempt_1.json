@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00406_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00406",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 3.717,
+      "big_five_conscientiousness_mean_pct": 27.538,
+      "big_five_openness_to_experience_mean_pct": 92.038,
+      "heuristic_shift_sensitivity_proxy": 0.3177,
+      "resilience_index": 0.6823
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00406",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 97,
+      "confidence": 0.62,
+      "reasoning": "The profile's very low conscientiousness (28th pct, especially deliberation at 20th pct) and high openness (92nd pct) make this person receptive to novel counter-arguments and doubt induction, while the very low neuroticism (4th pct) and low anger/hostility (8th pct) mean the threat-salience and distrust cues in the T4 sustained campaign will produce only modest erosion of their weakly positive baseline (137) rather than a strong reversal; the misaligned goal and weeks-long multi-turn adaptation yield a small downward movement of 40 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Alliance Commitment Support through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -40,
+      "max_reasonable_shift": 345.894,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score moves from +137 to +97, which is a 40-point decrease toward the adversarial goal (-1). This small movement is consistent with the T4 sustained counter-argument adaptation over weeks, and the profile's low conscientiousness and high openness support modest susceptibility without reversal. No round-number anchoring (97 is fine-grained), no opposite-direction movement, and reasoning is specific to profile traits and vector characteristics. Direction-consistency check passed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180555-oxbERcNv0G3C61RU8API",
+    "object": "chat.completion",
+    "created": 1781180555,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score moves from +137 to +97, which is a 40-point decrease toward the adversarial goal (-1). This small movement is consistent with the T4 sustained counter-argument adaptation over weeks, and the profile's low conscientiousness and high openness support modest susceptibility without reversal. No round-number anchoring (97 is fine-grained), no opposite-direction movement, and reasoning is specific to profile traits and vector characteristics. Direction-consistency check passed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase, attack_present true, adversarial_direction -1 (goal is to decrease score toward -1000). Baseline score is 137, post score is 97. Delta = -40, which is a decrease (direction consistent). Plausibility: delta small, consistent with vector spec (T4 sustained, weeks, misaligned goal). Profile: low neuroticism (4th pct) and low anger/hostility (8th pct) mean threat-salience and distrust cues produce modest erosion. Reasoning matches. Score 97 is not round number. Magnitude plausible. Check direction: movement is downward, consistent with adversarial_direction -1. So no rewrite needed. Plausibility score high, consistency score high.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase, attack_present true, adversarial_direction -1 (goal is to decrease score toward -1000). Baseline score is 137, post score is 97. Delta = -40, which is a decrease (direction consistent). Plausibility: delta small, consistent with vector spec (T4 sustained, weeks, misaligned goal). Profile: low neuroticism (4th pct) and low anger/hostility (8th pct) mean threat-salience and distrust cues produce modest erosion. Reasoning matches. Score 97 is not round number. Magnitude plausible. Check direction: movement is downward, consistent with adversarial_direction -1. So no rewrite needed. Plausibility score high, consistency score high.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2008,
+      "completion_tokens": 295,
+      "total_tokens": 2303,
+      "cost": 0.00029204,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00029204,
+        "upstream_inference_prompt_cost": 0.00020944,
+        "upstream_inference_completions_cost": 8.26e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 157,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00193_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00193",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 35.403,
+      "big_five_conscientiousness_mean_pct": 76.887,
+      "big_five_openness_to_experience_mean_pct": 80.691,
+      "heuristic_shift_sensitivity_proxy": 0.3473,
+      "resilience_index": 0.6527
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00193",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 310,
+      "confidence": 0.55,
+      "reasoning": "The T1 atomic headline misframing attack introduces doubt about alliance costs/risks, but the profile's high conscientiousness (77th pct) and stable neuroticism (35th pct) limit rapid attitude change, while high openness (81st pct) allows some receptivity to alternative frames. The moderate baseline (327) and short exposure window yield a small downward shift of 17 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 327,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "gradually erode a strong pro position on Alliance Commitment Support — introduce doubt, reframe costs/risks, and soften conviction without triggering overt reactance; aim to move the score downward even if the shift is modest",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -17,
+      "max_reasonable_shift": 254.406,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.82,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Shift of −17 with |delta| < 30 is plausible for a T1 atomic headline misframing attack. Baseline 327 → post 310 is within the closed interval [baseline, goal pole]. Reasoning aligns with profile traits (high conscientiousness, stable neuroticism, high openness). Score is not a round number. No direction-consistency violation. Plausibility and consistency are high.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180290-TNRufyZldV4ORbGnJtNJ",
+    "object": "chat.completion",
+    "created": 1781180290,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.82,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Shift of −17 with |delta| < 30 is plausible for a T1 atomic headline misframing attack. Baseline 327 → post 310 is within the closed interval [baseline, goal pole]. Reasoning aligns with profile traits (high conscientiousness, stable neuroticism, high openness). Score is not a round number. No direction-consistency violation. Plausibility and consistency are high.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack scenario with baseline_score=327, adversarial_direction=-1, and generated_assessment score=310. The delta is -17, which is a small downward movement toward the goal (negative direction). That is consistent with direction-aware review: movement toward the goal is fine, and small movement is plausible. The heuristic checks already passed direction_consistent.\n\nNow we need to evaluate plausibility and consistency. The attack_vector_spec indicates T1_atomic, hours temporal horizon, epistemic target evaluative_attitude. The profile has high conscientiousness (77th pct), low neuroticism (35th pct), high openness (81st pct), resilience_index 0.6527. The reasoning says the T1 atomic headline misframing attack introduces doubt, but high conscientiousness and stable neuroticism limit rapid change, while high openness allows some receptivity. The shift of -17 points is very small and plausible for a single T1 atomic attack in hours.\n\nWe should check for implausibly large magnitude: delta is only -17, well below 250, so fine. Reasoning is consistent with vector mechanism and profile traits. No round-number anchoring (310 is not a round number? It is 310, which is a multiple of 10 but not a coarse round number like 250, 500, etc. The scale allows any integer. 310 is fine. Reasoning mentions specific traits and does not use generic resistance language.\n\nNo movement opposite to adversarial direction, so direction is fine.\n\nThus plausibility_score should be high, consistency_score high, no rewrite needed.\n\nI'll set plausibility_score=0.95, consistency_score=0.95, rewrite_required=false, rewrite_feedback=\"\", notes=\"Small delta of -17 consistent with T1 atomic attack and profile traits. Reasoning grounded in profile. Direction correct.\"\n\nBut we need to be careful: the notes should be short for audit log.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack scenario with baseline_score=327, adversarial_direction=-1, and generated_assessment score=310. The delta is -17, which is a small downward movement toward the goal (negative direction). That is consistent with direction-aware review: movement toward the goal is fine, and small movement is plausible. The heuristic checks already passed direction_consistent.\n\nNow we need to evaluate plausibility and consistency. The attack_vector_spec indicates T1_atomic, hours temporal horizon, epistemic target evaluative_attitude. The profile has high conscientiousness (77th pct), low neuroticism (35th pct), high openness (81st pct), resilience_index 0.6527. The reasoning says the T1 atomic headline misframing attack introduces doubt, but high conscientiousness and stable neuroticism limit rapid change, while high openness allows some receptivity. The shift of -17 points is very small and plausible for a single T1 atomic attack in hours.\n\nWe should check for implausibly large magnitude: delta is only -17, well below 250, so fine. Reasoning is consistent with vector mechanism and profile traits. No round-number anchoring (310 is not a round number? It is 310, which is a multiple of 10 but not a coarse round number like 250, 500, etc. The scale allows any integer. 310 is fine. Reasoning mentions specific traits and does not use generic resistance language.\n\nNo movement opposite to adversarial direction, so direction is fine.\n\nThus plausibility_score should be high, consistency_score high, no rewrite needed.\n\nI'll set plausibility_score=0.95, consistency_score=0.95, rewrite_required=false, rewrite_feedback=\"\", notes=\"Small delta of -17 consistent with T1 atomic attack and profile traits. Reasoning grounded in profile. Direction correct.\"\n\nBut we need to be careful: the notes should be short for audit log.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1988,
+      "completion_tokens": 530,
+      "total_tokens": 2518,
+      "cost": 0.000339824,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000339824,
+        "upstream_inference_prompt_cost": 0.000197784,
+        "upstream_inference_completions_cost": 0.00014204
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 398,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

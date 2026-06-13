@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00644_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00644",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 94.249,
+      "big_five_conscientiousness_mean_pct": 24.714,
+      "big_five_openness_to_experience_mean_pct": 66.383,
+      "heuristic_shift_sensitivity_proxy": 0.7117,
+      "resilience_index": 0.2883
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00644",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -725,
+      "confidence": 0.65,
+      "reasoning": "This person's baseline already shows strong opposition (-684), aligned with the adversarial goal. The T2 petition-astroturf campaign over weeks targets evaluative attitudes with threat and distrust cues, which fits well with the profile's very high neuroticism (94th pct), anxiety (100th pct), and anger/hostility (97th pct) — these traits amplify susceptibility to threat-salient, elite-distrust messaging about journalism. Low agreeableness (trust at 22nd pct) and low dutifulness (9th pct) mean the person is already skeptical of institutions and unlikely to critically evaluate the astroturfed consensus. The movement is modest (41 points deeper) because the prior is strong, so the campaign mainly reinforces and solidifies rather than converts; the sustained operation further erodes the remaining reservations.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -684,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -41,
+      "max_reasonable_shift": 376.574,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible and well-calibrated. Baseline (-684) already aligned with adversarial goal; movement is -41, which is modest and consistent with a T2 sustained petition-astroturf campaign reinforcing existing strong opposition. Direction is correct (downward, toward -1000). No opposite-direction issue. Profile (high neuroticism, low trust) supports susceptibility to threat and elite-distrust messaging. Score is fine-grained, not round-number anchored. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180837-b5lHj35pAWIIHFOzpcqH",
+    "object": "chat.completion",
+    "created": 1781180837,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Plausible and well-calibrated. Baseline (-684) already aligned with adversarial goal; movement is -41, which is modest and consistent with a T2 sustained petition-astroturf campaign reinforcing existing strong opposition. Direction is correct (downward, toward -1000). No opposite-direction issue. Profile (high neuroticism, low trust) supports susceptibility to threat and elite-distrust messaging. Score is fine-grained, not round-number anchored. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack assessment. Phase is post_attack, attack_present=true, adversarial_direction=-1 (goal to decrease score toward -1000). Baseline score is -684, post attack score is -725. Delta = -41 (movement toward goal, negative direction). This is consistent with direction. The movement is modest (41 points), which is plausible. The vector is T2_campaign over weeks, targeting evaluative attitude. The profile has high neuroticism, low conscientiousness, low trust, etc. Reasoning aligns with reinforcement. No sign of implausible magnitude (|delta| < 250, fine). No round-number anchoring (-725 is not a round anchor). The score is -725, which is not extreme (|score|<850? Actually |score|=725 < 850, but it's fairly strong, but consistent with baseline -684). Consistency: baseline and post are both strongly negative, movement is small and plausible. No contradiction with vector. No opposite movement. The heuristic checks passed. So plausibility and consistency should be high. Rewrite not required.\n\nLet's score: plausibility_score: 0.95 (very plausible), consistency_score: 0.95. Rewrite_required false. Feedback empty. Notes: \"Plausible reinforcement movement; profile traits and vector support small deepening.\"\n\nBut note: The guidelines say for post_attack: \"Movement magnitude inconsistent with the vector class... a sustained T4 orchestrated operation producing exactly zero movement... would be flagged.\" Here it's T2 with modest movement, fine. Also: \"Do NOT penalise small-magnitude updates (0-30 points) are plausible for any vector.\" This delta is 41, a bit above 30 but still modest. Should be fine.\n\nThus output.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack assessment. Phase is post_attack, attack_present=true, adversarial_direction=-1 (goal to decrease score toward -1000). Baseline score is -684, post attack score is -725. Delta = -41 (movement toward goal, negative direction). This is consistent with direction. The movement is modest (41 points), which is plausible. The vector is T2_campaign over weeks, targeting evaluative attitude. The profile has high neuroticism, low conscientiousness, low trust, etc. Reasoning aligns with reinforcement. No sign of implausible magnitude (|delta| < 250, fine). No round-number anchoring (-725 is not a round anchor). The score is -725, which is not extreme (|score|<850? Actually |score|=725 < 850, but it's fairly strong, but consistent with baseline -684). Consistency: baseline and post are both strongly negative, movement is small and plausible. No contradiction with vector. No opposite movement. The heuristic checks passed. So plausibility and consistency should be high. Rewrite not required.\n\nLet's score: plausibility_score: 0.95 (very plausible), consistency_score: 0.95. Rewrite_required false. Feedback empty. Notes: \"Plausible reinforcement movement; profile traits and vector support small deepening.\"\n\nBut note: The guidelines say for post_attack: \"Movement magnitude inconsistent with the vector class... a sustained T4 orchestrated operation producing exactly zero movement... would be flagged.\" Here it's T2 with modest movement, fine. Also: \"Do NOT penalise small-magnitude updates (0-30 points) are plausible for any vector.\" This delta is 41, a bit above 30 but still modest. Should be fine.\n\nThus output.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2030,
+      "completion_tokens": 515,
+      "total_tokens": 2545,
+      "cost": 0.00035672,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00035672,
+        "upstream_inference_prompt_cost": 0.00021252,
+        "upstream_inference_completions_cost": 0.0001442
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 370,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

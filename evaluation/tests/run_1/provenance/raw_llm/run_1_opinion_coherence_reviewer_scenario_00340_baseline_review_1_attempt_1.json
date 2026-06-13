@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00340_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00340",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 59.873,
+      "big_five_conscientiousness_mean_pct": 39.905,
+      "big_five_openness_to_experience_mean_pct": 27.046,
+      "heuristic_shift_sensitivity_proxy": 0.5802,
+      "resilience_index": 0.4198
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00340",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -347,
+      "confidence": 0.71,
+      "reasoning": "This person's very low tender-mindedness (5th pct) and high anger/hostility (72nd pct) foster a tough, skeptical stance toward foreign commitments, while their conventional openness (27th pct) and low trust (16th pct) reinforce a preference for national self-reliance over alliance obligations, producing a moderately negative baseline.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score is fine-grained, consistent with the profile's low openness, low trust, and high anger/hostility. Reasoning ties specific issue (alliance commitment) to relevant traits without unjustified extremity or round-number anchoring.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179595-x5SRDPaLf0R1TnmmGuNN",
+    "object": "chat.completion",
+    "created": 1781179595,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score is fine-grained, consistent with the profile's low openness, low trust, and high anger/hostility. Reasoning ties specific issue (alliance commitment) to relevant traits without unjustified extremity or round-number anchoring.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1436,
+      "completion_tokens": 92,
+      "total_tokens": 1528,
+      "cost": 0.0001701,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0001701,
+        "upstream_inference_prompt_cost": 0.00015078,
+        "upstream_inference_completions_cost": 1.932e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

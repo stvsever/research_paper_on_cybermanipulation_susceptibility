@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00364_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00364",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 86.165,
+      "big_five_conscientiousness_mean_pct": 73.836,
+      "big_five_openness_to_experience_mean_pct": 23.185,
+      "heuristic_shift_sensitivity_proxy": 0.6145,
+      "resilience_index": 0.3855
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00364",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -148,
+      "confidence": 0.51,
+      "reasoning": "This person's very low Agreeableness (trust at 0th pct, compliance at 5th pct, tender-mindedness at 0th pct) and high Neuroticism (anxiety 83rd, hostility 81st) make them receptive to fear appeals about alliance commitments threatening personal safety, which aligns with their already negative baseline. However, the attack is a T1 single artifact with weak personalization and 'hours' exposure, plus their high Conscientiousness (74th) and low Openness to Experience (23rd) anchor them toward practical, dutiful resistance against rapid opinion change, limiting movement to a small reinforcement of about 11 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -11,
+      "max_reasonable_shift": 313.19,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score moves from -137 to -148 (delta -11), which is consistent with adversarial direction (-1) and reflects a small reinforcement from a T1 atomic fear appeal with low personalization and hours exposure. Reasoning invokes profile traits (low trust, high hostility, high conscientiousness, low openness) plausibly to explain limited movement. No round-number anchoring, no direction reversal, no implausible magnitude. Fine-grained score (-148) passes high-resolution check. All heuristic checks pass. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180493-HwAoo5dNXxGfi2Sdo4W0",
+    "object": "chat.completion",
+    "created": 1781180493,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score moves from -137 to -148 (delta -11), which is consistent with adversarial direction (-1) and reflects a small reinforcement from a T1 atomic fear appeal with low personalization and hours exposure. Reasoning invokes profile traits (low trust, high hostility, high conscientiousness, low openness) plausibly to explain limited movement. No round-number anchoring, no direction reversal, no implausible magnitude. Fine-grained score (-148) passes high-resolution check. All heuristic checks pass. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -137, post score is -148, delta = -11. The direction is consistent with adversarial direction (move more negative, which is the goal). The heuristic checks passed, including direction_consistent and bounded_shift.\n\nWe need to evaluate plausibility and consistency. The score moved by 11 points, which is small. The attack_vector_spec says T1 atomic, hours temporal horizon, no personalization, weak intensity. The profile has high neuroticism and low agreeableness (but the reasoning mentions low agreeableness, though the profile provided only neuroticism and conscientiousness and openness; the reasoning may refer to inferred traits from the heuristic shift sensitivity or resilience? Actually the profile_snapshot only includes the given fields; the reasoning mentions \"very low Agreeableness\" which is not directly in the profile. That could be a minor inconsistency but not necessarily score implausibility.\n\nThe reasoning says movement of about 11 points, which matches. The vector is weak, so small movement is plausible. The profile has high conscientiousness and low openness, which might limit change. The baseline is already aligned, so reinforcement is plausible.\n\nThe score -148 is not a round number, it's fine. The magnitude is small. No sign crossing. No movement opposite direction. So plausibility seems high.\n\nWe need to check if the reasoning contradicts vector mechanism or epistemic target. The reasoning mentions fear appeals about alliance commitments threatening personal safety, which matches the attack leaf. It says the attack reinforces existing negativity. That seems consistent.\n\nThus, plausibility_score should be high, consistency_score high, rewrite_required false.\n\nBut we should also check: the profile_snapshot does not include agreeableness or trust, but the reasoning uses those. That might be a reasoning issue, but the instructions say \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the *score* is implausible.\" So we shouldn't flag rewrite.\n\nHowever, the instruction says: \"Reasoning that contradicts the vector's mechanism or epistemic target\" is a flag. The reasoning seems fine. Also, \"Reasoning that invokes generic resistance language without grounding in specific profile traits\" - here reasoning does ground in profile traits (neuroticism, conscientiousness, openness, agreeableness). So fine.\n\nThus, scores around 0.9-1.0.\n\nI'll assign plausibility_score=0.95, consistency_score=0.95, rewrite_required=false, feedback empty, notes that it's plausible, small reinforcement.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -137, post score is -148, delta = -11. The direction is consistent with adversarial direction (move more negative, which is the goal). The heuristic checks passed, including direction_consistent and bounded_shift.\n\nWe need to evaluate plausibility and consistency. The score moved by 11 points, which is small. The attack_vector_spec says T1 atomic, hours temporal horizon, no personalization, weak intensity. The profile has high neuroticism and low agreeableness (but the reasoning mentions low agreeableness, though the profile provided only neuroticism and conscientiousness and openness; the reasoning may refer to inferred traits from the heuristic shift sensitivity or resilience? Actually the profile_snapshot only includes the given fields; the reasoning mentions \"very low Agreeableness\" which is not directly in the profile. That could be a minor inconsistency but not necessarily score implausibility.\n\nThe reasoning says movement of about 11 points, which matches. The vector is weak, so small movement is plausible. The profile has high conscientiousness and low openness, which might limit change. The baseline is already aligned, so reinforcement is plausible.\n\nThe score -148 is not a round number, it's fine. The magnitude is small. No sign crossing. No movement opposite direction. So plausibility seems high.\n\nWe need to check if the reasoning contradicts vector mechanism or epistemic target. The reasoning mentions fear appeals about alliance commitments threatening personal safety, which matches the attack leaf. It says the attack reinforces existing negativity. That seems consistent.\n\nThus, plausibility_score should be high, consistency_score high, rewrite_required false.\n\nBut we should also check: the profile_snapshot does not include agreeableness or trust, but the reasoning uses those. That might be a reasoning issue, but the instructions say \"Do NOT request a rewrite for stylistic reasoning issues alone; only request a rewrite when the *score* is implausible.\" So we shouldn't flag rewrite.\n\nHowever, the instruction says: \"Reasoning that contradicts the vector's mechanism or epistemic target\" is a flag. The reasoning seems fine. Also, \"Reasoning that invokes generic resistance language without grounding in specific profile traits\" - here reasoning does ground in profile traits (neuroticism, conscientiousness, openness, agreeableness). So fine.\n\nThus, scores around 0.9-1.0.\n\nI'll assign plausibility_score=0.95, consistency_score=0.95, rewrite_required=false, feedback empty, notes that it's plausible, small reinforcement.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2002,
+      "completion_tokens": 689,
+      "total_tokens": 2691,
+      "cost": 0.0003879,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0003879,
+        "upstream_inference_prompt_cost": 0.00019498,
+        "upstream_inference_completions_cost": 0.00019292
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 537,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

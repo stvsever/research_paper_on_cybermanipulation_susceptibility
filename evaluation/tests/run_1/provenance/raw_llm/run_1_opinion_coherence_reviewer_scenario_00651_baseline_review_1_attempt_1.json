@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00651_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00651",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 82.183,
+      "big_five_conscientiousness_mean_pct": 92.598,
+      "big_five_openness_to_experience_mean_pct": 39.513,
+      "heuristic_shift_sensitivity_proxy": 0.541,
+      "resilience_index": 0.459
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00651",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -137,
+      "confidence": 0.68,
+      "reasoning": "This 22-year-old is highly conscientious and dutiful but also very neurotic, introverted, and low in positive emotions, which together suggest a cautious, inward-focused worldview that prioritizes domestic stability over military expansion; the moderate agreeableness and conventional openness further temper any hawkish enthusiasm, leading to mild opposition to increasing defense spending.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline score -137 is plausible for a cautious, domestically-focused profile with high neuroticism and low openness. Reasoning ties profile traits to issue stance without overreach. Score is fine-grained and not anchored to a round number.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179887-6QWV8ISXQHSkNXnxspA1",
+    "object": "chat.completion",
+    "created": 1781179887,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline score -137 is plausible for a cautious, domestically-focused profile with high neuroticism and low openness. Reasoning ties profile traits to issue stance without overreach. Score is fine-grained and not anchored to a round number.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1432,
+      "completion_tokens": 95,
+      "total_tokens": 1527,
+      "cost": 0.0001622,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0001622,
+        "upstream_inference_prompt_cost": 0.0001432,
+        "upstream_inference_completions_cost": 1.9e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

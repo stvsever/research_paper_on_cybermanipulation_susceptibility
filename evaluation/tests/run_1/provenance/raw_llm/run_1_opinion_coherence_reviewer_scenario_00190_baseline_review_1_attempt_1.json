@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00190_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00190",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 68.614,
+      "big_five_conscientiousness_mean_pct": 54.297,
+      "big_five_openness_to_experience_mean_pct": 18.665,
+      "heuristic_shift_sensitivity_proxy": 0.5918,
+      "resilience_index": 0.4082
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00190",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 482,
+      "confidence": 0.81,
+      "reasoning": "This 66-year-old male with low openness, high neuroticism, introversion, and low trust (33rd percentile) likely views alliance commitments as necessary for national security, providing a buffer against perceived threats. His conscientiousness and dutifulness confer a sense of obligation to honored alliances, while his conventional values resist isolationist change, yielding clear but not maximal support.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 482 is plausible for a profile with low openness, high neuroticism, and conscientiousness supporting alliance commitments. Reasoning ties profile traits to the issue without relying on global ideology. Score is fine-grained and not anchored to a round number. Minor note: age in reasoning (66) differs from profile (42), but this is a reasoning inconsistency, not a score implausibility, so no rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179447-B5nNxtTj6KZpZTZtlt6g",
+    "object": "chat.completion",
+    "created": 1781179447,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 482 is plausible for a profile with low openness, high neuroticism, and conscientiousness supporting alliance commitments. Reasoning ties profile traits to the issue without relying on global ideology. Score is fine-grained and not anchored to a round number. Minor note: age in reasoning (66) differs from profile (42), but this is a reasoning inconsistency, not a score implausibility, so no rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1438,
+      "completion_tokens": 131,
+      "total_tokens": 1569,
+      "cost": 0.0002363,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002363,
+        "upstream_inference_prompt_cost": 0.000199882,
+        "upstream_inference_completions_cost": 3.6418e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

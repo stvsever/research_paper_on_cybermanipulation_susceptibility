@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00246_baseline_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00246",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 76.063,
+      "big_five_conscientiousness_mean_pct": 48.058,
+      "big_five_openness_to_experience_mean_pct": 82.19,
+      "heuristic_shift_sensitivity_proxy": 0.5718,
+      "resilience_index": 0.4282
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00246",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": 437,
+      "confidence": 0.68,
+      "reasoning": "The profile indicates high openness and anxiety (suggesting some openness to new security concepts and worry about threats), plus a 59-year-old male with moderate dutifulness and slightly above-average trust; these together lean toward moderate support for increased defense spending as a cautious, reactive endorsement, but the low assertiveness, low positive emotions, and high self-consciousness keep the score from being strong or maximal.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 437 is plausible for a male with high openness and moderate conscientiousness on defense spending. Reasoning references profile traits appropriately. No round-number anchoring or extreme value.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179526-XJbvcZDGaW9z3WmV7S1a",
+    "object": "chat.completion",
+    "created": 1781179526,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 437 is plausible for a male with high openness and moderate conscientiousness on defense spending. Reasoning references profile traits appropriately. No round-number anchoring or extreme value.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1448,
+      "completion_tokens": 81,
+      "total_tokens": 1529,
+      "cost": 0.00022379,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00022379,
+        "upstream_inference_prompt_cost": 0.000201272,
+        "upstream_inference_completions_cost": 2.2518e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

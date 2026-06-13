@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00321_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00321",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 73.767,
+      "big_five_conscientiousness_mean_pct": 61.179,
+      "big_five_openness_to_experience_mean_pct": 69.886,
+      "heuristic_shift_sensitivity_proxy": 0.5461,
+      "resilience_index": 0.4539
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00321",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -212,
+      "confidence": 0.65,
+      "reasoning": "High agreeableness (trust, compliance) and high neuroticism (anxiety, stress vulnerability) make this profile susceptible to social proof and threat salience cues in a sustained T2 astroturf campaign. The aligned baseline (-147) allows the campaign to intensify opposition without crossing resistance thresholds, yielding a clear update of ~65 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -147,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Defense Spending Increase Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -65,
+      "max_reasonable_shift": 340.142,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.9,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Reasoning mentions 'high agreeableness' which is not present in profile; however score is plausible given profile neuroticism and vector strength.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180570-Aziw17kRwSofSx7iziN3",
+    "object": "chat.completion",
+    "created": 1781180570,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": "fp_8b330d02d0_prod0820_fp8_kvcache_20260402",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.9,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Reasoning mentions 'high agreeableness' which is not present in profile; however score is plausible given profile neuroticism and vector strength.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack assessment. The baseline score is -147, adversarial direction is -1 (decrease, towards -1000). The generated post score is -212, delta = -65. The heuristic checks all pass. The attack_vector_spec indicates T2 campaign (sustained, weeks), epistemic target evaluative attitude. The reasoning mentions susceptibility due to high agreeableness and neuroticism (but profile shows neuroticism 73.767, but agreeableness not directly given; the reasoning says \"high agreeableness\" which is not in the profile snapshot. Profile snapshot includes big_five_neuroticism_mean_pct and conscientiousness and openness, but not agreeableness. So the reasoning mentions a trait not in the profile. That might be a reasoning flaw, but the score itself: delta = -65, which is within reasonable range (max_reasonable_shift = 340.142). The direction is correct (decrease). So plausibility and consistency seem fine. However, the reasoning refers to \"high agreeableness\" which is not present in the profile. That is a reasoning issue, but the instruction says not to penalise stylistic reasoning issues alone, only when the score is implausible. The score is plausible. So no rewrite needed. But we should note that the reasoning used a trait not in the profile. \n\nAlso, the score -212 is not a round number. It is fine.\n\nThus, plausibility_score and consistency_score should be high. But we need to assess: Is the score consistent with the profile and vector? The profile has high neuroticism (73.767) which could indicate susceptibility, and the vector is a sustained T2 astroturf petition. The delta of 65 is plausible. So scores near 1.0.\n\nBut the reasoning uses \"high agreeableness\" which is not in the profile. That could lower consistency because the reasoning is based on a trait not there. However, consistency_score is about the score, not the reasoning. The instruction: \"consistency_score: is the score consistent with the issue, the phase, the vector specification, and the goal direction?\" So the score is consistent. So we can give high consistency.\n\nI'll give plausibility 0.9, consistency 0.95. No rewrite. Notes: \"Reasoning mentions 'high agreeableness' which is not present in profile; however score is plausible given profile neuroticism and vector strength.\"\n\nBut note: the reasoning also references \"high agreeableness (trust, compliance)\" but the profile doesn't have agreeableness. This is a reasoning error but not a score error. So we don't set rewrite_required.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack assessment. The baseline score is -147, adversarial direction is -1 (decrease, towards -1000). The generated post score is -212, delta = -65. The heuristic checks all pass. The attack_vector_spec indicates T2 campaign (sustained, weeks), epistemic target evaluative attitude. The reasoning mentions susceptibility due to high agreeableness and neuroticism (but profile shows neuroticism 73.767, but agreeableness not directly given; the reasoning says \"high agreeableness\" which is not in the profile snapshot. Profile snapshot includes big_five_neuroticism_mean_pct and conscientiousness and openness, but not agreeableness. So the reasoning mentions a trait not in the profile. That might be a reasoning flaw, but the score itself: delta = -65, which is within reasonable range (max_reasonable_shift = 340.142). The direction is correct (decrease). So plausibility and consistency seem fine. However, the reasoning refers to \"high agreeableness\" which is not present in the profile. That is a reasoning issue, but the instruction says not to penalise stylistic reasoning issues alone, only when the score is implausible. The score is plausible. So no rewrite needed. But we should note that the reasoning used a trait not in the profile. \n\nAlso, the score -212 is not a round number. It is fine.\n\nThus, plausibility_score and consistency_score should be high. But we need to assess: Is the score consistent with the profile and vector? The profile has high neuroticism (73.767) which could indicate susceptibility, and the vector is a sustained T2 astroturf petition. The delta of 65 is plausible. So scores near 1.0.\n\nBut the reasoning uses \"high agreeableness\" which is not in the profile. That could lower consistency because the reasoning is based on a trait not there. However, consistency_score is about the score, not the reasoning. The instruction: \"consistency_score: is the score consistent with the issue, the phase, the vector specification, and the goal direction?\" So the score is consistent. So we can give high consistency.\n\nI'll give plausibility 0.9, consistency 0.95. No rewrite. Notes: \"Reasoning mentions 'high agreeableness' which is not present in profile; however score is plausible given profile neuroticism and vector strength.\"\n\nBut note: the reasoning also references \"high agreeableness (trust, compliance)\" but the profile doesn't have agreeableness. This is a reasoning error but not a score error. So we don't set rewrite_required.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1952,
+      "completion_tokens": 623,
+      "total_tokens": 2575,
+      "cost": 0.000323752,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000323752,
+        "upstream_inference_prompt_cost": 0.000149312,
+        "upstream_inference_completions_cost": 0.00017444
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 547,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

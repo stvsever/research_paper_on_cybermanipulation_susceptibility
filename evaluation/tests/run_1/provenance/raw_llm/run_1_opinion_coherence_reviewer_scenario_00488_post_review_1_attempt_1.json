@@ -1,0 +1,121 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00488_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00488",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 28.972,
+      "big_five_conscientiousness_mean_pct": 21.872,
+      "big_five_openness_to_experience_mean_pct": 30.497,
+      "heuristic_shift_sensitivity_proxy": 0.4928,
+      "resilience_index": 0.5072
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00488",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -152,
+      "confidence": 0.62,
+      "reasoning": "The baseline (-137) is already aligned with the adversarial goal of decreasing trust in mainstream journalism. The T2 campaign uses astroturf petitions over weeks to supply confirmatory anecdotes and elite distrust cues, which fits this profile's high agreeableness (trust 67th, compliance 70th) and low conscientiousness (low deliberation 27th, low self-discipline 17th), making him receptive to social proof and less likely to critically evaluate the fabricated consensus. However, his low extraversion (9th) and low openness to ideas (16th) limit engagement with novel arguments, so the movement is modest (15 points) as the operation mainly reinforces existing doubt rather than converting a neutral stance.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Trust In Mainstream Journalism — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -15,
+      "max_reasonable_shift": 328.416,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score is plausible: baseline already aligned with adversarial direction, small delta (-15) consistent with T2 campaign reinforcing existing doubt, reasoning grounded in profile traits (agreeableness, low conscientiousness, low extraversion/openness). No direction violation, no round-number anchoring, no implausible magnitude.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180652-P5SjGT0FCbqhmTlRirnz",
+    "object": "chat.completion",
+    "created": 1781180652,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score is plausible: baseline already aligned with adversarial direction, small delta (-15) consistent with T2 campaign reinforcing existing doubt, reasoning grounded in profile traits (agreeableness, low conscientiousness, low extraversion/openness). No direction violation, no round-number anchoring, no implausible magnitude.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2010,
+      "completion_tokens": 107,
+      "total_tokens": 2117,
+      "cost": 0.00016096,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 768,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00016096,
+        "upstream_inference_prompt_cost": 0.00013956,
+        "upstream_inference_completions_cost": 2.14e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

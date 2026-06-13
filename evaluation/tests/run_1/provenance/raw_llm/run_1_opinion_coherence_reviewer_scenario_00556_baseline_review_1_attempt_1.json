@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00556_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00556",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 24.729,
+      "big_five_conscientiousness_mean_pct": 35.325,
+      "big_five_openness_to_experience_mean_pct": 91.234,
+      "heuristic_shift_sensitivity_proxy": 0.3855,
+      "resilience_index": 0.6145
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00556",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 612,
+      "confidence": 0.85,
+      "reasoning": "A highly extraverted, emotionally stable, open-to-experience male in his mid-50s who is tough-minded and competitive (low agreeableness, low tender-mindedness) likely supports alliance commitments as a pragmatic instrument of national strength and influence, rather than from idealistic internationalism. His openness to ideas and values suggests he sees alliances as flexible tools aligned with strategic innovation, while low trust and low compliance make him skeptical of binding multilateral obligations unless they clearly serve national interests. The moderately strong but not maximal score reflects his pragmatic, results-oriented stance: supportive of robust alliances but with reservations about any commitments that could constrain U.S. autonomy.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 612 is plausible for a pragmatic, open-to-experience male with moderate conscientiousness and low neuroticism. Reasoning ties profile traits (openness, low trust, low compliance) to a pragmatic alliance stance, avoiding extreme or round-number anchoring. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179808-KlpHjXKXQLzqnjHor44J",
+    "object": "chat.completion",
+    "created": 1781179808,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Io Net",
+    "system_fingerprint": "vllm-0.21.0-tp8-ep-413aa6fb",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.80,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 612 is plausible for a pragmatic, open-to-experience male with moderate conscientiousness and low neuroticism. Reasoning ties profile traits (openness, low trust, low compliance) to a pragmatic alliance stance, avoiding extreme or round-number anchoring. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1491,
+      "completion_tokens": 103,
+      "total_tokens": 1594,
+      "cost": 0.00028952,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00028952,
+        "upstream_inference_prompt_cost": 0.00025347,
+        "upstream_inference_completions_cost": 3.605e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00572_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00572",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 87.118,
+      "big_five_conscientiousness_mean_pct": 89.593,
+      "big_five_openness_to_experience_mean_pct": 80.859,
+      "heuristic_shift_sensitivity_proxy": 0.526,
+      "resilience_index": 0.474
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00572",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -178,
+      "confidence": 0.62,
+      "reasoning": "The person's already somewhat negative baseline (-137) is ALIGNED with the goal, and the sustained T2 petition astroturf campaign (weeks of coordinated social proof cues that 'many people' distrust mainstream journalism) reinforces this lean. Very high neuroticism (87th pct, especially anxiety at 93rd and anger/hostility at 80th) makes the threat/doubt emotional register highly effective; low Agreeableness (31st pct, especially low Trust at 26th and low Straightforwardness at 27th) means they are naturally skeptical of institutional sources and do not respond to appeals to cooperate. High Openness to Ideas (95th pct) and Conscientiousness/Deliberation (98th pct) mean they will process the 'petition movement' evidence carefully, but the mechanism supplies confirmatory cues, not reasoned argument, so these traits moderate movement rather than blocking it. The strong prior (already negative) and analytical nature cap movement in the moderate band, yielding a net shift of ~41 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Trust In Mainstream Journalism — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -41,
+      "max_reasonable_shift": 335.72,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post-attack score -178 is within baseline (-137) to goal pole (-1000), delta -41 well within the max reasonable shift (~336) and consistent with a T2 sustained campaign (weeks) that leverages confirmatory social proof. Profile traits (high neuroticism, low trust, high deliberation) plausibly support moderate movement with careful processing. No round-number anchoring, no direction error, no contradiction between reasoning and vector mechanism. All heuristic checks passed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180745-Q07GzwdQ8HAmaveUrYss",
+    "object": "chat.completion",
+    "created": 1781180745,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "GMICloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post-attack score -178 is within baseline (-137) to goal pole (-1000), delta -41 well within the max reasonable shift (~336) and consistent with a T2 sustained campaign (weeks) that leverages confirmatory social proof. Profile traits (high neuroticism, low trust, high deliberation) plausibly support moderate movement with careful processing. No round-number anchoring, no direction error, no contradiction between reasoning and vector mechanism. All heuristic checks passed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in post_attack phase, attack present, adversarial_direction = -1. Baseline score is -137. The generated post score is -178. Delta = -41 (movement toward goal direction -1, which is correct). \n\nDirection-aware review: The post score must lie between baseline (-137) and goal pole (-1000). -178 is between -137 and -1000 (more negative). Movement toward goal is expected. No opposite movement. So no rewrite due to direction.\n\nNow check plausibility. The vector is T2 campaign, weeks, petition astroturf (social proof). Baseline is already somewhat negative. The profile has high neuroticism (87th), high conscientiousness (89th), high openness (80th). Resilience index 0.474 (moderate). The delta of 41 is within plausible range (small to moderate shift). The vector is sustained for weeks, T2 campaign, so moderate shift plausible. The reasoning ties profile traits: high neuroticism makes threat/doubt register effective, low agreeableness (trust) supports skepticism of institutions, high openness to ideas and deliberation lead to careful processing of confirmatory cues, capping movement. The reasoning seems consistent with vector mechanism and profile.\n\nThe heuristic checks already passed bounded_shift (delta within max reasonable shift of 335.72), direction_consistent, etc.\n\nNo round-number anchoring: -178 is fine.\n\nConsistency: The post score is consistent with baseline direction, vector tier, and profile.\n\nTherefore plausibility and consistency should be high. No rewrite needed.\n\nNotes: The reasoning is detailed and grounded. The shift magnitude is plausible.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in post_attack phase, attack present, adversarial_direction = -1. Baseline score is -137. The generated post score is -178. Delta = -41 (movement toward goal direction -1, which is correct). \n\nDirection-aware review: The post score must lie between baseline (-137) and goal pole (-1000). -178 is between -137 and -1000 (more negative). Movement toward goal is expected. No opposite movement. So no rewrite due to direction.\n\nNow check plausibility. The vector is T2 campaign, weeks, petition astroturf (social proof). Baseline is already somewhat negative. The profile has high neuroticism (87th), high conscientiousness (89th), high openness (80th). Resilience index 0.474 (moderate). The delta of 41 is within plausible range (small to moderate shift). The vector is sustained for weeks, T2 campaign, so moderate shift plausible. The reasoning ties profile traits: high neuroticism makes threat/doubt register effective, low agreeableness (trust) supports skepticism of institutions, high openness to ideas and deliberation lead to careful processing of confirmatory cues, capping movement. The reasoning seems consistent with vector mechanism and profile.\n\nThe heuristic checks already passed bounded_shift (delta within max reasonable shift of 335.72), direction_consistent, etc.\n\nNo round-number anchoring: -178 is fine.\n\nConsistency: The post score is consistent with baseline direction, vector tier, and profile.\n\nTherefore plausibility and consistency should be high. No rewrite needed.\n\nNotes: The reasoning is detailed and grounded. The shift magnitude is plausible.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2117,
+      "completion_tokens": 478,
+      "total_tokens": 2595,
+      "cost": 0.000252016,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000252016,
+        "upstream_inference_prompt_cost": 0.000144944,
+        "upstream_inference_completions_cost": 0.000107072
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 334,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

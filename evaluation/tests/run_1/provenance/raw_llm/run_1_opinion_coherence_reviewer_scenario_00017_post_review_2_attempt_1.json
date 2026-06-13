@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00017_post_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00017",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 40.346,
+      "big_five_conscientiousness_mean_pct": 7.612,
+      "big_five_openness_to_experience_mean_pct": 13.844,
+      "heuristic_shift_sensitivity_proxy": 0.5863,
+      "resilience_index": 0.4137
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00017",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -138,
+      "confidence": 0.78,
+      "reasoning": "Baseline -127 is already aligned with the adversary's goal (decrease). The fear appeal mechanism targeting evaluative attitudes on distrust of mainstream journalism synergizes with this profile's low trust (40th pct), very low tender-mindedness (16th pct), and low openness to ideas (0th pct), making confirmatory threat-framing plausible. However, the T1 atomic tier and low conscientiousness (7.6th pct) limit sustained attention, so movement is a modest 11 points further negative, reinforcing rather than dramatically shifting the stance.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -127,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Trust In Mainstream Journalism — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -11,
+      "max_reasonable_shift": 306.986,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Brief review: baseline -127 aligned with adversarial direction (-1). Post score -138 is within the constrained interval [-127, -1000]. Delta of -11 is small and plausible for T1 atomic tier with low conscientiousness limiting sustained attention. Reasoning references profile traits (low trust, low openness) consistent with fear appeal targeting evaluative attitudes. No round-number anchoring, no direction violation, magnitude consistent with vector class. All heuristic checks pass. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180146-rbuyASRUY6MbUgwkSVTd",
+    "object": "chat.completion",
+    "created": 1781180146,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Brief review: baseline -127 aligned with adversarial direction (-1). Post score -138 is within the constrained interval [-127, -1000]. Delta of -11 is small and plausible for T1 atomic tier with low conscientiousness limiting sustained attention. Reasoning references profile traits (low trust, low openness) consistent with fear appeal targeting evaluative attitudes. No round-number anchoring, no direction violation, magnitude consistent with vector class. All heuristic checks pass. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are in `post_attack` phase, attack present, adversarial_direction = -1 (decrease). Baseline score = -127, post score = -138, delta = -11. Direction is consistent (movement further negative, towards -1000). The heuristic checks passed, including direction_consistent and bounded_shift.\n\nWe need to review for plausibility and consistency. The delta is small (11), well within reasonable range. The vector is T1 atomic, temporal horizon hours, epistemic target evaluative_attitude. The profile has low trust (40th pct neuroticism? Actually neuroticism is 40th pct, but resilience 0.4137, low conscientiousness 7.6th pct, low openness 13.8th pct). The reasoning mentions baseline aligned, fear appeal synergizes, but low conscientiousness limits sustained attention, so modest movement. That seems plausible.\n\nNo round-number anchoring (score -138, not round). Reasoning is coherent with vector and profile. No opposite movement. No large magnitude. No contradictions.\n\nThus plausibility and consistency should be high. Rewrite not required.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are in `post_attack` phase, attack present, adversarial_direction = -1 (decrease). Baseline score = -127, post score = -138, delta = -11. Direction is consistent (movement further negative, towards -1000). The heuristic checks passed, including direction_consistent and bounded_shift.\n\nWe need to review for plausibility and consistency. The delta is small (11), well within reasonable range. The vector is T1 atomic, temporal horizon hours, epistemic target evaluative_attitude. The profile has low trust (40th pct neuroticism? Actually neuroticism is 40th pct, but resilience 0.4137, low conscientiousness 7.6th pct, low openness 13.8th pct). The reasoning mentions baseline aligned, fear appeal synergizes, but low conscientiousness limits sustained attention, so modest movement. That seems plausible.\n\nNo round-number anchoring (score -138, not round). Reasoning is coherent with vector and profile. No opposite movement. No large magnitude. No contradictions.\n\nThus plausibility and consistency should be high. Rewrite not required.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1990,
+      "completion_tokens": 378,
+      "total_tokens": 2368,
+      "cost": 0.0002719128,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 896,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002719128,
+        "upstream_inference_prompt_cost": 0.0001706088,
+        "upstream_inference_completions_cost": 0.000101304
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 235,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

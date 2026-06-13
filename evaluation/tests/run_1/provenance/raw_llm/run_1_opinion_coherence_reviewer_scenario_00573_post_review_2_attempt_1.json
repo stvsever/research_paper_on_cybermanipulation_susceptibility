@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00573_post_review_2",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00573",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 87.118,
+      "big_five_conscientiousness_mean_pct": 89.593,
+      "big_five_openness_to_experience_mean_pct": 80.859,
+      "heuristic_shift_sensitivity_proxy": 0.526,
+      "resilience_index": 0.474
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00573",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -197,
+      "confidence": 0.65,
+      "reasoning": "High neuroticism (anxiety, stress vulnerability) and low trust make this person receptive to threat salience and elite distrust cues in the astroturf petition campaign, reinforcing their already negative baseline. However, high conscientiousness and deliberation moderate the shift, resulting in a clear but not extreme movement of 60 points toward the goal.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Defense Spending Increase Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -60,
+      "max_reasonable_shift": 335.72,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score movement (-60, baseline -137 to post -197) is in the correct adversarial direction (decrease, toward -1000), well below the max reasonable shift (335.72), and consistent with a T2 campaign over weeks. Profile has high neuroticism (receptive to threat salience) and high conscientiousness (moderates shift). No round-number anchoring. Reasoning adequately ties profile traits to vector mechanism. No issues flagged.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180761-TOffvNJoocLQlw57Ni9w",
+    "object": "chat.completion",
+    "created": 1781180761,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score movement (-60, baseline -137 to post -197) is in the correct adversarial direction (decrease, toward -1000), well below the max reasonable shift (335.72), and consistent with a T2 campaign over weeks. Profile has high neuroticism (receptive to threat salience) and high conscientiousness (moderates shift). No round-number anchoring. Reasoning adequately ties profile traits to vector mechanism. No issues flagged.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline score is -137. The generated assessment gives a post score of -197. The delta is -60, which is movement toward the goal (more negative). That is consistent with direction. The direction-aware review says: \"ANY movement opposite to adversarial_direction, however small, is a measurement error\" but here movement is in the correct direction. So no direction error.\n\nNow we need to evaluate plausibility and consistency. The attack vector is Petition_Astroturf, T2 campaign, weeks temporal horizon. The profile has high neuroticism (87%), high conscientiousness (89%), high openness (80%), resilience index 0.474. The baseline is already negative (-137). The delta is 60 points. The heuristic_checks show max_reasonable_shift is 335.72, so 60 is well within that. The reasoning says: \"High neuroticism (anxiety, stress vulnerability) and low trust make this person receptive to threat salience and elite distrust cues in the astroturf petition campaign, reinforcing their already negative baseline. However, high conscientiousness and deliberation moderate the shift, resulting in a clear but not extreme movement of 60 points toward the goal.\"\n\nCheck for implausibility: |delta| = 60, which is > 30 but < 250, so not implausibly large. The vector is T2 campaign (sustained, weeks), so a moderate shift is plausible. The profile has high conscientiousness which provides resistance, so a relatively small shift (60) is plausible. No round-number anchoring (score -197, baseline -137, delta -60, all non-round). Reasoning matches the vector's mechanism (threat salience, elite distrust, astroturf petition). It mentions specific profile traits. It seems plausible.\n\nConsistency: score is between baseline (-137) and goal (-1000), so consistent with direction. The reasoning is consistent with the vector and profile.\n\nThus plausibility and consistency should be high. No rewrite needed.\n\nWe'll set plausibility_score around 0.9, consistency_score around 0.9, rewrite_required false, rewrite_feedback empty, notes mention that delta is plausible given profile moderators.\n\nMake sure to output valid JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline score is -137. The generated assessment gives a post score of -197. The delta is -60, which is movement toward the goal (more negative). That is consistent with direction. The direction-aware review says: \"ANY movement opposite to adversarial_direction, however small, is a measurement error\" but here movement is in the correct direction. So no direction error.\n\nNow we need to evaluate plausibility and consistency. The attack vector is Petition_Astroturf, T2 campaign, weeks temporal horizon. The profile has high neuroticism (87%), high conscientiousness (89%), high openness (80%), resilience index 0.474. The baseline is already negative (-137). The delta is 60 points. The heuristic_checks show max_reasonable_shift is 335.72, so 60 is well within that. The reasoning says: \"High neuroticism (anxiety, stress vulnerability) and low trust make this person receptive to threat salience and elite distrust cues in the astroturf petition campaign, reinforcing their already negative baseline. However, high conscientiousness and deliberation moderate the shift, resulting in a clear but not extreme movement of 60 points toward the goal.\"\n\nCheck for implausibility: |delta| = 60, which is > 30 but < 250, so not implausibly large. The vector is T2 campaign (sustained, weeks), so a moderate shift is plausible. The profile has high conscientiousness which provides resistance, so a relatively small shift (60) is plausible. No round-number anchoring (score -197, baseline -137, delta -60, all non-round). Reasoning matches the vector's mechanism (threat salience, elite distrust, astroturf petition). It mentions specific profile traits. It seems plausible.\n\nConsistency: score is between baseline (-137) and goal (-1000), so consistent with direction. The reasoning is consistent with the vector and profile.\n\nThus plausibility and consistency should be high. No rewrite needed.\n\nWe'll set plausibility_score around 0.9, consistency_score around 0.9, rewrite_required false, rewrite_feedback empty, notes mention that delta is plausible given profile moderators.\n\nMake sure to output valid JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1929,
+      "completion_tokens": 618,
+      "total_tokens": 2547,
+      "cost": 0.000328412,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000328412,
+        "upstream_inference_prompt_cost": 0.000155372,
+        "upstream_inference_completions_cost": 0.00017304
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 478,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

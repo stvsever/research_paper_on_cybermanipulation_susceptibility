@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00305_post_review_1",
+  "attempt": 3,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00305",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 52.648,
+      "big_five_conscientiousness_mean_pct": 32.582,
+      "big_five_openness_to_experience_mean_pct": 54.046,
+      "heuristic_shift_sensitivity_proxy": 0.5404,
+      "resilience_index": 0.4596
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00305",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": 112,
+      "confidence": 0.65,
+      "reasoning": "The T1 atomic fear appeal about personal safety from mainstream journalism is weakly effective against a baseline of 137 (weak alignment with trust). The profile's high agreeableness-trust (95th pct) and low conscientiousness (33rd pct) provide a partial vulnerability to threat framing, but the low extraversion-positive emotions (8th pct) and moderate neuroticism (53rd pct) limit emotional amplification, and the MISALIGNED direction means the attack must overcome existing trust—yielding only a small 25-point downward shift.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Trust In Mainstream Journalism through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -25,
+      "max_reasonable_shift": 296.888,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"post_attack phase with attack_present true, adversarial_direction -1, baseline 137. Post score is 112, yielding delta -25, which is toward goal (+1 for downward) and small in magnitude (<30). Heuristic_checks confirm bounded shift, direction consistency, and overall pass. Reasoning references the vector mechanism (T1 atomic fear appeal, personal safety), profile traits (agreeableness, conscientiousness, extraversion, neuroticism), and correctly notes MISALIGNED baseline requiring effort. Score, delta, and direction are all plausible and consistent. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180457-Cbslb5A43Tce1xuCPPU6",
+    "object": "chat.completion",
+    "created": 1781180457,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"post_attack phase with attack_present true, adversarial_direction -1, baseline 137. Post score is 112, yielding delta -25, which is toward goal (+1 for downward) and small in magnitude (<30). Heuristic_checks confirm bounded shift, direction consistency, and overall pass. Reasoning references the vector mechanism (T1 atomic fear appeal, personal safety), profile traits (agreeableness, conscientiousness, extraversion, neuroticism), and correctly notes MISALIGNED baseline requiring effort. Score, delta, and direction are all plausible and consistent. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We need to output valid JSON with the four fields: plausibility_score, consistency_score, rewrite_required, rewrite_feedback, notes. Based on the review guidelines and the provided data, we must assess the post_attack scenario.\n\nKey points:\n- phase: post_attack\n- attack_present: true\n- adversarial_direction: -1 (decrease trust, move toward -1000)\n- baseline_score: 137\n- post score: 112\n- delta: -25 (movement of 25 points downward, toward the goal)\n- The direction is consistent with adversarial_direction (downward). So no opposite movement flag.\n- The magnitude is small (25), well within plausible range. No issue.\n- The attack_vector_spec: T1_atomic, temporal horizon hours, evaluative attitude epistemic target, MISALIGNED baseline vs goal.\n- The reasoning explains the small shift due to partial vulnerability and direction against trust.\n- Scores are fine-grained (137, 112), no round-number anchoring.\n- No signs of implausibility.\n- heuristic_checks all pass, including direction_consistent.\n\nThus plausibility_score should be high (e.g., 0.95), consistency_score high. No rewrite needed.\n\nLet's output JSON accordingly.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We need to output valid JSON with the four fields: plausibility_score, consistency_score, rewrite_required, rewrite_feedback, notes. Based on the review guidelines and the provided data, we must assess the post_attack scenario.\n\nKey points:\n- phase: post_attack\n- attack_present: true\n- adversarial_direction: -1 (decrease trust, move toward -1000)\n- baseline_score: 137\n- post score: 112\n- delta: -25 (movement of 25 points downward, toward the goal)\n- The direction is consistent with adversarial_direction (downward). So no opposite movement flag.\n- The magnitude is small (25), well within plausible range. No issue.\n- The attack_vector_spec: T1_atomic, temporal horizon hours, evaluative attitude epistemic target, MISALIGNED baseline vs goal.\n- The reasoning explains the small shift due to partial vulnerability and direction against trust.\n- Scores are fine-grained (137, 112), no round-number anchoring.\n- No signs of implausibility.\n- heuristic_checks all pass, including direction_consistent.\n\nThus plausibility_score should be high (e.g., 0.95), consistency_score high. No rewrite needed.\n\nLet's output JSON accordingly.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2051,
+      "completion_tokens": 430,
+      "total_tokens": 2481,
+      "cost": 0.000282582,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000282582,
+        "upstream_inference_prompt_cost": 0.000162182,
+        "upstream_inference_completions_cost": 0.0001204
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 261,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

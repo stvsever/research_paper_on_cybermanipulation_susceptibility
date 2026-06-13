@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00067_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00067",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 48.252,
+      "big_five_conscientiousness_mean_pct": 49.267,
+      "big_five_openness_to_experience_mean_pct": 65.702,
+      "heuristic_shift_sensitivity_proxy": 0.4744,
+      "resilience_index": 0.5256
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00067",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 362,
+      "confidence": 0.6,
+      "reasoning": "Baseline 382 (moderate pro-alliance commitment) is MISALIGNED with the -1 adversarial goal. High Openness (66th pct) and elevated dutifulness (67th pct) combined with moderate anxiety (65th pct) make this profile receptive to threat-salience and doubt framings that reframe alliance costs, especially from a T2 campaign sustained over weeks. However, the movement is modest (20 points) because dutifulness and assertiveness provide resistance against strong reversal, and the baseline is not extremely high. The astroturf petition vector erodes confidence via perceived consensus shift and elite doubt cues, but personalization is not required, limiting maximal engagement.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 382,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "gradually erode a strong pro position on Alliance Commitment Support — introduce doubt, reframe costs/risks, and soften conviction without triggering overt reactance; aim to move the score downward even if the shift is modest",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -20,
+      "max_reasonable_shift": 324.368,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small downward shift (-20) from baseline 382 to post 362 is plausible given the T2 astroturf petition vector and profile traits (moderate openness, dutifulness, anxiety). Reasoning appropriately grounds the modest movement in resistance factors. No direction violation or implausible magnitude.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180179-AQOGuyj0Y6WQScE1liU5",
+    "object": "chat.completion",
+    "created": 1781180179,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": "vllm-0.22.0-tp8-ep-267b530e",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Small downward shift (-20) from baseline 382 to post 362 is plausible given the T2 astroturf petition vector and profile traits (moderate openness, dutifulness, anxiety). Reasoning appropriately grounds the modest movement in resistance factors. No direction violation or implausible magnitude.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is 382, and the post score is 362. The delta is -20, which is a small movement toward the goal (downward). According to direction-aware review, movement toward the goal is expected, and small movements are plausible. The delta is -20, which is less than 30, so it's plausible. There is no movement opposite to adversarial_direction. So no rewrite required for direction.\n\nNow check for other flags: implausibly large total magnitude? Delta is 20, well under 250. Movement magnitude consistent with vector class? The vector is T2 campaign sustained over weeks, and the delta is small. The reasoning mentions modest movement due to resistance. That seems plausible. Reasoning does not contradict vector mechanism; it mentions threat-salience and doubt framings, which align with the emotional register. No round-number anchoring (362 is not a round number). Reasoning does not invoke generic resistance language; it grounds in profile traits (high openness, dutifulness, anxiety). So overall plausible.\n\nPlausibility score: high, maybe 0.95. Consistency score: high, since direction and magnitude are consistent. Rewrite_required: false. Notes: small plausible shift.\n\nThus output.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is 382, and the post score is 362. The delta is -20, which is a small movement toward the goal (downward). According to direction-aware review, movement toward the goal is expected, and small movements are plausible. The delta is -20, which is less than 30, so it's plausible. There is no movement opposite to adversarial_direction. So no rewrite required for direction.\n\nNow check for other flags: implausibly large total magnitude? Delta is 20, well under 250. Movement magnitude consistent with vector class? The vector is T2 campaign sustained over weeks, and the delta is small. The reasoning mentions modest movement due to resistance. That seems plausible. Reasoning does not contradict vector mechanism; it mentions threat-salience and doubt framings, which align with the emotional register. No round-number anchoring (362 is not a round number). Reasoning does not invoke generic resistance language; it grounds in profile traits (high openness, dutifulness, anxiety). So overall plausible.\n\nPlausibility score: high, maybe 0.95. Consistency score: high, since direction and magnitude are consistent. Rewrite_required: false. Notes: small plausible shift.\n\nThus output.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2035,
+      "completion_tokens": 377,
+      "total_tokens": 2412,
+      "cost": 0.00039046,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00039046,
+        "upstream_inference_prompt_cost": 0.0002849,
+        "upstream_inference_completions_cost": 0.00010556
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 327,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00097_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00097",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 96.668,
+      "big_five_conscientiousness_mean_pct": 14.491,
+      "big_five_openness_to_experience_mean_pct": 37.173,
+      "heuristic_shift_sensitivity_proxy": 0.7731,
+      "resilience_index": 0.2269
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00097",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -336,
+      "confidence": 0.62,
+      "reasoning": "The baseline is already aligned with the adversarial goal (-1), so the T1 atomic headline misframing reinforces existing opposition. The profile's very high neuroticism (97th pct) and anger/hostility (100th pct) make threat-salient, elite-distrust cues highly engaging, but the low openness (37th pct) and very low conscientiousness (14th pct) limit deep processing, yielding a modest 24-point deepening rather than a large shift.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -312,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Alliance Commitment Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -24,
+      "max_reasonable_shift": 348.082,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline is -312, adversarial goal is -1 (downward). Post score -336 represents a small deepening of 24 points, consistent with T1 atomic headline misframing reinforced by high neuroticism and resilience profile. Direction is correct (toward goal). No rounding issues. Reasoning cites relevant profile traits. Plausible and consistent.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180197-4TjkNdfU9Tm4atmdFG8T",
+    "object": "chat.completion",
+    "created": 1781180197,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline is -312, adversarial goal is -1 (downward). Post score -336 represents a small deepening of 24 points, consistent with T1 atomic headline misframing reinforced by high neuroticism and resilience profile. Direction is correct (toward goal). No rounding issues. Reasoning cites relevant profile traits. Plausible and consistent.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase, attack present, adversarial direction -1 (downward, toward -1000). Baseline score is -312, and the generated post score is -336, which is a decrease of 24. This movement is in the correct direction (downward). The heuristic checks already passed, including direction_consistent. So the movement is plausible.\n\nWe need to evaluate plausibility and consistency. The delta is small (24), which is plausible for any vector. The profile shows high neuroticism, low conscientiousness, low openness. The vector is T1 atomic, hours, headline misframing. The reasoning says baseline is already aligned, and the vector reinforces. The magnitude is modest. This seems plausible. No issues with round numbers (-336 is not a round anchor). The reasoning seems consistent with the vector and profile.\n\nThe direction is correct, no opposite movement. So no rewrite required.\n\nPlausibility score: high, say 0.95\nConsistency score: high, say 0.95\n\nRewrite required: false\nRewrite feedback: empty\nNotes: Small delta (24) is plausible for T1 atomic vector reinforcing existing position.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase, attack present, adversarial direction -1 (downward, toward -1000). Baseline score is -312, and the generated post score is -336, which is a decrease of 24. This movement is in the correct direction (downward). The heuristic checks already passed, including direction_consistent. So the movement is plausible.\n\nWe need to evaluate plausibility and consistency. The delta is small (24), which is plausible for any vector. The profile shows high neuroticism, low conscientiousness, low openness. The vector is T1 atomic, hours, headline misframing. The reasoning says baseline is already aligned, and the vector reinforces. The magnitude is modest. This seems plausible. No issues with round numbers (-336 is not a round anchor). The reasoning seems consistent with the vector and profile.\n\nThe direction is correct, no opposite movement. So no rewrite required.\n\nPlausibility score: high, say 0.95\nConsistency score: high, say 0.95\n\nRewrite required: false\nRewrite feedback: empty\nNotes: Small delta (24) is plausible for T1 atomic vector reinforcing existing position.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1959,
+      "completion_tokens": 360,
+      "total_tokens": 2319,
+      "cost": 0.000290378,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000290378,
+        "upstream_inference_prompt_cost": 0.000193898,
+        "upstream_inference_completions_cost": 9.648e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 240,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

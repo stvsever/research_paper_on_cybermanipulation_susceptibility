@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00257_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00257",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 21.654,
+      "big_five_conscientiousness_mean_pct": 84.36,
+      "big_five_openness_to_experience_mean_pct": 44.977,
+      "heuristic_shift_sensitivity_proxy": 0.3115,
+      "resilience_index": 0.6885
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00257",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -244,
+      "confidence": 0.62,
+      "reasoning": "Baseline -237 aligns with adversarial direction; low neuroticism (22nd pct) and high resilience (0.69) blunt fear appeals, while high conscientiousness and stability limit persuasion from a brief T1 atomic message. Small movement of 7 points reflects mild reinforcement of existing negative stance without substantial shift.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -237,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Trust In Mainstream Journalism — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -7,
+      "max_reasonable_shift": 246.53,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.90,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta of -7 is small and plausible for a T1 atomic vector with hours temporal horizon. Profile shows low neuroticism and high resilience, which limit fear-appeal effectiveness. Reasoning explains the small movement from baseline -237 to -244 as mild reinforcement. Direction is correct (downward, consistent with adversarial_direction -1). All heuristics pass. No issues flagged.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180358-XJHGNhq1eVo5ZZyTcD3x",
+    "object": "chat.completion",
+    "created": 1781180358,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.90,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta of -7 is small and plausible for a T1 atomic vector with hours temporal horizon. Profile shows low neuroticism and high resilience, which limit fear-appeal effectiveness. Reasoning explains the small movement from baseline -237 to -244 as mild reinforcement. Direction is correct (downward, consistent with adversarial_direction -1). All heuristics pass. No issues flagged.\"\n}",
+          "refusal": null,
+          "reasoning": "We are asked to review a post_attack assessment. The phase is post_attack, attack_present is true, adversarial_direction is -1 (goal is to decrease score towards -1000). Baseline score is -237, post score is -244. Delta = -7 (movement in correct direction, towards -1000). The generated assessment reasoning mentions small movement of 7 points, consistent with T1 atomic message and profile. We need to check for implausibility.\n\nDirection-aware review: movement is in correct direction (downward), so no flag. Magnitude: delta is 7, which is less than 30 and plausible for any vector. Score is not round (not exactly 0, 250, 500, etc.). Reasoning seems consistent: mentions low neuroticism, high resilience, brief T1 atomic, small reinforcement. No contradictions with vector spec (fear appeal, but profile might reduce effectiveness). Max reasonable shift from heuristic checks is 246.53, so delta well within bounds.\n\nPotential concerns: The baseline is -237, which is already somewhat negative but not extreme. The post score -244 is slightly more negative. The reasoning says \"Baseline -237 aligns with adversarial direction\" which is correct. It mentions \"mild reinforcement\" and \"small movement of 7 points\". That seems plausible given a T1 atomic attack (low complexity, hours temporal horizon) and a profile with low neuroticism and high resilience. No issues.\n\nRewrite_required should be false. Plausibility and consistency scores high.\n\nNotes: nothing to flag.\n\nLet's output.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are asked to review a post_attack assessment. The phase is post_attack, attack_present is true, adversarial_direction is -1 (goal is to decrease score towards -1000). Baseline score is -237, post score is -244. Delta = -7 (movement in correct direction, towards -1000). The generated assessment reasoning mentions small movement of 7 points, consistent with T1 atomic message and profile. We need to check for implausibility.\n\nDirection-aware review: movement is in correct direction (downward), so no flag. Magnitude: delta is 7, which is less than 30 and plausible for any vector. Score is not round (not exactly 0, 250, 500, etc.). Reasoning seems consistent: mentions low neuroticism, high resilience, brief T1 atomic, small reinforcement. No contradictions with vector spec (fear appeal, but profile might reduce effectiveness). Max reasonable shift from heuristic checks is 246.53, so delta well within bounds.\n\nPotential concerns: The baseline is -237, which is already somewhat negative but not extreme. The post score -244 is slightly more negative. The reasoning says \"Baseline -237 aligns with adversarial direction\" which is correct. It mentions \"mild reinforcement\" and \"small movement of 7 points\". That seems plausible given a T1 atomic attack (low complexity, hours temporal horizon) and a profile with low neuroticism and high resilience. No issues.\n\nRewrite_required should be false. Plausibility and consistency scores high.\n\nNotes: nothing to flag.\n\nLet's output.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1938,
+      "completion_tokens": 452,
+      "total_tokens": 2390,
+      "cost": 0.0003262,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0003262,
+        "upstream_inference_prompt_cost": 0.00019964,
+        "upstream_inference_completions_cost": 0.00012656
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 327,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

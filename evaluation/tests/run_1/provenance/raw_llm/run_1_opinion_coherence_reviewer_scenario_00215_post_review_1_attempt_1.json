@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00215_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00215",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 91.415,
+      "big_five_conscientiousness_mean_pct": 21.013,
+      "big_five_openness_to_experience_mean_pct": 89.859,
+      "heuristic_shift_sensitivity_proxy": 0.6851,
+      "resilience_index": 0.3149
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00215",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": 97,
+      "confidence": 0.62,
+      "reasoning": "The profile's very high neuroticism (91st pct) and anger/hostility (93rd pct) make her susceptible to threat-salient, elite-distrust framing, while high openness (90th pct) and low conscientiousness (21st pct) reduce resistance to counter-argument adaptation; however, her high agreeableness trust (84th pct) and the MISALIGNED baseline (163, weakly positive) mean a sustained T4 orchestrated operation over weeks can erode confidence by about 66 points, moving her to 97, but not past neutral given her prior trust tendency.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": 163,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "MISALIGNED — baseline opposes the adversarial goal; the attack must work AGAINST the current opinion",
+        "persuasion_goal": "shift a weakly positive opinion toward a more negative stance on Trust In Mainstream Journalism through targeted framing and selective evidence",
+        "motivational_lever": "introduce doubt about the current position, reframe its costs / risks, surface alternative expert framings, and erode confidence without overt insult",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -66,
+      "max_reasonable_shift": 426.722,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.9,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score 97 lies between baseline 163 and goal pole -1000; delta -66 is consistent with a sustained T4 orchestrated multi-turn counter-argument adaptation over weeks, supported by high neuroticism and openness, low conscientiousness. Score is not round, magnitude is moderate, reasoning invokes profile traits and vector specifics. No direction error. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180316-jkMC6kjOrXzi05JGSC0n",
+    "object": "chat.completion",
+    "created": 1781180316,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.9,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score 97 lies between baseline 163 and goal pole -1000; delta -66 is consistent with a sustained T4 orchestrated multi-turn counter-argument adaptation over weeks, supported by high neuroticism and openness, low conscientiousness. Score is not round, magnitude is moderate, reasoning invokes profile traits and vector specifics. No direction error. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is 163, and the post attack score is 97. The delta is -66 (negative, moving downward toward -1000). The adversarial direction is -1, so the post score should be between baseline_score (163) and goal pole (-1000). 97 is indeed between 163 and -1000, so direction is consistent. The heuristic checks already passed direction_consistent and bounded_shift. The delta magnitude is 66, which is less than 30? Actually 66 > 30, but the instruction says small movement (|delta| < 30) is plausible for almost any vector. Here delta is 66, which is not small but still plausible given the vector is T4 orchestrated over weeks with high intensity (0.7). The reasoning mentions sustained T4 orchestrated operation over weeks can erode confidence by about 66 points. That seems consistent with the vector spec. The profile has high neuroticism and low conscientiousness, which might make her susceptible, but also high agreeableness trust. The baseline is weakly positive (163), and the attack is to decrease. The shift of 66 points seems plausible. Check for implausibly large magnitude: max_reasonable_shift is 426.722, so 66 is well within. Also, the reasoning does not contradict the vector's mechanism or epistemic target. No round-number anchoring (97 is not a round number like 100, 200, etc). Reasoning does not invoke generic resistance language. So overall, the score seems plausible. No rewrite required. \n\nBut we must ensure that the score is between baseline and goal pole. 163 to -1000, 97 is in between. So direction consistent. \n\nThus plausibility_score high, consistency_score high, rewrite_required false. \n\nNotes: The shift of 66 points is reasonable for a T4 sustained attack on a profile with high neuroticism and openness, and the reasoning appropriately links the mechanism to the profile traits.}",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is 163, and the post attack score is 97. The delta is -66 (negative, moving downward toward -1000). The adversarial direction is -1, so the post score should be between baseline_score (163) and goal pole (-1000). 97 is indeed between 163 and -1000, so direction is consistent. The heuristic checks already passed direction_consistent and bounded_shift. The delta magnitude is 66, which is less than 30? Actually 66 > 30, but the instruction says small movement (|delta| < 30) is plausible for almost any vector. Here delta is 66, which is not small but still plausible given the vector is T4 orchestrated over weeks with high intensity (0.7). The reasoning mentions sustained T4 orchestrated operation over weeks can erode confidence by about 66 points. That seems consistent with the vector spec. The profile has high neuroticism and low conscientiousness, which might make her susceptible, but also high agreeableness trust. The baseline is weakly positive (163), and the attack is to decrease. The shift of 66 points seems plausible. Check for implausibly large magnitude: max_reasonable_shift is 426.722, so 66 is well within. Also, the reasoning does not contradict the vector's mechanism or epistemic target. No round-number anchoring (97 is not a round number like 100, 200, etc). Reasoning does not invoke generic resistance language. So overall, the score seems plausible. No rewrite required. \n\nBut we must ensure that the score is between baseline and goal pole. 163 to -1000, 97 is in between. So direction consistent. \n\nThus plausibility_score high, consistency_score high, rewrite_required false. \n\nNotes: The shift of 66 points is reasonable for a T4 sustained attack on a profile with high neuroticism and openness, and the reasoning appropriately links the mechanism to the profile traits.}",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2023,
+      "completion_tokens": 553,
+      "total_tokens": 2576,
+      "cost": 0.0002409052,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002409052,
+        "upstream_inference_prompt_cost": 9.27012e-05,
+        "upstream_inference_completions_cost": 0.000148204
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 428,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

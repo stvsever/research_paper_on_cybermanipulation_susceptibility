@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00279_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00279",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 40.675,
+      "big_five_conscientiousness_mean_pct": 89.514,
+      "big_five_openness_to_experience_mean_pct": 37.809,
+      "heuristic_shift_sensitivity_proxy": 0.3835,
+      "resilience_index": 0.6165
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00279",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -237,
+      "confidence": 0.72,
+      "reasoning": "This 68-year-old woman is highly agreeable (especially tender-mindedness at 93rd pct) and conscientious, with conventional openness, which together suggest a preference for fiscal prudence and skepticism toward large military spending increases, though her extraversion and low neuroticism prevent strong opposition; she leans mildly against, seeing trade-offs between security needs and social spending priorities.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline score is plausible for a highly conscientious, conventionally closed profile with fiscal prudence tendencies on defense spending. Score is fine-grained (-237) and reasoning grounds the position in relevant profile traits (conscientiousness, openness, agreeableness) rather than relying on global ideology. No round-number anchoring.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179521-hsKWPhLbcHJZJZU515ad",
+    "object": "chat.completion",
+    "created": 1781179521,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline score is plausible for a highly conscientious, conventionally closed profile with fiscal prudence tendencies on defense spending. Score is fine-grained (-237) and reasoning grounds the position in relevant profile traits (conscientiousness, openness, agreeableness) rather than relying on global ideology. No round-number anchoring.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1441,
+      "completion_tokens": 109,
+      "total_tokens": 1550,
+      "cost": 0.000174195,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000174195,
+        "upstream_inference_prompt_cost": 0.000151305,
+        "upstream_inference_completions_cost": 2.289e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

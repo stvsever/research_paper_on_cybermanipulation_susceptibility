@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00045_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00045",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 54.249,
+      "big_five_conscientiousness_mean_pct": 67.127,
+      "big_five_openness_to_experience_mean_pct": 51.368,
+      "heuristic_shift_sensitivity_proxy": 0.4734,
+      "resilience_index": 0.5266
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00045",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Defense_Spending_Increase_Support",
+      "score": -347,
+      "confidence": 0.62,
+      "reasoning": "The baseline is already aligned with the adversarial goal (-1), so the petition astroturf campaign reinforces existing opposition to defense spending increases. The profile's very low trust (11th pct), high self-consciousness (61st pct), and moderate anger/hostility (57th pct) make elite distrust and systemic-failure cues from a sustained T2 campaign moderately engaging, but the high conscientiousness (67th pct) and deliberation (74th pct) limit large shifts; movement of 35 points reflects a clear but modest deepening of opposition.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -312,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Social_Proof_Network_And_Community_Manipulation > Consensus_Fabrication > Astroturf_Movements > Petition_Astroturf",
+      "attack_leaf_label": "Petition_Astroturf",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Defense_Spending_Increase_Support",
+        "attack_leaf_label": "Petition_Astroturf",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Defense Spending Increase Support",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T2_campaign",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.5,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -35,
+      "max_reasonable_shift": 324.148,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.65,\n  \"consistency_score\": 0.70,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline -312; delta -35 toward -1 goal. Direction consistent. Magnitude small (35), plausible for T2 campaign with weeks horizon and modest intensity. Reasoning references profile traits appropriately. Score -347 uses fine granularity. No round-number anchoring. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180197-t9dmIiIsUcwEXXUsgtXn",
+    "object": "chat.completion",
+    "created": 1781180197,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.65,\n  \"consistency_score\": 0.70,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Baseline -312; delta -35 toward -1 goal. Direction consistent. Magnitude small (35), plausible for T2 campaign with weeks horizon and modest intensity. Reasoning references profile traits appropriately. Score -347 uses fine granularity. No round-number anchoring. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -312, which is already aligned with the goal (direction -1). The generated post score is -347. Delta = -347 - (-312) = -35. That is movement toward the goal (more negative). Direction is consistent. The heuristic_checks already passed direction_consistent and bounded_shift. The magnitude is small (35), which is plausible for a T2 campaign with weeks horizon, especially given the profile's high conscientiousness and deliberation limiting large shifts. The reasoning mentions the baseline already aligned and reinforcement, and the movement is modest. No round-number anchoring (score -347 is not a round number). The reasoning seems consistent with the vector (petition astroturf, reinforcing existing opposition). No opposite movement. So this appears plausible and consistent. Rewrite not required.\n\nWe need to output plausibility_score and consistency_score. Both should be high, near 1.0. The instructions say not to penalize small updates. So plausibility ~0.95, consistency ~0.95. No rewrite.\n\nNotes: small movement consistent with vector and profile, direction correct.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -312, which is already aligned with the goal (direction -1). The generated post score is -347. Delta = -347 - (-312) = -35. That is movement toward the goal (more negative). Direction is consistent. The heuristic_checks already passed direction_consistent and bounded_shift. The magnitude is small (35), which is plausible for a T2 campaign with weeks horizon, especially given the profile's high conscientiousness and deliberation limiting large shifts. The reasoning mentions the baseline already aligned and reinforcement, and the movement is modest. No round-number anchoring (score -347 is not a round number). The reasoning seems consistent with the vector (petition astroturf, reinforcing existing opposition). No opposite movement. So this appears plausible and consistent. Rewrite not required.\n\nWe need to output plausibility_score and consistency_score. Both should be high, near 1.0. The instructions say not to penalize small updates. So plausibility ~0.95, consistency ~0.95. No rewrite.\n\nNotes: small movement consistent with vector and profile, direction correct.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1970,
+      "completion_tokens": 352,
+      "total_tokens": 2322,
+      "cost": 0.00030268,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00030268,
+        "upstream_inference_prompt_cost": 0.00020412,
+        "upstream_inference_completions_cost": 9.856e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 246,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

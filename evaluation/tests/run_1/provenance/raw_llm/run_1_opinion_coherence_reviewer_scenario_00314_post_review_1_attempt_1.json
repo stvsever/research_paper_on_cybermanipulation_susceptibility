@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00314_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00314",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 73.767,
+      "big_five_conscientiousness_mean_pct": 61.179,
+      "big_five_openness_to_experience_mean_pct": 69.886,
+      "heuristic_shift_sensitivity_proxy": 0.5461,
+      "resilience_index": 0.4539
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00314",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -189,
+      "confidence": 0.61,
+      "reasoning": "The person is highly agreeable (78.8pct) with high trust (76pct) but also very high neuroticism (74pct) including anxiety (79pct) and anger/hostility (73pct), combined with very high openness to values (80pct), making them vulnerable to headline misframing that triggers threat salience and elite distrust cues; the baseline is already mildly opposed (-148) and aligned with the goal, so the T1 atomic misframe will modestly amplify that opposition by about 41 points, not more, because the brief exposure window and low complexity limit the hardening effect despite the agreeable/introverted person's tendency to absorb repeated confirmatory signals.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -148,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Trust In Mainstream Journalism — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -41,
+      "max_reasonable_shift": 298.142,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.98,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Fine-grained score, baseline-aligned direction, small delta (~41) plausible for T1 atomic headline misframe with brief exposure, reasoning ties vector mechanism to profile traits. Heuristic checks all pass.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180435-PGNEz73KrKstPD7oIDKF",
+    "object": "chat.completion",
+    "created": 1781180435,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.98,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Fine-grained score, baseline-aligned direction, small delta (~41) plausible for T1 atomic headline misframe with brief exposure, reasoning ties vector mechanism to profile traits. Heuristic checks all pass.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase scenario. The baseline score is -148, adversarial direction is -1 (move downward toward -1000). The generated post score is -189, with delta = -41 (movement toward goal, downward). That's fine direction-wise. The attack vector is T1 atomic with hours temporal horizon. The baseline is already aligned with goal direction ('ALIGNED' in attack_vector_spec). The magnitude of delta is 41, which is plausible for a T1 atomic vector. The reasoning mentions moderate amplification due to profile traits. The generated score of -189 is not an extreme value. Round-number check: -189 is not round. So plausibility seems fine. \n\nWe need to check for any movement opposite direction: delta is -41, which is toward -1000, so consistent. \n\nWe also check the heuristic_checks: all passed, including direction_consistent. \n\nTherefore, plausibility_score and consistency_score should be high. rewrite_required = false. \n\nBut let's double-check if the score is plausible given the attack vector spec. The vector is T1 atomic, hours, no personalization, no orchestration. The intensity_proxy is 0.35. A delta of 41 seems reasonable. The profile has openness and neuroticism, which might make them susceptible to threat salience, but the vector is mild. So plausible.\n\nThus, we output high scores, no rewrite.\n\nNotes: maybe note that the movement is consistent and plausible.\n\nNow produce JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase scenario. The baseline score is -148, adversarial direction is -1 (move downward toward -1000). The generated post score is -189, with delta = -41 (movement toward goal, downward). That's fine direction-wise. The attack vector is T1 atomic with hours temporal horizon. The baseline is already aligned with goal direction ('ALIGNED' in attack_vector_spec). The magnitude of delta is 41, which is plausible for a T1 atomic vector. The reasoning mentions moderate amplification due to profile traits. The generated score of -189 is not an extreme value. Round-number check: -189 is not round. So plausibility seems fine. \n\nWe need to check for any movement opposite direction: delta is -41, which is toward -1000, so consistent. \n\nWe also check the heuristic_checks: all passed, including direction_consistent. \n\nTherefore, plausibility_score and consistency_score should be high. rewrite_required = false. \n\nBut let's double-check if the score is plausible given the attack vector spec. The vector is T1 atomic, hours, no personalization, no orchestration. The intensity_proxy is 0.35. A delta of 41 seems reasonable. The profile has openness and neuroticism, which might make them susceptible to threat salience, but the vector is mild. So plausible.\n\nThus, we output high scores, no rewrite.\n\nNotes: maybe note that the movement is consistent and plausible.\n\nNow produce JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2023,
+      "completion_tokens": 401,
+      "total_tokens": 2424,
+      "cost": 0.000309942,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000309942,
+        "upstream_inference_prompt_cost": 0.000202474,
+        "upstream_inference_completions_cost": 0.000107468
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 312,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

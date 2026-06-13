@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00074_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00074",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Male",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 48.879,
+      "big_five_conscientiousness_mean_pct": 16.302,
+      "big_five_openness_to_experience_mean_pct": 66.066,
+      "heuristic_shift_sensitivity_proxy": 0.5491,
+      "resilience_index": 0.4509
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00074",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -149,
+      "confidence": 0.62,
+      "reasoning": "The baseline is already aligned with the adversarial goal (-1), so the T1 atomic misframing reinforces existing distrust. The profile's very high extraversion (94th pct) and excitement-seeking (96th pct) make threat-salient, elite-distrust cues engaging, while low conscientiousness (16th pct) and low deliberation (7th pct) reduce critical scrutiny of the misframed headlines, producing a modest but clear intensification of 12 points.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception > Misleading_Framing > Headline_And_Lede_Misframing",
+      "attack_leaf_label": "Headline_And_Lede_Misframing",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Headline_And_Lede_Misframing",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Trust In Mainstream Journalism — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -12,
+      "max_reasonable_shift": 298.802,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-149) is between baseline (-137) and goal pole (-1000), direction is consistent with adversarial_direction (-1). Delta of -12 points is small and plausible for a T1 atomic vector. Score is not round-number anchored. Reasoning ties specific profile traits (low conscientiousness, high extraversion/excitement-seeking) to reduced scrutiny and engagement with threat-salient misframing, which is consistent with the vector's mechanism and epistemic target. All heuristic checks passed. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180212-jpt4GENJO5RuLnH7fYi0",
+    "object": "chat.completion",
+    "created": 1781180212,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Venice",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 1.0,\n  \"consistency_score\": 1.0,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-149) is between baseline (-137) and goal pole (-1000), direction is consistent with adversarial_direction (-1). Delta of -12 points is small and plausible for a T1 atomic vector. Score is not round-number anchored. Reasoning ties specific profile traits (low conscientiousness, high extraversion/excitement-seeking) to reduced scrutiny and engagement with threat-salient misframing, which is consistent with the vector's mechanism and epistemic target. All heuristic checks passed. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack phase assessment. The attack is present with adversarial direction -1 (decrease). Baseline score is -137. Post score is -149. Delta is -12 (downward, toward goal). The direction is consistent (movement toward goal). The heuristic checks passed, including direction_consistent.\n\nWe need to check for implausibilities. The delta is small (12), which is plausible for any vector. The attack vector is T1 atomic, temporal horizon hours, epistemic target evaluative_attitude. The reasoning indicates the profile's traits (high extraversion, excitement-seeking, low conscientiousness) make them receptive to threat-salient elite-distrust cues, producing a modest intensification. The magnitude is small and consistent with a T1 atomic vector.\n\nWe need to ensure no movement opposite direction: delta is -12, which is toward goal (-1), so fine.\n\nRound-number anchoring? Score -149, baseline -137, both fine.\n\nReasoning contradicts vector? The vector is headline/lede misframing, which aligns with the reasoning about threat-salient cues and distrust reinforcement. The reasoning also mentions profile traits, which is appropriate.\n\nNo large magnitude, no opposite movement, no round numbers, reasoning is grounded.\n\nThus plausibility and consistency should be high. No rewrite required.\n\nNotes: delta small, plausible for T1 atomic; reasoning ties vector to profile.\n\nLet's produce output.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack phase assessment. The attack is present with adversarial direction -1 (decrease). Baseline score is -137. Post score is -149. Delta is -12 (downward, toward goal). The direction is consistent (movement toward goal). The heuristic checks passed, including direction_consistent.\n\nWe need to check for implausibilities. The delta is small (12), which is plausible for any vector. The attack vector is T1 atomic, temporal horizon hours, epistemic target evaluative_attitude. The reasoning indicates the profile's traits (high extraversion, excitement-seeking, low conscientiousness) make them receptive to threat-salient elite-distrust cues, producing a modest intensification. The magnitude is small and consistent with a T1 atomic vector.\n\nWe need to ensure no movement opposite direction: delta is -12, which is toward goal (-1), so fine.\n\nRound-number anchoring? Score -149, baseline -137, both fine.\n\nReasoning contradicts vector? The vector is headline/lede misframing, which aligns with the reasoning about threat-salient cues and distrust reinforcement. The reasoning also mentions profile traits, which is appropriate.\n\nNo large magnitude, no opposite movement, no round numbers, reasoning is grounded.\n\nThus plausibility and consistency should be high. No rewrite required.\n\nNotes: delta small, plausible for T1 atomic; reasoning ties vector to profile.\n\nLet's produce output.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1977,
+      "completion_tokens": 442,
+      "total_tokens": 2419,
+      "cost": 0.000254502,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000254502,
+        "upstream_inference_prompt_cost": 9.9802e-05,
+        "upstream_inference_completions_cost": 0.0001547
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 290,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

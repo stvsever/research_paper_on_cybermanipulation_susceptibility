@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00358_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00358",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Female",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 56.831,
+      "big_five_conscientiousness_mean_pct": 12.321,
+      "big_five_openness_to_experience_mean_pct": 53.715,
+      "heuristic_shift_sensitivity_proxy": 0.602,
+      "resilience_index": 0.398
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00358",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": -175,
+      "confidence": 0.65,
+      "reasoning": "This profile combines very low Conscientiousness (12th pct, very low deliberation and self-discipline) with high Extraversion and low Agreeableness (18th pct, very low trust at 12th pct). Against a baseline of -137 (already opposed to alliance commitments), a sustained T4 orchestrated multi-turn counter-argument operation that reinforces threat salience, elite distrust, and loss framing aligns well with this profile's low trust, tough-mindedness, and high neuroticism—it deepens the existing stance. However, the high extraversion and excitement-seeking may also lead the person to counter-argue in some turns, and the very low achievement striving means the person is not driven to deeply engage with the arguments, limiting the net movement. I estimate a moderate intensification of about 38 points downward, landing at -175, within the upper end of the 'small update' band.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -137,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Multi_Agent_Adversarial_Architecture > Adversarial_Conversation_Loops > Counter_Argument_Adaptation > Multi_Turn_Counter_Argument_Adaptation",
+      "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+      "attack_context": {
+        "opinion_domain": "Defense_And_National_Security",
+        "opinion_leaf_label": "Alliance_Commitment_Support",
+        "attack_leaf_label": "Multi_Turn_Counter_Argument_Adaptation",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "intensify and solidify an already negative opinion on Alliance Commitment Support — push it further in the negative direction",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "defense and national security, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T4_orchestrated",
+        "attack_temporal_horizon": "weeks",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.7,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -38,
+      "max_reasonable_shift": 408.44,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta of 38 is plausible for T4 sustained vector with low-conscientiousness profile; reasoning consistent with vector mechanism and profile traits.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180509-ayMimSHfwYjHLZja7Wau",
+    "object": "chat.completion",
+    "created": 1781180509,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Parasail",
+    "system_fingerprint": "vllm-0.20.1rc1.dev1005+gcbf8428d0-tp2-90bd666e",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.95,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Delta of 38 is plausible for T4 sustained vector with low-conscientiousness profile; reasoning consistent with vector mechanism and profile traits.\"\n}",
+          "refusal": null,
+          "reasoning": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -137, and the post score is -175. The delta is -38 (movement downward, toward -1000). The direction is consistent with adversarial_direction (-1). The heuristic_checks already passed direction_consistent and overall_pass.\n\nWe need to review for implausibility. The movement magnitude is 38, which is small (|delta| < 30? Actually 38 > 30, but it's still small; the instruction says \"small movement (|delta| < 30) is plausible for almost any vector\", but here delta is 38, slightly above 30. However, the instruction also says \"Do NOT penalise small-magnitude updates (0-30 points); these are plausible for any vector.\" So 38 is above that threshold, but it's still a moderate intensification. The vector is T4 orchestrated, multi-turn, sustained over weeks. The profile has low conscientiousness (12th pct), low trust (12th pct), high neuroticism (56th pct), and low agreeableness (18th pct). The reasoning says the person may counter-argue due to high extraversion and excitement-seeking, and low achievement striving limits deep engagement, so net movement is moderate. The delta of 38 seems plausible given the vector and profile. It is not implausibly large (max reasonable shift is 408.44, so 38 is well within). The score is -175, not a round number. The reasoning is consistent with the vector's mechanism (multi-turn counter-argument, threat salience, elite distrust) and the profile traits. No sign of opposite movement. So plausibility and consistency should be high.\n\nWe need to output scores and whether rewrite is required. Since the score is plausible and consistent, rewrite_required = false.\n\nNotes: The delta is 38, which is slightly above the 30 threshold for \"small\", but still moderate and plausible given the sustained T4 vector and the profile's low conscientiousness limiting deep engagement. The reasoning is grounded in profile traits and vector specifics.\n\nThus, plausibility_score and consistency_score should be high, e.g., 0.9 or 1.0. But we need to be precise: the instruction says \"each in [0.0, 1.0]\". I'll set plausibility_score = 0.95 and consistency_score = 0.95.\n\nRewrite_feedback should be empty string.\n\nNotes: \"Delta of 38 is plausible for T4 sustained vector with low-conscientiousness profile; reasoning consistent.\"\n\nLet's produce the JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are given a post_attack phase with attack_present=true and adversarial_direction=-1. The baseline_score is -137, and the post score is -175. The delta is -38 (movement downward, toward -1000). The direction is consistent with adversarial_direction (-1). The heuristic_checks already passed direction_consistent and overall_pass.\n\nWe need to review for implausibility. The movement magnitude is 38, which is small (|delta| < 30? Actually 38 > 30, but it's still small; the instruction says \"small movement (|delta| < 30) is plausible for almost any vector\", but here delta is 38, slightly above 30. However, the instruction also says \"Do NOT penalise small-magnitude updates (0-30 points); these are plausible for any vector.\" So 38 is above that threshold, but it's still a moderate intensification. The vector is T4 orchestrated, multi-turn, sustained over weeks. The profile has low conscientiousness (12th pct), low trust (12th pct), high neuroticism (56th pct), and low agreeableness (18th pct). The reasoning says the person may counter-argue due to high extraversion and excitement-seeking, and low achievement striving limits deep engagement, so net movement is moderate. The delta of 38 seems plausible given the vector and profile. It is not implausibly large (max reasonable shift is 408.44, so 38 is well within). The score is -175, not a round number. The reasoning is consistent with the vector's mechanism (multi-turn counter-argument, threat salience, elite distrust) and the profile traits. No sign of opposite movement. So plausibility and consistency should be high.\n\nWe need to output scores and whether rewrite is required. Since the score is plausible and consistent, rewrite_required = false.\n\nNotes: The delta is 38, which is slightly above the 30 threshold for \"small\", but still moderate and plausible given the sustained T4 vector and the profile's low conscientiousness limiting deep engagement. The reasoning is grounded in profile traits and vector specifics.\n\nThus, plausibility_score and consistency_score should be high, e.g., 0.9 or 1.0. But we need to be precise: the instruction says \"each in [0.0, 1.0]\". I'll set plausibility_score = 0.95 and consistency_score = 0.95.\n\nRewrite_feedback should be empty string.\n\nNotes: \"Delta of 38 is plausible for T4 sustained vector with low-conscientiousness profile; reasoning consistent.\"\n\nLet's produce the JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2059,
+      "completion_tokens": 637,
+      "total_tokens": 2696,
+      "cost": 0.00041286,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 768,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00041286,
+        "upstream_inference_prompt_cost": 0.0002345,
+        "upstream_inference_completions_cost": 0.00017836
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 609,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

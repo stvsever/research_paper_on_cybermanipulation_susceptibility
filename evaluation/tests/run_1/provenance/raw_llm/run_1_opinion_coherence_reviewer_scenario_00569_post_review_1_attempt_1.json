@@ -1,0 +1,129 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00569_post_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "post_attack",
+    "scenario_id": "scenario_00569",
+    "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 87.118,
+      "big_five_conscientiousness_mean_pct": 89.593,
+      "big_five_openness_to_experience_mean_pct": 80.859,
+      "heuristic_shift_sensitivity_proxy": 0.526,
+      "resilience_index": 0.474
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00569",
+      "phase": "post_attack",
+      "opinion_leaf": "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+      "score": -689,
+      "confidence": 0.72,
+      "reasoning": "The baseline strongly opposes mainstream journalism (-673), aligning with the adversarial goal of further decreasing trust. Given the profile's very high Openness to Ideas (95th pct) and high Neuroticism (especially Anxiety 93rd pct and Depression 89th pct), a T1 atomic fear appeal—likely a single threat-salient article or post about journalism harming personal safety—can incrementally reinforce existing doubt by linking the issue to personal threat, yet the highly Conscientious (90th pct) and Deliberative (98th pct) nature limits rapid or large shifts, producing a modest -16 point movement.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": true,
+    "adversarial_direction": -1,
+    "baseline_score": -673,
+    "attack_vector_spec": {
+      "attack_present": true,
+      "attack_leaf": "Political_Opinion_Cybermanipulation_Ontology > Primary_Axis > Attack_Family > Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering > Fear_Appeals > Personal_Safety_Fear_Appeal",
+      "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+      "attack_context": {
+        "opinion_domain": "Information_Integrity_And_Platforms",
+        "opinion_leaf_label": "Trust_In_Mainstream_Journalism",
+        "attack_leaf_label": "Personal_Safety_Fear_Appeal",
+        "adversarial_direction": -1,
+        "adversarial_direction_label": "DECREASE (score must move downward, toward -1000)",
+        "baseline_vs_goal": "ALIGNED — baseline already points in the adversarial direction; reinforce it",
+        "persuasion_goal": "reinforce and deepen the existing strong opposition to Trust In Mainstream Journalism",
+        "motivational_lever": "intensify and solidify the existing position, supply confirmatory anecdotes, and harden the boundary against opposing arguments",
+        "emotional_register": "threat salience, doubt, systemic-failure framing, loss framing, and elite distrust cues",
+        "issue_frame": "information integrity and platforms, related policy debates, and societal impacts",
+        "attack_mechanism": "",
+        "attack_primary_system": "",
+        "attack_platform_hint": "",
+        "attack_complexity_tier": "T1_atomic",
+        "attack_temporal_horizon": "hours",
+        "attack_epistemic_target": "evaluative_attitude",
+        "attack_requires_personalization": false,
+        "attack_agent_orchestration_required": false
+      },
+      "intensity_proxy": 0.35,
+      "spec_source": "deterministic_ontology_v1"
+    },
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "bounded_shift": true,
+        "control_stability": true,
+        "control_not_exact_clone": true,
+        "direction_consistent": true,
+        "overall_pass": true
+      },
+      "pass_count": 6,
+      "delta": -16,
+      "max_reasonable_shift": 293.72,
+      "counter_goal_flagged": false
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-689) is between baseline (-673) and goal pole (-1000), direction is correct (downward, delta = -16). Magnitude is plausibly small for a T1 atomic fear appeal with hours temporal horizon in a highly conscientious/deliberative profile that limits rapid shifts. Score is fine-grained, not rounded. Reasoning correctly links vector mechanism to profile traits. No rewrite needed.\"\n}",
+  "raw_response": {
+    "id": "gen-1781180751-nvDkyu4Uj4Jtk8APvSmf",
+    "object": "chat.completion",
+    "created": 1781180751,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.92,\n  \"consistency_score\": 0.95,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Post score (-689) is between baseline (-673) and goal pole (-1000), direction is correct (downward, delta = -16). Magnitude is plausibly small for a T1 atomic fear appeal with hours temporal horizon in a highly conscientious/deliberative profile that limits rapid shifts. Score is fine-grained, not rounded. Reasoning correctly links vector mechanism to profile traits. No rewrite needed.\"\n}",
+          "refusal": null,
+          "reasoning": "We are reviewing a post_attack scenario with attack_present=true, adversarial_direction=-1, baseline_score=-673. The generated_assessment gives a post score of -689, delta = -16 (movement toward -1000, consistent with direction). Heuristic checks passed, including direction_consistent: true. So no direction violation.\n\nNow check for implausibility. The delta is small (16), well under 30, so it's plausible for almost any vector. The vector is T1_atomic, temporal horizon hours, intensity 0.35. A small shift is expected. The reasoning explains that high conscientiousness and deliberativeness limits rapid shifts, which is plausible given profile. No round-number anchoring (score -689, not round). Reasoning is consistent with vector's mechanism (fear appeal) and epistemic target (evaluative attitude). No resistance language that is generic; it names specific profile traits.\n\nThus, plausibility and consistency should be high. No rewrite needed. Notes: small delta plausible for T1 vector and profile constraints.\n\nScore: plausibility 0.95, consistency 0.95.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "We are reviewing a post_attack scenario with attack_present=true, adversarial_direction=-1, baseline_score=-673. The generated_assessment gives a post score of -689, delta = -16 (movement toward -1000, consistent with direction). Heuristic checks passed, including direction_consistent: true. So no direction violation.\n\nNow check for implausibility. The delta is small (16), well under 30, so it's plausible for almost any vector. The vector is T1_atomic, temporal horizon hours, intensity 0.35. A small shift is expected. The reasoning explains that high conscientiousness and deliberativeness limits rapid shifts, which is plausible given profile. No round-number anchoring (score -689, not round). Reasoning is consistent with vector's mechanism (fear appeal) and epistemic target (evaluative attitude). No resistance language that is generic; it names specific profile traits.\n\nThus, plausibility and consistency should be high. No rewrite needed. Notes: small delta plausible for T1 vector and profile constraints.\n\nScore: plausibility 0.95, consistency 0.95.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1992,
+      "completion_tokens": 362,
+      "total_tokens": 2354,
+      "cost": 0.000295336,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 640,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000295336,
+        "upstream_inference_prompt_cost": 0.00019832,
+        "upstream_inference_completions_cost": 9.7016e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 231,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

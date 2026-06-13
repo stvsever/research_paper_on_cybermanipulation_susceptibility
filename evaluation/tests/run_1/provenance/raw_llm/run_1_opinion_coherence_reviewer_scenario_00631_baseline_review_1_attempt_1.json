@@ -1,0 +1,89 @@
+{
+  "agent_name": "opinion_coherence_reviewer",
+  "prompt_name": "opinion_coherence_review.md",
+  "call_id": "scenario_00631_baseline_review_1",
+  "attempt": 1,
+  "request_payload": {
+    "phase": "baseline",
+    "scenario_id": "scenario_00631",
+    "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+    "profile_snapshot": {
+      "sex": "Other",
+      "age_years": 42.0,
+      "big_five_neuroticism_mean_pct": 7.699,
+      "big_five_conscientiousness_mean_pct": 15.518,
+      "big_five_openness_to_experience_mean_pct": 58.442,
+      "heuristic_shift_sensitivity_proxy": 0.3937,
+      "resilience_index": 0.6063
+    },
+    "generated_assessment": {
+      "scenario_id": "scenario_00631",
+      "phase": "baseline",
+      "opinion_leaf": "Issue_Position_Taxonomy > Defense_And_National_Security > Alliance_Commitment_Support",
+      "score": 237,
+      "confidence": 0.71,
+      "reasoning": "This person's high agreeableness (trust, compliance, tender-mindedness) and very low hostility suggest a cooperative, non-confrontational stance that leans toward supporting alliance commitments as a means of maintaining peace and mutual security. However, their very low conscientiousness (especially low dutifulness and self-discipline) and introverted, low-activity profile indicate limited personal investment in abstract geopolitical obligations, tempering support to a mild level.",
+      "model_name": "deepseek/deepseek-v4-flash"
+    },
+    "attack_present": false,
+    "adversarial_direction": 0,
+    "baseline_score": null,
+    "attack_vector_spec": {},
+    "heuristic_checks": {
+      "checks": {
+        "within_scale": true,
+        "high_resolution": true,
+        "confidence_bounded": true,
+        "overall_pass": true
+      },
+      "pass_count": 3
+    }
+  },
+  "response_text": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 237 is plausible given the profile's high agreeableness and low hostility, which support mild pro-alliance leaning, tempered by low conscientiousness and introversion. Reasoning is specific to the issue and profile traits. No round-number anchoring or unjustified extreme.\"\n}",
+  "raw_response": {
+    "id": "gen-1781179873-pjsYTQRcWXvMqr8XSCLW",
+    "object": "chat.completion",
+    "created": 1781179873,
+    "model": "deepseek/deepseek-v4-flash-20260423",
+    "provider": "Morph",
+    "system_fingerprint": "vllm-0.22.1rc1.dev268+g6e426e29c.d20260608-tp4-dd2e12e5",
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"plausibility_score\": 0.85,\n  \"consistency_score\": 0.90,\n  \"rewrite_required\": false,\n  \"rewrite_feedback\": \"\",\n  \"notes\": \"Score 237 is plausible given the profile's high agreeableness and low hostility, which support mild pro-alliance leaning, tempered by low conscientiousness and introversion. Reasoning is specific to the issue and profile traits. No round-number anchoring or unjustified extreme.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1450,
+      "completion_tokens": 100,
+      "total_tokens": 1550,
+      "cost": 0.00022935,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00022935,
+        "upstream_inference_prompt_cost": 0.00020155,
+        "upstream_inference_completions_cost": 2.78e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

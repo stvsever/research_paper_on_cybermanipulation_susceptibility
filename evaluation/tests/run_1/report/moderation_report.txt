@@ -130,11 +130,11 @@ Selected features:
 
 Random Forest Moderation Model (Non-linear, Full Feature Set)
 --------------------------------------------------------------
-OOB R²: 0.1458  (unbiased held-out estimate)
+OOB R²: 0.1460  (unbiased held-out estimate)
 Trees: 500, Features: 39
 Top features by permutation importance:
-  Big Five Neuroticism Impulsiveness %: perm_imp=0.1031 ± 0.0202  [Big Five: Neuroticism]
-  Big Five Neuroticism Mean %: perm_imp=0.0642 ± 0.0142  [Big Five: Neuroticism]
+  Big Five Neuroticism Impulsiveness %: perm_imp=0.1038 ± 0.0203  [Big Five: Neuroticism]
+  Big Five Neuroticism Mean %: perm_imp=0.0643 ± 0.0142  [Big Five: Neuroticism]
   Big Five Neuroticism Self Consciousness %: perm_imp=0.0580 ± 0.0143  [Big Five: Neuroticism]
   Big Five Neuroticism Anger Hostility %: perm_imp=0.0544 ± 0.0127  [Big Five: Neuroticism]
   Big Five Neuroticism Stress Vulnerability %: perm_imp=0.0393 ± 0.0089  [Big Five: Neuroticism]
@@ -150,17 +150,17 @@ NOTE: The following OLS uses only the hardcoded Big Five domain means, age, and 
 It serves as a conventional benchmark. The Elastic Net and Random Forest above use
 the full feature set and are the primary moderation estimators.
 
-                                 OLS Regression Results
+                                 OLS Regression Results                                 
 ========================================================================================
 Dep. Variable:     mean_adversarial_effectivity   R-squared:                       0.361
 Model:                                      OLS   Adj. R-squared:                  0.261
 Method:                           Least Squares   F-statistic:                     5.008
-Date:                          Thu, 11 Jun 2026   Prob (F-statistic):           0.000130
-Time:                                  14:31:18   Log-Likelihood:                -185.01
+Date:                          Sat, 13 Jun 2026   Prob (F-statistic):           0.000130
+Time:                                  16:22:18   Log-Likelihood:                -185.01
 No. Observations:                            60   AIC:                             388.0
 Df Residuals:                                51   BIC:                             406.9
-Df Model:                                     8
-Covariance Type:                            HC3
+Df Model:                                     8                                         
+Covariance Type:                            HC3                                         
 ===========================================================================================================================
                                                               coef    std err          z      P>|z|      [0.025      0.975]
 ---------------------------------------------------------------------------------------------------------------------------
@@ -191,10 +191,10 @@ Scenario-Level Model Ladder (Primary Conditional Analysis, current design)
 --------------------------------------------------------------------
 GroupKFold by profile: CV-R2 measures generalization to UNSEEN profiles.
 Outcome: adversarial_effectivity; n_obs=720; n_profiles=60; profile features=39
-  M0_context: CV-R2=0.3325 (sd 0.0900), profile increment vs context+baseline=-0.0158
-  M0b_context_baseline: CV-R2=0.3484 (sd 0.0868), profile increment vs context+baseline=0.0000
-  M1_profile_linear: CV-R2=0.3400 (sd 0.0788), profile increment vs context+baseline=-0.0083
-  M2_profile_boosted: CV-R2=0.2057 (sd 0.1364), profile increment vs context+baseline=-0.1427
+  M0_context: CV-R2=0.3197 (sd 0.0479), profile increment vs context+baseline=-0.0180
+  M0b_context_baseline: CV-R2=0.3377 (sd 0.0575), profile increment vs context+baseline=0.0000
+  M1_profile_linear: CV-R2=0.3243 (sd 0.0716), profile increment vs context+baseline=-0.0134
+  M2_profile_boosted: CV-R2=0.2055 (sd 0.0858), profile increment vs context+baseline=-0.1322
 Top pooled moderation effects (cluster-robust, BH-FDR):
   Big Five Neuroticism Impulsiveness %: b=4.088, p=0.0000, q=0.0000
   Big Five Neuroticism Mean %: b=3.633, p=0.0000, q=0.0000

@@ -3436,3 +3436,99 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 2026-06-11 14:32:26 | INFO | __main__ | Stage 08 completed: /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/publication_assets_manifest.json
 2026-06-11 14:32:26 | INFO | __main__ | Stage 08 complete. Primary output: /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/publication_assets_manifest.json
 2026-06-11 14:32:26 | INFO | __main__ | Full pipeline completed successfully.
+2026-06-13 16:21:20 | INFO | __main__ | Running stage 06 (construct_structural_equation_model)
+2026-06-13 16:22:47 | WARNING | __main__ | Stage 06 stderr:
+2026-06-13 16:21:58 | INFO | __main__ | Fitting Ridge (all 39 features) ...
+2026-06-13 16:22:00 | INFO | __main__ | Ridge full-feature: CV-R²=0.171 (±0.101), α=126.3848
+2026-06-13 16:22:00 | INFO | __main__ | Fitting Elastic Net (LASSO selector) on 39 features ...
+2026-06-13 16:22:02 | INFO | __main__ | Elastic Net: CV-R²=0.287 (±0.134), α=1.1494, l1_ratio=1.00, 2/39 features selected
+2026-06-13 16:22:02 | INFO | __main__ | Fitting Random Forest on 39 features ...
+2026-06-13 16:22:18 | INFO | __main__ | Random Forest OOB R²=0.146
+2026-06-13 16:22:18 | INFO | __main__ | Building profile correlation network on 39 features ...
+2026-06-13 16:22:18 | INFO | __main__ | Network: 39 nodes, 197 edges, density=0.266, 5 communities, modularity=0.683
+2026-06-13 16:22:18 | INFO | __main__ | ICC results: {'abs_delta_score': 0.0, 'delta_score': 0.0, 'adversarial_effectivity': 0.0}
+2026-06-13 16:22:18 | INFO | __main__ | Running advanced inferential layer ...
+2026-06-13 16:22:25 | INFO | __main__ | Running scenario-level ML moderation stack ...
+2026-06-13 16:22:47 | WARNING | __main__ | Mantel supplementary failed: assignment destination is read-only
+2026-06-13 16:22:47 | INFO | __main__ | Scenario model ladder:
+               model  cv_r2_mean  cv_r2_sd  rmse_mean  delta_r2_vs_context_baseline  delta_r2_vs_context
+          M0_context    0.319691  0.047892  19.724121                     -0.018037             0.000000
+M0b_context_baseline    0.337728  0.057505  19.468655                      0.000000             0.018037
+   M1_profile_linear    0.324297  0.071628  19.672479                     -0.013431             0.004606
+  M2_profile_boosted    0.205513  0.085792  21.219827                     -0.132216            -0.114179
+2026-06-13 16:22:47 | INFO | __main__ | Stage 06 completed: 60 profiles
+2026-06-13 16:22:47 | INFO | __main__ | Stage 06 complete. Primary output: /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/06_construct_structural_equation_model/moderation_report.txt
+2026-06-13 16:22:47 | INFO | __main__ | Running stage 07 (generate_research_visuals)
+2026-06-13 16:22:50 | WARNING | __main__ | Stage 07 stderr:
+2026-06-13 16:22:50 | INFO | __main__ | Stage 07 completed: dashboard=/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/07_generate_research_visuals/dashboard_results.html
+2026-06-13 16:22:50 | INFO | __main__ | Stage 07 complete. Primary output: /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/07_generate_research_visuals/dashboard_results.html
+2026-06-13 16:22:50 | INFO | __main__ | Running stage 08 (generate_publication_assets)
+2026-06-13 16:23:09 | ERROR | __main__ | Stage 08 failed with code 1
+2026-06-13 16:23:09 | ERROR | __main__ | STDOUT:
+  saved /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/figures/figure_readme_1_ae_factorial.png
+  saved /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/figures/figure_readme_1_ae_factorial.pdf
+  saved /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/figures/figure_readme_2_moderation_heatmap.png
+  saved /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/figures/figure_readme_2_moderation_heatmap.pdf
+
+2026-06-13 16:23:09 | ERROR | __main__ | STDERR:
+Matplotlib is building the font cache; this may take a moment.
+/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/utils/publication_assets.py:391: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.violinplot(data=work, x="attack_leaf_label", y=outcome, order=order, inner="box", palette="Set2", ax=ax)
+Traceback (most recent call last):
+  File "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/.venv/lib/python3.12/site-packages/pandas/compat/_optional.py", line 158, in import_optional_dependency
+    module = importlib.import_module(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1381, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1354, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1318, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'jinja2'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/pipeline/separate/08_generate_publication_assets/run_stage.py", line 115, in <module>
+    main()
+  File "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/pipeline/separate/08_generate_publication_assets/run_stage.py", line 110, in main
+    manifest = run_stage(args.input_path, args.output_dir, config)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/pipeline/separate/08_generate_publication_assets/run_stage.py", line 37, in run_stage
+    result = generate_publication_assets(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/utils/publication_assets.py", line 662, in generate_publication_assets
+    _write_table_bundle(
+  File "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/utils/publication_assets.py", line 119, in _write_table_bundle
+    table_latex = df.to_latex(index=False, escape=True, na_rep="", float_format=lambda x: f"{x:.3f}", column_format=column_format)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/.venv/lib/python3.12/site-packages/pandas/core/generic.py", line 3656, in to_latex
+    return self._to_latex_via_styler(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/.venv/lib/python3.12/site-packages/pandas/core/generic.py", line 3715, in _to_latex_via_styler
+    from pandas.io.formats.style import Styler
+  File "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/.venv/lib/python3.12/site-packages/pandas/io/formats/style.py", line 36, in <module>
+    jinja2 = import_optional_dependency("jinja2", extra="DataFrame.style requires jinja2.")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/.venv/lib/python3.12/site-packages/pandas/compat/_optional.py", line 161, in import_optional_dependency
+    raise ImportError(msg) from err
+ImportError: `Import Jinja2` failed. DataFrame.style requires jinja2. Use pip or conda to install the Jinja2 package.
+
+2026-06-13 16:25:07 | INFO | __main__ | Running stage 08 (generate_publication_assets)
+2026-06-13 16:25:15 | INFO | __main__ | Stage 08 stdout:
+saved /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/figures/figure_readme_1_ae_factorial.png
+  saved /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/figures/figure_readme_1_ae_factorial.pdf
+  saved /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/figures/figure_readme_2_moderation_heatmap.png
+  saved /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/figures/figure_readme_2_moderation_heatmap.pdf
+2026-06-13 16:25:15 | WARNING | __main__ | Stage 08 stderr:
+/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/utils/publication_assets.py:391: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.violinplot(data=work, x="attack_leaf_label", y=outcome, order=order, inner="box", palette="Set2", ax=ax)
+2026-06-13 16:25:15 | INFO | __main__ | Stage 08 completed: /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/publication_assets_manifest.json
+2026-06-13 16:25:15 | INFO | __main__ | Stage 08 complete. Primary output: /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_1/stage_outputs/08_generate_publication_assets/publication_assets_manifest.json
+2026-06-13 16:25:15 | INFO | __main__ | Full pipeline completed successfully.

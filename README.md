@@ -2,7 +2,7 @@
 
 # Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions
 
-### An Ontology-Constrained Multi-Agent Simulation Approach
+### An Ontology-Based Multi-Agent Simulation Approach
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-2a9d8f.svg)](LICENSE)
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12%2B-e9c46a.svg)](https://www.python.org/)
@@ -34,7 +34,7 @@
 
 This repository contains the backend research pipeline and first testing-run artifacts for a study on how **inter-individual differences moderate susceptibility to cyber-manipulation of political opinions**.
 
-The workflow represents `PROFILE`, `ATTACK`, and `OPINION` as explicit hierarchical ontologies, generates ontology-constrained profile by attack by opinion scenarios, elicits baseline and post-exposure opinions with structured LLM agents, audits response coherence, computes directional adversarial effectivity, and estimates moderation with scenario-level machine-learning and statistical diagnostics.
+The workflow represents `PROFILE`, `ATTACK`, and `OPINION` as explicit hierarchical ontologies, generates ontology-based profile by attack by opinion scenarios, elicits baseline and post-exposure opinions with structured LLM agents, audits response coherence, computes directional adversarial effectivity, and estimates moderation with scenario-level machine-learning and statistical diagnostics.
 
 The current public evaluation record is **test run 1**, located at `evaluation/tests/run_1`. It uses a focused subset of the testing ontology.
 
@@ -69,10 +69,10 @@ The launcher checks for `OPENROUTER_API_KEY`, verifies the projected OpenRouter 
 <a id="pipeline"></a>
 ## 🔄 Pipeline
 
-The full workflow runs from ontology-constrained scenario construction through agentic measurement, directional effect construction, and inferential analysis.
+The full workflow runs from ontology-based scenario construction through agentic measurement, directional effect construction, and inferential analysis.
 
 <div align="center">
-<img src="src/backend/pipeline/full/pipeline_visualization.png" width="1200" alt="Pipeline overview for ontology-constrained adversarial opinion susceptibility auditing.">
+<img src="src/backend/pipeline/full/pipeline_visualization.png" width="1200" alt="Pipeline overview for ontology-based adversarial opinion susceptibility auditing.">
 </div>
 
 1. Define the state space with separate `PROFILE`, `ATTACK`, and `OPINION` ontologies.
@@ -149,7 +149,7 @@ Add `OPENROUTER_API_KEY` to `.env` before running the pipeline.
 .venv/bin/python src/backend/pipeline/full/run_full_pipeline.py \
   --output-root evaluation/tests/run_1 \
   --run-id run_1 \
-  --paper-title "Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Constrained Multi-Agent Simulation Approach" \
+  --paper-title "Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Based Multi-Agent Simulation Approach" \
   --n-profiles 60 \
   --seed 120 \
   --attack-ratio 1.0 \
@@ -182,13 +182,13 @@ Add `OPENROUTER_API_KEY` to `.env` before running the pipeline.
 
 ### APA 7
 
-> Van Severen, S., De Schryver, T., & Ostyn, M. (2026). *Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Constrained Multi-Agent Simulation Approach*. Ghent University. https://github.com/stvsever/research_paper_on_cybermanipulation_susceptibility
+> Van Severen, S., De Schryver, T., & Ostyn, M. (2026). *Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Based Multi-Agent Simulation Approach*. Ghent University. https://github.com/stvsever/research_paper_on_cybermanipulation_susceptibility
 
 ### BibTeX
 
 ```bibtex
 @article{vanseveren2026cybermanipulationsusceptibility,
-  title     = {Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Constrained Multi-Agent Simulation Approach},
+  title     = {Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Based Multi-Agent Simulation Approach},
   author    = {Van Severen, Stijn and De Schryver, Thomas and Ostyn, Mira},
   year      = {2026},
   institution = {Ghent University},

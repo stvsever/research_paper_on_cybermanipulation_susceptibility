@@ -110,7 +110,7 @@ def build_attack_context(
 
     adversarial_direction: +1 (adversary wants score to INCREASE), -1 (wants DECREASE), 0 (unspecified).
 
-    attack_metadata (current design): optional resolved STRUCTURAL metadata from the
+    attack_metadata (run_11+): optional resolved STRUCTURAL metadata from the
     ATTACK ontology (mechanism, primary_system, platform_hint, complexity_tier,
     temporal_horizon, epistemic_target, requires_personalization,
     agent_orchestration_required). Used purely as descriptive context for the
@@ -391,4 +391,43 @@ def assess_post_opinion_heuristics(
         "delta": delta,
         "max_reasonable_shift": round(max_shift, 3),
         "counter_goal_flagged": counter_goal_movement,
+    }
+
+
+def assess_post_attack_network_exposure_heuristics(
+    private_post_score: int,
+    network_score: int,
+    confidence: float,
+    peer_count: int,
+    min_peers: int,
+    adversarial_direction: int = 0,
+) -> Dict[str, object]:
+    """Heuristic checks for post-attack network-context updates.
+
+    Unlike Stage 04, this phase is allowed to move against the adversarial
+    direction: peer context may attenuate or correct a private post-attack
+    shift. Counter-goal movement is recorded for audit, not treated as failure.
+    """
+    increment = network_score - private_post_score
+    increment_sign = 0 if increment == 0 else (1 if increment > 0 else -1)
+    moves_against_adversarial_direction = (
+        adversarial_direction != 0
+        and increment_sign != 0
+        and increment_sign != adversarial_direction
+    )
+    max_increment = 260.0
+    checks: Dict[str, bool] = {
+        "within_scale": -1000 <= network_score <= 1000,
+        "high_resolution_or_no_change": increment == 0 or abs(network_score) % 50 != 0,
+        "confidence_bounded": 0.0 <= confidence <= 1.0,
+        "bounded_network_increment": abs(increment) <= max_increment,
+        "minimum_peer_context": peer_count >= min_peers,
+    }
+    checks["overall_pass"] = all(checks.values())
+    return {
+        "checks": checks,
+        "pass_count": sum(1 for key, value in checks.items() if key != "overall_pass" and value),
+        "increment_from_private_post": increment,
+        "max_reasonable_increment": round(max_increment, 3),
+        "moves_against_adversarial_direction": moves_against_adversarial_direction,
     }

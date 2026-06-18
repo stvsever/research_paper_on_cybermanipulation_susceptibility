@@ -24,6 +24,15 @@ This stage also creates the profile-level wide panel used by Stage 06. In that
 wide table, each profile receives separate attacked outcome indicators for each
 opinion leaf, which enables repeated-outcome SEM/path modeling rather than a
 premature collapse to a single summary score.
+
+Exposure-network update
+-----------------------
+When Stage 01b/02b/04b fields are present, Stage 05 also flattens empirical
+PolitiSky24 exposure-network assignments and network-context summaries into the
+analysis tables. These columns expose receiver exposure, sender reach,
+bridge/centrality position, network peer counts, exposure-weighted peer means,
+and formula-aligned variables for private attack effectivity, baseline-network
+increment, post-attack-network increment, and total network-exposed effect.
 """
 
 import argparse
@@ -31,7 +40,7 @@ import json
 import logging
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import pandas as pd
 
@@ -117,11 +126,234 @@ def _add_fixed_effects(
     return df, reference_value
 
 
+EXPOSURE_ASSIGNMENT_STRING_FIELDS: Dict[str, str] = {
+    "graph_id": "exposure_graph_id",
+    "position_id": "exposure_position_id",
+    "network_basis": "exposure_network_basis",
+    "community_id": "exposure_community_id",
+    "display_role": "exposure_display_role",
+}
+
+EXPOSURE_ASSIGNMENT_NUMERIC_FIELDS: Dict[str, str] = {
+    "assignment_rank": "exposure_assignment_rank",
+    "weighted_in_degree": "exposure_weighted_in_degree",
+    "incoming_peer_count": "exposure_incoming_peer_count",
+    "incoming_exposure_weight": "exposure_incoming_exposure_weight",
+    "incoming_top1_share": "exposure_incoming_top1_share",
+    "incoming_top5_share": "exposure_incoming_top5_share",
+    "incoming_effective_peer_count": "exposure_incoming_effective_peer_count",
+    "cross_community_incoming_share": "exposure_cross_community_incoming_share",
+    "weighted_out_degree": "exposure_weighted_out_degree",
+    "outgoing_receiver_count": "exposure_outgoing_receiver_count",
+    "outgoing_visibility_weight": "exposure_outgoing_visibility_weight",
+    "prompt_topk_out_reach_count": "exposure_prompt_topk_out_reach_count",
+    "cascade_reach_potential": "exposure_cascade_reach_potential",
+    "bridge_score": "exposure_bridge_score",
+    "eigenvector_centrality": "exposure_eigenvector_centrality",
+    "approx_betweenness": "exposure_approx_betweenness",
+    "local_clustering": "exposure_local_clustering",
+    "h2_neighborhood_activation_readiness": "exposure_h2_neighborhood_activation_readiness",
+    "h3_central_susceptible_sender_readiness": "exposure_h3_central_susceptible_sender_readiness",
+    "h4_central_resilient_sender_dampening_capacity": "exposure_h4_central_resilient_sender_dampening_capacity",
+}
+
+EXPOSURE_ASSIGNMENT_BOOL_FIELDS: Dict[str, str] = {
+    "prompt_ready": "exposure_prompt_ready",
+}
+
+EXPOSURE_STABLE_COLUMNS = sorted(
+    set(EXPOSURE_ASSIGNMENT_STRING_FIELDS.values())
+    | set(EXPOSURE_ASSIGNMENT_NUMERIC_FIELDS.values())
+    | set(EXPOSURE_ASSIGNMENT_BOOL_FIELDS.values())
+    | {
+        "exposure_sender_reach_share",
+        "exposure_weighted_in_degree_z",
+        "exposure_outgoing_visibility_weight_z",
+        "exposure_bridge_score_z",
+        "exposure_eigenvector_centrality_z",
+        "exposure_cascade_reach_potential_z",
+        "exposure_h2_neighborhood_activation_readiness_z",
+        "exposure_h3_central_susceptible_sender_readiness_z",
+        "exposure_h4_central_resilient_sender_dampening_capacity_z",
+    }
+)
+
+NETWORK_CONTEXT_COLUMNS = {
+    "network_exposure_full_incoming_peer_count": "mean",
+    "network_exposure_scored_peer_count": "mean",
+    "network_exposure_exemplar_count": "mean",
+    "network_exposure_full_incoming_exposure_weight": "mean",
+    "network_exposure_scored_exposure_weight": "mean",
+    "network_exposure_peer_sd": "mean",
+    "post_attack_network_full_incoming_peer_count": "mean",
+    "post_attack_network_scored_same_condition_peer_count": "mean",
+    "post_attack_network_exemplar_count": "mean",
+    "post_attack_network_full_incoming_exposure_weight": "mean",
+    "post_attack_network_scored_exposure_weight": "mean",
+}
+
+HYPOTHESIS_COLUMNS = {
+    "ae_private": "mean",
+    "bn_increment": "mean",
+    "pn_increment": "mean",
+    "ae_total_network": "mean",
+    "pn_increment_effectivity": "mean",
+    "peer_private_attack_activation": "mean",
+}
+
+
+def _safe_float(value: Any) -> float | None:
+    if value in (None, ""):
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _safe_bool(value: Any) -> bool | None:
+    if value in (None, ""):
+        return None
+    if isinstance(value, bool):
+        return value
+    return str(value).strip().lower() in {"1", "true", "yes", "y"}
+
+
+def _exposure_assignment_from_scenario(scenario: ScenarioRecord) -> dict[str, Any]:
+    assignment = scenario.metadata.get("exposure_network_assignment")
+    if not isinstance(assignment, dict):
+        assignment = scenario.profile.metadata.get("exposure_network_assignment")
+    return assignment if isinstance(assignment, dict) else {}
+
+
+def _flatten_exposure_assignment(scenario: ScenarioRecord) -> dict[str, object]:
+    assignment = _exposure_assignment_from_scenario(scenario)
+    flattened: dict[str, object] = {}
+    for source_key, target_key in EXPOSURE_ASSIGNMENT_STRING_FIELDS.items():
+        flattened[target_key] = assignment.get(source_key)
+    for source_key, target_key in EXPOSURE_ASSIGNMENT_NUMERIC_FIELDS.items():
+        flattened[target_key] = _safe_float(assignment.get(source_key))
+    for source_key, target_key in EXPOSURE_ASSIGNMENT_BOOL_FIELDS.items():
+        flattened[target_key] = _safe_bool(assignment.get(source_key))
+    return flattened
+
+
+def _flatten_baseline_network_context(context: dict[str, Any]) -> dict[str, object]:
+    return {
+        "network_exposure_full_incoming_peer_count": _safe_float(context.get("full_incoming_peer_count")),
+        "network_exposure_scored_peer_count": _safe_float(context.get("peer_count")),
+        "network_exposure_exemplar_count": _safe_float(context.get("exemplar_count")),
+        "network_exposure_full_incoming_exposure_weight": _safe_float(context.get("full_incoming_exposure_weight")),
+        "network_exposure_scored_exposure_weight": _safe_float(context.get("total_exposure_weight")),
+        "network_exposure_peer_mean": _safe_float(context.get("peer_score_mean")),
+        "network_exposure_peer_sd": _safe_float(context.get("peer_score_sd")),
+        "network_exposure_peer_exposure_weighted_mean": _safe_float(context.get("exposure_weighted_peer_mean")),
+    }
+
+
+def _flatten_post_attack_network_context(context: dict[str, Any]) -> dict[str, object]:
+    return {
+        "post_attack_network_full_incoming_peer_count": _safe_float(context.get("full_incoming_peer_count")),
+        "post_attack_network_scored_same_condition_peer_count": _safe_float(context.get("peer_count")),
+        "post_attack_network_exemplar_count": _safe_float(context.get("exemplar_count")),
+        "post_attack_network_full_incoming_exposure_weight": _safe_float(context.get("full_incoming_exposure_weight")),
+        "post_attack_network_scored_exposure_weight": _safe_float(context.get("total_exposure_weight")),
+        "post_attack_network_peer_post_mean": _safe_float(context.get("peer_post_mean")),
+        "post_attack_network_peer_delta_mean": _safe_float(context.get("peer_delta_mean")),
+        "post_attack_network_peer_exposure_weighted_post_mean": _safe_float(
+            context.get("exposure_weighted_peer_post_mean")
+        ),
+        "post_attack_network_peer_exposure_weighted_delta_mean": _safe_float(
+            context.get("exposure_weighted_peer_delta_mean")
+        ),
+    }
+
+
+def _directed_effect(value: float | None, adversarial_direction: int | None) -> float | None:
+    if value is None or adversarial_direction in (None, 0):
+        return None
+    return float(value * adversarial_direction)
+
+
+def _add_exposure_role_dummies(df: pd.DataFrame) -> pd.DataFrame:
+    if "exposure_display_role" not in df.columns:
+        return df
+    encoded = pd.get_dummies(df["exposure_display_role"].fillna("unknown"), prefix="exposure_role", dtype=float)
+    return pd.concat([df, encoded], axis=1)
+
+
+def _add_exposure_sender_reach_share(df: pd.DataFrame) -> pd.DataFrame:
+    reach_col = None
+    if "exposure_outgoing_visibility_weight" in df.columns:
+        reach_col = "exposure_outgoing_visibility_weight"
+    elif "exposure_weighted_out_degree" in df.columns:
+        reach_col = "exposure_weighted_out_degree"
+    if reach_col is None:
+        df["exposure_sender_reach_share"] = None
+        return df
+    profile_reach = df.groupby("profile_id")[reach_col].first().fillna(0.0).astype(float)
+    total_reach = float(profile_reach.sum())
+    if total_reach <= 0:
+        df["exposure_sender_reach_share"] = 0.0
+        return df
+    shares = (profile_reach / total_reach).to_dict()
+    df["exposure_sender_reach_share"] = df["profile_id"].map(shares).astype(float)
+    return df
+
+
+def _add_zscores(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
+    for column in columns:
+        if column in df.columns:
+            df[f"{column}_z"] = zscore_series(df[column].fillna(0.0).astype(float))
+    return df
+
+
+def _mean_if_present(df: pd.DataFrame, column: str) -> float | None:
+    if column not in df.columns:
+        return None
+    values = df[column].dropna()
+    return float(values.mean()) if len(values) else None
+
+
+def _centrality_weighted_profile_mean(df: pd.DataFrame, value_col: str) -> float | None:
+    if "exposure_sender_reach_share" not in df.columns or value_col not in df.columns:
+        return None
+    profile_values = (
+        df[["profile_id", "exposure_sender_reach_share", value_col]]
+        .dropna(subset=["exposure_sender_reach_share", value_col])
+        .groupby("profile_id", as_index=False)
+        .agg({"exposure_sender_reach_share": "first", value_col: "mean"})
+    )
+    if profile_values.empty:
+        return None
+    return float((profile_values["exposure_sender_reach_share"] * profile_values[value_col]).sum())
+
+
+def _centrality_weighted_private_resistance(df: pd.DataFrame) -> float | None:
+    if "exposure_sender_reach_share" not in df.columns or "ae_private" not in df.columns:
+        return None
+    profile_values = (
+        df[["profile_id", "exposure_sender_reach_share", "ae_private"]]
+        .dropna(subset=["exposure_sender_reach_share", "ae_private"])
+        .groupby("profile_id", as_index=False)
+        .agg({"exposure_sender_reach_share": "first", "ae_private": "mean"})
+    )
+    if profile_values.empty:
+        return None
+    resistant = profile_values["ae_private"].clip(upper=0.0)
+    return float((profile_values["exposure_sender_reach_share"] * resistant).sum())
+
+
 def _profile_level_rollup(df_encoded: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     profile_columns = [
         column
         for column in df_encoded.columns
         if column.startswith("profile_cont_") or column.startswith("profile_cat__")
+    ]
+    exposure_stable_columns = [
+        column
+        for column in df_encoded.columns
+        if column in EXPOSURE_STABLE_COLUMNS or column.startswith("exposure_role_")
     ]
 
     aggregate_spec: Dict[str, str] = {
@@ -135,6 +367,26 @@ def _profile_level_rollup(df_encoded: pd.DataFrame) -> tuple[pd.DataFrame, pd.Da
         "attack_coherence_score": "mean",
         "post_plausibility_score": "mean",
         "post_consistency_score": "mean",
+        "network_exposure_score": "mean",
+        "network_exposure_delta_score": "mean",
+        "network_exposure_abs_delta_score": "mean",
+        "network_exposure_confidence": "mean",
+        "network_exposure_peer_mean": "mean",
+        "network_exposure_peer_exposure_weighted_mean": "mean",
+        "post_attack_network_score": "mean",
+        "post_attack_network_delta_from_baseline": "mean",
+        "post_attack_network_abs_delta_from_baseline": "mean",
+        "post_attack_network_increment_from_private_post": "mean",
+        "post_attack_network_abs_increment_from_private_post": "mean",
+        "post_attack_network_adversarial_effectivity": "mean",
+        "post_attack_network_increment_adversarial_effectivity": "mean",
+        "post_attack_network_confidence": "mean",
+        "post_attack_network_peer_post_mean": "mean",
+        "post_attack_network_peer_delta_mean": "mean",
+        "post_attack_network_peer_exposure_weighted_post_mean": "mean",
+        "post_attack_network_peer_exposure_weighted_delta_mean": "mean",
+        **NETWORK_CONTEXT_COLUMNS,
+        **HYPOTHESIS_COLUMNS,
         "scenario_id": "count",
     }
     if "adversarial_effectivity" in df_encoded.columns:
@@ -156,13 +408,34 @@ def _profile_level_rollup(df_encoded: pd.DataFrame) -> tuple[pd.DataFrame, pd.Da
         "attack_coherence_score": "mean_attack_coherence_score",
         "post_plausibility_score": "mean_post_plausibility_score",
         "post_consistency_score": "mean_post_consistency_score",
+        "network_exposure_score": "mean_network_exposure_score",
+        "network_exposure_delta_score": "mean_network_exposure_delta_score",
+        "network_exposure_abs_delta_score": "mean_network_exposure_abs_delta_score",
+        "network_exposure_confidence": "mean_network_exposure_confidence",
+        "network_exposure_peer_mean": "mean_network_exposure_peer_mean",
+        "network_exposure_peer_exposure_weighted_mean": "mean_network_exposure_peer_exposure_weighted_mean",
+        "post_attack_network_score": "mean_post_attack_network_score",
+        "post_attack_network_delta_from_baseline": "mean_post_attack_network_delta_from_baseline",
+        "post_attack_network_abs_delta_from_baseline": "mean_post_attack_network_abs_delta_from_baseline",
+        "post_attack_network_increment_from_private_post": "mean_post_attack_network_increment_from_private_post",
+        "post_attack_network_abs_increment_from_private_post": "mean_post_attack_network_abs_increment_from_private_post",
+        "post_attack_network_adversarial_effectivity": "mean_post_attack_network_adversarial_effectivity",
+        "post_attack_network_increment_adversarial_effectivity": "mean_post_attack_network_increment_adversarial_effectivity",
+        "post_attack_network_confidence": "mean_post_attack_network_confidence",
+        "post_attack_network_peer_post_mean": "mean_post_attack_network_peer_post_mean",
+        "post_attack_network_peer_delta_mean": "mean_post_attack_network_peer_delta_mean",
+        "post_attack_network_peer_exposure_weighted_post_mean": "mean_post_attack_network_peer_exposure_weighted_post_mean",
+        "post_attack_network_peer_exposure_weighted_delta_mean": "mean_post_attack_network_peer_exposure_weighted_delta_mean",
+        **{column: f"mean_{column}" for column in NETWORK_CONTEXT_COLUMNS},
+        **{column: f"mean_{column}" for column in HYPOTHESIS_COLUMNS},
         "scenario_id": "n_attacked_opinion_leaves",
         "adversarial_effectivity": "mean_adversarial_effectivity",
     }
     grouped = grouped.rename(columns={k: v for k, v in rename_map.items() if k in grouped.columns})
 
-    if profile_columns:
-        profile_values = df_encoded.groupby("profile_id", as_index=False)[profile_columns].first()
+    stable_columns = sorted(set(profile_columns + exposure_stable_columns))
+    if stable_columns:
+        profile_values = df_encoded.groupby("profile_id", as_index=False)[stable_columns].first()
         grouped = grouped.merge(profile_values, on="profile_id", how="left")
 
     leaf_key_col = "opinion_leaf_label"
@@ -203,6 +476,22 @@ def _profile_level_rollup(df_encoded: pd.DataFrame) -> tuple[pd.DataFrame, pd.Da
         wide["mean_abs_delta_score_z"] = zscore_series(wide["mean_abs_delta_score"].astype(float))
     if "mean_signed_delta_score" in wide.columns:
         wide["mean_signed_delta_score_z"] = zscore_series(wide["mean_signed_delta_score"].astype(float))
+    if "mean_network_exposure_delta_score" in wide.columns:
+        wide["mean_network_exposure_delta_score_z"] = zscore_series(
+            wide["mean_network_exposure_delta_score"].astype(float)
+        )
+    if "mean_network_exposure_abs_delta_score" in wide.columns:
+        wide["mean_network_exposure_abs_delta_score_z"] = zscore_series(
+            wide["mean_network_exposure_abs_delta_score"].astype(float)
+        )
+    if "mean_post_attack_network_increment_from_private_post" in wide.columns:
+        wide["mean_post_attack_network_increment_from_private_post_z"] = zscore_series(
+            wide["mean_post_attack_network_increment_from_private_post"].astype(float)
+        )
+    if "mean_post_attack_network_abs_increment_from_private_post" in wide.columns:
+        wide["mean_post_attack_network_abs_increment_from_private_post_z"] = zscore_series(
+            wide["mean_post_attack_network_abs_increment_from_private_post"].astype(float)
+        )
     if "mean_adversarial_effectivity" in wide.columns:
         wide["mean_adversarial_effectivity_z"] = zscore_series(wide["mean_adversarial_effectivity"].astype(float))
 
@@ -239,12 +528,44 @@ def run_stage(input_path: str, output_dir: str, config: Stage05Config) -> StageA
                     "attack_exposure",
                     "attack_vector_spec",
                     "post_attack_assessment",
+                    "network_exposure_assessment",
+                    "network_exposure_context",
+                    "network_exposure_coherence_review",
+                    "network_exposure_heuristic_checks",
+                    "post_attack_network_exposure_assessment",
+                    "post_attack_network_exposure_context",
+                    "post_attack_network_exposure_coherence_review",
+                    "post_attack_network_exposure_heuristic_checks",
+                    "post_attack_network_exposure_increment_score",
+                    "post_attack_network_exposure_delta_from_baseline",
+                    "post_attack_network_exposure_skipped",
+                    "post_attack_network_exposure_skip_reason",
                 }
             }
         )
         baseline = OpinionAssessment.model_validate(row["baseline_assessment"])
         post = OpinionAssessment.model_validate(row["post_attack_assessment"])
-        # run_1 final design: stage 03 emits a deterministic attack-vector
+        network_exposure = (
+            OpinionAssessment.model_validate(row["network_exposure_assessment"])
+            if isinstance(row, dict) and isinstance(row.get("network_exposure_assessment"), dict)
+            else None
+        )
+        network_context = (
+            row.get("network_exposure_context", {})
+            if isinstance(row, dict) and isinstance(row.get("network_exposure_context"), dict)
+            else {}
+        )
+        post_attack_network = (
+            OpinionAssessment.model_validate(row["post_attack_network_exposure_assessment"])
+            if isinstance(row, dict) and isinstance(row.get("post_attack_network_exposure_assessment"), dict)
+            else None
+        )
+        post_attack_network_context = (
+            row.get("post_attack_network_exposure_context", {})
+            if isinstance(row, dict) and isinstance(row.get("post_attack_network_exposure_context"), dict)
+            else {}
+        )
+        # run_11 final design: stage 03 emits a deterministic attack-vector
         # specification instead of a generated exposure artifact. The tier-based
         # intensity proxy replaces the old per-message intensity hint; legacy
         # rows with a generated exposure are still readable.
@@ -351,7 +672,70 @@ def run_stage(input_path: str, output_dir: str, config: Stage05Config) -> StageA
             "scenario_design": scenario.metadata.get("scenario_design"),
             "profile_panel_index": scenario.metadata.get("profile_panel_index"),
             "leaf_repeat_index_within_profile": scenario.metadata.get("leaf_repeat_index_within_profile"),
+            "ae_private": adversarial_eff,
         }
+        flat_row.update(_flatten_exposure_assignment(scenario))
+        flat_row.update(_flatten_baseline_network_context(network_context))
+        flat_row.update(_flatten_post_attack_network_context(post_attack_network_context))
+        flat_row["peer_private_attack_activation"] = _directed_effect(
+            _safe_float(post_attack_network_context.get("exposure_weighted_peer_delta_mean")),
+            adv_direction if has_adversarial else None,
+        )
+        if isinstance(row, dict) and "post_attack_network_exposure_skipped" in row:
+            flat_row["post_attack_network_skipped"] = bool(row.get("post_attack_network_exposure_skipped", False))
+        if network_exposure is not None:
+            network_delta = int(network_exposure.score - baseline.score)
+            flat_row.update(
+                {
+                    "network_exposure_score": float(network_exposure.score),
+                    "network_exposure_delta_score": float(network_delta),
+                    "network_exposure_abs_delta_score": float(abs(network_delta)),
+                    "bn_increment": float(network_delta),
+                    "network_exposure_confidence": float(getattr(network_exposure, "confidence", 0.0) or 0.0),
+                    "network_exposure_fallback_used": network_exposure.model_name == "fallback_deterministic",
+                    "network_exposure_peer_mean": network_context.get("peer_score_mean"),
+                    "network_exposure_peer_exposure_weighted_mean": network_context.get(
+                        "exposure_weighted_peer_mean"
+                    ),
+                }
+            )
+        if post_attack_network is not None:
+            post_attack_network_delta = int(post_attack_network.score - baseline.score)
+            post_attack_network_increment = int(post_attack_network.score - post.score)
+            post_attack_network_adv_eff = (
+                float(post_attack_network_delta * adv_direction)
+                if (has_adversarial and adv_direction != 0)
+                else None
+            )
+            post_attack_network_increment_adv_eff = (
+                float(post_attack_network_increment * adv_direction)
+                if (has_adversarial and adv_direction != 0)
+                else None
+            )
+            flat_row.update(
+                {
+                    "post_attack_network_score": float(post_attack_network.score),
+                    "post_attack_network_delta_from_baseline": float(post_attack_network_delta),
+                    "post_attack_network_abs_delta_from_baseline": float(abs(post_attack_network_delta)),
+                    "post_attack_network_increment_from_private_post": float(post_attack_network_increment),
+                    "post_attack_network_abs_increment_from_private_post": float(abs(post_attack_network_increment)),
+                    "pn_increment": float(post_attack_network_increment),
+                    "ae_total_network": post_attack_network_adv_eff,
+                    "pn_increment_effectivity": post_attack_network_increment_adv_eff,
+                    "post_attack_network_adversarial_effectivity": post_attack_network_adv_eff,
+                    "post_attack_network_increment_adversarial_effectivity": post_attack_network_increment_adv_eff,
+                    "post_attack_network_confidence": float(getattr(post_attack_network, "confidence", 0.0) or 0.0),
+                    "post_attack_network_fallback_used": post_attack_network.model_name == "fallback_deterministic",
+                    "post_attack_network_peer_post_mean": post_attack_network_context.get("peer_post_mean"),
+                    "post_attack_network_peer_delta_mean": post_attack_network_context.get("peer_delta_mean"),
+                    "post_attack_network_peer_exposure_weighted_post_mean": post_attack_network_context.get(
+                        "exposure_weighted_peer_post_mean"
+                    ),
+                    "post_attack_network_peer_exposure_weighted_delta_mean": post_attack_network_context.get(
+                        "exposure_weighted_peer_delta_mean"
+                    ),
+                }
+            )
         flat_row.update(features)
         flat_rows.append(flat_row)
 
@@ -378,6 +762,21 @@ def run_stage(input_path: str, output_dir: str, config: Stage05Config) -> StageA
 
     df_raw = pd.DataFrame(flat_rows)
     df_encoded = one_hot_profile_categoricals(df_raw.copy())
+    df_encoded = _add_exposure_role_dummies(df_encoded)
+    df_encoded = _add_exposure_sender_reach_share(df_encoded)
+    df_encoded = _add_zscores(
+        df_encoded,
+        [
+            "exposure_weighted_in_degree",
+            "exposure_outgoing_visibility_weight",
+            "exposure_bridge_score",
+            "exposure_eigenvector_centrality",
+            "exposure_cascade_reach_potential",
+            "exposure_h2_neighborhood_activation_readiness",
+            "exposure_h3_central_susceptible_sender_readiness",
+            "exposure_h4_central_resilient_sender_dampening_capacity",
+        ],
+    )
     df_encoded["baseline_abs_score"] = df_encoded["baseline_score"].abs().astype(float)
     df_encoded["baseline_extremity_norm"] = df_encoded["baseline_abs_score"] / 1000.0
     quality_columns = [
@@ -448,6 +847,69 @@ def run_stage(input_path: str, output_dir: str, config: Stage05Config) -> StageA
         summary_payload["mean_adversarial_effectivity"] = float(adv_vals.mean()) if len(adv_vals) else None
         summary_payload["std_adversarial_effectivity"] = float(adv_vals.std(ddof=0)) if len(adv_vals) else None
         summary_payload["adversarial_effectivity_positive_pct"] = float((adv_vals > 0).mean() * 100.0) if len(adv_vals) else None
+    if "network_exposure_delta_score" in df_encoded.columns:
+        summary_payload["mean_network_exposure_delta_score"] = float(df_encoded["network_exposure_delta_score"].mean())
+        summary_payload["mean_network_exposure_abs_delta_score"] = float(
+            df_encoded["network_exposure_abs_delta_score"].mean()
+        )
+        summary_payload["network_exposure_fallback_count"] = int(
+            df_encoded["network_exposure_fallback_used"].fillna(False).astype(bool).sum()
+        )
+        summary_payload["network_exposure_mean_full_incoming_peer_count"] = _mean_if_present(
+            df_encoded, "network_exposure_full_incoming_peer_count"
+        )
+        summary_payload["network_exposure_mean_scored_peer_count"] = _mean_if_present(
+            df_encoded, "network_exposure_scored_peer_count"
+        )
+        summary_payload["network_exposure_mean_exemplar_count"] = _mean_if_present(
+            df_encoded, "network_exposure_exemplar_count"
+        )
+        summary_payload["network_exposure_mean_full_incoming_exposure_weight"] = _mean_if_present(
+            df_encoded, "network_exposure_full_incoming_exposure_weight"
+        )
+        summary_payload["network_exposure_mean_scored_exposure_weight"] = _mean_if_present(
+            df_encoded, "network_exposure_scored_exposure_weight"
+        )
+    if "post_attack_network_increment_from_private_post" in df_encoded.columns:
+        summary_payload["mean_post_attack_network_increment_from_private_post"] = float(
+            df_encoded["post_attack_network_increment_from_private_post"].mean()
+        )
+        summary_payload["mean_post_attack_network_abs_increment_from_private_post"] = float(
+            df_encoded["post_attack_network_abs_increment_from_private_post"].mean()
+        )
+        summary_payload["post_attack_network_fallback_count"] = int(
+            df_encoded["post_attack_network_fallback_used"].fillna(False).astype(bool).sum()
+        )
+        summary_payload["post_attack_network_skipped_count"] = int(
+            df_encoded.get("post_attack_network_skipped", False).fillna(False).astype(bool).sum()
+            if "post_attack_network_skipped" in df_encoded.columns
+            else 0
+        )
+        summary_payload["post_attack_network_mean_full_incoming_peer_count"] = _mean_if_present(
+            df_encoded, "post_attack_network_full_incoming_peer_count"
+        )
+        summary_payload["post_attack_network_mean_scored_same_condition_peer_count"] = _mean_if_present(
+            df_encoded, "post_attack_network_scored_same_condition_peer_count"
+        )
+        summary_payload["post_attack_network_mean_exemplar_count"] = _mean_if_present(
+            df_encoded, "post_attack_network_exemplar_count"
+        )
+        summary_payload["post_attack_network_mean_full_incoming_exposure_weight"] = _mean_if_present(
+            df_encoded, "post_attack_network_full_incoming_exposure_weight"
+        )
+        summary_payload["post_attack_network_mean_scored_exposure_weight"] = _mean_if_present(
+            df_encoded, "post_attack_network_scored_exposure_weight"
+        )
+    summary_payload["centrality_weighted_private_activation"] = _centrality_weighted_profile_mean(
+        df_encoded, "ae_private"
+    )
+    summary_payload["centrality_weighted_total_network_effect"] = _centrality_weighted_profile_mean(
+        df_encoded, "ae_total_network"
+    )
+    summary_payload["centrality_weighted_post_network_increment"] = _centrality_weighted_profile_mean(
+        df_encoded, "pn_increment_effectivity"
+    )
+    summary_payload["centrality_weighted_private_resistance"] = _centrality_weighted_private_resistance(df_encoded)
     write_json(summary_json, summary_payload)
 
     manifest = StageArtifactManifest(

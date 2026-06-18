@@ -1,0 +1,318 @@
+{
+  "reports": {
+    "markdown": "src/backend/utils/exposure_network_substrate_report/reports/exposure_network_report.md",
+    "html": "src/backend/utils/exposure_network_substrate_report/reports/exposure_network_report.html"
+  },
+  "inputs": {
+    "graph_id": "politisky24_bluesky_v1",
+    "canonical_graph_root": "data/exposure_networks/politisky24_bluesky_v1",
+    "input_files": [
+      {
+        "logical_file": "edges_prompt_top30.csv",
+        "source": "data/exposure_networks/politisky24_bluesky_v1/edges_prompt_top30.csv",
+        "rows": 208926,
+        "columns": [
+          "exposure_weight",
+          "interaction_types",
+          "rank_for_receiver",
+          "raw_weight",
+          "source_position_id",
+          "target_position_id",
+          "total_events"
+        ],
+        "sha256": "cab79674a28e6cd360d0cd76b0745f7e6c0e0140cb1c7f964aef01ef0a1128d9"
+      },
+      {
+        "logical_file": "edges_full.csv",
+        "source": "data/exposure_networks/politisky24_bluesky_v1/edges_full.csv",
+        "rows": 1179750,
+        "columns": [
+          "exposure_weight",
+          "interaction_types",
+          "rank_for_receiver",
+          "raw_weight",
+          "source_position_id",
+          "target_position_id",
+          "total_events"
+        ],
+        "sha256": "5e7d4914b1dd8f0ab778a2f66fb730898fc7a25e983ba0047d5e5813af122e77"
+      },
+      {
+        "logical_file": "node_metrics.csv",
+        "source": "data/exposure_networks/politisky24_bluesky_v1/node_metrics.csv",
+        "rows": 8483,
+        "columns": [
+          "approx_betweenness",
+          "bridge_score",
+          "community_id",
+          "eigenvector_centrality",
+          "has_prompt_peer_capacity",
+          "in_degree",
+          "in_largest_component",
+          "local_clustering",
+          "out_degree",
+          "position_id",
+          "weighted_in_degree",
+          "weighted_out_degree"
+        ],
+        "sha256": "d41522422597a072da8e7f98cd512d0c1d3fe94cb5d221c3d846afffdc08f1ed"
+      },
+      {
+        "logical_file": "neighborhood_metrics.csv",
+        "source": "data/exposure_networks/politisky24_bluesky_v1/neighborhood_metrics.csv",
+        "rows": 8483,
+        "columns": [
+          "approx_betweenness",
+          "approx_betweenness_pct",
+          "bridge_score",
+          "bridge_score_pct",
+          "community_id",
+          "cross_community_incoming_share",
+          "dominant_structural_role",
+          "eigenvector_centrality",
+          "h2_neighborhood_activation_readiness",
+          "high_bridge_peer_exposure_share",
+          "high_reach_peer_exposure_share",
+          "incoming_community_entropy",
+          "incoming_effective_peer_count",
+          "incoming_exposure_weight",
+          "incoming_hhi",
+          "incoming_peer_community_count",
+          "incoming_peer_count",
+          "incoming_top1_share",
+          "incoming_top5_share",
+          "local_clustering",
+          "local_clustering_pct",
+          "outgoing_receiver_count",
+          "outgoing_visibility_weight",
+          "peer_bridge_weighted_mean",
+          "peer_sender_reach_weighted_mean_pct",
+          "position_id",
+          "sender_receiver_asymmetry",
+          "weighted_in_degree",
+          "weighted_in_degree_pct",
+          "weighted_out_degree",
+          "weighted_out_degree_pct"
+        ],
+        "sha256": "9a68cba342ec3d70c45df14f4241eae520d43bfedf037203a12e90427c929422"
+      },
+      {
+        "logical_file": "propagation_metrics.csv",
+        "source": "data/exposure_networks/politisky24_bluesky_v1/propagation_metrics.csv",
+        "rows": 8483,
+        "columns": [
+          "bridge_score",
+          "bridge_score_pct",
+          "cascade_reach_pct",
+          "cascade_reach_potential",
+          "combined_two_step_reach_count",
+          "community_id",
+          "cross_community_incoming_share",
+          "dominant_structural_role",
+          "h2_neighborhood_activation_readiness",
+          "h3_central_susceptible_sender_readiness",
+          "h4_central_resilient_sender_dampening_capacity",
+          "incoming_effective_peer_count",
+          "incoming_peer_community_count",
+          "position_id",
+          "prompt_topk_out_reach_count",
+          "prompt_topk_out_reach_pct",
+          "prompt_topk_out_reach_weight",
+          "two_hop_reach_count",
+          "weighted_in_degree",
+          "weighted_out_degree",
+          "weighted_out_degree_pct"
+        ],
+        "sha256": "79172e23e54314fb4341f1b45a7854111999d3a20ec6db00ce6ba95acd3074e0"
+      },
+      {
+        "logical_file": "assignment_positions.csv",
+        "source": "data/exposure_networks/politisky24_bluesky_v1/assignment_positions.csv",
+        "rows": 8483,
+        "columns": [
+          "approx_betweenness",
+          "assignment_rank",
+          "bridge_score",
+          "cascade_reach_potential",
+          "combined_two_step_reach_count",
+          "community_id",
+          "cross_community_incoming_share",
+          "display_role",
+          "display_role_label",
+          "dominant_structural_role",
+          "eigenvector_centrality",
+          "eligible_for_assignment",
+          "h2_neighborhood_activation_readiness",
+          "h3_central_susceptible_sender_readiness",
+          "h4_central_resilient_sender_dampening_capacity",
+          "incoming_community_entropy",
+          "incoming_effective_peer_count",
+          "incoming_exposure_weight",
+          "incoming_hhi",
+          "incoming_peer_community_count",
+          "incoming_peer_count",
+          "incoming_top1_share",
+          "incoming_top5_share",
+          "local_clustering",
+          "macro_community",
+          "observed_status",
+          "outgoing_receiver_count",
+          "outgoing_visibility_weight",
+          "position_id",
+          "prompt_ready",
+          "prompt_topk_out_reach_count",
+          "prompt_topk_out_reach_weight",
+          "two_hop_reach_count",
+          "weighted_in_degree",
+          "weighted_out_degree"
+        ],
+        "sha256": "c2bf63104c8784f6cf9a200d73772e72022692b72b7a39134bdd52541ddaf84e"
+      },
+      {
+        "logical_file": "pilot_60_position_slice.csv",
+        "source": "src/backend/utils/exposure_network_substrate_report/data/derived/pilot_60_position_slice.csv",
+        "rows": 60,
+        "columns": [
+          "approx_betweenness",
+          "bridge_score",
+          "cascade_reach_potential",
+          "combined_two_step_reach_count",
+          "community_id",
+          "cross_community_incoming_share",
+          "dominant_structural_role",
+          "eigenvector_centrality",
+          "h2_neighborhood_activation_readiness",
+          "h3_central_susceptible_sender_readiness",
+          "h4_central_resilient_sender_dampening_capacity",
+          "has_prompt_peer_capacity",
+          "in_degree",
+          "incoming_effective_peer_count",
+          "incoming_peer_community_count",
+          "incoming_selected_edges",
+          "incoming_top1_share",
+          "incoming_top5_share",
+          "local_clustering",
+          "out_degree",
+          "outgoing_selected_edges",
+          "position_id",
+          "prompt_topk_out_reach_count",
+          "sample_role",
+          "slice_component_id",
+          "two_hop_reach_count",
+          "weighted_in_degree",
+          "weighted_out_degree"
+        ],
+        "sha256": "ecd2bcf61ccbbf858043c7f3e2ed127f31b08bb5be8440f6b83c95ba4efc4d4c",
+        "generated": true
+      },
+      {
+        "logical_file": "pilot_60_position_slice_edges.csv",
+        "source": "src/backend/utils/exposure_network_substrate_report/data/derived/pilot_60_position_slice_edges.csv",
+        "rows": 446,
+        "columns": [
+          "exposure_weight",
+          "interaction_types",
+          "rank_for_receiver",
+          "raw_weight",
+          "source_position_id",
+          "target_position_id",
+          "total_events"
+        ],
+        "sha256": "62c9c55d73c22a11cedfbd1da6939400c626191b01d85ad782e73014e2b668c5",
+        "generated": true
+      }
+    ],
+    "pilot_slice": {
+      "pilot_nodes": 60,
+      "pilot_edges": 446,
+      "source": "assignment_positions.csv rows assignment_rank <= 60",
+      "edge_source": "edges_prompt_top30.csv induced over pilot positions"
+    },
+    "direction": {
+      "edge_orientation": "source_position_id -> target_position_id",
+      "interpretation": "The source position is a visible peer whose output was plausibly exposed to the target position; derived from source user liking, reposting, or quoting target user content in the raw data.",
+      "interaction_weight_formula": {
+        "Like": 0.35,
+        "Repost": 0.8,
+        "Quote": 0.9
+      },
+      "weight_processing": "Repeated interactions are summed, log-compressed, and normalized to [0, 1] in the upstream exposure-network analysis."
+    },
+    "status": "ready"
+  },
+  "summary": {
+    "pilot_nodes": 60,
+    "pilot_directed_edges": 446,
+    "pilot_directed_density": 0.12598870056497175,
+    "pilot_total_exposure_weight": 185.25385182545102,
+    "weak_components": 1,
+    "largest_weak_component": 60,
+    "strong_components": 24,
+    "largest_strong_component": 37,
+    "reciprocal_dyads": 36,
+    "all_nodes_prompt_ready": true,
+    "full_exposure_edges_available": 1179750,
+    "top30_exposure_edges_available": 208926,
+    "top_sender_position_id": 31639,
+    "top_receiver_position_id": 186886
+  },
+  "figures": {
+    "exposure_direction_and_formula": {
+      "png": "src/backend/utils/exposure_network_substrate_report/figures/exposure_direction_and_formula.png",
+      "svg": "src/backend/utils/exposure_network_substrate_report/figures/exposure_direction_and_formula.svg"
+    },
+    "pilot_directed_exposure_network": {
+      "png": "src/backend/utils/exposure_network_substrate_report/figures/pilot_directed_exposure_network.png",
+      "svg": "src/backend/utils/exposure_network_substrate_report/figures/pilot_directed_exposure_network.svg"
+    },
+    "pilot_role_exposure_summary": {
+      "png": "src/backend/utils/exposure_network_substrate_report/figures/pilot_role_exposure_summary.png"
+    },
+    "pilot_sender_reach_ranking": {
+      "png": "src/backend/utils/exposure_network_substrate_report/figures/pilot_sender_reach_ranking.png"
+    },
+    "pilot_receiver_exposure_ranking": {
+      "png": "src/backend/utils/exposure_network_substrate_report/figures/pilot_receiver_exposure_ranking.png"
+    }
+  },
+  "interactive": {
+    "html": "src/backend/utils/exposure_network_substrate_report/reports/exposure_network_interactive.html",
+    "nodes": "src/backend/utils/exposure_network_substrate_report/data/derived/interactive_sample_nodes.csv",
+    "edges": "src/backend/utils/exposure_network_substrate_report/data/derived/interactive_sample_edges.csv",
+    "summary": "src/backend/utils/exposure_network_substrate_report/data/derived/interactive_sample_summary.csv",
+    "layouts": "src/backend/utils/exposure_network_substrate_report/data/derived/interactive_sample_layouts.csv",
+    "quality": "src/backend/utils/exposure_network_substrate_report/data/derived/interactive_sample_quality.csv",
+    "sample": {
+      "min_n": 30,
+      "default_n": 60,
+      "max_n": 500,
+      "step": 10,
+      "role_target_shares": {
+        "high_visibility_sender": 0.22,
+        "high_exposure_receiver": 0.22,
+        "bridge": 0.2,
+        "peripheral": 0.16,
+        "context_position": 0.2
+      }
+    }
+  },
+  "multiresolution": {
+    "report": "src/backend/utils/exposure_network_substrate_report/reports/exposure_network_multiresolution.html",
+    "levels": [
+      500,
+      1000,
+      2000,
+      4000,
+      6000,
+      8483
+    ],
+    "observed_nodes": 8483,
+    "prompt_ready_nodes": 7450,
+    "node_edges": 6700,
+    "macro_communities": 46,
+    "macro_flows": 316,
+    "community_lens_nodes": 3325,
+    "ego_edges": 92177
+  },
+  "root": "src/backend/utils/exposure_network_substrate_report"
+}

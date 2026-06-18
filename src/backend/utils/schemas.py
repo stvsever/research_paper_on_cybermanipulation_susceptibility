@@ -32,7 +32,7 @@ class ScenarioRecord(BaseModel):
 
 class OpinionAssessment(BaseModel):
     scenario_id: str
-    phase: Literal["baseline", "post_attack"]
+    phase: Literal["baseline", "network_exposure_baseline", "post_attack", "post_attack_network_exposure"]
     opinion_leaf: str
     score: int
     confidence: float = Field(ge=0.0, le=1.0)

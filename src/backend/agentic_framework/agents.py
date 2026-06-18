@@ -74,6 +74,50 @@ class BaselineOpinionAgent:
         )
 
 
+class NetworkExposureOpinionAgent:
+    def __init__(self, base_agent: BaseJsonAgent, model_name: str):
+        self.base = base_agent
+        self.model_name = model_name
+
+    def assess(
+        self,
+        run_id: str,
+        call_id: str,
+        scenario_id: str,
+        opinion_leaf: str,
+        profile: ProfileConfiguration,
+        baseline_score: int,
+        network_context: Dict[str, Any],
+        review_feedback: Optional[str] = None,
+    ) -> OpinionAssessment:
+        payload = {
+            "scenario_id": scenario_id,
+            "opinion_leaf": opinion_leaf,
+            "profile": profile.model_dump(),
+            "baseline_score": baseline_score,
+            "network_context": network_context,
+        }
+        if review_feedback:
+            payload["review_feedback"] = review_feedback
+        response = self.base.run(
+            prompt_name="network_exposure_opinion.md",
+            payload=payload,
+            response_model=OpinionResponse,
+            run_id=run_id,
+            call_id=call_id,
+        )
+        assert isinstance(response, OpinionResponse)
+        return OpinionAssessment(
+            scenario_id=scenario_id,
+            phase="network_exposure_baseline",
+            opinion_leaf=opinion_leaf,
+            score=response.score,
+            confidence=response.confidence,
+            reasoning=response.reasoning,
+            model_name=self.model_name,
+        )
+
+
 class OpinionCoherenceReviewerAgent:
     def __init__(self, base_agent: BaseJsonAgent, model_name: str):
         self.base = base_agent
@@ -160,6 +204,60 @@ class PostAttackOpinionAgent:
         return OpinionAssessment(
             scenario_id=scenario_id,
             phase="post_attack",
+            opinion_leaf=opinion_leaf,
+            score=response.score,
+            confidence=response.confidence,
+            reasoning=response.reasoning,
+            model_name=self.model_name,
+        )
+
+
+class PostAttackNetworkExposureOpinionAgent:
+    def __init__(self, base_agent: BaseJsonAgent, model_name: str):
+        self.base = base_agent
+        self.model_name = model_name
+
+    def assess(
+        self,
+        run_id: str,
+        call_id: str,
+        scenario_id: str,
+        opinion_leaf: str,
+        profile: ProfileConfiguration,
+        baseline_score: int,
+        private_post_score: int,
+        attack_present: bool,
+        adversarial_direction: int = 0,
+        attack_leaf: Optional[str] = None,
+        attack_vector_spec: Optional[Dict[str, Any]] = None,
+        post_attack_network_context: Optional[Dict[str, Any]] = None,
+        review_feedback: Optional[str] = None,
+    ) -> OpinionAssessment:
+        payload = {
+            "scenario_id": scenario_id,
+            "opinion_leaf": opinion_leaf,
+            "profile": profile.model_dump(),
+            "baseline_score": baseline_score,
+            "private_post_score": private_post_score,
+            "attack_present": attack_present,
+            "adversarial_direction": adversarial_direction,
+            "attack_leaf": attack_leaf,
+            "attack_vector_spec": attack_vector_spec or {},
+            "post_attack_network_context": post_attack_network_context or {},
+        }
+        if review_feedback:
+            payload["review_feedback"] = review_feedback
+        response = self.base.run(
+            prompt_name="post_attack_network_exposure_opinion.md",
+            payload=payload,
+            response_model=OpinionResponse,
+            run_id=run_id,
+            call_id=call_id,
+        )
+        assert isinstance(response, OpinionResponse)
+        return OpinionAssessment(
+            scenario_id=scenario_id,
+            phase="post_attack_network_exposure",
             opinion_leaf=opinion_leaf,
             score=response.score,
             confidence=response.confidence,

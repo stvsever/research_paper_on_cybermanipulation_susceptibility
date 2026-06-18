@@ -18,6 +18,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.backend.utils.io import abs_path, ensure_dir, write_json
 from src.backend.utils.logging_utils import setup_logging
+from src.backend.utils.network_exposure.defaults import DEFAULT_ASSIGNMENT_MODE, DEFAULT_GRAPH_ID
 from src.backend.utils.ontology_utils import default_ontology_root
 
 
@@ -25,8 +26,8 @@ LOGGER = logging.getLogger(__name__)
 
 
 DEFAULT_PAPER_TITLE = (
-    "Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: "
-    "An Ontology-Constrained Multi-Agent Simulation Approach"
+    "PILOT: Inter-individual Differences in Susceptibility to Cyber-manipulation: "
+    "A Multi-agent Simulation Approach with High-dimension State Space of Political Opinions"
 )
 
 
@@ -41,9 +42,24 @@ def _stage_specs(project_root: Path) -> List[StageSpec]:
     base = project_root / "src" / "backend" / "pipeline" / "separate"
     return [
         StageSpec("01", "create_scenarios", base / "01_create_scenarios" / "run_stage.py"),
+        StageSpec(
+            "01b",
+            "assign_exposure_network_positions",
+            base / "01b_assign_exposure_network_positions" / "run_stage.py",
+        ),
         StageSpec("02", "assess_baseline_opinions", base / "02_assess_baseline_opinions" / "run_stage.py"),
+        StageSpec(
+            "02b",
+            "assess_network_exposure_opinions",
+            base / "02b_assess_network_exposure_opinions" / "run_stage.py",
+        ),
         StageSpec("03", "run_opinion_attacks", base / "03_run_opinion_attacks" / "run_stage.py"),
         StageSpec("04", "assess_post_attack_opinions", base / "04_assess_post_attack_opinions" / "run_stage.py"),
+        StageSpec(
+            "04b",
+            "assess_post_attack_network_exposure_opinions",
+            base / "04b_assess_post_attack_network_exposure_opinions" / "run_stage.py",
+        ),
         StageSpec("05", "compute_effectivity_deltas", base / "05_compute_effectivity_deltas" / "run_stage.py"),
         StageSpec("06", "construct_structural_equation_model", base / "06_construct_structural_equation_model" / "run_stage.py"),
         StageSpec("07", "generate_research_visuals", base / "07_generate_research_visuals" / "run_stage.py"),
@@ -55,7 +71,7 @@ def _stage_specs(project_root: Path) -> List[StageSpec]:
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run full ontology-driven attack-opinion simulation pipeline")
 
-    parser.add_argument("--output-root", default="evaluation/tests/run_1")
+    parser.add_argument("--output-root", default="evaluation/run_1")
     parser.add_argument("--run-id", default="run_1")
     parser.add_argument("--paper-title", default=DEFAULT_PAPER_TITLE)
     parser.add_argument("--report-root", default="research_report/report")
@@ -86,6 +102,9 @@ def _parse_args() -> argparse.Namespace:
 
     parser.add_argument("--use-test-ontology", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--ontology-root", default=None)
+    parser.add_argument("--exposure-network-root", default=None)
+    parser.add_argument("--exposure-graph-id", default=DEFAULT_GRAPH_ID)
+    parser.add_argument("--exposure-assignment-mode", default=DEFAULT_ASSIGNMENT_MODE)
 
     parser.add_argument("--openrouter-model", required=True)
     parser.add_argument("--temperature", type=float, default=0.2)
@@ -100,11 +119,16 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--realism-threshold", type=float, default=0.72)
     parser.add_argument("--self-supervise-opinion-coherence", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--coherence-threshold", type=float, default=0.72)
+    parser.add_argument("--assess-network-exposure", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--network-exposure-top-k", type=int, default=8)
+    parser.add_argument("--assess-post-attack-network-exposure", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--post-attack-network-exposure-top-k", type=int, default=8)
+    parser.add_argument("--post-attack-network-min-peers", type=int, default=1)
     parser.add_argument("--generate-visuals", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--export-static-figures", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--build-report", action=argparse.BooleanOptionalAction, default=True)
 
-    stage_choices = ["01", "02", "03", "04", "05", "06", "07", "08", "09"]
+    stage_choices = ["01", "01b", "02", "02b", "03", "04", "04b", "05", "06", "07", "08", "09"]
     parser.add_argument("--resume-from-stage", default="01", choices=stage_choices)
     parser.add_argument("--stop-after-stage", default="09", choices=stage_choices)
 
@@ -115,6 +139,7 @@ def _parse_args() -> argparse.Namespace:
 
     parser.add_argument("--run-stage-checks", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--stage-check-scenarios", type=int, default=3)
+    parser.add_argument("--ingest-to-db", action=argparse.BooleanOptionalAction, default=False)
 
     return parser.parse_args()
 
@@ -294,6 +319,16 @@ def _run_stage_checks(
         str(args.max_repair_iter),
         "--profile-generation-mode",
         args.profile_generation_mode,
+        "--exposure-graph-id",
+        args.exposure_graph_id,
+        "--exposure-assignment-mode",
+        args.exposure_assignment_mode,
+        "--network-exposure-top-k",
+        str(args.network_exposure_top_k),
+        "--post-attack-network-exposure-top-k",
+        str(args.post_attack_network_exposure_top_k),
+        "--post-attack-network-min-peers",
+        str(args.post_attack_network_min_peers),
         "--resume-from-stage",
         "01",
         "--stop-after-stage",
@@ -317,10 +352,18 @@ def _run_stage_checks(
     cmd.append("--export-static-figures" if args.export_static_figures else "--no-export-static-figures")
     cmd.append("--self-supervise-attack-realism" if args.self_supervise_attack_realism else "--no-self-supervise-attack-realism")
     cmd.append("--self-supervise-opinion-coherence" if args.self_supervise_opinion_coherence else "--no-self-supervise-opinion-coherence")
+    cmd.append("--assess-network-exposure" if args.assess_network_exposure else "--no-assess-network-exposure")
+    cmd.append(
+        "--assess-post-attack-network-exposure"
+        if args.assess_post_attack_network_exposure
+        else "--no-assess-post-attack-network-exposure"
+    )
     cmd.extend(["--realism-threshold", str(args.realism_threshold), "--coherence-threshold", str(args.coherence_threshold)])
 
     if args.ontology_root:
         cmd.extend(["--ontology-root", abs_path(ontology_root)])
+    if args.exposure_network_root:
+        cmd.extend(["--exposure-network-root", abs_path(args.exposure_network_root)])
     if args.max_opinion_leaves is not None:
         cmd.extend(["--max-opinion-leaves", str(args.max_opinion_leaves)])
     cmd.extend(["--profile-candidate-multiplier", str(args.profile_candidate_multiplier)])
@@ -387,6 +430,9 @@ def main() -> None:
         "bootstrap_samples": args.bootstrap_samples,
         "use_test_ontology": args.use_test_ontology,
         "ontology_root": abs_path(ontology_root),
+        "exposure_network_root": abs_path(args.exposure_network_root) if args.exposure_network_root else None,
+        "exposure_graph_id": args.exposure_graph_id,
+        "exposure_assignment_mode": args.exposure_assignment_mode,
         "openrouter_model": args.openrouter_model,
         "temperature": args.temperature,
         "max_repair_iter": args.max_repair_iter,
@@ -395,6 +441,11 @@ def main() -> None:
         "realism_threshold": args.realism_threshold,
         "self_supervise_opinion_coherence": args.self_supervise_opinion_coherence,
         "coherence_threshold": args.coherence_threshold,
+        "assess_network_exposure": args.assess_network_exposure,
+        "network_exposure_top_k": args.network_exposure_top_k,
+        "assess_post_attack_network_exposure": args.assess_post_attack_network_exposure,
+        "post_attack_network_exposure_top_k": args.post_attack_network_exposure_top_k,
+        "post_attack_network_min_peers": args.post_attack_network_min_peers,
         "generate_visuals": args.generate_visuals,
         "export_static_figures": args.export_static_figures,
         "build_report": args.build_report,
@@ -405,6 +456,7 @@ def main() -> None:
         "max_concurrency": args.max_concurrency,
         "run_stage_checks": args.run_stage_checks,
         "stage_check_scenarios": args.stage_check_scenarios,
+        "ingest_to_db": args.ingest_to_db,
     }
     write_json(config_dir / "pipeline_config.json", config_payload)
 
@@ -425,6 +477,10 @@ def main() -> None:
     for stage in stage_specs:
         stage_idx = stage_ids.index(stage.stage_id)
         if stage_idx < start_idx:
+            if stage.stage_id == "02b" and not args.assess_network_exposure:
+                continue
+            if stage.stage_id == "04b" and not args.assess_post_attack_network_exposure:
+                continue
             existing_manifest = existing_manifests.get(stage.stage_id)
             if existing_manifest:
                 stage_manifests[stage.stage_id] = existing_manifest
@@ -441,6 +497,12 @@ def main() -> None:
             continue
         if stage.stage_id == "09" and not args.build_report:
             LOGGER.info("Skipping stage 09 because --no-build-report is set.")
+            continue
+        if stage.stage_id == "02b" and not args.assess_network_exposure:
+            LOGGER.info("Skipping stage 02b because --no-assess-network-exposure is set.")
+            continue
+        if stage.stage_id == "04b" and not args.assess_post_attack_network_exposure:
+            LOGGER.info("Skipping stage 04b because --no-assess-post-attack-network-exposure is set.")
             continue
 
         stage_output_dir = ensure_dir(stage_outputs_root / f"{stage.stage_id}_{stage.stage_name}")
@@ -508,7 +570,19 @@ def main() -> None:
             cmd.append("--drop-direction-neutral-opinions" if args.drop_direction_neutral_opinions else "--no-drop-direction-neutral-opinions")
             cmd.extend(["--realism-weight-temperature", str(args.realism_weight_temperature)])
 
-        if stage.stage_id in {"02", "03", "04"}:
+        if stage.stage_id == "01b":
+            cmd.extend(
+                [
+                    "--exposure-graph-id",
+                    args.exposure_graph_id,
+                    "--exposure-assignment-mode",
+                    args.exposure_assignment_mode,
+                ]
+            )
+            if args.exposure_network_root:
+                cmd.extend(["--exposure-network-root", abs_path(args.exposure_network_root)])
+
+        if stage.stage_id in {"02", "02b", "03", "04", "04b"}:
             cmd.extend(
                 [
                     "--openrouter-model",
@@ -526,9 +600,26 @@ def main() -> None:
             if args.save_raw_llm and raw_llm_dir is not None:
                 cmd.extend(["--save-raw-llm", "--raw-llm-dir", abs_path(raw_llm_dir)])
 
-        if stage.stage_id in {"02", "04"}:
+        if stage.stage_id in {"02", "02b", "04", "04b"}:
             cmd.append("--self-supervise-opinion-coherence" if args.self_supervise_opinion_coherence else "--no-self-supervise-opinion-coherence")
             cmd.extend(["--coherence-threshold", str(args.coherence_threshold)])
+
+        if stage.stage_id == "02b":
+            cmd.extend(["--network-exposure-top-k", str(args.network_exposure_top_k)])
+            if args.exposure_network_root:
+                cmd.extend(["--exposure-network-root", abs_path(args.exposure_network_root)])
+
+        if stage.stage_id == "04b":
+            cmd.extend(
+                [
+                    "--post-attack-network-exposure-top-k",
+                    str(args.post_attack_network_exposure_top_k),
+                    "--post-attack-network-min-peers",
+                    str(args.post_attack_network_min_peers),
+                ]
+            )
+            if args.exposure_network_root:
+                cmd.extend(["--exposure-network-root", abs_path(args.exposure_network_root)])
 
         if stage.stage_id == "03":
             cmd.append("--self-supervise-attack-realism" if args.self_supervise_attack_realism else "--no-self-supervise-attack-realism")
@@ -629,6 +720,15 @@ def main() -> None:
             "paper_dir": abs_path(resolved_output_root / "paper"),
         },
     )
+
+    if args.ingest_to_db:
+        try:
+            from src.backend.persistence.ingest_pipeline_run import ingest_pipeline_run
+
+            counts = ingest_pipeline_run(args.run_id, root=project_root)
+            LOGGER.info("Postgres artifact ingestion completed: %s", counts)
+        except Exception as exc:
+            LOGGER.error("Postgres artifact ingestion failed after pipeline completion: %s", exc)
 
     if args.run_stage_checks:
         _run_stage_checks(

@@ -1,0 +1,55 @@
+{
+  "common_semantics": {
+    "position_id": "Empirical Bluesky network position identifier.",
+    "source_position_id": "Visible peer/source position in a directed exposure edge.",
+    "target_position_id": "Exposed receiver/target position in a directed exposure edge.",
+    "exposure_weight": "Normalized directed exposure strength in [0, 1].",
+    "rank_for_receiver": "Rank of source among incoming exposure peers for a target receiver."
+  },
+  "files": {
+    "nodes.csv": {
+      "primary_key": [
+        "position_id"
+      ],
+      "description": "Canonical observed network positions and basic role/readiness labels."
+    },
+    "edges_full.csv": {
+      "primary_key": [
+        "source_position_id",
+        "target_position_id"
+      ],
+      "description": "Full directed empirical exposure graph."
+    },
+    "edges_prompt_top30.csv": {
+      "primary_key": [
+        "source_position_id",
+        "target_position_id"
+      ],
+      "description": "Top incoming exposure edges per receiver for bounded prompt exemplar selection."
+    },
+    "node_metrics.csv": {
+      "primary_key": [
+        "position_id"
+      ],
+      "description": "Node centrality, community, bridge, and prompt-readiness metrics."
+    },
+    "neighborhood_metrics.csv": {
+      "primary_key": [
+        "position_id"
+      ],
+      "description": "Incoming/outgoing exposure volume, concentration, diversity, and H2 readiness metrics."
+    },
+    "propagation_metrics.csv": {
+      "primary_key": [
+        "position_id"
+      ],
+      "description": "One-hop/two-hop reach and H3/H4 structural readiness metrics."
+    },
+    "assignment_positions.csv": {
+      "primary_key": [
+        "position_id"
+      ],
+      "description": "Deterministic ranked positions used by Stage 01b profile-position assignment."
+    }
+  }
+}

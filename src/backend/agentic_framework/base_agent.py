@@ -23,6 +23,7 @@ class BaseJsonAgent:
         prompt_loader: PromptLoader,
         max_repair_iter: int = 2,
         temperature: float = 0.2,
+        max_tokens: int = 1000,
         save_raw_dir: Optional[str] = None,
     ) -> None:
         self.name = name
@@ -30,6 +31,7 @@ class BaseJsonAgent:
         self.prompt_loader = prompt_loader
         self.max_repair_iter = max_repair_iter
         self.temperature = temperature
+        self.max_tokens = max_tokens
         self.save_raw_dir = Path(save_raw_dir) if save_raw_dir else None
         if self.save_raw_dir is not None:
             ensure_dir(self.save_raw_dir)
@@ -57,6 +59,7 @@ class BaseJsonAgent:
                 content, raw = self.client.chat(
                     messages=messages,
                     temperature=self.temperature,
+                    max_tokens=self.max_tokens,
                     response_format={"type": "json_object"},
                 )
             except Exception as exc:
@@ -141,6 +144,7 @@ class BaseJsonAgent:
                 "prompt_name": prompt_name,
                 "call_id": call_id,
                 "attempt": attempt,
+                "max_tokens": self.max_tokens,
                 "request_payload": request_payload,
                 "response_text": response_text,
                 "raw_response": raw_response,

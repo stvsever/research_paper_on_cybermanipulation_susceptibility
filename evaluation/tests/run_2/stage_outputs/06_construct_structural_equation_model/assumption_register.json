@@ -1,0 +1,70 @@
+[
+  {
+    "assumption": "Profile-panel sample size is sufficient for stable moderation estimates.",
+    "status": "risk",
+    "evidence": {
+      "n_profiles": 60,
+      "n_rows": 720,
+      "n_attack_opinion_tasks": 12
+    },
+    "mitigation": "Interpret run_1 coefficients as exploratory panel diagnostics and scale the profile count before making substantive moderator claims."
+  },
+  {
+    "assumption": "Attack-only design is intentional and aligned with the moderation question.",
+    "status": "ok",
+    "evidence": {
+      "analysis_mode": "treated_only",
+      "attack_ratio": 1.0
+    },
+    "mitigation": "Interpret results as moderation among attacked individuals, not as a no-attack counterfactual contrast."
+  },
+  {
+    "assumption": "Opinion measurement has enough numeric resolution.",
+    "status": "ok",
+    "evidence": {
+      "unique_baseline_scores": 195
+    },
+    "mitigation": "Prompt enforces high-resolution scores in [-1000,1000]."
+  },
+  {
+    "assumption": "Attack-generation quality checks indicate usable exposure texts.",
+    "status": "risk",
+    "evidence": {
+      "mean_attack_realism_score": null,
+      "attack_heuristic_pass_rate": 0.0
+    },
+    "mitigation": "Inspect Stage 03 reviewer outputs and treat zero-scored or fallback-generated attack content as a run-quality failure rather than as substantive evidence."
+  },
+  {
+    "assumption": "Baseline and post-exposure opinions were generated without heavy fallback substitution.",
+    "status": "ok",
+    "evidence": {
+      "baseline_fallback_rate": 0.0,
+      "post_fallback_rate": 0.0,
+      "baseline_heuristic_pass_rate": 1.0,
+      "post_heuristic_pass_rate": 1.0,
+      "mean_post_plausibility_score": 0.9128611111111111
+    },
+    "mitigation": "Re-run stages 02–04 with funded API access before interpreting moderator coefficients as anything other than pipeline-diagnostic outputs."
+  },
+  {
+    "assumption": "SEM converges with acceptable fit.",
+    "status": "ok",
+    "evidence": {
+      "sem_converged": true,
+      "CFI": 1.0,
+      "RMSEA": 0.0,
+      "near_saturated_fit": false,
+      "warnings": []
+    },
+    "mitigation": "Treat near-perfect fit in small profile panels as a saturation warning; rely on robustness diagnostics and larger panels instead of fit indices alone."
+  },
+  {
+    "assumption": "LLM outputs are reproducible and auditable.",
+    "status": "ok",
+    "evidence": {
+      "raw_llm_logging": true
+    },
+    "mitigation": "Persist all prompts/outputs in provenance/raw_llm."
+  }
+]

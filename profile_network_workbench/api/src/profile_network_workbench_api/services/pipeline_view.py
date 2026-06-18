@@ -176,9 +176,14 @@ def _safe_artifact_path(path_value: str | None) -> Path | None:
 def _pipeline_artifacts(run_id: str) -> _PipelineArtifacts:
     safe_id = safe_run_id(run_id)
     settings = load_settings()
-    run_root = (settings.evaluation_path / safe_id).resolve()
+    run_root_candidates = [
+        settings.evaluation_path / safe_id,
+        settings.evaluation_path / "tests" / safe_id,
+    ]
+    run_root = next((candidate.resolve() for candidate in run_root_candidates if candidate.exists()), run_root_candidates[0].resolve())
     if not run_root.exists():
-        raise WorkbenchNotFoundError(f"Pipeline run root not found: {run_root}")
+        searched = ", ".join(str(candidate.resolve()) for candidate in run_root_candidates)
+        raise WorkbenchNotFoundError(f"Pipeline run root not found for {safe_id}. Searched: {searched}")
 
     warnings: list[str] = []
     run_manifest_path = run_root / "provenance" / "run_manifest.json"

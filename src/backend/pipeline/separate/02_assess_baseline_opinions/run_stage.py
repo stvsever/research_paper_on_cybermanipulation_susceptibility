@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
 import logging
 import sys
@@ -26,6 +26,12 @@ from src.backend.utils.io import (
     write_jsonl,
 )
 from src.backend.utils.logging_utils import setup_logging
+from src.backend.utils.live_artifacts import (
+    append_live_error,
+    append_live_result,
+    init_live_stage,
+    update_live_status,
+)
 from src.backend.utils.scenario_realism import assess_baseline_opinion_heuristics, profile_context_snapshot
 from src.backend.utils.schemas import OpinionAssessment, ScenarioRecord, StageArtifactManifest, StageConfig
 
@@ -196,9 +202,44 @@ def run_stage(input_path: str, output_dir: str, config: Stage02Config) -> StageA
             "heuristic_fail_count": local_heuristic_fail_count,
         }
 
+    init_live_stage(
+        output_dir,
+        run_id=config.run_id,
+        stage_id="02",
+        stage_name="assess_baseline_opinions",
+        phase="baseline",
+        total_count=len(scenarios),
+    )
     max_workers = max(1, int(config.max_concurrency or 1))
+    results: list[Dict[str, object] | None] = [None] * len(scenarios)
+    completed_count = 0
+    failed_count = 0
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        results = list(executor.map(_process_scenario, scenarios))
+        future_to_index = {executor.submit(_process_scenario, scenario): index for index, scenario in enumerate(scenarios)}
+        for future in as_completed(future_to_index):
+            index = future_to_index[future]
+            scenario = scenarios[index]
+            try:
+                result = future.result()
+            except Exception as exc:
+                failed_count += 1
+                append_live_error(
+                    output_dir,
+                    {
+                        "scenario_id": scenario.scenario_id,
+                        "profile_id": scenario.profile.profile_id,
+                        "opinion_leaf": scenario.opinion_leaf,
+                        "message": str(exc),
+                    },
+                )
+                update_live_status(output_dir, completed_count=completed_count, failed_count=failed_count, status="failed")
+                raise
+            results[index] = result
+            completed_count += 1
+            append_live_result(output_dir, dict(result["enriched_row"]))
+            update_live_status(output_dir, completed_count=completed_count, failed_count=failed_count, status="running")
+
+    results = [result for result in results if result is not None]
 
     assessments = [result["assessment"] for result in results]
     enriched_rows = [result["enriched_row"] for result in results]
@@ -245,6 +286,7 @@ def run_stage(input_path: str, output_dir: str, config: Stage02Config) -> StageA
     )
 
     write_json(stage_manifest_path(output_dir), manifest.model_dump())
+    update_live_status(output_dir, completed_count=completed_count, failed_count=failed_count, status="completed")
     return manifest
 
 

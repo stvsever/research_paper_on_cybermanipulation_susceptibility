@@ -694,6 +694,48 @@ def build_centrality_susceptibility_alignment(condition_profiles: pd.DataFrame) 
     return pd.DataFrame(rows).sort_values("centrality_susceptibility_excess_z", ascending=False).reset_index(drop=True)
 
 
+def build_alignment_outcome_link(
+    condition_profiles: pd.DataFrame,
+    alignment: pd.DataFrame,
+) -> pd.DataFrame:
+    """Join condition-level centrality-susceptibility alignment to network effect outcomes."""
+    outcomes = (
+        condition_profiles.groupby(["opinion_label", "attack_label"], as_index=False)
+        .agg(
+            n_profiles=("profile_id", "nunique"),
+            mean_ae_private=("ae_private", "mean"),
+            mean_pn_increment_effectivity=("pn_increment_effectivity", "mean"),
+            mean_ae_total_network=("ae_total_network", "mean"),
+            median_ae_total_network=("ae_total_network", "median"),
+        )
+    )
+    out = alignment.merge(outcomes, on=["opinion_label", "attack_label", "n_profiles"], how="left")
+    out["network_lift_over_private"] = out["mean_ae_total_network"] - out["mean_ae_private"]
+    out["alignment_direction"] = np.select(
+        [
+            out["centrality_susceptibility_excess_z"] > 0,
+            out["centrality_susceptibility_excess_z"] < 0,
+        ],
+        ["centrality_on_susceptible_profiles", "centrality_on_resilient_profiles"],
+        default="neutral",
+    )
+    ordered = [
+        "opinion_label",
+        "attack_label",
+        "n_profiles",
+        "centrality_susceptibility_excess_z",
+        "centrality_susceptibility_excess",
+        "centrality_susceptibility_alignment_index",
+        "alignment_direction",
+        "mean_ae_private",
+        "mean_pn_increment_effectivity",
+        "mean_ae_total_network",
+        "median_ae_total_network",
+        "network_lift_over_private",
+    ]
+    return out[ordered].sort_values("centrality_susceptibility_excess_z", ascending=False).reset_index(drop=True)
+
+
 def plot_context_validity(bn_contexts: pd.DataFrame, pn_contexts: pd.DataFrame) -> Path:
     plot_df = pd.concat(
         [
@@ -965,6 +1007,7 @@ def _draw_condition_vulnerability_plane(
     xlim: tuple[float, float],
     ylim: tuple[float, float],
     annotate_count: int = 0,
+    alignment_z: float | None = None,
 ) -> None:
     size_values = pd.to_numeric(group["ae_total_network"], errors="coerce")
     if size_values.max() != size_values.min():
@@ -986,6 +1029,25 @@ def _draw_condition_vulnerability_plane(
     ax.axhline(group["exposure_eigenvector_centrality"].median(), color="#4b5563", linestyle="--", linewidth=0.8)
     ax.set_xlim(*xlim)
     ax.set_ylim(*ylim)
+    if alignment_z is not None and not math.isnan(alignment_z):
+        color = "#d95f02" if alignment_z >= 0 else "#1b9e77"
+        ax.text(
+            0.98,
+            0.94,
+            f"centrality shift z={alignment_z:+.2f}",
+            transform=ax.transAxes,
+            ha="right",
+            va="top",
+            fontsize=7,
+            color=color,
+            bbox={
+                "boxstyle": "round,pad=0.22",
+                "facecolor": "white",
+                "edgecolor": color,
+                "linewidth": 0.65,
+                "alpha": 0.90,
+            },
+        )
 
     if annotate_count:
         annotated = pd.concat(
@@ -1006,11 +1068,24 @@ def _draw_condition_vulnerability_plane(
             )
 
 
-def plot_condition_vulnerability_grid(condition_profiles: pd.DataFrame) -> Path:
+def _alignment_lookup(alignment: pd.DataFrame | None) -> dict[tuple[str, str], float]:
+    if alignment is None or alignment.empty:
+        return {}
+    return {
+        (row.opinion_label, row.attack_label): float(row.centrality_susceptibility_excess_z)
+        for row in alignment.itertuples()
+    }
+
+
+def plot_condition_vulnerability_grid(
+    condition_profiles: pd.DataFrame,
+    alignment: pd.DataFrame | None = None,
+) -> Path:
     sns.set_theme(style="whitegrid", context="paper")
     opinions = list(condition_profiles["opinion_label"].drop_duplicates())
     attacks = list(condition_profiles["attack_label"].drop_duplicates())
     xlim, ylim = _condition_axis_limits(condition_profiles)
+    alignment_by_condition = _alignment_lookup(alignment)
     fig, axes = plt.subplots(
         len(opinions),
         len(attacks),
@@ -1029,7 +1104,8 @@ def plot_condition_vulnerability_grid(condition_profiles: pd.DataFrame) -> Path:
             if group.empty:
                 ax.axis("off")
                 continue
-            _draw_condition_vulnerability_plane(ax, group, xlim, ylim, annotate_count=1)
+            alignment_z = alignment_by_condition.get((opinion, attack))
+            _draw_condition_vulnerability_plane(ax, group, xlim, ylim, annotate_count=1, alignment_z=alignment_z)
             if row_idx == 0:
                 ax.set_title(attack.replace("_", " "), fontsize=8.5)
             if col_idx == 0:
@@ -1037,7 +1113,7 @@ def plot_condition_vulnerability_grid(condition_profiles: pd.DataFrame) -> Path:
             else:
                 ax.set_ylabel("")
             if row_idx == len(opinions) - 1:
-                ax.set_xlabel("AE_private")
+                ax.set_xlabel("Private susceptibility (AE_private)")
             else:
                 ax.set_xlabel("")
     handles = [
@@ -1067,17 +1143,30 @@ def plot_condition_vulnerability_grid(condition_profiles: pd.DataFrame) -> Path:
     return save_fig(fig, "condition_susceptibility_centrality_planes.png")
 
 
-def plot_condition_vulnerability_single_maps(condition_profiles: pd.DataFrame) -> list[Path]:
+def plot_condition_vulnerability_single_maps(
+    condition_profiles: pd.DataFrame,
+    alignment: pd.DataFrame | None = None,
+) -> list[Path]:
     out_dir = FIGURES_DIR / "condition_vulnerability_planes"
     xlim, ylim = _condition_axis_limits(condition_profiles)
     paths: list[Path] = []
+    alignment_by_condition = _alignment_lookup(alignment)
     sns.set_theme(style="whitegrid", context="paper")
     for condition_id, group in condition_profiles.groupby("condition_id", sort=True):
         fig, ax = plt.subplots(figsize=(8.4, 5.8))
-        _draw_condition_vulnerability_plane(ax, group, xlim, ylim, annotate_count=5)
+        opinion = group["opinion_label"].iloc[0]
+        attack = group["attack_label"].iloc[0]
+        _draw_condition_vulnerability_plane(
+            ax,
+            group,
+            xlim,
+            ylim,
+            annotate_count=5,
+            alignment_z=alignment_by_condition.get((opinion, attack)),
+        )
         label = group["condition_label"].iloc[0].replace("_", " ")
         ax.set_title(label)
-        ax.set_xlabel("Private susceptibility: AE_private")
+        ax.set_xlabel("Private susceptibility (AE_private)")
         ax.set_ylabel("Exposure eigenvector centrality")
         handles = [
             Line2D(
@@ -1128,6 +1217,72 @@ def plot_centrality_susceptibility_alignment(alignment: pd.DataFrame) -> Path:
     return save_fig(fig, "centrality_susceptibility_alignment_by_condition.png")
 
 
+def _corr_text(df: pd.DataFrame, x: str, y: str) -> str:
+    values = df[[x, y]].dropna()
+    if values.shape[0] < 3 or values[x].nunique() < 2 or values[y].nunique() < 2:
+        return "r = n/a"
+    return f"r = {values.corr().iloc[0, 1]:+.2f}"
+
+
+def plot_alignment_vs_network_effect(alignment_outcome: pd.DataFrame) -> Path:
+    plot_df = alignment_outcome.copy()
+    plot_df["condition"] = (
+        plot_df["opinion_label"].str.replace("_", " ")
+        + " × "
+        + plot_df["attack_label"].str.replace("_", " ")
+    )
+    plot_df["is_positive_alignment"] = plot_df["centrality_susceptibility_excess_z"] >= 0
+    palette = {True: "#F0986E", False: "#A3D576"}
+
+    sns.set_theme(style="whitegrid", context="paper")
+    fig, axes = plt.subplots(1, 2, figsize=(12.0, 5.2), sharex=True)
+    panels = [
+        (
+            axes[0],
+            "mean_ae_total_network",
+            "Mean total network-exposed effect",
+            "Does alignment track final attack success?",
+        ),
+        (
+            axes[1],
+            "mean_pn_increment_effectivity",
+            "Mean post-network increment",
+            "Does alignment track the network layer itself?",
+        ),
+    ]
+    for ax, y_col, y_label, title in panels:
+        sns.regplot(
+            data=plot_df,
+            x="centrality_susceptibility_excess_z",
+            y=y_col,
+            scatter=False,
+            color="#464C55",
+            line_kws={"linewidth": 1.1, "linestyle": "--"},
+            ax=ax,
+        )
+        for positive, group in plot_df.groupby("is_positive_alignment"):
+            ax.scatter(
+                group["centrality_susceptibility_excess_z"],
+                group[y_col],
+                s=74,
+                color=palette[positive],
+                edgecolor="#464C55",
+                linewidth=0.65,
+                alpha=0.88,
+            )
+        ax.axvline(0, color="#1F2430", linewidth=1.0)
+        ax.axhline(0, color="#7A828F", linewidth=0.8, linestyle=":")
+        ax.set_xlabel("Centrality-susceptibility alignment (z)")
+        ax.set_ylabel(y_label)
+        ax.set_title(f"{title}\n{_corr_text(plot_df, 'centrality_susceptibility_excess_z', y_col)}")
+    fig.suptitle(
+        "Testing whether central susceptible placement corresponds to higher network attack effect",
+        y=1.03,
+    )
+    fig.tight_layout()
+    return save_fig(fig, "centrality_alignment_vs_network_effect.png")
+
+
 def render_report(
     run_id: str,
     paths: RunPaths,
@@ -1151,6 +1306,7 @@ def render_report(
     vulnerability = tables["vulnerability_hub_profiles"]
     condition_summary = tables["condition_vulnerability_summary"]
     alignment = tables["centrality_susceptibility_alignment"]
+    alignment_outcome = tables["centrality_alignment_outcome_link"]
 
     h2_r = correlations.loc[
         correlations["relationship"].eq("H2 scenario-level peer activation"), "pearson_r"
@@ -1188,6 +1344,16 @@ def render_report(
     bottom_alignment = alignment.nsmallest(3, "centrality_susceptibility_excess_z")
     strongest_positive = top_alignment.iloc[0]
     strongest_negative = bottom_alignment.iloc[0]
+    alignment_total_r = _corr_text(
+        alignment_outcome,
+        "centrality_susceptibility_excess_z",
+        "mean_ae_total_network",
+    )
+    alignment_increment_r = _corr_text(
+        alignment_outcome,
+        "centrality_susceptibility_excess_z",
+        "mean_pn_increment_effectivity",
+    )
     condition_gallery = []
     for path in condition_figure_paths:
         label = path.stem.replace("_", " ")
@@ -1524,12 +1690,37 @@ def render_report(
   </figure>
   {dataframe_to_html(alignment)}
 
-  <h2>9. Condition-Specific Vulnerability Planes</h2>
+  <h2>9. Alignment Versus Network Attack Effect</h2>
+  <p>
+    To connect the alignment metric to the hypothesis, the cleanest definition of <em>higher network success</em> is
+    <code>mean_ae_total_network = mean((PN - B) × d)</code>: the final direction-aware attack effect after private attack
+    exposure and post-attack network context. The more mechanism-specific definition is
+    <code>mean_pn_increment_effectivity = mean((PN - P) × d)</code>, which isolates the additional effect of seeing
+    same-condition peer post-attack outputs.
+  </p>
+  <p>
+    The hypothesis-consistent pattern is therefore: positive centrality-susceptibility alignment should correspond to
+    higher <code>mean_ae_total_network</code> and, more directly, higher <code>mean_pn_increment_effectivity</code>;
+    negative alignment should correspond to lower values. In run 2, the descriptive condition-level associations are
+    <code>{alignment_total_r}</code> for total network-exposed effect and <code>{alignment_increment_r}</code> for the
+    post-network increment.
+  </p>
+  <figure>
+    <img src="{fig["alignment_outcome"]}" alt="Centrality-susceptibility alignment versus network attack effect">
+    <figcaption>
+      Each point is one <code>opinion × attack</code> condition. The left panel uses the final total network-exposed
+      effect; the right panel uses the post-network increment, which is the stricter network-mechanism outcome.
+    </figcaption>
+  </figure>
+  {dataframe_to_html(alignment_outcome)}
+
+  <h2>10. Condition-Specific Vulnerability Planes</h2>
   <p>
     The averaged hub analysis can hide condition-specific structure. The sharper diagnostic is therefore one
     centrality-by-susceptibility map for each <code>opinion × attack</code> configuration. Each panel keeps the same
     60 profiles and the same empirical eigenvector centrality values; only private susceptibility changes because
-    <code>AE_private</code> is recomputed for that exact opinion and attack vector.
+    <code>AE_private</code> is recomputed for that exact opinion and attack vector. The small label in each panel reports
+    the primary alignment metric as <code>centrality shift z</code>.
   </p>
   <figure>
     <img src="{fig["condition_grid"]}" alt="Condition-specific susceptibility by centrality planes">
@@ -1546,7 +1737,7 @@ def render_report(
     </div>
   </details>
 
-  <h2>10. Interpretation And Limits Before Sharing</h2>
+  <h2>11. Interpretation And Limits Before Sharing</h2>
   <p>
     The run is suitable to share as a validation run for the new exposure layer. It shows that the empirical graph is used,
     that the two network phases complete, and that the resulting quantities answer the intended questions. It should not be
@@ -1665,6 +1856,10 @@ def main() -> None:
     tables["centrality_susceptibility_alignment"] = build_centrality_susceptibility_alignment(
         tables["condition_vulnerability_hub_profiles"]
     )
+    tables["centrality_alignment_outcome_link"] = build_alignment_outcome_link(
+        tables["condition_vulnerability_hub_profiles"],
+        tables["centrality_susceptibility_alignment"],
+    )
 
     for name, df in tables.items():
         save_csv(df, f"{name}.csv")
@@ -1680,10 +1875,15 @@ def main() -> None:
         "centrality_alignment": plot_centrality_susceptibility_alignment(
             tables["centrality_susceptibility_alignment"]
         ),
-        "condition_grid": plot_condition_vulnerability_grid(tables["condition_vulnerability_hub_profiles"]),
+        "alignment_outcome": plot_alignment_vs_network_effect(tables["centrality_alignment_outcome_link"]),
+        "condition_grid": plot_condition_vulnerability_grid(
+            tables["condition_vulnerability_hub_profiles"],
+            tables["centrality_susceptibility_alignment"],
+        ),
     }
     condition_figure_paths = plot_condition_vulnerability_single_maps(
-        tables["condition_vulnerability_hub_profiles"]
+        tables["condition_vulnerability_hub_profiles"],
+        tables["centrality_susceptibility_alignment"],
     )
 
     limitations_path = write_limitations(

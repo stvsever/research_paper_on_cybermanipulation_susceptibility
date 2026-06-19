@@ -1,6 +1,6 @@
 {
   "_metadata": {
-    "schema_version": "v4-test-run-1-production",
+    "schema_version": "v4-test-run-1-production-r3",
     "ontology_role": "deployment",
     "deployment_compatible": true,
     "title": "Cyber-manipulation of Political Opinions — Deployment Opinion Ontology",
@@ -36,188 +36,69 @@
     }
   },
   "_direction_rules": {
-    "schema_version": "v4-test-run-1-meta",
-    "rule_evaluation": "leaf_metadata_overrides_subtree_rule",
-    "_documentation": "Subtree-wide direction-encoding rules. Each rule applies to every direction-NEUTRAL leaf under the matched subtree (per-leaf metadata always overrides). The compatibility / adversarial-direction engine evaluates rules in order and applies the first matching rule that resolves a leaf's direction.",
-    "rules": [
-      {
-        "rule_id": "defence_subtree_default_negative",
-        "applies_to_opinion_paths": [
-          "**Issue_Position_Taxonomy > Defense_And_National_Security**",
-          "**Issue_Position_Taxonomy > Critical_Infrastructure_And_Energy_Sovereignty**"
-        ],
-        "default_direction": -1,
-        "rationale": "Erosion of defence and infrastructure capacity uniformly serves the adversary."
-      },
-      {
-        "rule_id": "information_integrity_subtree_default_negative",
-        "applies_to_opinion_paths": [
-          "**Issue_Position_Taxonomy > Information_Integrity_And_Platforms**"
-        ],
-        "default_direction": -1,
-        "rationale": "Erosion of information-integrity policy support widens manipulation surface."
-      },
-      {
-        "rule_id": "democratic_resilience_default_negative",
-        "applies_to_opinion_paths": [
-          "**Issue_Position_Taxonomy > Democratic_Resilience_And_Institutions**",
-          "**Democratic_Norms_And_Regime_Orientation > Democratic_Norm_Endorsement**",
-          "**Institutional_Trust_And_System_Legitimacy > Political_Trust_And_Legitimacy_Model**"
-        ],
-        "default_direction": -1,
-        "rationale": "Erosion of democratic norms and institutional trust serves the adversary's strategic goal."
-      },
-      {
-        "rule_id": "authoritarian_alternative_acceptance_default_positive",
-        "applies_to_opinion_paths": [
-          "**Democratic_Norms_And_Regime_Orientation > Authoritarian_Alternative_Acceptance**",
-          "**Democratic_Norms_And_Regime_Orientation > Political_Violence_And_Extremism_Risk_Model**"
-        ],
-        "default_direction": 1,
-        "rationale": "Higher willingness to accept authoritarian alternatives or political violence serves the adversary."
-      },
-      {
-        "rule_id": "conspiracy_subtree_default_positive",
-        "applies_to_opinion_paths": [
-          "**Conspiracy_Misinformation_And_Epistemic_Orientations > Specific_Conspiracy_Belief_Themes**",
-          "**Conspiracy_Misinformation_And_Epistemic_Orientations > Conspiracy_Mentality_Indicators**"
-        ],
-        "default_direction": 1,
-        "rationale": "Increased conspiracy belief erodes epistemic trust, serving the adversary."
-      },
-      {
-        "rule_id": "affective_polarisation_default_positive",
-        "applies_to_opinion_paths": [
-          "**Affective_Polarization_And_Partisan_Affect > Affective_Polarization_Model**",
-          "**Affective_Polarization_And_Partisan_Affect > Issue_Polarisation_Indicators**",
-          "**Affective_Polarization_And_Partisan_Affect > Group_Threat_And_Resentment_Indicators**"
-        ],
-        "default_direction": 1,
-        "rationale": "Polarisation and outgroup resentment fragment cohesive defence and serve the adversary."
-      },
-      {
-        "rule_id": "civic_participation_default_negative",
-        "applies_to_opinion_paths": [
-          "**Civic_Participation_Intentions > Electoral_Participation_Intent**",
-          "**Civic_Participation_Intentions > Institutional_Participation_Intent**",
-          "**Civic_Participation_Intentions > Civic_And_Information_Behaviour_Intent**"
-        ],
-        "default_direction": -1,
-        "rationale": "Civic participation builds resilience; demobilising it serves the adversary."
-      },
-      {
-        "rule_id": "trust_in_authoritarian_partners_default_positive",
-        "applies_to_opinion_paths": [
-          "**Affective_Polarization_And_Partisan_Affect > Specific_Foreign_Country_Attitudes > Affect_Toward_China**",
-          "**Affective_Polarization_And_Partisan_Affect > Specific_Foreign_Country_Attitudes > Affect_Toward_Russia**"
-        ],
-        "default_direction": 1,
-        "rationale": "Warmer affect toward authoritarian states blunts coercive statecraft consensus."
-      },
-      {
-        "rule_id": "atlantic_european_identity_default_negative",
-        "applies_to_opinion_paths": [
-          "**Political_Identity_And_Group_Attachment > National_And_Community_Identity > European_Identity_Strength**",
-          "**Political_Identity_And_Group_Attachment > National_And_Community_Identity > Atlanticist_Identity_Strength**"
-        ],
-        "default_direction": -1,
-        "rationale": "Erosion of European / Atlanticist identity weakens supranational coordination."
-      },
-      {
-        "rule_id": "fear_threat_chronic_default_neutral",
-        "applies_to_opinion_paths": [
-          "**Threat_Perceptions_And_Existential_Anxieties**",
-          "**Political_Emotions_And_Cognitive_Style**"
-        ],
-        "default_direction": 0,
-        "rationale": "Threat perceptions are dual-use; both inflation and deflation can serve / harm the adversary depending on issue."
-      },
-      {
-        "rule_id": "outgroup_resentment_default_positive",
-        "applies_to_opinion_paths": [
-          "**Group_Attitudes_And_Outgroup_Perceptions > Nativism_And_Outgroup_Attitudes**",
-          "**Group_Attitudes_And_Outgroup_Perceptions > Prejudice_And_Equality_Orientation**"
-        ],
-        "default_direction": 1,
-        "rationale": "Higher prejudice / nativism amplifies internal cohesion shocks the adversary can exploit."
-      }
-    ]
+    "schema_version": "v4-test-run-1-meta-r2",
+    "convention": "adversarial_direction ∈ {-1,0,+1}: +1 = adversary amplifies/increases the construct; -1 = adversary erodes/decreases it; 0 = not a general cognitive-warfare target (retained for opinion diversity).",
+    "encoding_basis": "General FIMI / cognitive-warfare goals: erode institutional trust, social cohesion, democratic norms, political efficacy, civic participation, alliance/EU support and information-integrity policy; amplify affective polarization, conspiracy/misinformation receptivity, threat perception and anxiety, authoritarianism, nativism/outgroup hostility, exclusionary nationalism and epistemic vulnerability. Per-leaf adversarial_direction is authoritative.",
+    "rules": []
   },
   "Issue_Position_Taxonomy": {
     "Defense_And_National_Security": {
       "Defense_Spending_Increase_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower defence spending degrades deterrence."
+        "adversarial_direction": -1
       },
       "Alliance_Commitment_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Erosion of alliance commitment fractures collective defence."
+        "adversarial_direction": -1
       },
       "Strategic_Autonomy_Support": {
-        "adversarial_direction": 1,
-        "direction_rationale": "Maximalist autonomy framings can be weaponised against alliance integration."
+        "adversarial_direction": -1
       },
       "Conscription_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower societal willingness for conscription degrades mobilisation."
+        "adversarial_direction": -1
       },
       "Arms_Exports_Permissiveness_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower arms-export permissiveness shrinks the defence-industrial base."
+        "adversarial_direction": 0
       },
       "Intelligence_Oversight_Strengthening_Support": {
-        "adversarial_direction": 1,
-        "direction_rationale": "Maximalist oversight can be weaponised to constrain counter-intelligence."
+        "adversarial_direction": -1
       },
       "Domestic_Security_Powers_Expansion_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower public support limits internal defence capacity."
+        "adversarial_direction": 0
       },
       "Border_Security_Militarization_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower support reduces capacity to handle hybrid border pressure."
+        "adversarial_direction": 0
       },
       "Nuclear_Deterrence_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Erosion of nuclear-deterrence support degrades strategic stability."
+        "adversarial_direction": -1
       },
       "Cyber_Defense_Investment_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower support for cyber-defence widens the attacker's window."
+        "adversarial_direction": -1
       },
       "Civil_Defense_Preparedness_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower civil-defence preparedness amplifies crisis-shock vulnerability."
+        "adversarial_direction": -1
       },
       "Forward_Deployment_Host_Nation_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Eroded host-nation support shrinks forward-deployment options."
+        "adversarial_direction": -1
       },
       "Critical_Infrastructure_Hardening_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower hardening leaves critical systems exposed."
+        "adversarial_direction": -1
       },
       "Counter_Hybrid_Warfare_Capability_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Direct degradation of capacity to respond to the adversary's own toolkit."
+        "adversarial_direction": -1
       },
       "Defense_Industrial_Reshoring_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower reshoring support keeps supply chains exposed."
+        "adversarial_direction": -1
       },
       "Allied_Cyber_Incident_Mutual_Assistance_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Erosion weakens collective cyber response."
+        "adversarial_direction": -1
       },
       "Defense_Procurement_Transparency_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Veteran_Welfare_Investment_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Reserve_Force_Modernization_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower support degrades surge capacity."
+        "adversarial_direction": -1
       },
       "Special_Operations_Capability_Investment_Support": {
         "adversarial_direction": -1
@@ -237,29 +118,25 @@
     },
     "Foreign_Policy_And_Geopolitics": {
       "Multilateralism_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Multilateralism enables coordinated counter-action."
+        "adversarial_direction": -1
       },
       "Unilateralism_Preference": {
-        "adversarial_direction": 1,
-        "direction_rationale": "Unilateralism fractures coalitions."
+        "adversarial_direction": 1
       },
       "International_Cooperation_Support": {
         "adversarial_direction": -1
       },
       "Non_Interventionism_Support": {
-        "adversarial_direction": 1,
-        "direction_rationale": "Non-interventionism reduces deterrent will."
+        "adversarial_direction": 1
       },
       "Humanitarian_Intervention_Support": {
         "adversarial_direction": -1
       },
       "Sanctions_Use_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Lower public support undermines coercive economic statecraft."
+        "adversarial_direction": -1
       },
       "Diplomacy_First_Preference": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "International_Law_Compliance_Priority": {
         "adversarial_direction": -1
@@ -268,8 +145,7 @@
         "adversarial_direction": -1
       },
       "Sphere_Of_Influence_Acceptance": {
-        "adversarial_direction": 1,
-        "direction_rationale": "Acceptance legitimates revisionist regional claims."
+        "adversarial_direction": 1
       },
       "Energy_Independence_From_Authoritarian_Suppliers_Support": {
         "adversarial_direction": -1
@@ -278,8 +154,7 @@
         "adversarial_direction": -1
       },
       "Great_Power_Appeasement_Acceptance": {
-        "adversarial_direction": 1,
-        "direction_rationale": "Appeasement reduces deterrent posture."
+        "adversarial_direction": 1
       },
       "Overseas_Development_Aid_Support": {
         "adversarial_direction": -1
@@ -301,6 +176,12 @@
       },
       "Trade_With_Authoritarian_States_Support": {
         "adversarial_direction": 1
+      },
+      "Military_Aid_To_Invaded_Allies_Support": {
+        "adversarial_direction": -1
+      },
+      "Energy_Dependence_On_Authoritarian_Suppliers_Acceptance": {
+        "adversarial_direction": 1
       }
     },
     "Information_Integrity_And_Platforms": {
@@ -308,8 +189,7 @@
         "adversarial_direction": -1
       },
       "Counter_Disinformation_Agency_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Erosion delegitimises the agencies that detect influence operations."
+        "adversarial_direction": -1
       },
       "Foreign_Information_Manipulation_Transparency_Mandate_Support": {
         "adversarial_direction": -1
@@ -327,8 +207,7 @@
         "adversarial_direction": 1
       },
       "Trust_In_Mainstream_Journalism": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Erosion is a primary objective of cognitive warfare."
+        "adversarial_direction": -1
       },
       "Public_Service_Broadcasting_Funding_Support": {
         "adversarial_direction": -1
@@ -381,7 +260,7 @@
         "adversarial_direction": 0
       },
       "Press_Freedom_Protection_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Counterterrorism_Powers_Expansion_Support": {
         "adversarial_direction": 0
@@ -443,7 +322,7 @@
         "adversarial_direction": -1
       },
       "Trust_In_Police": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Constitutional_Constraint_Endorsement": {
         "adversarial_direction": -1
@@ -470,34 +349,33 @@
         "adversarial_direction": -1
       },
       "Direct_Democracy_Referendums_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Compulsory_Voting_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Automatic_Voter_Registration_Support": {
         "adversarial_direction": -1
       },
       "Electoral_Reform_Proportionality_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Term_Limits_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Decentralization_Federalism_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Technology_And_Ai_Governance": {
       "Ai_Regulation_Support": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Erosion preserves manoeuvre space for adversarial AI tooling."
+        "adversarial_direction": 0
       },
       "Algorithmic_Transparency_Requirements_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Cybersecurity_Regulation_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Digital_Surveillance_Acceptance": {
         "adversarial_direction": 0
@@ -509,10 +387,10 @@
         "adversarial_direction": 0
       },
       "Sovereign_Cloud_Investment_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Open_Source_Software_Mandate_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Right_To_Repair_Support": {
         "adversarial_direction": 0
@@ -524,25 +402,25 @@
         "adversarial_direction": 0
       },
       "Quantum_Computing_Investment_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Semiconductor_Industrial_Policy_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Compute_Export_Controls_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Ai_Watermarking_Mandate_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Public_Ai_Compute_Investment_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Open_Foundation_Model_Release_Support": {
         "adversarial_direction": 0
       },
       "Ai_Liability_Regime_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       }
     },
     "Critical_Infrastructure_And_Energy_Sovereignty": {
@@ -574,7 +452,7 @@
         "adversarial_direction": -1
       },
       "Nuclear_Power_Investment_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Renewable_Energy_Sovereignty_Support": {
         "adversarial_direction": -1
@@ -585,58 +463,58 @@
     },
     "Immigration_And_Citizenship": {
       "Refugee_Acceptance_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Asylum_Process_Expansion_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Border_Enforcement_Expansion_Support": {
-        "adversarial_direction": 1
+        "adversarial_direction": 0
       },
       "Multiculturalism_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Migration_Securitization_Framing_Acceptance": {
-        "adversarial_direction": 1
+        "adversarial_direction": 0
       },
       "Eu_Common_Asylum_System_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Integration_Funding_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Pathway_To_Citizenship_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Family_Reunification_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Birthright_Citizenship_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Assimilationism_Support": {
-        "adversarial_direction": 1
+        "adversarial_direction": 0
       },
       "Language_Integration_Requirements_Support": {
         "adversarial_direction": 0
       },
       "Deportation_Enforcement_Support": {
-        "adversarial_direction": 1
+        "adversarial_direction": 0
       },
       "Detention_Of_Irregular_Migrants_Acceptance": {
-        "adversarial_direction": 1
+        "adversarial_direction": 0
       },
       "Cross_Border_Labor_Mobility_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Humanitarian_Corridor_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Skilled_Migration_Expansion_Support": {
         "adversarial_direction": 0
       },
       "Climate_Migration_Recognition_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       }
     },
     "Macroeconomic_And_Fiscal_Policy": {
@@ -674,16 +552,16 @@
         "adversarial_direction": 0
       },
       "Central_Bank_Independence_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Sovereign_Wealth_Fund_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Trade_With_Authoritarian_States_Support": {
         "adversarial_direction": 1
       },
       "Industrial_Policy_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Antitrust_Enforcement_Support": {
         "adversarial_direction": 0
@@ -755,7 +633,7 @@
         "adversarial_direction": 0
       },
       "Pandemic_Preparedness_Investment_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Public_Health_Mandate_Acceptance": {
         "adversarial_direction": 0
@@ -776,10 +654,10 @@
         "adversarial_direction": 0
       },
       "Antimicrobial_Resistance_Investment_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Biosecurity_Investment_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       }
     },
     "Education_And_Human_Capital": {
@@ -790,10 +668,10 @@
         "adversarial_direction": 0
       },
       "Civics_Education_Expansion_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Academic_Freedom_Protection_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Curriculum_Parental_Control_Support": {
         "adversarial_direction": 0
@@ -811,7 +689,7 @@
         "adversarial_direction": 0
       },
       "Foreign_Language_Education_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       }
     },
     "Environment_Climate_And_Energy": {
@@ -872,7 +750,7 @@
         "adversarial_direction": 0
       },
       "Anti_Corruption_Enforcement_Strengthening_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Death_Penalty_Support": {
         "adversarial_direction": 0
@@ -895,10 +773,10 @@
         "adversarial_direction": 0
       },
       "Submarine_Cable_Investment_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Strategic_Port_Investment_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       }
     },
     "Trade_And_Globalization": {
@@ -912,13 +790,13 @@
         "adversarial_direction": 0
       },
       "Strategic_Decoupling_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Foreign_Investment_Screening_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Food_And_Energy_Sovereignty_Priority": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       }
     },
     "Supranational_And_Regional_Integration": {
@@ -969,22 +847,22 @@
     },
     "International_Development_And_Human_Rights": {
       "Foreign_Aid_Spending_Increase_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Human_Rights_Conditionality_On_Aid_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Climate_Finance_Contributions_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Refugee_Aid_Funding_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "International_Criminal_Justice_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       },
       "Global_Public_Health_Funding_Support": {
-        "adversarial_direction": -1
+        "adversarial_direction": 0
       }
     }
   },
@@ -1120,16 +998,16 @@
           "adversarial_direction": 0
         },
         "Restrictionist_Outgroup_Policy_Preference": {
-          "adversarial_direction": 1
+          "adversarial_direction": 0
         },
         "Strong_Leader_Preference": {
-          "adversarial_direction": 1
+          "adversarial_direction": 0
         },
         "National_Sovereignty_Priority": {
           "adversarial_direction": 1
         },
         "Assimilationist_Cultural_Preference": {
-          "adversarial_direction": 1
+          "adversarial_direction": 0
         }
       }
     },
@@ -1139,7 +1017,7 @@
           "adversarial_direction": 0
         },
         "Harm_Avoidance": {
-          "adversarial_direction": 0
+          "adversarial_direction": -1
         },
         "Protection_Of_Vulnerable_Groups": {
           "adversarial_direction": 0
@@ -1158,7 +1036,7 @@
       },
       "Loyalty_Betrayal": {
         "Ingroup_Loyalty": {
-          "adversarial_direction": 0
+          "adversarial_direction": 1
         },
         "Patriotism": {
           "adversarial_direction": 0
@@ -1172,7 +1050,7 @@
           "adversarial_direction": 0
         },
         "Deference_To_Legitimate_Authority": {
-          "adversarial_direction": 0
+          "adversarial_direction": 1
         },
         "Order_Maintenance": {
           "adversarial_direction": 0
@@ -1180,13 +1058,13 @@
       },
       "Sanctity_Degradation": {
         "Purity_Concerns": {
-          "adversarial_direction": 0
+          "adversarial_direction": 1
         },
         "Disgust_Sensitivity_In_Moral_Judgment": {
           "adversarial_direction": 0
         },
         "Bodily_And_Symbolic_Purity": {
-          "adversarial_direction": 0
+          "adversarial_direction": 1
         }
       },
       "Liberty_Oppression": {
@@ -1203,10 +1081,10 @@
     },
     "Schwartz_Political_Value_Orientation_Model": {
       "Universalism": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Benevolence": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Self_Direction": {
         "adversarial_direction": 0
@@ -1221,52 +1099,52 @@
         "adversarial_direction": 0
       },
       "Power": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Security": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Conformity": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Tradition": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Right_Wing_Authoritarianism_Model": {
       "Authoritarian_Submission": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Authoritarian_Aggression": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Conventionalism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Left_Wing_Authoritarianism_Model": {
       "Anti_Hierarchical_Aggression": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Top_Down_Censorship_For_Moral_Goals": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Anti_Conventional_Conventionalism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Social_Dominance_Orientation_Model": {
       "Group_Based_Dominance": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Anti_Egalitarianism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Dominance_Subdimension": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Anti_Egalitarianism_Subdimension": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "System_Justification_Theory": {
@@ -1288,39 +1166,39 @@
     },
     "Dual_Process_Motivational_Model": {
       "Dangerous_Worldview": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Competitive_Jungle_Worldview": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Threat_Sensitivity": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Hierarchy_Preference": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Normative_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Existential_Insecurity": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Populist_Attitudes_Model": {
       "Anti_Elitism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "People_Centrism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Popular_Sovereignty": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Manichean_Worldview": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Anti_Pluralism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Distributional_Justice_Model": {
@@ -1368,7 +1246,7 @@
         "adversarial_direction": 0
       },
       "Religious_Fundamentalism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Secular_Identity": {
         "adversarial_direction": 0
@@ -1377,7 +1255,7 @@
         "adversarial_direction": 0
       },
       "Church_State_Separation_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     }
   },
@@ -1410,7 +1288,7 @@
         "adversarial_direction": 0
       },
       "Strength_Of_Party_Identification": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Partisan_Consistency": {
         "adversarial_direction": 0
@@ -1419,7 +1297,7 @@
         "adversarial_direction": 0
       },
       "Negative_Partisanship": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Cross_Pressured_Partisan_Identity": {
         "adversarial_direction": 0
@@ -1465,7 +1343,7 @@
     },
     "National_And_Community_Identity": {
       "National_Identity_Strength": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Civic_Vs_Ethnic_National_Identity_Orientation": {
         "adversarial_direction": 0
@@ -1477,7 +1355,7 @@
         "adversarial_direction": 0
       },
       "Ethnic_Identity_Political_Salience": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Religious_Identity_Political_Salience": {
         "adversarial_direction": 0
@@ -1489,12 +1367,10 @@
         "adversarial_direction": 0
       },
       "European_Identity_Strength": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Erosion of European identity weakens supranational coordination."
+        "adversarial_direction": -1
       },
       "Atlanticist_Identity_Strength": {
-        "adversarial_direction": -1,
-        "direction_rationale": "Erosion of Atlanticist identity fractures NATO cohesion."
+        "adversarial_direction": -1
       },
       "Diaspora_Identity_Strength": {
         "adversarial_direction": 0
@@ -1504,329 +1380,329 @@
   "Affective_Polarization_And_Partisan_Affect": {
     "Affective_Polarization_Model": {
       "Outparty_Dislike": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Inparty_Affective_Attachment": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Social_Distance_From_Opponents": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Moralized_Political_Identity": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Support_For_Discriminatory_Behavior_Toward_Opponents": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Outgroup_Dehumanization": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Affective_Distance_Toward_Media_Opponents": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Issue_Polarisation_Indicators": {
       "Cross_Issue_Position_Constraint": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Issue_Position_Extremity": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Within_Camp_Variance": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Bimodality_Of_Issue_Distribution": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Partisan_Affect_Toward_Institutions": {
       "Affect_Toward_Mainstream_Media": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Public_Service_Broadcasting": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Election_Authority": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Police": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Judiciary": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Civil_Service": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Defense_Establishment": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Universities_And_Science": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Public_Health_Authorities": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_International_Institutions": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Partisan_Affect_Toward_Outgroups": {
       "Affect_Toward_Immigrants": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Religious_Minorities": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Lgbtq_Communities": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Ethnic_Minorities": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Wealthy_Class": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Working_Class": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Foreign_Nationals_Of_Specific_States": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Group_Threat_And_Resentment_Indicators": {
       "Status_Threat_From_Demographic_Change": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Status_Threat_From_Cultural_Change": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Status_Threat_From_Economic_Change": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Resentment_Toward_Beneficiary_Groups": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Resentment_Toward_Elite_Groups": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Resentment_Toward_Foreign_Influence": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Inter_Group_Contact_Orientations": {
       "Cross_Cutting_Friendship_Openness": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Cross_Cutting_Workplace_Openness": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Cross_Cutting_Romantic_Openness": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Cross_Cutting_Civic_Discussion_Openness": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     }
   },
   "Institutional_Trust_And_System_Legitimacy": {
     "Political_Trust_And_Legitimacy_Model": {
       "Trust_In_Government": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Parliament_Or_Legislature": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Judiciary": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Police": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Civil_Service": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Political_Parties": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Local_Government": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Science_And_Experts": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Media": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Public_Service_Media": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Independent_Fact_Checkers": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Election_Authority": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Defense_Establishment": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Public_Health_Authorities": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_International_Institutions": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Allies": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Perceived_Institutional_Legitimacy": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Perceived_Procedural_Fairness": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Perceived_Responsiveness_Of_Institutions": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Perceived_Institutional_Effectiveness": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Generalised_Trust": {
       "Generalised_Social_Trust": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Strangers": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Local_Community": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Online_Communities": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Regime_Legitimacy_Indicators": {
       "Diffuse_System_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Specific_System_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_Constitutional_Legitimacy": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_Election_Outcome_Legitimacy": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_Court_Legitimacy": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_Civil_Service_Legitimacy": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     }
   },
   "Democratic_Norms_And_Regime_Orientation": {
     "Democratic_Norm_Endorsement": {
       "Support_For_Democracy_As_Best_System": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Commitment_To_Loser_Consent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Tolerance_Of_Opposition_Rights": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Commitment_To_Peaceful_Transfer_Of_Power": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Rejection_Of_Political_Violence": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Support_For_Constitutional_Constraints": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Civilian_Control_Of_Military_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Free_Press_Endorsement": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Independent_Judiciary_Endorsement": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Minority_Rights_Protection_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Pluralism_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Compromise_Norm_Endorsement": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Authoritarian_Alternative_Acceptance": {
       "Technocratic_Government_Preference": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Strong_Leader_Without_Parliament_Preference": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Military_Rule_Acceptance": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Rule_By_Experts_Over_Elected_Officials_Preference": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Emergency_Government_Powers_Acceptance": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "One_Party_Rule_Acceptance": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Presidential_Override_Acceptance": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Political_Violence_And_Extremism_Risk_Model": {
       "Justification_Of_Political_Violence": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Willingness_For_Illegal_Action_For_Political_Ends": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Support_For_Militant_Activism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Apocalyptic_Or_Catastrophist_Political_Beliefs": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Dehumanization_Of_Opponents": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Acceptance_Of_Civil_Conflict_Possibility": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Election_Integrity_Beliefs": {
       "Belief_Election_Was_Free_And_Fair": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_Voter_Fraud_Prevalence": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Belief_In_Foreign_Election_Interference": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_Counting_Process_Integrity": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_Mail_Voting_Integrity": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_Election_Observer_Independence": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     }
   },
@@ -1836,199 +1712,199 @@
         "adversarial_direction": 0
       },
       "Ethnic_Nationalism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "National_Superiority_Beliefs": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "National_Identification_Strength": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Patriotism_Constructive": {
         "adversarial_direction": 0
       },
       "Patriotism_Blind": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Symbolic_Nationalism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Aggressive_Nationalism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Cosmopolitanism_And_Global_Identity": {
       "Cosmopolitan_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Global_Identity_Strength": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "World_Citizenship_Endorsement": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Pro_Global_Governance_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Multicultural_Citizenship_Support": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Sovereignty_Orientation": {
       "Strong_Sovereigntism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Anti_Supranationalism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Anti_Globalism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Strategic_Decoupling_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Sovereign_Capability_Investment_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Empire_And_Civilizational_Orientation": {
       "Civilizational_Identity_Salience": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Cultural_Sphere_Belonging": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Manifest_Destiny_Style_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Reverse_Colonial_Resentment": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     }
   },
   "Conspiracy_Misinformation_And_Epistemic_Orientations": {
     "Conspiracy_Mentality_Indicators": {
       "Generalised_Conspiracy_Mentality": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Hidden_Hand_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Cover_Up_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Distrust_Of_Official_Accounts": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Pattern_Seeking_In_Politics": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Apophenia_In_Politics": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Specific_Conspiracy_Belief_Themes": {
       "Deep_State_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Engineered_Crisis_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Demographic_Replacement_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Vaccine_Or_Pharma_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Climate_Hoax_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Election_Stolen_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Globalist_Cabal_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Foreign_Plot_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Suppressed_Cure_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Mass_Surveillance_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Apocalyptic_Conspiracy_Belief": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Misinformation_Susceptibility_Indicators": {
       "Belief_In_Easily_Falsifiable_Claims": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Reliance_On_Single_Source_Verification": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Vulnerability_To_Repetition_Effects": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Vulnerability_To_Source_Cue_Effects": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Inability_To_Distinguish_Synthetic_Media": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Vulnerability_To_Numeric_Anchoring": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Epistemic_Style": {
       "Need_For_Closure": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Need_For_Cognition": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Cognitive_Reflection": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Integrative_Complexity": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Tolerance_Of_Ambiguity": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Dogmatism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Open_Mindedness": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Intellectual_Humility": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Analytic_Vs_Intuitive_Reasoning": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Bullshit_Receptivity": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Susceptibility_To_Bayesian_Updating": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Source_Trust_Calibration": {
       "Trust_In_Mainstream_Journalism_Construct": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Alternative_Media_Construct": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Trust_In_Government_As_Source": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Scientists_As_Source": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Trust_In_Friends_And_Family_As_Source": {
         "adversarial_direction": 0
@@ -2044,177 +1920,177 @@
   "Threat_Perceptions_And_Existential_Anxieties": {
     "Security_Threat_Perceptions": {
       "Crime_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Terrorism_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Foreign_Military_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Cyber_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Hybrid_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Disinformation_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Cultural_Threat_Perceptions": {
       "Cultural_Erasure_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Religious_Persecution_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Language_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Family_Norm_Erosion_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Economic_Threat_Perceptions": {
       "Job_Insecurity_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Inflation_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Cost_Of_Living_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Housing_Insecurity_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Pension_Insecurity_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Demographic_Threat_Perceptions": {
       "Demographic_Replacement_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Aging_Society_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Migration_Volume_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Health_And_Bio_Threat_Perceptions": {
       "Pandemic_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Antibiotic_Resistance_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Bioterrorism_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Climate_And_Environmental_Threat_Perceptions": {
       "Climate_Catastrophe_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Resource_Scarcity_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Biodiversity_Collapse_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Pollution_Health_Threat_Perception": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Existential_Worldview_Indicators": {
       "Belief_In_Civilizational_Decline": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Belief_In_Imminent_Collapse": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Belief_In_Generational_Reckoning": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Belief_In_Inevitable_Conflict": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     }
   },
   "Group_Attitudes_And_Outgroup_Perceptions": {
     "Nativism_And_Outgroup_Attitudes": {
       "Nativism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Xenophobia": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Ethnocentrism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Anti_Immigrant_Resentment": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Perceived_Cultural_Threat_From_Outgroups": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Perceived_Economic_Threat_From_Outgroups": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Intergroup_Contact_Openness": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Prejudice_And_Equality_Orientation": {
       "Racial_Resentment": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Modern_Racism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Hostile_Sexism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Benevolent_Sexism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Homonegativity": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Transnegativity": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Ableism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Religious_Prejudice": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Class_Prejudice": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Universal_Human_Equality_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Collective_Narcissism_And_Grievance": {
       "Collective_Narcissism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Ingroup_Entitlement": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Need_For_External_Recognition": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Perceived_Ingroup_Underappreciation": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Historical_Grievance_Salience": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Specific_Foreign_Country_Attitudes": {
@@ -2228,13 +2104,13 @@
         "adversarial_direction": 0
       },
       "Affect_Toward_Eu_As_Whole": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Specific_Allies": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Affect_Toward_Specific_Adversary_States": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Affect_Toward_Israel": {
         "adversarial_direction": 0
@@ -2247,148 +2123,148 @@
   "Civic_Participation_Intentions": {
     "Electoral_Participation_Intent": {
       "Voting_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Voter_Registration_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Party_Membership_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Campaign_Volunteering_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Candidate_Support_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Running_For_Office_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Election_Monitoring_Or_Poll_Work_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Postal_Voting_Use_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Early_Voting_Use_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Institutional_Participation_Intent": {
       "Contacting_Representatives_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Petition_Signing_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Town_Hall_Attendance_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Consultation_Submission_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Jury_Duty_Acceptance_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Participatory_Budgeting_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Public_Comment_Submission_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Collective_Action_Intent": {
       "Protest_Participation_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Strike_Participation_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Boycott_Participation_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Buycott_Ethical_Consumption_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Grassroots_Organizing_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Civil_Disobedience_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Occupation_Or_Blockade_Participation_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Online_To_Offline_Mobilisation_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Civic_And_Information_Behaviour_Intent": {
       "Political_Discussion_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "News_Seeking_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Fact_Checking_Behaviour_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Cross_Cutting_Exposure_Seeking_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Political_Content_Creation_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Online_Activism_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Political_Donation_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Symbolic_Expression_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Volunteer_Civic_Education_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Community_And_Civil_Society_Intent": {
       "Community_Organising_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Ngo_Or_Association_Membership_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Mutual_Aid_Participation_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Civic_Volunteering_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Union_Membership_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Faith_Based_Civic_Engagement_Intent": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     }
   },
   "Information_Behaviour_And_Media_Diet": {
     "Media_Diet_Orientation": {
       "Public_Service_Media_Use_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Legacy_News_Use_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Partisan_Media_Use_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Alternative_Media_Use_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Social_Media_News_Use_Orientation": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Podcast_And_Long_Form_Use_Orientation": {
         "adversarial_direction": 0
@@ -2408,34 +2284,34 @@
     },
     "Information_Evaluation_Orientation": {
       "Source_Verification_Behaviour": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Reliance_On_Experts": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Reliance_On_Peer_Networks": {
         "adversarial_direction": 0
       },
       "Trust_In_Fact_Checkers": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Sensitivity_To_Misinformation_Corrections": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Selective_Exposure": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Confirmation_Bias_In_News_Selection": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Lateral_Reading_Habit": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Reverse_Image_Search_Habit": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Citation_Following_Habit": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Political_Expression_Orientation": {
@@ -2443,10 +2319,10 @@
         "adversarial_direction": 0
       },
       "Self_Censorship": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Spiral_Of_Silence_Susceptibility": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Meme_And_Symbolic_Communication": {
         "adversarial_direction": 0
@@ -2468,71 +2344,71 @@
   "Political_Emotions_And_Cognitive_Style": {
     "Acute_Political_Emotions": {
       "Fear_Response_To_Political_News": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Anger_Response_To_Political_News": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Disgust_Response_To_Political_News": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Hope_Response_To_Political_News": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Pride_Response_To_Political_News": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Shame_Response_To_Political_News": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Sadness_Response_To_Political_News": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Outrage_Response_To_Political_News": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       }
     },
     "Chronic_Political_Emotions": {
       "Chronic_Political_Anxiety": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Chronic_Political_Cynicism": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Chronic_Political_Hopelessness": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Chronic_Political_Resentment": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Chronic_Political_Optimism": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Chronic_Civic_Pride": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Cognitive_Style_In_Political_Reasoning": {
       "Motivated_Reasoning_Tendency": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Identity_Protective_Cognition": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Affect_Heuristic_Use": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Availability_Heuristic_Use": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Anchoring_Heuristic_Use": {
-        "adversarial_direction": 0
+        "adversarial_direction": 1
       },
       "Counterfactual_Reasoning_Use": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Bayesian_Updating_Tendency": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     }
   },
@@ -2592,49 +2468,49 @@
   "Political_Efficacy_And_Agency": {
     "Internal_Political_Efficacy": {
       "Self_Perceived_Political_Competence": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Self_Perceived_Civic_Knowledge": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Confidence_In_Own_Political_Reasoning": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "External_Political_Efficacy": {
       "Belief_That_Government_Listens": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_That_Voting_Matters": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_That_Protests_Influence_Policy": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_That_Citizen_Action_Changes_Outcomes": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Collective_Efficacy_For_Political_Change": {
       "Belief_In_Movement_Capacity": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_Coalition_Capacity": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_Community_Capacity": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "Belief_In_International_Movement_Capacity": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     },
     "Locus_Of_Control_Political": {
       "Internal_Political_Locus_Of_Control": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       },
       "External_Political_Locus_Of_Control": {
-        "adversarial_direction": 0
+        "adversarial_direction": -1
       }
     }
   }

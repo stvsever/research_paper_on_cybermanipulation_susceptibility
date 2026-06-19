@@ -1,0 +1,62 @@
+Methodology Audit and Peer-Review Risk Register
+===============================================
+
+Assumption Register
+-------------------
+1. Assumption: Profile-panel sample size is sufficient for stable moderation estimates.
+   Status: ok
+   Evidence: {'n_profiles': 100, 'n_rows': 1517, 'n_attack_opinion_tasks': 1517}
+   Mitigation: Interpret run_1 coefficients as exploratory panel diagnostics and scale the profile count before making substantive moderator claims.
+
+2. Assumption: Attack-only design is intentional and aligned with the moderation question.
+   Status: ok
+   Evidence: {'analysis_mode': 'treated_only', 'attack_ratio': 1.0}
+   Mitigation: Interpret results as moderation among attacked individuals, not as a no-attack counterfactual contrast.
+
+3. Assumption: Opinion measurement has enough numeric resolution.
+   Status: ok
+   Evidence: {'unique_baseline_scores': 476}
+   Mitigation: Prompt enforces high-resolution scores in [-1000,1000].
+
+4. Assumption: Attack-generation quality checks indicate usable exposure texts.
+   Status: risk
+   Evidence: {'mean_attack_realism_score': None, 'attack_heuristic_pass_rate': 0.0}
+   Mitigation: Inspect Stage 03 reviewer outputs and treat zero-scored or fallback-generated attack content as a run-quality failure rather than as substantive evidence.
+
+5. Assumption: Baseline and post-exposure opinions were generated without heavy fallback substitution.
+   Status: ok
+   Evidence: {'baseline_fallback_rate': 0.0, 'post_fallback_rate': 0.0, 'baseline_heuristic_pass_rate': 0.0, 'post_heuristic_pass_rate': 0.0, 'mean_post_plausibility_score': None}
+   Mitigation: Re-run stages 02–04 with funded API access before interpreting moderator coefficients as anything other than pipeline-diagnostic outputs.
+
+6. Assumption: SEM converges with acceptable fit.
+   Status: risk
+   Evidence: {'sem_converged': False, 'CFI': None, 'RMSEA': None, 'near_saturated_fit': False, 'warnings': ['Path SEM skipped: only 0 profiles are jointly observed on the 8 repeated-outcome indicators (nested cluster design). Primary moderation evidence is the profile-level OLS/ridge/elastic-net/random-forest models and the conditional susceptibility index.']}
+   Mitigation: Treat near-perfect fit in small profile panels as a saturation warning; rely on robustness diagnostics and larger panels instead of fit indices alone.
+
+7. Assumption: LLM outputs are reproducible and auditable.
+   Status: ok
+   Evidence: {'raw_llm_logging': True}
+   Mitigation: Persist all prompts/outputs in provenance/raw_llm.
+
+Peer-Review Critique Mitigations
+-------------------------------
+1. Potential critique: Synthetic LLM agents may not represent human cognition or causal response behavior.
+   Implemented change: Added transparent assumption register and explicit exploratory caveat in reports.
+
+2. Potential critique: Adversarial content may be unrealistic or too generic.
+   Implemented change: Added realism review agent with rewrite loop and heuristic checks.
+
+3. Potential critique: Model dependence on a single LLM could bias outputs.
+   Implemented change: Model is CLI-configurable and run metadata captures exact model for replication.
+
+4. Potential critique: Insufficient sample size inflates uncertainty and may destabilize SEM.
+   Implemented change: Included robust OLS complement and explicit testing-run warnings; ready for scale-up runs.
+
+5. Potential critique: Attack-only designs cannot estimate the incremental effect of exposure relative to a no-attack counterfactual.
+   Implemented change: The report states explicitly that the attacked-only design estimates heterogeneity of post-minus-baseline response among attacked individuals only.
+
+6. Potential critique: SEM warnings indicate possible misfit or numerical instability.
+   Implemented change: Warnings surfaced in reports and fit diagnostics exported for scrutiny.
+
+7. Potential critique: Global SEM fit is not evidential at this scale; either misfit or near-saturation can make fit indices misleading.
+   Implemented change: The report now treats SEM fit indices as diagnostics only and triangulates them with ICC, bootstrap, ridge, and fallback-quality diagnostics.

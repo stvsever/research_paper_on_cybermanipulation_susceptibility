@@ -1,0 +1,31 @@
+{
+  "stage_id": "02b",
+  "stage_name": "assess_network_exposure_opinions",
+  "created_at_utc": "2026-06-19T18:01:50.933863+00:00",
+  "input_path": "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_3/stage_outputs/02_assess_baseline_opinions/scenarios_with_baseline.jsonl",
+  "primary_output_path": "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_3/stage_outputs/02b_assess_network_exposure_opinions/scenarios_with_network_exposure.jsonl",
+  "output_files": [
+    "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_3/stage_outputs/02b_assess_network_exposure_opinions/scenarios_with_network_exposure.jsonl",
+    "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_3/stage_outputs/02b_assess_network_exposure_opinions/network_exposure_assessments.jsonl",
+    "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_3/stage_outputs/02b_assess_network_exposure_opinions/network_contexts.jsonl",
+    "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_3/stage_outputs/02b_assess_network_exposure_opinions/network_exposure_summary.json"
+  ],
+  "record_count": 100,
+  "metadata": {
+    "n_leaf_measurements": 1517,
+    "calls_made": 100,
+    "fallback_scenarios": 0,
+    "openrouter_model": "deepseek/deepseek-v4-flash",
+    "exposure_network": {
+      "graph_id": "politisky24_bluesky_v1",
+      "graph_root": "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/data/exposure_networks/politisky24_bluesky_v1",
+      "edge_direction": "source_position_id -> target_position_id",
+      "edge_meaning": "The source position is a visible peer whose output was plausibly exposed to the target position; derived from source user liking, reposting, or quoting target user content in the raw data.",
+      "interaction_weight_formula": {
+        "Like": 0.35,
+        "Repost": 0.8,
+        "Quote": 0.9
+      }
+    }
+  }
+}

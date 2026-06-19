@@ -29,7 +29,7 @@ def _is_leaf_node(child: Any) -> bool:
 
 def default_ontology_root(project_root: Path, use_test_ontology: bool) -> Path:
     mode = "test" if use_test_ontology else "production"
-    return project_root / "src" / "backend" / "ontology" / "separate" / mode
+    return project_root / "src" / "backend" / "ontology" / "01_separated" / mode
 
 
 def load_ontology_triplet(ontology_root: str | Path) -> Dict[str, OntologyTree]:

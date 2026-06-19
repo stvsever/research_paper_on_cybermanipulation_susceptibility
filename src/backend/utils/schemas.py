@@ -18,12 +18,46 @@ class ProfileConfiguration(BaseModel):
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
 
+class OpinionClusterLeaf(BaseModel):
+    """One issue-position leaf inside an opinion parent cluster.
+
+    Used by the integrated-scenario design (run_2+) where a single scenario
+    targets an entire issue domain (the parent) and all of its directional
+    leaves at once, rather than one leaf per scenario.
+    """
+
+    leaf: str
+    path: str = ""
+    adversarial_direction: int = 0
+
+
+class OpinionCluster(BaseModel):
+    """An opinion parent cluster: one issue domain and its directional leaves.
+
+    Carried on a ScenarioRecord so stages 02/04 can assess every leaf of the
+    domain in a single agent call (compute-saving cluster batching), and stage
+    05 can expand the per-leaf scores back into the standard per-leaf long
+    table the rest of the pipeline expects.
+    """
+
+    key: str
+    family: str = ""
+    parent_name: str = ""
+    n_leaves: int = 0
+    direction_summary: Dict[str, int] = Field(default_factory=dict)
+    leaves: List[OpinionClusterLeaf] = Field(default_factory=list)
+
+
 class ScenarioRecord(BaseModel):
     scenario_id: str
     scenario_index: int
     random_seed: int
     profile: ProfileConfiguration
     opinion_leaf: str
+    # Optional opinion parent cluster (integrated-scenario design). When set,
+    # `opinion_leaf` holds the cluster key (parent path) and the per-leaf items
+    # live in `opinion_cluster.leaves`. Legacy single-leaf runs leave it None.
+    opinion_cluster: Optional[OpinionCluster] = None
     attack_present: bool
     attack_leaf: Optional[str] = None
     attack_primary_node: Optional[str] = None
@@ -32,6 +66,9 @@ class ScenarioRecord(BaseModel):
 
 class OpinionAssessment(BaseModel):
     scenario_id: str
+    # "network_exposure_baseline" / "post_attack_network_exposure" are emitted only by
+    # the additive empirical exposure-network phases (stages 02b / 04b). The core
+    # individual-layer run (stages 02 / 04) only ever emits "baseline" / "post_attack".
     phase: Literal["baseline", "network_exposure_baseline", "post_attack", "post_attack_network_exposure"]
     opinion_leaf: str
     score: int
@@ -45,6 +82,40 @@ class OpinionAssessment(BaseModel):
         if value < SCORE_MIN or value > SCORE_MAX:
             raise ValueError(f"score must be in [{SCORE_MIN}, {SCORE_MAX}]")
         return value
+
+
+class ClusterLeafScore(BaseModel):
+    """One leaf's opinion score inside a cluster-level assessment."""
+
+    leaf: str
+    score: int
+    confidence: float = Field(ge=0.0, le=1.0, default=0.5)
+    reasoning: str = ""
+    adversarial_direction: int = 0
+
+    @field_validator("score")
+    @classmethod
+    def validate_score(cls, value: int) -> int:
+        if value < SCORE_MIN or value > SCORE_MAX:
+            raise ValueError(f"score must be in [{SCORE_MIN}, {SCORE_MAX}]")
+        return value
+
+
+class OpinionClusterAssessment(BaseModel):
+    """A single agent call's scores for every leaf of an opinion cluster.
+
+    This is the compute-saving counterpart to OpinionAssessment: one call
+    covers the whole issue domain. Stage 05 expands `leaf_scores` into the
+    standard per-leaf DeltaRecord / SemRow long table.
+    """
+
+    scenario_id: str
+    # Network phases are emitted only by the additive cluster network-exposure
+    # stages (02b / 04b); the core run only emits "baseline" / "post_attack".
+    phase: Literal["baseline", "network_exposure_baseline", "post_attack", "post_attack_network_exposure"]
+    cluster_key: str
+    leaf_scores: List[ClusterLeafScore] = Field(default_factory=list)
+    model_name: str
 
 
 class AttackExposure(BaseModel):

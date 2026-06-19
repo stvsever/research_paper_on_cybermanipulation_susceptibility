@@ -19,9 +19,9 @@
 ## 📋 Table of Contents
 
 - [🧬 Abstract](#abstract)
-- [🔬 Test Run 1](#test-run-1)
-- [🔄 Pipeline](#pipeline)
 - [🗂️ Repository Structure](#repository-structure)
+- [🔄 Pipeline](#pipeline)
+- [🔬 Test Runs](#test-runs)
 - [⚙️ Setup](#setup)
 - [🚀 Manual Run](#manual-run)
 - [📚 Citation](#citation)
@@ -35,36 +35,6 @@
 This repository contains the backend research pipeline and first testing-run artifacts for a study on how **inter-individual differences moderate susceptibility to cyber-manipulation of political opinions**.
 
 The workflow represents `PROFILE`, `ATTACK`, and `OPINION` as explicit hierarchical ontologies, generates ontology-based profile by attack by opinion scenarios, elicits baseline and post-exposure opinions with structured LLM agents, audits response coherence, computes directional adversarial effectivity, and estimates moderation with scenario-level machine-learning and statistical diagnostics.
-
-The current public evaluation record is **test run 1**, located at `evaluation/tests/run_1`. It uses a focused subset of the testing ontology.
-
----
-
-<a id="test-run-1"></a>
-## 🔬 Test Run 1
-
-Test run 1 is a focused factorial evaluation over 60 pseudoprofiles, 4 cyber-manipulation attack vectors, and 3 political opinion targets.
-
-| Component | Value |
-|-----------|-------|
-| Output path | `evaluation/tests/run_1` |
-| Profiles | 60 maximal-entropy pseudoprofiles |
-| Attack vectors | Headline_And_Lede_Misframing, Personal_Safety_Fear_Appeal, Petition_Astroturf, Multi_Turn_Counter_Argument_Adaptation |
-| Opinion leaves | Alliance_Commitment_Support, Trust_In_Mainstream_Journalism, Defense_Spending_Increase_Support |
-| Ontology source | `src/backend/ontology/separate/test` |
-| Simulation model | `deepseek/deepseek-v4-flash` through OpenRouter |
-| Stages | 01 through 08 |
-| Dashboard | `evaluation/tests/run_1/visuals/dashboard_results.html` |
-
-Reproduce the testing run with:
-
-```bash
-bash scripts/tests/run_1.sh
-```
-
-The launcher checks for `OPENROUTER_API_KEY`, verifies the projected OpenRouter budget, and writes logs under `evaluation/tests/logs`.
-
-For an interactive overview of the results, open [`evaluation/tests/run_1/visuals/dashboard_results.html`](evaluation/tests/run_1/visuals/dashboard_results.html) in a browser. ${\color{red}\textsf{\\#TODO: host through GitHub Pages}}$
 
 ---
 
@@ -91,6 +61,31 @@ The full workflow runs from ontology-based scenario construction through agentic
 
 Cross-cutting **safeguards and traceability** run across all stages: ontology constraints define admissible states, realism audits constrain artifact validity, coherence checks ensure plausible responses, and full provenance logging is kept end-to-end.
 
+> **Note (legacy description).** The figure and stages I to VI above describe the original crossed-factorial design used in run 1 (a dense `profile x attack x opinion` cross product). The current integrated production pipeline (runs 2 and 3) instead samples scenarios from a pre-built 10,000-row integrated set, where each scenario pairs one full high-resolution profile, one near-unique DISARM Plan/Prepare/Execute attack triplet, and one opinion parent cluster scored cluster-at-once. Run 3 additionally runs the empirical exposure-network layer (stages 01b, 02b, 04b) for the four-state B/BN/P/PN backbone. `#TODO: update this pipeline section and figure to the integrated cluster + exposure-network design.`
+
+---
+
+<a id="test-runs"></a>
+## 🔬 Test Runs
+
+The evaluation record spans three test runs. Each has its own README with the full configuration, methodology and headline results.
+
+| Run | Design | Layers | Output |
+|-----|--------|--------|--------|
+| **Run 1** | 60 pseudoprofiles, 4 attack vectors, 3 opinions (crossed factorial, test ontology) | individual | [`evaluation/tests/run_1`](evaluation/tests/run_1) · [README](evaluation/tests/run_1/README.md) |
+| **Run 2** | 100 scenarios from the 10,000-row integrated production set (full profiles, DISARM Plan/Prepare/Execute triplets, opinion clusters) | individual + exposure-network | [`evaluation/tests/run_2`](evaluation/tests/run_2) · [README](evaluation/tests/run_2/README.md) |
+| **Run 3** | the run-2 production design on the current cluster pipeline + the integrated empirical exposure-network layer | individual + exposure-network (cluster) | [`evaluation/tests/run_3`](evaluation/tests/run_3) · [README](evaluation/tests/run_3/README.md) |
+
+**Run 3 is the current integrated reference.** It produces a four-state, cluster-batched measurement backbone per opinion-cluster leaf: private baseline (B), network-exposure baseline (BN), private post-attack (P), and network-exposure post-attack (PN), at roughly 400 LLM calls for 100 scenarios. Reproduce it with:
+
+```bash
+bash scripts/tests/run_3.sh --network        # individual + exposure-network layer
+bash scripts/tests/run_3.sh                   # individual layer only (~200 calls)
+bash scripts/tests/run_3.sh --network --verbose   # add a live progress monitor
+```
+
+The interactive dashboard is at [`evaluation/tests/run_3/visuals/dashboard_results.html`](evaluation/tests/run_3/visuals/dashboard_results.html) and the comprehensive exposure-network report at [`evaluation/tests/run_3/visuals/network_exposure_analysis/reports`](evaluation/tests/run_3/visuals/network_exposure_analysis/reports). The launcher checks for `OPENROUTER_API_KEY` and verifies the projected OpenRouter budget before running.
+
 ---
 
 <a id="repository-structure"></a>
@@ -106,26 +101,29 @@ research_paper_on_cybermanipulation_susceptibility/
 |-- .gitignore
 |-- docker/
 |-- scripts/
-|   `-- tests/
-|       `-- run_1.sh
+|   `-- tests/                     (run_1.sh, run_2.sh, run_3.sh)
 |-- evaluation/
-|   |-- production/
 |   `-- tests/
-|       `-- run_1/
-|           |-- config/
-|           |-- datasets/
-|           |-- embeddings/
-|           |-- embeddings_production/
-|           |-- publication_assets/
-|           |-- sem/
-|           |-- stage_outputs/
-|           `-- visuals/
+|       |-- run_1/                 (individual layer; see run_1/README.md)
+|       |-- run_2/                 (individual + exposure-network; see run_2/README.md)
+|       `-- run_3/                 (current integrated reference; see run_3/README.md)
+|           |-- config/            (run configuration)
+|           |-- logs/              (per-stage logs)
+|           |-- provenance/        (raw LLM calls + run manifest)
+|           |-- stage_outputs/     (canonical per-stage data for post-hoc analysis, all B/BN/P/PN phases)
+|           |-- analysis/          (datasets, SEM, moderation report)
+|           |-- visuals/           (dashboard, figures, embeddings, network_exposure_analysis)
+|           |-- publication/       (publication assets + paper)
+|           `-- README.md
 `-- src/
+    |-- data/                      (empirical exposure-network substrate)
     `-- backend/
-        |-- agentic_framework/
+        |-- agentic_framework/     (agents, factory, prompts 01-04 + opinion_coherence_review)
         |-- ontology/
         |-- pipeline/
-        `-- utils/
+        |   |-- separate/          (numbered stages 01..08 plus the network stages 01b/02b/04b/05b)
+        |   `-- full/              (run_full_pipeline orchestrator)
+        `-- utils/                 (core: io, schemas, ontology_utils, logging; grouped: figures/, reporting/, analysis/, scenario/, embeddings/, network_exposure/)
 ```
 
 `research_report/`, local virtual environments, editor files, local frontends, and `.env` files are intentionally excluded from the repository.
@@ -152,35 +150,38 @@ Add `OPENROUTER_API_KEY` to `.env` before running the pipeline.
 <a id="manual-run"></a>
 ## 🚀 Manual Run
 
+The launcher `scripts/tests/run_3.sh` is the recommended entry point. The equivalent direct invocation for the current integrated reference run (run 3, with the empirical exposure-network layer) is:
+
 ```bash
 .venv/bin/python src/backend/pipeline/full/run_full_pipeline.py \
-  --output-root evaluation/tests/run_1 \
-  --run-id run_1 \
-  --paper-title "Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Based Multi-Agent Simulation Approach" \
-  --n-profiles 60 \
+  --output-root evaluation/tests/run_3 \
+  --run-id run_3 \
+  --integrated-scenarios-path src/backend/pipeline/separate/01_create_scenarios/samples/02_integrated/integrated_scenarios_10000.jsonl \
+  --n-scenarios 100 \
   --seed 120 \
   --attack-ratio 1.0 \
-  --attack-leaves "Headline_And_Lede_Misframing,Personal_Safety_Fear_Appeal,Petition_Astroturf,Multi_Turn_Counter_Argument_Adaptation" \
-  --opinion-leaves "Alliance_Commitment_Support,Trust_In_Mainstream_Journalism,Defense_Spending_Increase_Support" \
-  --profile-candidate-multiplier 8 \
   --primary-moderator posthoc_profile_susceptibility_index \
-  --bootstrap-samples 600 \
-  --use-test-ontology \
-  --ontology-root src/backend/ontology/separate/test \
-  --enforce-compatibility-rules \
+  --bootstrap-samples 200 \
+  --no-use-test-ontology \
+  --ontology-root src/backend/ontology/separate/production \
+  --no-enforce-compatibility-rules \
   --drop-direction-neutral-opinions \
   --openrouter-model deepseek/deepseek-v4-flash \
   --temperature 0.15 \
-  --max-repair-iter 2 \
+  --max-repair-iter 1 \
   --profile-generation-mode deterministic \
-  --self-supervise-opinion-coherence \
-  --coherence-threshold 0.74 \
+  --no-self-supervise-opinion-coherence \
+  --no-self-supervise-attack-realism \
+  --with-network-exposure \
+  --exposure-network-root src/data/exposure_networks/politisky24_bluesky_v1 \
   --generate-visuals \
   --export-static-figures \
   --no-build-report \
   --resume-from-stage 01 \
   --stop-after-stage 08
 ```
+
+Drop `--with-network-exposure` for the individual layer only. Run 1 and run 2 are reproduced with `bash scripts/tests/run_1.sh` and `bash scripts/tests/run_2.sh`.
 
 ---
 

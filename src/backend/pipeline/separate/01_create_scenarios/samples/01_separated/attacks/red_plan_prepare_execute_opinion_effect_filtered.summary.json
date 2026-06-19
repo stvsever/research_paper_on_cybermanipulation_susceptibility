@@ -1,0 +1,96 @@
+{
+  "title": "DISARM-red Plan/Prepare/Execute opinion-manipulation vector filter",
+  "ontology_note": "Drawn from an EXTERNAL DISARM-red attack ontology \u2014 NOT this repository's attack ontology. Raw leaf ids are stable for join-back.",
+  "generated_at_utc": "2026-06-17T14:22:01.307258+00:00",
+  "raw_state_space": {
+    "per_phase_leaf_pool": {
+      "Plan": 3317,
+      "Prepare": 8059,
+      "Execute": 8318
+    },
+    "total_leaf_pool": 19694,
+    "full_cartesian_upper_bound": 222354305554,
+    "coherent_acceptance_rate": 0.6147,
+    "n_raw_configurations": 100000,
+    "phases_sampled": [
+      "Plan",
+      "Prepare",
+      "Execute"
+    ],
+    "excluded_phase": "Assess (post-hoc measurement, not part of the attack)"
+  },
+  "filter": {
+    "objective": "retain plausible opinion-manipulation vectors; remove support-only substrate / OPSEC / access / logistics leaves",
+    "thresholds": {
+      "leaf_signal_min_score": 2.0,
+      "config_min_total_signal": 5.0,
+      "min_relevant_phases": 2,
+      "min_distinct_evidence_criteria": 2,
+      "single_strong_leaf_signal": 7.0
+    },
+    "entropy_use": "Entropy is computed only after filtering as a range-retention diagnostic; it is never optimized by the filter.",
+    "inclusion_route_counts": {
+      "broad_opinion_manipulation_pathway": 47792,
+      "single_strong_manipulation_vector": 1199
+    },
+    "configuration_retention_rate": 0.48991
+  },
+  "filtered_set": {
+    "n_configurations": 48991,
+    "filtered_distinct_leaves": 17941,
+    "filtered_overall_leaf_coverage": 0.911,
+    "leaves_with_opinion_manipulation_evidence": 11126,
+    "included_signal_score_distribution": {
+      "n": 48991,
+      "min": 5.0,
+      "p10": 6.7,
+      "p25": 7.8,
+      "median": 9.7,
+      "mean": 10.1232,
+      "p75": 11.9,
+      "p90": 14.2,
+      "max": 26.4
+    }
+  },
+  "entropy_range_retention_per_phase": {
+    "Plan": {
+      "raw_categories": 3317,
+      "filtered_observed_categories": 3169,
+      "category_coverage": 0.9554,
+      "relative_entropy_retained": 0.9897,
+      "pielou_evenness_filtered": 0.9776
+    },
+    "Prepare": {
+      "raw_categories": 8059,
+      "filtered_observed_categories": 7404,
+      "category_coverage": 0.9187,
+      "relative_entropy_retained": 0.9795,
+      "pielou_evenness_filtered": 0.9703
+    },
+    "Execute": {
+      "raw_categories": 8318,
+      "filtered_observed_categories": 7368,
+      "category_coverage": 0.8858,
+      "relative_entropy_retained": 0.9766,
+      "pielou_evenness_filtered": 0.9673
+    },
+    "OVERALL": {
+      "raw_categories": 19694,
+      "filtered_observed_categories": 17941,
+      "category_coverage": 0.911,
+      "relative_entropy_retained": 0.9837,
+      "pielou_evenness_filtered": 0.9668
+    }
+  },
+  "evidence_criteria_configuration_counts": {
+    "Exposure / visibility / availability": 42055,
+    "Audience selection / susceptibility": 36598,
+    "Message / framing / content": 33024,
+    "Source / evidence credibility": 22234,
+    "Cyber-mediated cognitive manipulation": 15245,
+    "Identity / norms / social influence": 13505,
+    "Affect / salience / attention": 6188,
+    "Belief / attitude / decision state": 5933,
+    "AI / synthetic persuasion": 1655
+  }
+}

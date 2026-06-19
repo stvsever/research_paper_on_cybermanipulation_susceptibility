@@ -1,0 +1,46 @@
+{
+  "outcome": "adversarial_effectivity",
+  "n_obs": 1517,
+  "n_profiles": 100,
+  "n_profile_features": 47,
+  "cv_scheme": "GroupKFold by profile_id (generalization to unseen profiles)",
+  "notes": [
+    "tau2=285.8053, sigma2_within=25.7075, grand_mean=18.9400",
+    "Condition means are means of per-profile means (each profile weighted equally).",
+    "CIs are 95% percentile cluster bootstrap intervals resampling profiles."
+  ],
+  "models": [
+    {
+      "model": "M0_context",
+      "cv_r2_mean": 0.19622480448204388,
+      "cv_r2_sd": 0.1663765701975436,
+      "rmse_mean": 12.918516902079594,
+      "delta_r2_vs_context_baseline": -0.0049919358686774384,
+      "delta_r2_vs_context": 0.0
+    },
+    {
+      "model": "M0b_context_baseline",
+      "cv_r2_mean": 0.20121674035072132,
+      "cv_r2_sd": 0.15612034266741023,
+      "rmse_mean": 12.881239759828958,
+      "delta_r2_vs_context_baseline": 0.0,
+      "delta_r2_vs_context": 0.0049919358686774384
+    },
+    {
+      "model": "M1_profile_linear",
+      "cv_r2_mean": -2.012279840975334,
+      "cv_r2_sd": 1.2085987692007543,
+      "rmse_mean": 23.56876667992637,
+      "delta_r2_vs_context_baseline": -2.2134965813260554,
+      "delta_r2_vs_context": -2.2085046454573782
+    },
+    {
+      "model": "M2_profile_boosted",
+      "cv_r2_mean": -0.7624799349134468,
+      "cv_r2_sd": 0.6682366313196635,
+      "rmse_mean": 18.465281092058827,
+      "delta_r2_vs_context_baseline": -0.9636966752641681,
+      "delta_r2_vs_context": -0.9587047393954906
+    }
+  ]
+}

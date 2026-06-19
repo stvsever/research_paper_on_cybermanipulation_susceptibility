@@ -1,0 +1,34 @@
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Assumption register and peer-review risk register.}
+\label{tab:risks}
+\small
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.10}
+\begin{tabular}{llll}
+\toprule
+Type & Item & Status & Mitigation \\
+\midrule
+Assumption & Profile-panel sample size is sufficient for stable moderation estimates. & ok & Interpret run\_1 coefficients as exploratory panel diagnostics and scale the profile count before making substantive moderator claims. \\
+Assumption & Attack-only design is intentional and aligned with the moderation question. & ok & Interpret results as moderation among attacked individuals, not as a no-attack counterfactual contrast. \\
+Assumption & Opinion measurement has enough numeric resolution. & ok & Prompt enforces high-resolution scores in [-1000,1000]. \\
+Assumption & Attack-generation quality checks indicate usable exposure texts. & risk & Inspect Stage 03 reviewer outputs and treat zero-scored or fallback-generated attack content as a run-quality failure rather than as substantive evidence. \\
+Assumption & Baseline and post-exposure opinions were generated without heavy fallback substitution. & ok & Re-run stages 02–04 with funded API access before interpreting moderator coefficients as anything other than pipeline-diagnostic outputs. \\
+Assumption & SEM converges with acceptable fit. & risk & Treat near-perfect fit in small profile panels as a saturation warning; rely on robustness diagnostics and larger panels instead of fit indices alone. \\
+Assumption & LLM outputs are reproducible and auditable. & ok & Persist all prompts/outputs in provenance/raw\_llm. \\
+Critique & Synthetic LLM agents may not represent human cognition or causal response behavior. & addressed & Added transparent assumption register and explicit exploratory caveat in reports. \\
+Critique & Adversarial content may be unrealistic or too generic. & addressed & Added realism review agent with rewrite loop and heuristic checks. \\
+Critique & Model dependence on a single LLM could bias outputs. & addressed & Model is CLI-configurable and run metadata captures exact model for replication. \\
+Critique & Insufficient sample size inflates uncertainty and may destabilize SEM. & addressed & Included robust OLS complement and explicit testing-run warnings; ready for scale-up runs. \\
+Critique & Attack-only designs cannot estimate the incremental effect of exposure relative to a no-attack counterfactual. & addressed & The report states explicitly that the attacked-only design estimates heterogeneity of post-minus-baseline response among attacked individuals only. \\
+Critique & SEM warnings indicate possible misfit or numerical instability. & addressed & Warnings surfaced in reports and fit diagnostics exported for scrutiny. \\
+Critique & Global SEM fit is not evidential at this scale; either misfit or near-saturation can make fit indices misleading. & addressed & The report now treats SEM fit indices as diagnostics only and triangulates them with ICC, bootstrap, ridge, and fallback-quality diagnostics. \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Note. This study is methodological and exploratory. Risks are surfaced explicitly to support transparency and future replication.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

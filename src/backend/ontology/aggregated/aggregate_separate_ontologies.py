@@ -1,1 +1,1 @@
-# TODO; create file that aggregates the creates three separate ontologies (SOVEREIGNITY ; ATTACK ; PROFILE)
+# TODO; create file that aggregates the creates three 01_separated ontologies (SOVEREIGNITY ; ATTACK ; PROFILE)

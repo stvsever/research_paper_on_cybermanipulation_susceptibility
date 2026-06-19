@@ -1,0 +1,1062 @@
+{
+  "ontology_source": "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/ontology/separate/production/PROFILE/profile.json",
+  "n_profiles": 10000,
+  "config": {
+    "n_profiles": 10000,
+    "seed": 42,
+    "entropy_threshold": 0.99,
+    "age_min": 16,
+    "age_max": 80,
+    "reference_year": 2026,
+    "balance_scale_markers": [
+      "Big_Five"
+    ],
+    "facet_jitter": 9.0,
+    "coherence": true,
+    "prevalence_compromise_exponent": 0.6,
+    "min_cell_count": 100
+  },
+  "plan_summary": {
+    "categorical_variables": 272,
+    "categorical_options_total": 1467,
+    "continuous_scale_groups": 41,
+    "continuous_scale_leaves": 181,
+    "ordinal_variables": 26,
+    "trait_scalar_variables": 6,
+    "identifier_variables": 7
+  },
+  "entropy_report": {
+    "n_profiles": 10000,
+    "entropy_threshold": 0.99,
+    "max_entropy_targets": "chronological_age + Big Five personality (continuous, linear-spaced, full-range)",
+    "normalised_entropy_per_max_entropy_target": {
+      "age": 0.999433,
+      "bigfive:neuroticism": 1.0,
+      "bigfive:extraversion": 1.0,
+      "bigfive:openness_to_experience": 1.0,
+      "bigfive:agreeableness": 1.0,
+      "bigfive:conscientiousness": 1.0
+    },
+    "max_entropy_reached": true,
+    "subgroup_allocation": {
+      "method": "Kish power-compromise allocation (p^q)",
+      "compromise_exponent_q": 0.6,
+      "min_cell_count_threshold": 100,
+      "variables_below_threshold": {
+        "Affiliation": 66,
+        "Gender_Identity": 81
+      },
+      "per_variable": {
+        "Highest_Education": {
+          "n_categories": 9,
+          "min_cell_count": 360,
+          "categories": {
+            "Upper_Secondary": {
+              "n": 2120,
+              "achieved": 0.212,
+              "realistic": 0.28,
+              "design_weight": 1.3208
+            },
+            "Lower_Secondary": {
+              "n": 1488,
+              "achieved": 0.1488,
+              "realistic": 0.14,
+              "design_weight": 0.9409
+            },
+            "Bachelors": {
+              "n": 1484,
+              "achieved": 0.1484,
+              "realistic": 0.17,
+              "design_weight": 1.1456
+            },
+            "Primary": {
+              "n": 1208,
+              "achieved": 0.1208,
+              "realistic": 0.1,
+              "design_weight": 0.8278
+            },
+            "Masters": {
+              "n": 976,
+              "achieved": 0.0976,
+              "realistic": 0.1,
+              "design_weight": 1.0246
+            },
+            "Post_Secondary_Non_Tertiary": {
+              "n": 821,
+              "achieved": 0.0821,
+              "realistic": 0.07,
+              "design_weight": 0.8526
+            },
+            "Short_Cycle_Tertiary": {
+              "n": 796,
+              "achieved": 0.0796,
+              "realistic": 0.07,
+              "design_weight": 0.8794
+            },
+            "No_Formal_Education": {
+              "n": 747,
+              "achieved": 0.0747,
+              "realistic": 0.05,
+              "design_weight": 0.6693
+            },
+            "Doctoral": {
+              "n": 360,
+              "achieved": 0.036,
+              "realistic": 0.02,
+              "design_weight": 0.5556
+            }
+          }
+        },
+        "Employment_Status": {
+          "n_categories": 6,
+          "min_cell_count": 619,
+          "categories": {
+            "Employed": {
+              "n": 4695,
+              "achieved": 0.4695,
+              "realistic": 0.58,
+              "design_weight": 1.2354
+            },
+            "Unemployed": {
+              "n": 1423,
+              "achieved": 0.1423,
+              "realistic": 0.08,
+              "design_weight": 0.5622
+            },
+            "Student": {
+              "n": 1248,
+              "achieved": 0.1248,
+              "realistic": 0.12,
+              "design_weight": 0.9615
+            },
+            "Homemaker": {
+              "n": 1217,
+              "achieved": 0.1217,
+              "realistic": 0.06,
+              "design_weight": 0.493
+            },
+            "Retired": {
+              "n": 798,
+              "achieved": 0.0798,
+              "realistic": 0.14,
+              "design_weight": 1.7544
+            },
+            "Unable_To_Work": {
+              "n": 619,
+              "achieved": 0.0619,
+              "realistic": 0.02,
+              "design_weight": 0.3231
+            }
+          }
+        },
+        "Citizenship_Status": {
+          "n_categories": 5,
+          "min_cell_count": 424,
+          "categories": {
+            "Citizen": {
+              "n": 6297,
+              "achieved": 0.6297,
+              "realistic": 0.86,
+              "design_weight": 1.3657
+            },
+            "Permanent_Resident": {
+              "n": 1354,
+              "achieved": 0.1354,
+              "realistic": 0.06,
+              "design_weight": 0.4431
+            },
+            "Dual_Citizen": {
+              "n": 1020,
+              "achieved": 0.102,
+              "realistic": 0.04,
+              "design_weight": 0.3922
+            },
+            "Temporary_Resident": {
+              "n": 905,
+              "achieved": 0.0905,
+              "realistic": 0.03,
+              "design_weight": 0.3315
+            },
+            "Stateless": {
+              "n": 424,
+              "achieved": 0.0424,
+              "realistic": 0.01,
+              "design_weight": 0.2358
+            }
+          }
+        },
+        "Migration_Position": {
+          "n_categories": 4,
+          "min_cell_count": 1194,
+          "categories": {
+            "Non_Migrant": {
+              "n": 5214,
+              "achieved": 0.5214,
+              "realistic": 0.7,
+              "design_weight": 1.3425
+            },
+            "First_Generation_Migrant": {
+              "n": 1860,
+              "achieved": 0.186,
+              "realistic": 0.12,
+              "design_weight": 0.6452
+            },
+            "Second_Generation": {
+              "n": 1732,
+              "achieved": 0.1732,
+              "realistic": 0.12,
+              "design_weight": 0.6928
+            },
+            "Multiple_Generation_Diaspora": {
+              "n": 1194,
+              "achieved": 0.1194,
+              "realistic": 0.06,
+              "design_weight": 0.5025
+            }
+          }
+        },
+        "Urbanicity": {
+          "n_categories": 5,
+          "min_cell_count": 1242,
+          "categories": {
+            "Urban_Core": {
+              "n": 2657,
+              "achieved": 0.2657,
+              "realistic": 0.3,
+              "design_weight": 1.1291
+            },
+            "Suburban": {
+              "n": 2509,
+              "achieved": 0.2509,
+              "realistic": 0.28,
+              "design_weight": 1.116
+            },
+            "Rural": {
+              "n": 2140,
+              "achieved": 0.214,
+              "realistic": 0.22,
+              "design_weight": 1.028
+            },
+            "PeriUrban": {
+              "n": 1452,
+              "achieved": 0.1452,
+              "realistic": 0.12,
+              "design_weight": 0.8264
+            },
+            "Remote_Rural": {
+              "n": 1242,
+              "achieved": 0.1242,
+              "realistic": 0.08,
+              "design_weight": 0.6441
+            }
+          }
+        },
+        "Relationship_Status": {
+          "n_categories": 7,
+          "min_cell_count": 615,
+          "categories": {
+            "Married": {
+              "n": 2628,
+              "achieved": 0.2628,
+              "realistic": 0.34,
+              "design_weight": 1.2938
+            },
+            "Single": {
+              "n": 2319,
+              "achieved": 0.2319,
+              "realistic": 0.28,
+              "design_weight": 1.2074
+            },
+            "Partnered": {
+              "n": 1416,
+              "achieved": 0.1416,
+              "realistic": 0.12,
+              "design_weight": 0.8475
+            },
+            "Dating": {
+              "n": 1282,
+              "achieved": 0.1282,
+              "realistic": 0.1,
+              "design_weight": 0.78
+            },
+            "Divorced": {
+              "n": 1058,
+              "achieved": 0.1058,
+              "realistic": 0.08,
+              "design_weight": 0.7561
+            },
+            "Widowed": {
+              "n": 682,
+              "achieved": 0.0682,
+              "realistic": 0.05,
+              "design_weight": 0.7331
+            },
+            "Separated": {
+              "n": 615,
+              "achieved": 0.0615,
+              "realistic": 0.03,
+              "design_weight": 0.4878
+            }
+          }
+        },
+        "Marital_History": {
+          "n_categories": 4,
+          "min_cell_count": 2353,
+          "categories": {
+            "Previously_Married": {
+              "n": 2601,
+              "achieved": 0.2601,
+              "realistic": 0.12,
+              "design_weight": 0.4614
+            },
+            "Currently_Married": {
+              "n": 2540,
+              "achieved": 0.254,
+              "realistic": 0.4,
+              "design_weight": 1.5748
+            },
+            "Never_Married": {
+              "n": 2506,
+              "achieved": 0.2506,
+              "realistic": 0.42,
+              "design_weight": 1.676
+            },
+            "Multiple_Marriages": {
+              "n": 2353,
+              "achieved": 0.2353,
+              "realistic": 0.06,
+              "design_weight": 0.255
+            }
+          }
+        },
+        "Affiliation": {
+          "n_categories": 18,
+          "min_cell_count": 66,
+          "categories": {
+            "Christianity": {
+              "n": 2052,
+              "achieved": 0.2052,
+              "realistic": 0.308,
+              "design_weight": 1.501
+            },
+            "Islam": {
+              "n": 1855,
+              "achieved": 0.1855,
+              "realistic": 0.2464,
+              "design_weight": 1.3283
+            },
+            "Hinduism": {
+              "n": 1378,
+              "achieved": 0.1378,
+              "realistic": 0.154,
+              "design_weight": 1.1176
+            },
+            "No_Religion": {
+              "n": 1103,
+              "achieved": 0.1103,
+              "realistic": 0.1027,
+              "design_weight": 0.9308
+            },
+            "Buddhism": {
+              "n": 889,
+              "achieved": 0.0889,
+              "realistic": 0.0719,
+              "design_weight": 0.8084
+            },
+            "Agnostic": {
+              "n": 528,
+              "achieved": 0.0528,
+              "realistic": 0.0308,
+              "design_weight": 0.5833
+            },
+            "Atheist": {
+              "n": 511,
+              "achieved": 0.0511,
+              "realistic": 0.0308,
+              "design_weight": 0.6028
+            },
+            "Spiritual_But_Not_Religious": {
+              "n": 458,
+              "achieved": 0.0458,
+              "realistic": 0.0257,
+              "design_weight": 0.5604
+            },
+            "Indigenous_Traditional_Religion": {
+              "n": 264,
+              "achieved": 0.0264,
+              "realistic": 0.0103,
+              "design_weight": 0.3889
+            },
+            "New_Religious_Movement": {
+              "n": 176,
+              "achieved": 0.0176,
+              "realistic": 0.0051,
+              "design_weight": 0.2917
+            },
+            "Confucianism": {
+              "n": 119,
+              "achieved": 0.0119,
+              "realistic": 0.0021,
+              "design_weight": 0.1726
+            },
+            "Sikhism": {
+              "n": 113,
+              "achieved": 0.0113,
+              "realistic": 0.0031,
+              "design_weight": 0.2726
+            },
+            "Taoism": {
+              "n": 111,
+              "achieved": 0.0111,
+              "realistic": 0.0021,
+              "design_weight": 0.185
+            },
+            "Judaism": {
+              "n": 111,
+              "achieved": 0.0111,
+              "realistic": 0.0021,
+              "design_weight": 0.185
+            },
+            "Shinto": {
+              "n": 110,
+              "achieved": 0.011,
+              "realistic": 0.0021,
+              "design_weight": 0.1867
+            },
+            "Bahai": {
+              "n": 80,
+              "achieved": 0.008,
+              "realistic": 0.001,
+              "design_weight": 0.1283
+            },
+            "Jainism": {
+              "n": 76,
+              "achieved": 0.0076,
+              "realistic": 0.001,
+              "design_weight": 0.1351
+            },
+            "Zoroastrianism": {
+              "n": 66,
+              "achieved": 0.0066,
+              "realistic": 0.001,
+              "design_weight": 0.1556
+            }
+          }
+        },
+        "Household_Income_Category": {
+          "n_categories": 7,
+          "min_cell_count": 881,
+          "categories": {
+            "Middle": {
+              "n": 2077,
+              "achieved": 0.2077,
+              "realistic": 0.24,
+              "design_weight": 1.1555
+            },
+            "Lower_Middle": {
+              "n": 1667,
+              "achieved": 0.1667,
+              "realistic": 0.18,
+              "design_weight": 1.0798
+            },
+            "Upper_Middle": {
+              "n": 1632,
+              "achieved": 0.1632,
+              "realistic": 0.18,
+              "design_weight": 1.1029
+            },
+            "High": {
+              "n": 1386,
+              "achieved": 0.1386,
+              "realistic": 0.13,
+              "design_weight": 0.938
+            },
+            "Low": {
+              "n": 1318,
+              "achieved": 0.1318,
+              "realistic": 0.13,
+              "design_weight": 0.9863
+            },
+            "Very_Low": {
+              "n": 1039,
+              "achieved": 0.1039,
+              "realistic": 0.08,
+              "design_weight": 0.77
+            },
+            "Very_High": {
+              "n": 881,
+              "achieved": 0.0881,
+              "realistic": 0.06,
+              "design_weight": 0.681
+            }
+          }
+        },
+        "Housing_Tenure": {
+          "n_categories": 8,
+          "min_cell_count": 291,
+          "categories": {
+            "Owner": {
+              "n": 3194,
+              "achieved": 0.3194,
+              "realistic": 0.45,
+              "design_weight": 1.4089
+            },
+            "Private_Renter": {
+              "n": 2189,
+              "achieved": 0.2189,
+              "realistic": 0.25,
+              "design_weight": 1.1421
+            },
+            "Social_Renter": {
+              "n": 1472,
+              "achieved": 0.1472,
+              "realistic": 0.12,
+              "design_weight": 0.8152
+            },
+            "Living_With_Family_No_Rent": {
+              "n": 1203,
+              "achieved": 0.1203,
+              "realistic": 0.1,
+              "design_weight": 0.8313
+            },
+            "Employer_Provided": {
+              "n": 758,
+              "achieved": 0.0758,
+              "realistic": 0.04,
+              "design_weight": 0.5277
+            },
+            "Temporary_Accommodation": {
+              "n": 514,
+              "achieved": 0.0514,
+              "realistic": 0.02,
+              "design_weight": 0.3891
+            },
+            "Shelter": {
+              "n": 379,
+              "achieved": 0.0379,
+              "realistic": 0.012,
+              "design_weight": 0.3166
+            },
+            "Street_Homelessness": {
+              "n": 291,
+              "achieved": 0.0291,
+              "realistic": 0.008,
+              "design_weight": 0.2749
+            }
+          }
+        },
+        "Household_Composition": {
+          "n_categories": 9,
+          "min_cell_count": 462,
+          "categories": {
+            "Living_With_Partner": {
+              "n": 2013,
+              "achieved": 0.2013,
+              "realistic": 0.24,
+              "design_weight": 1.1923
+            },
+            "Living_With_Children": {
+              "n": 1815,
+              "achieved": 0.1815,
+              "realistic": 0.2,
+              "design_weight": 1.1019
+            },
+            "Living_Alone": {
+              "n": 1624,
+              "achieved": 0.1624,
+              "realistic": 0.16,
+              "design_weight": 0.9852
+            },
+            "Living_With_Extended_Family": {
+              "n": 1237,
+              "achieved": 0.1237,
+              "realistic": 0.1,
+              "design_weight": 0.8084
+            },
+            "Shared_Housing": {
+              "n": 1082,
+              "achieved": 0.1082,
+              "realistic": 0.08,
+              "design_weight": 0.7394
+            },
+            "Living_With_Parents": {
+              "n": 626,
+              "achieved": 0.0626,
+              "realistic": 0.14,
+              "design_weight": 2.2364
+            },
+            "Supported_Housing": {
+              "n": 598,
+              "achieved": 0.0598,
+              "realistic": 0.03,
+              "design_weight": 0.5017
+            },
+            "Institutional_Living": {
+              "n": 543,
+              "achieved": 0.0543,
+              "realistic": 0.03,
+              "design_weight": 0.5525
+            },
+            "Homeless_or_No_Fixed_Address": {
+              "n": 462,
+              "achieved": 0.0462,
+              "realistic": 0.02,
+              "design_weight": 0.4329
+            }
+          }
+        },
+        "Continent": {
+          "n_categories": 6,
+          "min_cell_count": 240,
+          "categories": {
+            "Asia": {
+              "n": 4103,
+              "achieved": 0.4103,
+              "realistic": 0.5859,
+              "design_weight": 1.4279
+            },
+            "Africa": {
+              "n": 2036,
+              "achieved": 0.2036,
+              "realistic": 0.1818,
+              "design_weight": 0.893
+            },
+            "Europe": {
+              "n": 1408,
+              "achieved": 0.1408,
+              "realistic": 0.096,
+              "design_weight": 0.6815
+            },
+            "North_America": {
+              "n": 1209,
+              "achieved": 0.1209,
+              "realistic": 0.0758,
+              "design_weight": 0.6266
+            },
+            "South_America": {
+              "n": 1004,
+              "achieved": 0.1004,
+              "realistic": 0.0556,
+              "design_weight": 0.5533
+            },
+            "Oceania": {
+              "n": 240,
+              "achieved": 0.024,
+              "realistic": 0.0051,
+              "design_weight": 0.2104
+            }
+          }
+        },
+        "Identity": {
+          "n_categories": 9,
+          "min_cell_count": 269,
+          "categories": {
+            "Heterosexual": {
+              "n": 6222,
+              "achieved": 0.6222,
+              "realistic": 0.89,
+              "design_weight": 1.4304
+            },
+            "Bisexual": {
+              "n": 948,
+              "achieved": 0.0948,
+              "realistic": 0.04,
+              "design_weight": 0.4219
+            },
+            "Gay": {
+              "n": 628,
+              "achieved": 0.0628,
+              "realistic": 0.02,
+              "design_weight": 0.3185
+            },
+            "Lesbian": {
+              "n": 521,
+              "achieved": 0.0521,
+              "realistic": 0.015,
+              "design_weight": 0.2879
+            },
+            "Pansexual": {
+              "n": 421,
+              "achieved": 0.0421,
+              "realistic": 0.01,
+              "design_weight": 0.2375
+            },
+            "Asexual": {
+              "n": 406,
+              "achieved": 0.0406,
+              "realistic": 0.01,
+              "design_weight": 0.2463
+            },
+            "Questioning": {
+              "n": 295,
+              "achieved": 0.0295,
+              "realistic": 0.005,
+              "design_weight": 0.1695
+            },
+            "Queer": {
+              "n": 290,
+              "achieved": 0.029,
+              "realistic": 0.005,
+              "design_weight": 0.1724
+            },
+            "Demisexual": {
+              "n": 269,
+              "achieved": 0.0269,
+              "realistic": 0.005,
+              "design_weight": 0.1859
+            }
+          }
+        },
+        "Attraction": {
+          "n_categories": 5,
+          "min_cell_count": 389,
+          "categories": {
+            "Attracted_To_Women": {
+              "n": 4054,
+              "achieved": 0.4054,
+              "realistic": 0.46,
+              "design_weight": 1.1347
+            },
+            "Attracted_To_Men": {
+              "n": 3905,
+              "achieved": 0.3905,
+              "realistic": 0.46,
+              "design_weight": 1.178
+            },
+            "Attracted_To_Multiple_Genders": {
+              "n": 1017,
+              "achieved": 0.1017,
+              "realistic": 0.05,
+              "design_weight": 0.4916
+            },
+            "Attracted_To_None": {
+              "n": 635,
+              "achieved": 0.0635,
+              "realistic": 0.02,
+              "design_weight": 0.315
+            },
+            "Attraction_Is_Fluid": {
+              "n": 389,
+              "achieved": 0.0389,
+              "realistic": 0.01,
+              "design_weight": 0.2571
+            }
+          }
+        },
+        "Romantic_Orientation": {
+          "n_categories": 7,
+          "min_cell_count": 266,
+          "categories": {
+            "Heteroromantic": {
+              "n": 6276,
+              "achieved": 0.6276,
+              "realistic": 0.88,
+              "design_weight": 1.4022
+            },
+            "Homoromantic": {
+              "n": 1077,
+              "achieved": 0.1077,
+              "realistic": 0.04,
+              "design_weight": 0.3714
+            },
+            "Biromantic": {
+              "n": 981,
+              "achieved": 0.0981,
+              "realistic": 0.04,
+              "design_weight": 0.4077
+            },
+            "Aromantic": {
+              "n": 684,
+              "achieved": 0.0684,
+              "realistic": 0.02,
+              "design_weight": 0.2924
+            },
+            "Panromantic": {
+              "n": 437,
+              "achieved": 0.0437,
+              "realistic": 0.01,
+              "design_weight": 0.2288
+            },
+            "Questioning": {
+              "n": 279,
+              "achieved": 0.0279,
+              "realistic": 0.005,
+              "design_weight": 0.1792
+            },
+            "Demiromantic": {
+              "n": 266,
+              "achieved": 0.0266,
+              "realistic": 0.005,
+              "design_weight": 0.188
+            }
+          }
+        },
+        "Relationship_Structure": {
+          "n_categories": 4,
+          "min_cell_count": 914,
+          "categories": {
+            "Monogamous": {
+              "n": 6819,
+              "achieved": 0.6819,
+              "realistic": 0.88,
+              "design_weight": 1.2905
+            },
+            "Non_Monogamous": {
+              "n": 1207,
+              "achieved": 0.1207,
+              "realistic": 0.05,
+              "design_weight": 0.4143
+            },
+            "Polyamorous": {
+              "n": 1060,
+              "achieved": 0.106,
+              "realistic": 0.04,
+              "design_weight": 0.3774
+            },
+            "Open_Relationship": {
+              "n": 914,
+              "achieved": 0.0914,
+              "realistic": 0.03,
+              "design_weight": 0.3282
+            }
+          }
+        },
+        "Cohabitation": {
+          "n_categories": 5,
+          "min_cell_count": 660,
+          "categories": {
+            "Living_With_Partner": {
+              "n": 3353,
+              "achieved": 0.3353,
+              "realistic": 0.42,
+              "design_weight": 1.2526
+            },
+            "Living_With_Family": {
+              "n": 2494,
+              "achieved": 0.2494,
+              "realistic": 0.25,
+              "design_weight": 1.0024
+            },
+            "Living_Alone": {
+              "n": 1970,
+              "achieved": 0.197,
+              "realistic": 0.18,
+              "design_weight": 0.9137
+            },
+            "Shared_Housing": {
+              "n": 1523,
+              "achieved": 0.1523,
+              "realistic": 0.12,
+              "design_weight": 0.7879
+            },
+            "Institutional_Living": {
+              "n": 660,
+              "achieved": 0.066,
+              "realistic": 0.03,
+              "design_weight": 0.4545
+            }
+          }
+        },
+        "Sex_Assigned_At_Birth": {
+          "n_categories": 3,
+          "min_cell_count": 709,
+          "categories": {
+            "Female": {
+              "n": 4648,
+              "achieved": 0.4648,
+              "realistic": 0.49,
+              "design_weight": 1.0542
+            },
+            "Male": {
+              "n": 4643,
+              "achieved": 0.4643,
+              "realistic": 0.49,
+              "design_weight": 1.0554
+            },
+            "Intersex": {
+              "n": 709,
+              "achieved": 0.0709,
+              "realistic": 0.02,
+              "design_weight": 0.2821
+            }
+          }
+        },
+        "Gender_Identity": {
+          "n_categories": 20,
+          "min_cell_count": 81,
+          "categories": {
+            "Cis_Man": {
+              "n": 2460,
+              "achieved": 0.246,
+              "realistic": 0.4509,
+              "design_weight": 1.8329
+            },
+            "Cis_Woman": {
+              "n": 2423,
+              "achieved": 0.2423,
+              "realistic": 0.4509,
+              "design_weight": 1.8609
+            },
+            "Woman": {
+              "n": 636,
+              "achieved": 0.0636,
+              "realistic": 0.015,
+              "design_weight": 0.2363
+            },
+            "Man": {
+              "n": 625,
+              "achieved": 0.0625,
+              "realistic": 0.015,
+              "design_weight": 0.2405
+            },
+            "Nonbinary": {
+              "n": 524,
+              "achieved": 0.0524,
+              "realistic": 0.012,
+              "design_weight": 0.2295
+            },
+            "Questioning": {
+              "n": 340,
+              "achieved": 0.034,
+              "realistic": 0.006,
+              "design_weight": 0.1768
+            },
+            "Genderfluid": {
+              "n": 293,
+              "achieved": 0.0293,
+              "realistic": 0.004,
+              "design_weight": 0.1368
+            },
+            "Gender_Nonconforming": {
+              "n": 290,
+              "achieved": 0.029,
+              "realistic": 0.004,
+              "design_weight": 0.1382
+            },
+            "Other_Woman_Identity": {
+              "n": 282,
+              "achieved": 0.0282,
+              "realistic": 0.004,
+              "design_weight": 0.1421
+            },
+            "Other_Man_Identity": {
+              "n": 280,
+              "achieved": 0.028,
+              "realistic": 0.004,
+              "design_weight": 0.1431
+            },
+            "Genderqueer": {
+              "n": 267,
+              "achieved": 0.0267,
+              "realistic": 0.004,
+              "design_weight": 0.1501
+            },
+            "Other_Gender_Diverse_Identity": {
+              "n": 263,
+              "achieved": 0.0263,
+              "realistic": 0.004,
+              "design_weight": 0.1524
+            },
+            "Agender": {
+              "n": 256,
+              "achieved": 0.0256,
+              "realistic": 0.004,
+              "design_weight": 0.1566
+            },
+            "Demigender": {
+              "n": 190,
+              "achieved": 0.019,
+              "realistic": 0.002,
+              "design_weight": 0.1055
+            },
+            "Trans_Man": {
+              "n": 184,
+              "achieved": 0.0184,
+              "realistic": 0.006,
+              "design_weight": 0.3267
+            },
+            "Third_Gender": {
+              "n": 178,
+              "achieved": 0.0178,
+              "realistic": 0.002,
+              "design_weight": 0.1126
+            },
+            "Trans_Woman": {
+              "n": 173,
+              "achieved": 0.0173,
+              "realistic": 0.006,
+              "design_weight": 0.3475
+            },
+            "Two_Spirit": {
+              "n": 156,
+              "achieved": 0.0156,
+              "realistic": 0.002,
+              "design_weight": 0.1285
+            },
+            "Transmasculine": {
+              "n": 99,
+              "achieved": 0.0099,
+              "realistic": 0.002,
+              "design_weight": 0.2024
+            },
+            "Transfeminine": {
+              "n": 81,
+              "achieved": 0.0081,
+              "realistic": 0.002,
+              "design_weight": 0.2474
+            }
+          }
+        }
+      }
+    },
+    "sex_marginal": {
+      "Female": 0.4648,
+      "Male": 0.4643,
+      "Intersex": 0.0709
+    },
+    "gender_identity_marginal": {
+      "Cis_Man": 0.246,
+      "Cis_Woman": 0.2423,
+      "Woman": 0.0636,
+      "Man": 0.0625,
+      "Nonbinary": 0.0524,
+      "Questioning": 0.034,
+      "Genderfluid": 0.0293,
+      "Gender_Nonconforming": 0.029,
+      "Other_Woman_Identity": 0.0282,
+      "Other_Man_Identity": 0.028,
+      "Genderqueer": 0.0267,
+      "Other_Gender_Diverse_Identity": 0.0263,
+      "Agender": 0.0256,
+      "Demigender": 0.019,
+      "Trans_Man": 0.0184,
+      "Third_Gender": 0.0178,
+      "Trans_Woman": 0.0173,
+      "Two_Spirit": 0.0156,
+      "Transmasculine": 0.0099,
+      "Transfeminine": 0.0081
+    },
+    "gender_modality_marginal": {
+      "Cisgender": 0.6706,
+      "Nonbinary_or_Gender_Diverse": 0.2417,
+      "Transgender": 0.0537,
+      "Questioning": 0.034
+    },
+    "applicability_omissions": {
+      "Pregnancy_Status": 4643,
+      "Lactation_Status": 4643,
+      "Menstrual_Status": 4643,
+      "Reproductive_Aging_Stage": 4643
+    }
+  },
+  "coverage_report": {
+    "categorical_option_coverage_mean": 0.997,
+    "categorical_variables_fully_covered": 270,
+    "categorical_variable_count": 272,
+    "continuous_mean_range_visited_pct": 99.97,
+    "age_min": 16,
+    "age_max": 80,
+    "age_distinct_values": 65,
+    "distinct_sex_values": 3
+  }
+}

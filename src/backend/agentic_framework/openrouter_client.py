@@ -47,6 +47,13 @@ class OpenRouterClient:
             "max_tokens": max_tokens,
         }
 
+        if self.model == "deepseek/deepseek-v4-flash":
+            # OpenRouter reports this route with default high reasoning. For
+            # strict JSON scoring calls that can consume the entire completion
+            # budget in message.reasoning and return message.content = null.
+            # Reasoning is not mandatory for this model, so disable it.
+            payload["reasoning"] = {"enabled": False, "exclude": True}
+
         if response_format is not None:
             payload["response_format"] = response_format
 

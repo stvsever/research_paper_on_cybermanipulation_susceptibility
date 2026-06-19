@@ -11,7 +11,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.backend.utils.io import abs_path, ensure_dir, stage_manifest_path, write_json
 from src.backend.utils.logging_utils import setup_logging
-from src.backend.utils.report_builder import build_research_report
+from src.backend.utils.reporting.report_builder import build_research_report
 from src.backend.utils.schemas import StageArtifactManifest, StageConfig
 
 

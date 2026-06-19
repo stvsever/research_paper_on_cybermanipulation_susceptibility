@@ -1,3 +1,5 @@
+#IMPORTANT NOTE!: This script is partially deprecated; needs to be integrated with already sampled content: '/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/pipeline/separate/01_create_scenarios/samples/02_integrated/integrated_scenarios_10000.jsonl'
+
 from __future__ import annotations
 
 """
@@ -29,12 +31,14 @@ informative and less redundant.
 """
 
 import argparse
+import json
 import logging
 import math
+import random
 import sys
 from collections import defaultdict
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 from dotenv import load_dotenv
@@ -43,7 +47,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[5]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.backend.utils.compatibility_rules import (
+from src.backend.utils.scenario.compatibility_rules import (
     ScenarioAdmissibility,
     evaluate_scenario_admissibility,
     load_attack_metadata_index,
@@ -65,13 +69,36 @@ from src.backend.utils.ontology_utils import (
     load_adversarial_directions_from_opinion,
     load_ontology_triplet,
 )
-from src.backend.utils.profile_sampling import sample_profile
-from src.backend.utils.scenario_realism import extract_opinion_domain, extract_leaf_label
-from src.backend.utils.schemas import ProfileConfiguration, ScenarioRecord, StageArtifactManifest, StageConfig
+from src.backend.utils.scenario.profile_sampling import sample_profile
+from src.backend.utils.scenario.scenario_realism import (
+    compute_resilience_index,
+    compute_shift_sensitivity_proxy,
+    extract_opinion_domain,
+    extract_leaf_label,
+)
+from src.backend.utils.schemas import (
+    OpinionCluster,
+    OpinionClusterLeaf,
+    ProfileConfiguration,
+    ScenarioRecord,
+    StageArtifactManifest,
+    StageConfig,
+)
 
 LOGGER = logging.getLogger(__name__)
 
 ATTACK_PRIMARY_AXIS_MARKER = "Primary_Axis > Attack_Family"
+
+# Integrated-scenario design (run_2+): every scenario already pairs a profile,
+# a DISARM-red Plan/Prepare/Execute attack triplet, and an opinion parent
+# cluster. Each scenario carries its OWN real attack triplet identity (the three
+# phase paths are what the simulation agent sees and reasons about). The attacks
+# are ~unique per scenario, so for this panel the delta cannot be attributed to
+# a specific attack component; that is expected and fine. The conditional-
+# susceptibility estimator pools over attacks (it estimates PROFILE moderation),
+# while the full triplet and its raw attributes are preserved for provenance and
+# for the larger production runs that accumulate attack-type signal over many
+# configurations.
 
 
 class Stage01Config(StageConfig):
@@ -79,8 +106,8 @@ class Stage01Config(StageConfig):
     n_profiles: Optional[int] = None
     attack_ratio: float = 0.5
     attack_leaf: Optional[str] = None
-    attack_leaves: Optional[str] = None  # comma-separated; takes precedence over attack_leaf
-    opinion_leaves: Optional[str] = None  # comma-separated explicit opinion leaf selection
+    attack_leaves: Optional[str] = None  # comma-01_separated; takes precedence over attack_leaf
+    opinion_leaves: Optional[str] = None  # comma-01_separated explicit opinion leaf selection
     profile_generation_mode: str = "deterministic"
     focus_opinion_domain: Optional[str] = None
     max_opinion_leaves: Optional[int] = None
@@ -89,6 +116,10 @@ class Stage01Config(StageConfig):
     enforce_compatibility_rules: bool = True
     realism_weight_temperature: float = 1.5
     drop_direction_neutral_opinions: bool = False
+    # Integrated-scenario design (run_2+): when set, stage 01 stops sampling
+    # from the ontology and instead selects rows from this pre-built integrated
+    # scenario .jsonl, mapping each into a cluster-level ScenarioRecord.
+    integrated_scenarios_path: Optional[str] = None
 
 
 def _resolve_attack_leaves(
@@ -98,7 +129,7 @@ def _resolve_attack_leaves(
 ) -> List[str]:
     """Resolve attack leaves for this run.
 
-    Priority: comma-separated --attack-leaves > single --attack-leaf.
+    Priority: comma-01_separated --attack-leaves > single --attack-leaf.
     Each entry is matched case-insensitively against available ontology leaves.
     The sentinel value ALL selects every available primary attack leaf.
     """
@@ -314,8 +345,419 @@ def _build_attack_assignments(total_scenarios: int, attack_ratio: float) -> List
     return assignments
 
 
+def _to_float(value: Any, default: float = 0.0) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _iter_jsonl(path: Path):
+    with open(path, "r", encoding="utf-8") as handle:
+        for line in handle:
+            line = line.strip()
+            if line:
+                yield json.loads(line)
+
+
+def _stratified_domain_sample(
+    path: Path, n_target: int, seed: int
+) -> Tuple[List[Dict[str, Any]], Dict[str, int]]:
+    """Stratified-random selection of n_target rows balanced across the 7 issue
+    domains, in a single streaming pass over the (large) integrated .jsonl.
+
+    Per-domain reservoir sampling (Algorithm R) keeps a bounded random subset of
+    each domain's rows; the final allocation then spreads n_target as evenly as
+    possible across the domains that exist. Balancing by domain guarantees that
+    every issue domain (and therefore every directional leaf, since a scenario
+    targets a whole domain cluster) appears, and that each leaf receives roughly
+    n_target / n_domains observations, which is what the per-(attack, leaf)
+    conditional-susceptibility task models need for stable estimation.
+    """
+    rng = random.Random(seed)
+    cap = max(40, n_target)
+    reservoirs: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    seen: Dict[str, int] = defaultdict(int)
+
+    for row in _iter_jsonl(path):
+        domain = str(((row.get("opinion_cluster") or {}).get("parent_name")) or "UNKNOWN")
+        seen[domain] += 1
+        reservoir = reservoirs[domain]
+        if len(reservoir) < cap:
+            reservoir.append(row)
+        else:
+            j = rng.randint(0, seen[domain] - 1)
+            if j < cap:
+                reservoir[j] = row
+
+    domains = sorted(reservoirs.keys())
+    if not domains:
+        raise RuntimeError(f"No scenarios found in integrated file: {path}")
+
+    base = n_target // len(domains)
+    remainder = n_target - base * len(domains)
+    allocation = {domain: base for domain in domains}
+    for domain in domains[:remainder]:
+        allocation[domain] += 1
+
+    selected: List[Dict[str, Any]] = []
+    selected_ids: set = set()
+    for domain in domains:
+        pool = list(reservoirs[domain])
+        rng.shuffle(pool)
+        take = min(allocation[domain], len(pool))
+        for row in pool[:take]:
+            selected.append(row)
+            selected_ids.add(id(row))
+
+    # Top up if any domain under-filled its allocation.
+    if len(selected) < n_target:
+        leftovers = [
+            row
+            for domain in domains
+            for row in reservoirs[domain]
+            if id(row) not in selected_ids
+        ]
+        rng.shuffle(leftovers)
+        selected.extend(leftovers[: n_target - len(selected)])
+
+    rng.shuffle(selected)
+    return selected[:n_target], dict(seen)
+
+
+def _map_integrated_profile(profile_dict: Dict[str, Any]) -> ProfileConfiguration:
+    """Map a full integrated profile into the pipeline's ProfileConfiguration.
+
+    Every substantive attribute is carried through so the downstream agent sees
+    the FULL high-resolution profile: all 272 categorical traits, all 248
+    numeric scores, plus the demographics block and Big Five (pct -> continuous,
+    level -> categorical). Big Five mean-pct keys and age_years are written under
+    the exact names the realism layer and Stage 06 moderators expect.
+    """
+    profile_id = str(profile_dict.get("profile_id", "profile_unknown"))
+    demographics = profile_dict.get("demographics", {}) or {}
+    categorical: Dict[str, str] = {}
+    continuous: Dict[str, float] = {}
+
+    # sex key consumed by profile_context_snapshot / Stage 06 SEX_COLUMNS
+    categorical["sex"] = str(demographics.get("sex_assigned_at_birth", "Unknown"))
+    for key in (
+        "sex_assigned_at_birth",
+        "gender_identity",
+        "gender_modality",
+        "relationship_status",
+        "citizenship_status",
+        "gender_type",
+    ):
+        if demographics.get(key) is not None:
+            categorical[f"demographic_{key}"] = str(demographics[key])
+
+    big_five = demographics.get("big_five", {}) or {}
+    for trait, payload in big_five.items():
+        if isinstance(payload, dict):
+            if payload.get("pct") is not None:
+                continuous[f"big_five_{trait}_mean_pct"] = _to_float(payload["pct"], 50.0)
+            if payload.get("level") is not None:
+                categorical[f"big_five_{trait}_level"] = str(payload["level"])
+
+    age_years = demographics.get("age_years")
+    if age_years is not None:
+        continuous["age_years"] = _to_float(age_years, 42.0)
+
+    for key, value in (profile_dict.get("categorical_attributes", {}) or {}).items():
+        categorical[str(key)] = str(value)
+    for key, value in (profile_dict.get("numeric_attributes", {}) or {}).items():
+        continuous[str(key)] = _to_float(value, 0.0)
+
+    profile = ProfileConfiguration(
+        profile_id=profile_id,
+        categorical_attributes=categorical,
+        continuous_attributes=continuous,
+        selected_leaf_nodes=[],
+        metadata={"source": "integrated_scenarios_10000", "source_profile_id": profile_id},
+    )
+    # Structural realism proxies (Stage 04 reads heuristic_shift_sensitivity_proxy;
+    # Stage 06 explicitly excludes both proxies from the moderator feature set).
+    profile.continuous_attributes["heuristic_shift_sensitivity_proxy"] = compute_shift_sensitivity_proxy(profile)
+    profile.continuous_attributes["resilience_index"] = compute_resilience_index(profile)
+    return profile
+
+
+def _derive_attack_struct(attack: Dict[str, Any]) -> Dict[str, Any]:
+    """Compile a DISARM-red triplet into structural attack metadata + a
+    human-readable triplet for the post-exposure prompt.
+
+    The complexity tier is derived from the operation's signal strength rather
+    than from this repository's ATTACK ontology, because the integrated attacks
+    are sampled from the external DISARM-red ontology and do not join to it.
+    """
+    triplet = attack.get("triplet", {}) or {}
+
+    def _phase(name: str) -> Dict[str, Any]:
+        phase = triplet.get(name, {}) or {}
+        path = phase.get("path") or []
+        return {
+            "phase": name,
+            "leaf_id": phase.get("leaf_id"),
+            "tactic": str(phase.get("secondary", "")),
+            "label": str(phase.get("label", "")),
+            "path": " > ".join(str(part) for part in path),
+            "signal_score": _to_float(phase.get("signal_score"), 0.0),
+        }
+
+    plan, prepare, execute = _phase("Plan"), _phase("Prepare"), _phase("Execute")
+    signal_total = _to_float(attack.get("signal_total"), 0.0)
+    if signal_total >= 15:
+        tier = "T4_orchestrated"
+    elif signal_total >= 11:
+        tier = "T3_synthetic"
+    elif signal_total >= 8:
+        tier = "T2_campaign"
+    else:
+        tier = "T1_atomic"
+    criteria = [str(item) for item in (attack.get("criteria") or [])]
+    mechanism = "; ".join(criteria) if criteria else str(attack.get("inclusion_route", ""))
+
+    return {
+        "disarm_triplet": {"Plan": plan, "Prepare": prepare, "Execute": execute},
+        "config_id": str(attack.get("config_id", "")),
+        "source_config_id": str(attack.get("source_config_id", "")),
+        "inclusion_route": str(attack.get("inclusion_route", "")),
+        "signal_total": signal_total,
+        "criteria": criteria,
+        "complexity_tier": tier,
+        "mechanism": mechanism,
+        "primary_system": plan["tactic"] or "audience_targeting",
+        "platform_hint": prepare["label"] or "online platforms / social media",
+        "epistemic_target": execute["tactic"] or "salience",
+        "temporal_horizon": "sustained" if signal_total >= 11 else "burst",
+        "plan_tactic": plan["tactic"],
+        "prepare_tactic": prepare["tactic"],
+        "execute_tactic": execute["tactic"],
+    }
+
+
+def run_stage_integrated(output_dir: str, config: Stage01Config) -> StageArtifactManifest:
+    """Stage 01 in integrated mode: select rows from the pre-built integrated
+    scenario set (no ontology sampling) and emit cluster-level ScenarioRecords.
+
+    Each emitted record carries the full profile, the full DISARM attack triplet
+    (in metadata), and the opinion parent cluster with all its directional
+    leaves. Opinions are assessed at the cluster level downstream (one call per
+    scenario) and expanded back to per-leaf rows in Stage 05, so the analysis /
+    visualisation structure is unchanged.
+    """
+    output_root = ensure_dir(output_dir)
+    integrated_path = Path(config.integrated_scenarios_path)
+    if not integrated_path.exists():
+        raise RuntimeError(f"Integrated scenarios file not found: {integrated_path}")
+
+    n_target = int(config.n_scenarios or 100)
+    LOGGER.info("Stage 01 integrated mode: selecting %d scenarios from %s", n_target, integrated_path)
+    selected, domain_counts = _stratified_domain_sample(integrated_path, n_target, config.seed)
+    LOGGER.info(
+        "Selected %d scenarios across %d issue domains (source totals: %s)",
+        len(selected),
+        len({(r.get('opinion_cluster') or {}).get('parent_name') for r in selected}),
+        domain_counts,
+    )
+
+    scenarios: List[ScenarioRecord] = []
+    distinct_leaves: set = set()
+    distinct_attacks: set = set()
+    domain_selected: Dict[str, int] = defaultdict(int)
+    direction_tally: Dict[int, int] = defaultdict(int)
+
+    for idx, row in enumerate(selected):
+        scenario_id = str(row.get("scenario_id") or f"scenario_{idx + 1:05d}")
+        profile = _map_integrated_profile(row.get("profile", {}) or {})
+        oc = row.get("opinion_cluster", {}) or {}
+        leaves_raw = oc.get("leaves", []) or []
+        cluster_leaves: List[OpinionClusterLeaf] = []
+        for leaf in leaves_raw:
+            path = str(leaf.get("path", "")) or f"{oc.get('key', '')} > {leaf.get('leaf', '')}"
+            direction = int(_to_float(leaf.get("adversarial_direction"), 0.0))
+            cluster_leaves.append(
+                OpinionClusterLeaf(leaf=str(leaf.get("leaf", "")), path=path, adversarial_direction=direction)
+            )
+            distinct_leaves.add(path)
+            direction_tally[direction] += 1
+
+        direction_summary = {str(k): int(_to_float(v, 0.0)) for k, v in (oc.get("direction_summary") or {}).items()}
+        cluster = OpinionCluster(
+            key=str(oc.get("key", "")),
+            family=str(oc.get("family", "")),
+            parent_name=str(oc.get("parent_name", "")),
+            n_leaves=int(_to_float(oc.get("n_leaves"), len(cluster_leaves))),
+            direction_summary=direction_summary,
+            leaves=cluster_leaves,
+        )
+        domain_selected[cluster.parent_name] += 1
+
+        attack_struct = _derive_attack_struct(row.get("attack", {}) or {})
+        amplify = direction_summary.get("amplify_+1", direction_summary.get("amplify", 0))
+        erode = direction_summary.get("erode_-1", direction_summary.get("erode", 0))
+        representative_direction = 1 if amplify > erode else (-1 if erode > amplify else 0)
+
+        # Real per-scenario attack identity (the actual triplet, not an archetype).
+        attack_identity = (
+            f"DISARM_op_{attack_struct['config_id']}"
+            if attack_struct.get("config_id")
+            else "DISARM_op_" + hashlib.sha1(json.dumps(attack_struct["disarm_triplet"], sort_keys=True).encode()).hexdigest()[:10]
+        )
+        distinct_attacks.add(attack_identity)
+
+        scenarios.append(
+            ScenarioRecord(
+                scenario_id=scenario_id,
+                scenario_index=idx,
+                random_seed=config.seed + idx,
+                profile=profile,
+                opinion_leaf=cluster.key,
+                opinion_cluster=cluster,
+                attack_present=True,
+                attack_leaf=attack_identity,
+                attack_primary_node=attack_struct["inclusion_route"] or "broad_opinion_manipulation_pathway",
+                metadata={
+                    "source": "integrated_scenarios_10000",
+                    "source_scenario_id": scenario_id,
+                    "opinion_domain": cluster.parent_name,
+                    "opinion_cluster_key": cluster.key,
+                    "opinion_family": cluster.family,
+                    "opinion_direction_summary": direction_summary,
+                    "opinion_representative_direction": representative_direction,
+                    # Scenario-level direction is the cluster's dominant direction;
+                    # the authoritative per-leaf directions live in opinion_cluster.leaves
+                    # and are what Stage 04/05 score against.
+                    "opinion_adversarial_direction": representative_direction,
+                    "n_opinion_leaves": cluster.n_leaves,
+                    # Full DISARM-red triplet (paths + labels) preserved for provenance.
+                    # The simulation agent is shown only the three phase paths and must
+                    # reason how they combine into one operation.
+                    "disarm_attack": attack_struct,
+                    "attack_config_id": attack_struct["config_id"],
+                    "attack_signal_total": attack_struct["signal_total"],
+                    "attack_inclusion_route": attack_struct["inclusion_route"],
+                    "attack_complexity_tier": attack_struct["complexity_tier"],
+                    "attack_plan_tactic": attack_struct["plan_tactic"],
+                    "attack_prepare_tactic": attack_struct["prepare_tactic"],
+                    "attack_execute_tactic": attack_struct["execute_tactic"],
+                    "scenario_locale": "Global",
+                    "scenario_year": 2026,
+                    "scenario_design": "integrated_cluster_panel",
+                    "sampling_strategy": "stratified_by_issue_domain_from_prebuilt_integrated_set",
+                    "profile_panel_index": idx + 1,
+                },
+            )
+        )
+
+    scenarios_jsonl = output_root / "scenarios.jsonl"
+    scenarios_json = output_root / "scenarios.json"
+    ontology_catalog = output_root / "ontology_leaf_catalog.json"
+    audit_path = output_root / "scenario_compatibility_audit.json"
+
+    write_jsonl(scenarios_jsonl, (s.model_dump() for s in scenarios))
+    write_json(scenarios_json, [s.model_dump() for s in scenarios])
+
+    selected_opinion_leaves = sorted(distinct_leaves)
+    total_leaf_rows = sum(s.opinion_cluster.n_leaves for s in scenarios if s.opinion_cluster)
+
+    write_json(
+        audit_path,
+        {
+            "enforced": False,
+            "scenario_source": "integrated_scenarios_10000",
+            "n_scenarios": len(scenarios),
+            "n_scenarios_excluded": 0,
+            "n_attack_scenarios": len(scenarios),
+            "n_expanded_leaf_rows_expected": total_leaf_rows,
+            "issue_domains_selected": dict(domain_selected),
+            "opinion_direction_tally": {str(k): v for k, v in direction_tally.items()},
+            "note": (
+                "Integrated cluster panel: each scenario targets one issue domain and all its "
+                "directional leaves; opinions are assessed cluster-at-once and expanded to "
+                "per-leaf rows in Stage 05."
+            ),
+        },
+    )
+
+    sorted_attacks = sorted(distinct_attacks)
+    write_json(
+        ontology_catalog,
+        {
+            "ontology_root": "external_integrated_scenarios",
+            "scenario_source": abs_path(integrated_path),
+            "opinion_leaf_count": len(selected_opinion_leaves),
+            "attack_leaf_count": len(sorted_attacks),
+            "selected_attack_leaves": sorted_attacks,
+            "selected_attack_leaf": sorted_attacks[0] if sorted_attacks else "",
+            "selected_opinion_leaves": selected_opinion_leaves,
+            "opinion_leaves": selected_opinion_leaves,
+            "attack_leaves": sorted_attacks,
+            "attack_source": "external_DISARM_red_ontology",
+            "attack_grouping_note": (
+                "Each scenario carries its own DISARM-red triplet identity; attacks are ~unique "
+                "per scenario and are pooled by the conditional-susceptibility estimator."
+            ),
+            "selected_profile_count": len(scenarios),
+            "scenarios_per_profile": 1,
+            "scenario_design": "integrated_cluster_panel",
+            "compatibility_enforced": False,
+            "n_compat_excluded": 0,
+            "issue_domains_selected": dict(domain_selected),
+            "adversarial_goal": (
+                "Erode/shift support across targeted issue-position clusters per the baked "
+                "per-leaf adversarial directions."
+            ),
+        },
+    )
+
+    manifest = StageArtifactManifest(
+        stage_id="01",
+        stage_name="create_scenarios",
+        primary_output_path=abs_path(scenarios_jsonl),
+        output_files=[
+            abs_path(scenarios_jsonl),
+            abs_path(scenarios_json),
+            abs_path(ontology_catalog),
+            abs_path(audit_path),
+        ],
+        record_count=len(scenarios),
+        metadata={
+            "scenario_source": "integrated_scenarios_10000",
+            "scenario_design": "integrated_cluster_panel",
+            "sampling_strategy": "stratified_by_issue_domain_from_prebuilt_integrated_set",
+            "n_attack": len(scenarios),
+            "n_control": 0,
+            "n_scenarios": len(scenarios),
+            "n_expanded_leaf_rows_expected": total_leaf_rows,
+            "n_distinct_opinion_leaves": len(selected_opinion_leaves),
+            "issue_domains_selected": dict(domain_selected),
+            "n_distinct_attacks": len(distinct_attacks),
+            "attack_source": "external_DISARM_red_ontology",
+            "attack_grouping": "per_scenario_disarm_triplet_identity",
+            "selected_profile_count": len(scenarios),
+            "scenarios_per_profile": 1,
+            "compatibility_enforced": False,
+            "opinion_assessment_mode": "cluster_batched",
+        },
+    )
+
+    write_json(stage_manifest_path(output_root), manifest.model_dump())
+    LOGGER.info(
+        "Stage 01 integrated: %d scenarios, %d distinct leaves, ~%d expected leaf rows",
+        len(scenarios),
+        len(selected_opinion_leaves),
+        total_leaf_rows,
+    )
+    return manifest
+
+
 def run_stage(input_path: str, output_dir: str, config: Stage01Config) -> StageArtifactManifest:
     del input_path
+    if config.integrated_scenarios_path:
+        return run_stage_integrated(output_dir, config)
+
     output_root = ensure_dir(output_dir)
 
     project_root = Path(__file__).resolve().parents[5]
@@ -393,7 +835,7 @@ def run_stage(input_path: str, output_dir: str, config: Stage01Config) -> StageA
     # exchanges, can produce generative-AI artefacts (the LLM does), can
     # acquire OSINT-style data (we hand it the profile), can reach search-
     # index surfaces (the prompt simulates them), and can stage disruption
-    # narratives. Capability flags can be flipped per-run if the user wants
+    # narratives. Capability flags can be flipped per-run if the utils wants
     # to ablate a specific capability.
     available_capabilities = (
         "agent_orchestration",
@@ -599,15 +1041,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--n-profiles", type=int, default=None)
     parser.add_argument("--attack-ratio", type=float, default=0.5)
     parser.add_argument("--attack-leaf", default=None)
-    parser.add_argument("--attack-leaves", default=None, help="Comma-separated attack leaves; takes precedence over --attack-leaf")
+    parser.add_argument("--attack-leaves", default=None, help="Comma-01_separated attack leaves; takes precedence over --attack-leaf")
     parser.add_argument("--profile-generation-mode", default="deterministic", choices=["deterministic", "llm", "hybrid"])
     parser.add_argument("--focus-opinion-domain", default=None)
-    parser.add_argument("--opinion-leaves", default=None, help="Comma-separated explicit opinion leaves; takes precedence over spread sampling")
+    parser.add_argument("--opinion-leaves", default=None, help="Comma-01_separated explicit opinion leaves; takes precedence over spread sampling")
     parser.add_argument("--max-opinion-leaves", type=int, default=None)
     parser.add_argument("--profile-candidate-multiplier", type=int, default=2)
     parser.add_argument("--enforce-compatibility-rules", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--drop-direction-neutral-opinions", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--realism-weight-temperature", type=float, default=1.5)
+    parser.add_argument(
+        "--integrated-scenarios-path",
+        default=None,
+        help="Path to a pre-built integrated scenarios .jsonl. When set, stage 01 selects rows "
+        "from it (stratified by issue domain) instead of sampling from the ontology.",
+    )
     parser.add_argument("--use-test-ontology", action="store_true", default=False)
     parser.add_argument("--ontology-root", default=None)
     parser.add_argument("--openrouter-model", default=None)
@@ -644,6 +1092,7 @@ def main() -> None:
         enforce_compatibility_rules=args.enforce_compatibility_rules,
         drop_direction_neutral_opinions=args.drop_direction_neutral_opinions,
         realism_weight_temperature=args.realism_weight_temperature,
+        integrated_scenarios_path=args.integrated_scenarios_path,
         use_test_ontology=args.use_test_ontology,
         ontology_root=args.ontology_root,
         openrouter_model=args.openrouter_model,

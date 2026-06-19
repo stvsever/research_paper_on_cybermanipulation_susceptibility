@@ -3,11 +3,11 @@ from __future__ import annotations
 from pathlib import Path
 
 from src.backend.agentic_framework.agents import (
-    BaselineOpinionAgent,
-    NetworkExposureOpinionAgent,
+    ClusterBaselineOpinionAgent,
+    ClusterNetworkExposureOpinionAgent,
+    ClusterPostAttackNetworkExposureOpinionAgent,
+    ClusterPostAttackOpinionAgent,
     OpinionCoherenceReviewerAgent,
-    PostAttackOpinionAgent,
-    PostAttackNetworkExposureOpinionAgent,
 )
 from src.backend.agentic_framework.base_agent import BaseJsonAgent
 from src.backend.agentic_framework.openrouter_client import OpenRouterClient
@@ -36,24 +36,14 @@ class AgentFactory:
         self.save_raw_dir = save_raw_dir
         self.model_name = openrouter_model
 
-    def _base(self, name: str, max_tokens: int = 1000) -> BaseJsonAgent:
+    def _base(self, name: str) -> BaseJsonAgent:
         return BaseJsonAgent(
             name=name,
             client=self.client,
             prompt_loader=self.prompt_loader,
             max_repair_iter=self.max_repair_iter,
             temperature=self.temperature,
-            max_tokens=max_tokens,
             save_raw_dir=self.save_raw_dir,
-        )
-
-    def baseline_opinion_agent(self) -> BaselineOpinionAgent:
-        return BaselineOpinionAgent(self._base("baseline_opinion"), model_name=self.model_name)
-
-    def network_exposure_opinion_agent(self) -> NetworkExposureOpinionAgent:
-        return NetworkExposureOpinionAgent(
-            self._base("network_exposure_opinion"),
-            model_name=self.model_name,
         )
 
     def opinion_coherence_reviewer_agent(self) -> OpinionCoherenceReviewerAgent:
@@ -62,11 +52,23 @@ class AgentFactory:
             model_name=self.model_name,
         )
 
-    def post_attack_opinion_agent(self) -> PostAttackOpinionAgent:
-        return PostAttackOpinionAgent(self._base("post_attack_opinion"), model_name=self.model_name)
+    def cluster_baseline_opinion_agent(self) -> ClusterBaselineOpinionAgent:
+        return ClusterBaselineOpinionAgent(
+            self._base("cluster_baseline_opinion"), model_name=self.model_name
+        )
 
-    def post_attack_network_exposure_opinion_agent(self) -> PostAttackNetworkExposureOpinionAgent:
-        return PostAttackNetworkExposureOpinionAgent(
-            self._base("post_attack_network_exposure_opinion", max_tokens=2000),
-            model_name=self.model_name,
+    def cluster_post_attack_opinion_agent(self) -> ClusterPostAttackOpinionAgent:
+        return ClusterPostAttackOpinionAgent(
+            self._base("cluster_post_attack_opinion"), model_name=self.model_name
+        )
+
+    # --- Additive empirical exposure-network agents (CLUSTER network layer) ---
+    def cluster_network_exposure_opinion_agent(self) -> ClusterNetworkExposureOpinionAgent:
+        return ClusterNetworkExposureOpinionAgent(
+            self._base("cluster_network_exposure_opinion"), model_name=self.model_name
+        )
+
+    def cluster_post_attack_network_exposure_opinion_agent(self) -> ClusterPostAttackNetworkExposureOpinionAgent:
+        return ClusterPostAttackNetworkExposureOpinionAgent(
+            self._base("cluster_post_attack_network_exposure_opinion"), model_name=self.model_name
         )

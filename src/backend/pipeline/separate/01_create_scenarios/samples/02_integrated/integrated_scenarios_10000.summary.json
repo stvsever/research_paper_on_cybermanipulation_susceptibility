@@ -1,0 +1,83 @@
+{
+  "title": "Integrated opinion cognitive-warfare scenario set",
+  "n_scenarios": 10000,
+  "scenario_definition": "1 profile configuration + 1 DISARM-red Plan/Prepare/Execute attack triplet + 1 opinion parent cluster (multiple leaf nodes)",
+  "seed": 42,
+  "sources": {
+    "profiles": {
+      "file": "samples/01_separated/profiles/production_profiles_maxent_10000.json",
+      "n_available": 10000
+    },
+    "opinions": {
+      "file": "samples/01_separated/opinions/opinion_targets_maxent_1000.json",
+      "n_clusters": 7,
+      "subtree": "Issue_Position_Taxonomy (issue-position opinion targets)"
+    },
+    "attacks": {
+      "file": "samples/01_separated/attacks/red_plan_prepare_execute_opinion_effect_filtered.json",
+      "n_available": 48991,
+      "ontology_note": "EXTERNAL DISARM-red attack ontology (not this repo's attack ontology)"
+    }
+  },
+  "construction": {
+    "profile_assignment": "bijection (each of 10,000 profiles used exactly once)",
+    "opinion_cluster_assignment": "balanced uniform allocation across all 7 clusters",
+    "attack_selection": "entropy/coverage-preserving 10,000 subsample via multi-hop stochastic search",
+    "pairing": "factors shuffled independently and zipped (statistical independence)",
+    "curated_attacks_force_included": [
+      42781,
+      58567,
+      14767
+    ]
+  },
+  "entropy_report": {
+    "profile_usage_normalised_entropy": 1.0,
+    "profile_each_used_once": true,
+    "opinion_cluster_normalised_entropy": 1.0,
+    "opinion_cluster_min_max_usage": [
+      1428,
+      1429
+    ],
+    "opinion_family_normalised_entropy": 1.0,
+    "attack_subsample": {
+      "method": "entropy/coverage-preserving subsample via multi-hop stochastic swap search",
+      "iterations": 60000,
+      "accepted_moves": 822,
+      "final_cost": 0.14466,
+      "leaf_coverage_of_filtered_pool": 0.7595,
+      "distinct_attack_leaves_used": 13626,
+      "normalised_entropy_subsample": {
+        "plan": 0.9884,
+        "prepare": 0.9976,
+        "execute": 0.9965,
+        "route": 0.166,
+        "sigbin": 0.9987
+      },
+      "normalised_entropy_full_filtered": {
+        "plan": 0.9884,
+        "prepare": 0.9976,
+        "execute": 0.9965,
+        "route": 0.1659,
+        "sigbin": 0.9987
+      },
+      "total_variation_to_full": {
+        "plan": 0.0,
+        "prepare": 0.0001,
+        "execute": 0.0001,
+        "route": 0.0,
+        "sigbin": 0.0001
+      }
+    }
+  },
+  "independence_cramers_v": {
+    "profile_region__x__opinion_cluster": 0.0,
+    "profile_age_band__x__attack_execute_tactic": 0.0,
+    "opinion_cluster__x__attack_route": 0.0032,
+    "note": "Cram\u00e9r's V near 0 \u21d2 scenario factors are not confounded (good internal validity)."
+  },
+  "join_back": {
+    "profile_id": "join to the profile columnar/example files",
+    "attack.config_id / leaves": "join to attack leaf_catalog for full Plan/Prepare/Execute paths",
+    "opinion_cluster.key": "join to opinion clusters for the full leaf list + adversarial directions"
+  }
+}

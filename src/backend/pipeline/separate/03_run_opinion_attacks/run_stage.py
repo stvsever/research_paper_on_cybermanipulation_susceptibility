@@ -50,8 +50,8 @@ if str(PROJECT_ROOT) not in sys.path:
 from src.backend.utils.io import abs_path, ensure_dir, read_json, read_jsonl, stage_manifest_path, write_json, write_jsonl
 from src.backend.utils.logging_utils import setup_logging
 from src.backend.utils.ontology_utils import load_adversarial_directions_from_opinion
-from src.backend.utils.compatibility_rules import load_attack_metadata_index
-from src.backend.utils.scenario_realism import build_attack_context
+from src.backend.utils.scenario.compatibility_rules import load_attack_metadata_index
+from src.backend.utils.scenario.scenario_realism import build_attack_context
 from src.backend.utils.schemas import (
     OpinionAssessment,
     ScenarioRecord,
@@ -112,6 +112,49 @@ def _tier_intensity_proxy(complexity_tier: str) -> float:
     return 0.50
 
 
+def _build_cluster_attack_spec_row(row: Dict[str, Any], scenario: ScenarioRecord) -> Dict[str, Any]:
+    """Compile the attack-vector spec for an integrated cluster scenario.
+
+    The agent's ONLY attack input is the raw DISARM-red triplet: the three phase
+    paths (Plan, Prepare, Execute), each spelled from the phase down to the
+    concrete technique. The agent must reason for itself how those three phases
+    combine into one coherent influence operation and how capable / sustained it
+    is. No mechanism / tier / platform interpretation is pre-computed for it (the
+    external DISARM ontology does not join to this repo's ATTACK tree, and
+    pre-chewing the operation would bias the estimand). signal_total and
+    inclusion_route are passed verbatim as raw given attributes. intensity_proxy
+    is a structural envelope used only by the post-stage heuristic guard.
+    """
+    disarm = (scenario.metadata or {}).get("disarm_attack", {}) or {}
+    triplet = disarm.get("disarm_triplet", {}) or {}
+
+    def _phase_view(name: str) -> Dict[str, Any]:
+        phase = triplet.get(name, {}) or {}
+        return {"path": phase.get("path", ""), "technique": phase.get("label", "")}
+
+    signal_total = float(disarm.get("signal_total", 0.0) or 0.0)
+    # Structural envelope only (NOT shown as an interpretation): stronger overall
+    # signal supports a wider plausible movement band in the heuristic check.
+    intensity_proxy = round(max(0.2, min(0.9, signal_total / 18.0)), 3)
+
+    spec: Dict[str, Any] = {
+        "attack_present": bool(scenario.attack_present),
+        "attack_leaf": scenario.attack_leaf,
+        "disarm_operation": {
+            "Plan": _phase_view("Plan"),
+            "Prepare": _phase_view("Prepare"),
+            "Execute": _phase_view("Execute"),
+        },
+        "inclusion_route": disarm.get("inclusion_route", ""),
+        "signal_total": signal_total,
+        "intensity_proxy": intensity_proxy,
+        "spec_source": "disarm_integrated_v2_triplet_only",
+    }
+    enriched = dict(row)
+    enriched["attack_vector_spec"] = spec
+    return enriched
+
+
 def run_stage(input_path: str, output_dir: str, config: Stage03Config) -> StageArtifactManifest:
     ensure_dir(output_dir)
 
@@ -145,8 +188,21 @@ def run_stage(input_path: str, output_dir: str, config: Stage03Config) -> StageA
         scenario = ScenarioRecord.model_validate(
             {k: v for k, v in row.items() if k not in {
                 "baseline_assessment", "baseline_coherence_review", "baseline_heuristic_checks",
+                "baseline_cluster_assessment", "baseline_cluster_heuristics",
             }}
         )
+
+        # ── Integrated cluster scenarios: build a DISARM-red vector spec ──────
+        if scenario.opinion_cluster is not None:
+            enriched_rows.append(_build_cluster_attack_spec_row(row, scenario))
+            spec_records.append(
+                {"scenario_id": scenario.scenario_id, **enriched_rows[-1]["attack_vector_spec"]}
+            )
+            if scenario.attack_present:
+                n_attack += 1
+                n_direction_from_metadata += 1
+            continue
+
         baseline = OpinionAssessment.model_validate(row["baseline_assessment"])
 
         # Direction: scenario metadata is authoritative (written by stage 01

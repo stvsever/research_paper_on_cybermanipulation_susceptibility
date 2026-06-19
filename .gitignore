@@ -42,14 +42,24 @@ dist/
 build/
 *.egg-info/
 
-# Profile network workbench local/runtime output
-profile_network_workbench/runs/
-profile_network_workbench/api/.venv/
-profile_network_workbench/api/.pytest_cache/
-profile_network_workbench/web/node_modules/
-profile_network_workbench/web/dist/
-profile_network_workbench/web/.vite/
+# Profile network workbench local/runtime output (relocated under src/backend)
+src/backend/profile_network_workbench/runs/
+src/backend/profile_network_workbench/api/.venv/
+src/backend/profile_network_workbench/api/.pytest_cache/
+src/backend/profile_network_workbench/web/node_modules/
+src/backend/profile_network_workbench/web/dist/
+src/backend/profile_network_workbench/web/.vite/
 
 # Temporary files
 *.tmp
 *.bak
+
+# Redundant folder
+/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/ontology/utils
+
+# Large regenerable data artifacts that exceed GitHub's 100 MB hard limit.
+# These are rebuilt locally by the samplers/pipeline; the CSV equivalents that the
+# dashboards and reports consume stay tracked.
+src/backend/pipeline/separate/01_create_scenarios/samples/02_integrated/integrated_scenarios_10000.jsonl
+src/backend/pipeline/separate/01_create_scenarios/samples/01_separated/attacks/red_plan_prepare_execute_opinion_effect_filtered.json
+**/sem_long_encoded.jsonl

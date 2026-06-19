@@ -47,9 +47,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[5]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.backend.utils.advanced_inferential import run_advanced_inferential
-from src.backend.utils.scenario_ml import profile_distance_moderation_test, run_scenario_ml
-from src.backend.utils.conditional_susceptibility import (
+from src.backend.utils.analysis.advanced_inferential import fit_mixed_effects_moderation, run_advanced_inferential
+from src.backend.utils.analysis.scenario_ml import profile_distance_moderation_test, run_scenario_ml
+from src.backend.utils.analysis.conditional_susceptibility import (
     HierarchicalDecomposition,
     build_conditional_weight_table,
     fit_conditional_susceptibility_index,
@@ -57,7 +57,7 @@ from src.backend.utils.conditional_susceptibility import (
 from src.backend.utils.data_utils import infer_analysis_mode, zscore_series
 from src.backend.utils.io import abs_path, ensure_dir, stage_manifest_path, write_json, write_text
 from src.backend.utils.logging_utils import setup_logging
-from src.backend.utils.methodology_audit import (
+from src.backend.utils.analysis.methodology_audit import (
     build_assumption_register,
     build_peer_review_critique_notes,
     render_methodology_audit_text,
@@ -128,20 +128,39 @@ def _normalize_fit_indices(raw: Dict[str, Any]) -> Dict[str, Any]:
     return flat
 
 
+_MAX_SEM_INDICATORS = 8
+
+
 def _indicator_columns(profile_df: pd.DataFrame) -> List[str]:
-    """Prefer adversarially-aligned indicators (current design); fall back to abs_delta."""
-    adversarial = sorted(
+    """Prefer adversarially-aligned indicators (current design); fall back to abs_delta.
+
+    The repeated-outcome path SEM was designed for the run_1 CROSSED panel, where
+    every profile faced the same handful of opinion leaves. In the integrated
+    NESTED design each profile faces only one issue domain, so the per-leaf
+    indicators are block-disjoint (often >100 leaves, each observed for ~10
+    profiles). A full path SEM over all of them produces thousands of covariance
+    parameters that are neither estimable nor fast. We therefore cap the SEM to
+    the best-covered indicators; the primary moderation evidence comes from the
+    profile-level OLS/ridge/elastic-net/random-forest models and the conditional
+    susceptibility index, not this secondary path SEM.
+    """
+    adversarial = [
         column
         for column in profile_df.columns
         if column.startswith("adversarial_delta_indicator__") and not column.endswith("_z")
-    )
-    if adversarial:
-        return adversarial
-    return sorted(
+    ]
+    candidates = adversarial or [
         column
         for column in profile_df.columns
         if column.startswith("abs_delta_indicator__") and not column.endswith("_z")
-    )
+    ]
+    if len(candidates) <= _MAX_SEM_INDICATORS:
+        return sorted(candidates)
+    # Rank by coverage (non-NaN profiles) so the capped SEM uses the most
+    # commonly observed outcomes and stays estimable.
+    coverage = {col: int(profile_df[col].notna().sum()) for col in candidates}
+    top = sorted(candidates, key=lambda c: (-coverage[c], c))[:_MAX_SEM_INDICATORS]
+    return sorted(top)
 
 
 def _primary_outcome_column(profile_df: pd.DataFrame) -> str:
@@ -233,6 +252,32 @@ def _fit_sem(
             pd.DataFrame(),
         )
 
+    # Restrict to complete cases on the chosen indicators. Under the integrated
+    # NESTED design each profile only faces one issue domain, so cross-leaf
+    # indicators are usually block-disjoint and there may be too few profiles
+    # observed on all indicators to fit a path SEM. Skip gracefully in that case
+    # (fast, no fabrication) rather than fitting a degenerate covariance model.
+    complete_df = profile_df.dropna(subset=indicator_columns)
+    min_needed = max(10, 2 * len(indicator_columns))
+    if len(complete_df) < min_needed:
+        return (
+            SemFitResult(
+                model_name="profile_panel_path_sem",
+                model_formula="",
+                converged=False,
+                n_obs=int(len(complete_df)),
+                fit_indices={},
+                coefficients=[],
+                warnings=[
+                    f"Path SEM skipped: only {len(complete_df)} profiles are jointly observed on the "
+                    f"{len(indicator_columns)} repeated-outcome indicators (nested cluster design). "
+                    "Primary moderation evidence is the profile-level OLS/ridge/elastic-net/random-forest "
+                    "models and the conditional susceptibility index."
+                ],
+            ),
+            pd.DataFrame(),
+        )
+
     regression_blocks = [
         _build_formula(indicator, structural_terms)
         for indicator in indicator_columns
@@ -245,7 +290,7 @@ def _fit_sem(
     model = Model(model_formula)
 
     try:
-        model.fit(profile_df)
+        model.fit(complete_df)
         converged = True
     except Exception as exc:
         warnings.append(f"semopy fit failed: {exc}")
@@ -511,27 +556,101 @@ def _moderator_feature_type(term: str) -> str:
     return "Continuous subscale"
 
 
+_MAX_CATEGORICAL_DUMMIES = 60
+
+
 def _dynamic_profile_terms(df: pd.DataFrame) -> List[str]:
-    """Return all profile feature columns with variance, excluding synthetic proxies
-    and the three run_1 inventories (Dual_Process, Digital_Literacy, Political_Engagement)
-    that are not mappable to standard survey instruments."""
+    """Return profile feature columns used by the moderation/network/ML models.
+
+    All variance-bearing continuous constructs are kept (these are the
+    psychometric / political-psychological / ideological / demographic
+    inter-individual-difference moderators). Synthetic proxies and the three
+    run_1 non-survey inventories are excluded.
+
+    Categorical one-hot dummies are kept as-is for small ontologies (run_1). For
+    the production profile, one-hotting ~272 categorical traits explodes into
+    ~1500 mostly near-singleton administrative/clinical dummies, which are both
+    statistically noise on a small panel and prohibitively slow for the network
+    / random-forest stack. When the dummy space is large we therefore keep only
+    the reasonably balanced dummies (prevalence in [0.10, 0.90]) and cap the
+    count to the most balanced ones, so the moderation analysis stays
+    interpretable and tractable. The full profile is still shown to the
+    simulation agents; this filter only governs the analysis feature space.
+    """
+    _exclude = {
+        "profile_cont_heuristic_shift_sensitivity_proxy",
+        "profile_cont_resilience_index",
+    }
+    continuous_terms: List[str] = []
+    categorical_terms: List[str] = []
+    for col in sorted(df.columns):
+        if col in _exclude:
+            continue
+        if any(col.startswith(p) for p in _INVENTORY_EXCLUSION_PREFIXES):
+            continue
+        if col.endswith("_z"):  # skip pre-standardised duplicates
+            continue
+        if col.startswith("profile_cont_"):
+            if df[col].nunique(dropna=True) > 1:
+                continuous_terms.append(col)
+        elif col.startswith("profile_cat__"):
+            if df[col].nunique(dropna=True) > 1:
+                categorical_terms.append(col)
+
+    if len(categorical_terms) > _MAX_CATEGORICAL_DUMMIES:
+        prevalence = {c: float(df[c].astype(float).mean()) for c in categorical_terms}
+        balanced = [c for c in categorical_terms if 0.10 <= prevalence[c] <= 0.90]
+        balanced.sort(key=lambda c: abs(prevalence[c] - 0.5))
+        categorical_terms = sorted(balanced[:_MAX_CATEGORICAL_DUMMIES])
+
+    return continuous_terms + categorical_terms
+
+
+def _conditional_feature_terms(df: pd.DataFrame) -> List[str]:
+    """Construct-level continuous moderators for the conditional susceptibility index.
+
+    Each per-(attack, opinion) task model is fit on only ~10-15 profiles, so the
+    index uses the ~45 higher-order *_mean_pct psychometric / political-psychology
+    aggregates (Big Five, ideological dimensions, moral foundations, RWA, SDO,
+    populism, ...) plus age, rather than all ~250 fine facets. This keeps each
+    per-task ridge well-posed and the resulting feature weights interpretable,
+    while the empirical-Bayes shrinkage pools strength across the 106 opinion-leaf
+    tasks. Using all facets would be both over-parameterised at the task level and
+    far slower under the bootstrap.
+    """
     _exclude = {
         "profile_cont_heuristic_shift_sensitivity_proxy",
         "profile_cont_resilience_index",
     }
     terms: List[str] = []
     for col in sorted(df.columns):
-        if col in _exclude:
+        if not col.startswith("profile_cont_") or col.endswith("_z") or col in _exclude:
             continue
         if any(col.startswith(p) for p in _INVENTORY_EXCLUSION_PREFIXES):
             continue
-        if not (col.startswith("profile_cont_") or col.startswith("profile_cat__")):
-            continue
-        if col.endswith("_z"):  # skip pre-standardised duplicates
-            continue
-        if df[col].nunique(dropna=True) > 1:
+        if (col.endswith("mean_pct") or col == "profile_cont_age_years") and df[col].nunique(dropna=True) > 1:
             terms.append(col)
-    return terms
+    # Fall back to the broader set if this profile has no construct-level aggregates.
+    return terms or _dynamic_profile_terms(df)
+
+
+def _analysis_feature_terms(df: pd.DataFrame) -> List[str]:
+    """Moderator panel for the headline mixed-effects model and the ML moderation
+    stack.
+
+    For the high-dimensional production profile we use the ~46 construct-level
+    aggregates (Big Five plus the political-psychology, ideological,
+    moral-foundations, authoritarianism / SDO, populism and political-participation
+    constructs) rather than the ~250 fine facets. At n ~ 100 scenarios this keeps
+    the mixed-effects and regularized models well-posed and the moderators
+    interpretable while still spanning the whole profile space, not just Big Five
+    and age. Small ontologies (run_1) keep their full variance-bearing feature set
+    unchanged.
+    """
+    broad = _dynamic_profile_terms(df)
+    if len(broad) > 80:
+        return _conditional_feature_terms(df)
+    return broad
 
 
 def _fit_elastic_net(
@@ -633,7 +752,7 @@ def _fit_random_forest(
 ) -> Dict[str, Any]:
     """Random Forest regression for non-linear moderation detection.
 
-    OOB R² provides an honest fit estimate without a separate test set.
+    OOB R² provides an honest fit estimate without a 01_separated test set.
     Permutation importance (n_repeats=50) is preferred over MDI because it
     accounts for correlated features and is invariant to feature scale.
     """
@@ -1040,7 +1159,7 @@ def _fit_network_analysis(
         "feature_type_assortativity": feature_type_assortativity,
         "corr_threshold": corr_threshold,
         "n_features_total": len(valid),
-        "note": "Spearman correlation network of profile features. Strength-based metrics use |rho|; path-based metrics use distance = 1 / |rho|. Participation and within-module z-score separate bridge-like nodes from community-local hubs.",
+        "note": "Spearman correlation network of profile features. Strength-based metrics use |rho|; path-based metrics use distance = 1 / |rho|. Participation and within-module z-score 01_separated bridge-like nodes from community-local hubs.",
     }
 
     # Compute spring layout for visualization
@@ -1678,6 +1797,40 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
     if analysis_mode != "treated_only":
         raise RuntimeError("SEM stage is designed for attacked-only profile-panel data (attack_ratio=1.0).")
 
+    # Attack-grouping policy. In the integrated design each scenario carries its
+    # own (effectively unique) DISARM-red triplet identity, so per-(attack,opinion)
+    # task models would be singletons and an attack one-hot would degenerate into
+    # ~one dummy per scenario. When attacks are this granular we (a) POOL attacks
+    # for the conditional-susceptibility index so each opinion leaf is one
+    # well-populated task that estimates PROFILE moderation, and (b) collapse the
+    # attack factor to the real DISARM *Execute tactic* (a small set of shared,
+    # human-readable vectors such as "Deliver Content" / "Maximise Exposure") for
+    # the scenario-ML stack and the per-attack effect summaries, falling back to
+    # the coarser inclusion_route only when the tactic is unavailable. The stored
+    # long table keeps the true per-scenario attack identity for provenance.
+    # Few-attack runs (e.g. run_1) are left untouched.
+    _n_attacks = int(long_df["attack_leaf"].nunique()) if "attack_leaf" in long_df.columns else 0
+    _n_scenarios = int(long_df["profile_id"].nunique()) if "profile_id" in long_df.columns else 0
+    pool_attacks = _n_attacks > max(8, _n_scenarios // 4)
+    if pool_attacks:
+        LOGGER.info(
+            "Stage 06: attacks are near-unique (%d distinct over %d scenarios); pooling attacks "
+            "for the conditional-susceptibility index and grouping by DISARM Execute tactic for the ML stack.",
+            _n_attacks, _n_scenarios,
+        )
+        long_df_csi = long_df.assign(attack_leaf="DISARM_attacks_pooled")
+        if "attack_execute_tactic" in long_df.columns and long_df["attack_execute_tactic"].notna().any():
+            _tactic = long_df["attack_execute_tactic"].fillna("Unspecified tactic").astype(str)
+            long_df_sml = long_df.assign(attack_leaf=_tactic, attack_leaf_label=_tactic)
+        elif "attack_inclusion_route" in long_df.columns:
+            _route = long_df["attack_inclusion_route"].fillna("unknown_route").astype(str)
+            long_df_sml = long_df.assign(attack_leaf="route::" + _route, attack_leaf_label="route::" + _route)
+        else:
+            long_df_sml = long_df.assign(attack_leaf="DISARM_attacks_pooled", attack_leaf_label="DISARM_attacks_pooled")
+    else:
+        long_df_csi = long_df
+        long_df_sml = long_df
+
     stage05_dir = Path(input_path).resolve().parent
     profile_summary_path = stage05_dir / "profile_level_effectivity.csv"
     profile_wide_path = stage05_dir / "profile_sem_wide.csv"
@@ -1740,10 +1893,16 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
         col for col in long_df.columns
         if any(col.startswith(p) for p in _INVENTORY_EXCLUSION_PREFIXES)
     ]
+    # Construct-level moderator set (~46 *_mean_pct aggregates + age). Each
+    # per-(attack, opinion) task ridge sees only ~10-15 profiles, so using the
+    # higher-order constructs (not ~250 facets or ~1500 categorical dummies)
+    # keeps every task model well-posed and fast, with EB shrinkage pooling
+    # across the 106 opinion-leaf tasks.
+    conditional_feature_terms = _conditional_feature_terms(long_df_csi)
     conditional_fit = fit_conditional_susceptibility_index(
-        long_df=long_df,
+        long_df=long_df_csi,
         outcome_metric=conditional_outcome,
-        feature_columns=None,  # use all available profile features
+        feature_columns=conditional_feature_terms,
         excluded_feature_columns=[
             "profile_cont_heuristic_shift_sensitivity_proxy",
             "profile_cont_resilience_index",
@@ -1751,7 +1910,9 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
         ],
         seed=config.seed,
         compute_hierarchy=True,
-        bootstrap_samples=config.bootstrap_samples,
+        # The per-task rank-CI block bootstrap dominates Stage 06 runtime; 120
+        # resamples give stable enough rankings without the full bootstrap budget.
+        bootstrap_samples=min(int(config.bootstrap_samples or 0), 120),
         shrinkage_strength=0.20,
     )
     weight_table = build_conditional_weight_table(conditional_fit.artifact)
@@ -1837,7 +1998,7 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
     # correctly finds no aggregate signal. Coefficient directions from
     # ridge are still theoretically interpretable.
     # ------------------------------------------------------------------
-    all_feature_terms = _dynamic_profile_terms(profile_df)
+    all_feature_terms = _analysis_feature_terms(profile_df)
     LOGGER.info("Fitting Ridge (all %d features) ...", len(all_feature_terms))
     ridge_full_result = _fit_ridge_full_features(
         df=profile_df,
@@ -2057,9 +2218,38 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
                 id_vars=["profile_id"], value_vars=rank_cols,
                 var_name="iteration", value_name="rank",
             )
+    # Headline linear mixed-effects moderation (random intercept per scenario)
+    # needs a parsimonious fixed-effect panel: with ~100 between-scenario units a
+    # 47-term LMM is rank-deficient and will not converge. Use the Elastic-Net
+    # selected moderators (data-driven, not hand-picked) as the LMM/advanced fixed
+    # effects; fall back to the full construct panel only if EN selected too few.
+    _en_selected = (
+        enet_result.get("selected_df", pd.DataFrame())["term"].tolist()
+        if isinstance(enet_result.get("selected_df"), pd.DataFrame) and not enet_result["selected_df"].empty
+        else []
+    )
+    headline_feature_terms = [t for t in _en_selected if t in long_df.columns and long_df[t].nunique(dropna=True) > 1]
+    if len(headline_feature_terms) < 3:
+        # Data-driven fallback for small integrated test panels: choose the
+        # strongest construct-level moderators by profile-level univariate
+        # association, keeping the LMM estimable without hand-picking age /
+        # Big Five or drowning it in hundreds of profile facets.
+        candidate_terms = [t for t in all_feature_terms if t in profile_df.columns and profile_df[t].nunique(dropna=True) > 1]
+        scored_terms: List[Tuple[float, str]] = []
+        for term in candidate_terms:
+            try:
+                corr = abs(float(np.corrcoef(profile_df[term].astype(float), profile_df[primary_outcome].astype(float))[0, 1]))
+            except Exception:
+                corr = 0.0
+            if np.isfinite(corr):
+                scored_terms.append((corr, term))
+        scored_terms.sort(reverse=True)
+        headline_feature_terms = [term for _, term in scored_terms[:12]]
+    headline_feature_terms = [t for t in headline_feature_terms if t in long_df.columns][:12]
+    LOGGER.info("Advanced/mixed-effects layer fixed effects: %d moderators", len(headline_feature_terms))
     advanced_bundle = run_advanced_inferential(
         long_df=long_df,
-        feature_cols=all_feature_terms,
+        feature_cols=headline_feature_terms,
         bootstrap_ranks_long=bootstrap_long_for_advanced,
         network_edge_df=network_result.get("edge_df"),
         network_centrality_df=network_result.get("centrality_df"),
@@ -2088,8 +2278,27 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
         "converged": advanced_bundle.multilevel_icc.converged,
         "notes": advanced_bundle.multilevel_icc.notes,
     })
-    if not advanced_bundle.mixed_effects.coefficients.empty:
-        advanced_bundle.mixed_effects.coefficients.to_csv(mixed_effects_csv, index=False)
+    mixed_effects_result = advanced_bundle.mixed_effects
+    if mixed_effects_result.coefficients.empty and headline_feature_terms:
+        LOGGER.warning(
+            "Advanced bundle returned no mixed-effects coefficients; refitting direct LMM with %d terms.",
+            len(headline_feature_terms),
+        )
+        mixed_effects_result = fit_mixed_effects_moderation(
+            long_df,
+            outcome_col=conditional_outcome,
+            feature_cols=headline_feature_terms,
+            seed=config.seed,
+        )
+        if mixed_effects_result.coefficients.empty and len(headline_feature_terms) > 6:
+            mixed_effects_result = fit_mixed_effects_moderation(
+                long_df,
+                outcome_col=conditional_outcome,
+                feature_cols=headline_feature_terms[:6],
+                seed=config.seed,
+            )
+    if not mixed_effects_result.coefficients.empty:
+        mixed_effects_result.coefficients.to_csv(mixed_effects_csv, index=False)
     if not advanced_bundle.permutation_importance.table.empty:
         advanced_bundle.permutation_importance.table.to_csv(perm_csv, index=False)
     if not advanced_bundle.bca_bootstrap.table.empty:
@@ -2113,10 +2322,10 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
     # held-out boosted-tree importance, cluster-robust feature x context
     # moderation scans with BH-FDR, and cluster-bootstrap effect summaries.
     LOGGER.info("Running scenario-level ML moderation stack ...")
-    scenario_feature_terms = _dynamic_profile_terms(long_df)
+    scenario_feature_terms = _analysis_feature_terms(long_df)
     scenario_outcome = conditional_outcome
     scenario_bundle = run_scenario_ml(
-        long_df=long_df,
+        long_df=long_df_sml,
         outcome_col=scenario_outcome,
         feature_cols=scenario_feature_terms,
         n_bootstrap=min(int(config.bootstrap_samples or 500), 600),

@@ -15,7 +15,9 @@ from .schemas import ExposureEdge, ExposureEdgeIndex, ExposureNetworkPackage
 
 
 def default_exposure_network_root() -> Path:
-    return Path(__file__).resolve().parents[4] / "data" / "exposure_networks" / DEFAULT_GRAPH_ID
+    # The exposure-network substrate lives under src/data per the repo layout
+    # (loader.py is src/backend/utils/network_exposure/loader.py -> parents[3] == src).
+    return Path(__file__).resolve().parents[3] / "data" / "exposure_networks" / DEFAULT_GRAPH_ID
 
 
 def read_csv_rows(path: Path) -> list[dict[str, str]]:

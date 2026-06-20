@@ -1818,14 +1818,27 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
             "for the conditional-susceptibility index and grouping by DISARM Execute tactic for the ML stack.",
             _n_attacks, _n_scenarios,
         )
-        long_df_csi = long_df.assign(attack_leaf="DISARM_attacks_pooled")
+        # Conditional-susceptibility index. Keep the well-populated POOLED task
+        # (one model per opinion leaf over all attacks, the primary profile-moderation
+        # estimate) AND add per-DISARM-Execute-tactic tasks so the dashboard estimator
+        # can be scoped to a specific attack vector rather than only the pooled view.
+        # The two label spaces are disjoint ("DISARM_attacks_pooled" vs the tactic
+        # names), so a task scope selects one regime without double-counting; the
+        # reliability weights down-weight thinly-populated per-tactic cells.
+        _pooled_csi = long_df.assign(attack_leaf="DISARM_attacks_pooled", attack_leaf_label="DISARM_attacks_pooled")
         if "attack_execute_tactic" in long_df.columns and long_df["attack_execute_tactic"].notna().any():
             _tactic = long_df["attack_execute_tactic"].fillna("Unspecified tactic").astype(str)
+            long_df_csi = pd.concat(
+                [_pooled_csi, long_df.assign(attack_leaf=_tactic, attack_leaf_label=_tactic)],
+                ignore_index=True,
+            )
             long_df_sml = long_df.assign(attack_leaf=_tactic, attack_leaf_label=_tactic)
         elif "attack_inclusion_route" in long_df.columns:
             _route = long_df["attack_inclusion_route"].fillna("unknown_route").astype(str)
+            long_df_csi = _pooled_csi
             long_df_sml = long_df.assign(attack_leaf="route::" + _route, attack_leaf_label="route::" + _route)
         else:
+            long_df_csi = _pooled_csi
             long_df_sml = long_df.assign(attack_leaf="DISARM_attacks_pooled", attack_leaf_label="DISARM_attacks_pooled")
     else:
         long_df_csi = long_df

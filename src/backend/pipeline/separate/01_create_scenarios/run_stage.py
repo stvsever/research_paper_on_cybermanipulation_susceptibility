@@ -125,6 +125,10 @@ class Stage01Config(StageConfig):
     # social-media (Bluesky) exposure substrate, then capped. Off for plain runs.
     media_filter: bool = False
     network_scenario_cap: Optional[int] = None
+    # Comma-separated profile subtree substrings to drop from the integrated profile
+    # before it reaches the agent and the analyses. None -> the curated default set
+    # (DEFAULT_PROFILE_SKIP_SUBTREES); empty string -> keep the full profile.
+    profile_skip_subtrees: Optional[str] = None
     max_opinion_leaves: Optional[int] = None
     profile_candidate_multiplier: int = 2
     # current design: meta-node compatibility-aware scenario filtering
@@ -499,15 +503,57 @@ def _stratified_domain_sample(
     return selected[:n_target], dict(seen)
 
 
-def _map_integrated_profile(profile_dict: Dict[str, Any]) -> ProfileConfiguration:
+# Default profile subtrees dropped from the high-resolution profile before it is
+# shown to the agent and modelled. The pre-built 10K profiles carry ~520 traits
+# across many overlapping taxonomies; that breadth both dilutes what the agent can
+# actually condition on and leaves the moderator models hopelessly under-determined
+# (p >> n). These substrings remove the redundant personality taxonomies (HEXACO and
+# Eysenck duplicate Big Five; the Hexad "user types" are a gamification model with no
+# political-susceptibility meaning) and the low-relevance life-admin subtrees (goals,
+# values, perceived safety/legal, criminal record, administrative metadata, moral
+# alignment, reproductive status), cutting roughly 40% of features while keeping the
+# research-relevant core: comprehensive demographics and socioeconomics, the Big Five,
+# the full political-psychology battery (ideology, GAL/TAN, libertarian/authoritarian,
+# nationalism, populism, system justification, moral foundations), religion, and
+# digital/media literacy. Applied to the already-sampled scenarios, so it filters
+# rather than re-samples. Override with --profile-skip-subtrees (comma-separated).
+DEFAULT_PROFILE_SKIP_SUBTREES: List[str] = [
+    "hexad",
+    "hexaco",
+    "eysenck",
+    "goals_",
+    "goal_orientation",
+    "goal_metadata",
+    "safety_and_legal",
+    "criminal_record",
+    "administrative_and_data",
+    "values_value",
+    "value_orientation",
+    "core_value",
+    "alignment_",
+    "reproductive_and_family_planning",
+]
+
+
+def _skip_profile_key(key: str, skip_subtrees: List[str]) -> bool:
+    kl = str(key).lower()
+    return any(sub in kl for sub in skip_subtrees)
+
+
+def _map_integrated_profile(
+    profile_dict: Dict[str, Any], skip_subtrees: Optional[List[str]] = None
+) -> ProfileConfiguration:
     """Map a full integrated profile into the pipeline's ProfileConfiguration.
 
-    Every substantive attribute is carried through so the downstream agent sees
-    the FULL high-resolution profile: all 272 categorical traits, all 248
-    numeric scores, plus the demographics block and Big Five (pct -> continuous,
-    level -> categorical). Big Five mean-pct keys and age_years are written under
-    the exact names the realism layer and Stage 06 moderators expect.
+    Substantive attributes are carried through so the downstream agent sees a
+    high-resolution profile, EXCEPT the subtrees named in ``skip_subtrees`` (see
+    DEFAULT_PROFILE_SKIP_SUBTREES), which are dropped here so they are excluded
+    from both the agent prompt and every downstream analysis in one place. The
+    demographics block and Big Five (pct -> continuous, level -> categorical) are
+    always kept; Big Five mean-pct keys and age_years use the exact names the
+    realism layer and Stage 06 moderators expect.
     """
+    skip = skip_subtrees if skip_subtrees is not None else DEFAULT_PROFILE_SKIP_SUBTREES
     profile_id = str(profile_dict.get("profile_id", "profile_unknown"))
     demographics = profile_dict.get("demographics", {}) or {}
     categorical: Dict[str, str] = {}
@@ -539,8 +585,12 @@ def _map_integrated_profile(profile_dict: Dict[str, Any]) -> ProfileConfiguratio
         continuous["age_years"] = _to_float(age_years, 42.0)
 
     for key, value in (profile_dict.get("categorical_attributes", {}) or {}).items():
+        if _skip_profile_key(key, skip):
+            continue
         categorical[str(key)] = str(value)
     for key, value in (profile_dict.get("numeric_attributes", {}) or {}).items():
+        if _skip_profile_key(key, skip):
+            continue
         continuous[str(key)] = _to_float(value, 0.0)
 
     profile = ProfileConfiguration(
@@ -649,9 +699,15 @@ def run_stage_integrated(output_dir: str, config: Stage01Config) -> StageArtifac
             requested, cap, cap,
         )
 
+    # Resolve the profile subtree skip list once: None -> curated default, empty
+    # string -> keep the full profile, otherwise a comma-separated override.
+    if config.profile_skip_subtrees is None:
+        skip_subtrees = DEFAULT_PROFILE_SKIP_SUBTREES
+    else:
+        skip_subtrees = [s.strip().lower() for s in config.profile_skip_subtrees.split(",") if s.strip()]
     LOGGER.info(
-        "Stage 01 integrated mode: selecting %d scenarios from %s (focus_domains=%s, media_filter=%s)",
-        n_target, integrated_path, focus_domains or "all-7", media_filter,
+        "Stage 01 integrated mode: selecting %d scenarios from %s (focus_domains=%s, media_filter=%s, profile_skip_subtrees=%d)",
+        n_target, integrated_path, focus_domains or "all-7", media_filter, len(skip_subtrees),
     )
     selected, domain_counts = _stratified_domain_sample(
         integrated_path, n_target, config.seed, focus_domains=focus_domains, media_filter=media_filter,
@@ -671,7 +727,7 @@ def run_stage_integrated(output_dir: str, config: Stage01Config) -> StageArtifac
 
     for idx, row in enumerate(selected):
         scenario_id = str(row.get("scenario_id") or f"scenario_{idx + 1:05d}")
-        profile = _map_integrated_profile(row.get("profile", {}) or {})
+        profile = _map_integrated_profile(row.get("profile", {}) or {}, skip_subtrees=skip_subtrees)
         oc = row.get("opinion_cluster", {}) or {}
         leaves_raw = oc.get("leaves", []) or []
         cluster_leaves: List[OpinionClusterLeaf] = []
@@ -782,6 +838,11 @@ def run_stage_integrated(output_dir: str, config: Stage01Config) -> StageArtifac
                 "network_scenario_cap": cap,
                 "cap_triggered": bool(cap is not None and requested > cap),
                 "seed": config.seed,
+                "profile_skip_subtrees": skip_subtrees,
+                "n_profile_features_kept": (
+                    len(scenarios[0].profile.categorical_attributes) + len(scenarios[0].profile.continuous_attributes)
+                    if scenarios else 0
+                ),
             },
             "note": (
                 "Integrated cluster panel: each scenario targets one issue domain and all its "
@@ -1172,6 +1233,12 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Hard cap on integrated scenarios for the exposure-network layer; over it the media filter engages.",
     )
+    parser.add_argument(
+        "--profile-skip-subtrees",
+        default=None,
+        help="Comma-separated profile subtree substrings to drop from the integrated profile (agent + analyses). "
+        "Omit for the curated default set; pass an empty string to keep the full profile.",
+    )
     parser.add_argument("--opinion-leaves", default=None, help="Comma-01_separated explicit opinion leaves; takes precedence over spread sampling")
     parser.add_argument("--max-opinion-leaves", type=int, default=None)
     parser.add_argument("--profile-candidate-multiplier", type=int, default=2)
@@ -1218,6 +1285,7 @@ def main() -> None:
         focus_opinion_domains=args.focus_opinion_domains,
         media_filter=args.media_filter,
         network_scenario_cap=args.network_scenario_cap,
+        profile_skip_subtrees=args.profile_skip_subtrees,
         max_opinion_leaves=args.max_opinion_leaves,
         profile_candidate_multiplier=args.profile_candidate_multiplier,
         enforce_compatibility_rules=args.enforce_compatibility_rules,

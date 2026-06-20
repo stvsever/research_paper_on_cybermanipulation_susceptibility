@@ -1,0 +1,22 @@
+2026-06-20 21:51:12 | INFO | __main__ | Stage 06: attacks are near-unique (60 distinct over 60 scenarios); pooling attacks for the conditional-susceptibility index and grouping by DISARM Execute tactic for the ML stack.
+2026-06-20 21:51:52 | INFO | __main__ | Fitting Ridge (all 32 features) ...
+2026-06-20 21:51:55 | INFO | __main__ | Ridge full-feature: CV-R²=-0.442 (±0.787), α=495.3535
+2026-06-20 21:51:55 | INFO | __main__ | Fitting Elastic Net (LASSO selector) on 32 features ...
+2026-06-20 21:51:57 | INFO | __main__ | Elastic Net: CV-R²=-0.569 (±0.992), α=1.5033, l1_ratio=0.10, 30/32 features selected
+2026-06-20 21:51:57 | INFO | __main__ | Fitting Random Forest on 32 features ...
+2026-06-20 21:52:29 | INFO | __main__ | Random Forest OOB R²=-0.036
+2026-06-20 21:52:29 | INFO | __main__ | Building profile correlation network on 32 features ...
+2026-06-20 21:52:29 | INFO | __main__ | Network: 32 nodes, 130 edges, density=0.262, 5 communities, modularity=0.343
+2026-06-20 21:52:30 | INFO | __main__ | ICC results: {'abs_delta_score': 0.779, 'delta_score': 0.1633, 'adversarial_effectivity': 0.779}
+2026-06-20 21:52:30 | INFO | __main__ | Running advanced inferential layer ...
+2026-06-20 21:52:30 | INFO | __main__ | Advanced/mixed-effects layer fixed effects: 12 moderators
+2026-06-20 21:52:32 | WARNING | __main__ | Advanced bundle returned no mixed-effects coefficients; refitting direct LMM with 12 terms.
+2026-06-20 21:53:00 | INFO | __main__ | Running scenario-level ML moderation stack ...
+2026-06-20 21:55:00 | WARNING | __main__ | Mantel supplementary failed: assignment destination is read-only
+2026-06-20 21:55:00 | INFO | __main__ | Scenario model ladder:
+               model  cv_r2_mean  cv_r2_sd  rmse_mean  delta_r2_vs_context_baseline  delta_r2_vs_context
+          M0_context   -0.135032  0.256917  11.645299                      0.006306             0.000000
+M0b_context_baseline   -0.141338  0.271966  11.647104                      0.000000            -0.006306
+   M1_profile_linear   -4.376787  4.987627  21.675755                     -4.235449            -4.241755
+  M2_profile_boosted   -0.533313  0.442469  13.518753                     -0.391975            -0.398281
+2026-06-20 21:55:00 | INFO | __main__ | Stage 06 completed: 60 profiles

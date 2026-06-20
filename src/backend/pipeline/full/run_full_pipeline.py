@@ -100,6 +100,12 @@ def _parse_args() -> argparse.Namespace:
         help="Comma-separated opinion parent clusters to concentrate the integrated sample into "
         "(densifies the exposure network for the network-position correlations).",
     )
+    parser.add_argument(
+        "--profile-skip-subtrees",
+        default=None,
+        help="Comma-separated profile subtree substrings to drop from the integrated profile (agent + analyses). "
+        "Omit for the curated default reduction; pass an empty string to keep the full profile.",
+    )
     parser.add_argument("--opinion-leaves", default=None, help="Comma-01_separated explicit opinion leaf selection")
     parser.add_argument("--max-opinion-leaves", type=int, default=None)
     parser.add_argument("--profile-candidate-multiplier", type=int, default=2)
@@ -547,6 +553,7 @@ def main() -> None:
         "opinion_leaves": args.opinion_leaves,
         "focus_opinion_domain": args.focus_opinion_domain,
         "focus_opinion_domains": args.focus_opinion_domains,
+        "profile_skip_subtrees": args.profile_skip_subtrees,
         "network_scenario_cap": args.network_scenario_cap if args.with_network_exposure else None,
         "max_opinion_leaves": args.max_opinion_leaves,
         "profile_candidate_multiplier": args.profile_candidate_multiplier,
@@ -668,6 +675,10 @@ def main() -> None:
                     *(["--attack-leaves", args.attack_leaves] if args.attack_leaves else []),
                     *(["--opinion-leaves", args.opinion_leaves] if args.opinion_leaves else []),
                     *(["--focus-opinion-domains", args.focus_opinion_domains] if args.focus_opinion_domains else []),
+                    # Profile subtree reduction. Only forwarded when explicitly set, so omitting it
+                    # lets stage 01 apply its curated default reduction; pass an empty string to keep
+                    # the full profile.
+                    *(["--profile-skip-subtrees", args.profile_skip_subtrees] if args.profile_skip_subtrees is not None else []),
                     # The exposure-network layer caps the simulated scenario space; over the cap
                     # stage 01 engages the media-keyword heuristic. Individual-only runs are uncapped.
                     *(["--network-scenario-cap", str(args.network_scenario_cap)] if args.with_network_exposure else []),

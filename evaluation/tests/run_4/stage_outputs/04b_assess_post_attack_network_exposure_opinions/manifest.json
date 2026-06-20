@@ -1,0 +1,31 @@
+{
+  "stage_id": "04b",
+  "stage_name": "assess_post_attack_network_exposure_opinions",
+  "created_at_utc": "2026-06-20T16:27:38.648198+00:00",
+  "input_path": "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_4/stage_outputs/04_assess_post_attack_opinions/scenarios_with_post.jsonl",
+  "primary_output_path": "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_4/stage_outputs/04b_assess_post_attack_network_exposure_opinions/scenarios_with_post_attack_network_exposure.jsonl",
+  "output_files": [
+    "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_4/stage_outputs/04b_assess_post_attack_network_exposure_opinions/scenarios_with_post_attack_network_exposure.jsonl",
+    "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_4/stage_outputs/04b_assess_post_attack_network_exposure_opinions/post_attack_network_exposure_assessments.jsonl",
+    "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_4/stage_outputs/04b_assess_post_attack_network_exposure_opinions/post_attack_network_contexts.jsonl",
+    "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/evaluation/tests/run_4/stage_outputs/04b_assess_post_attack_network_exposure_opinions/post_attack_network_exposure_summary.json"
+  ],
+  "record_count": 200,
+  "metadata": {
+    "n_leaf_measurements": 4300,
+    "calls_made": 200,
+    "fallback_scenarios": 0,
+    "openrouter_model": "deepseek/deepseek-v4-flash",
+    "exposure_network": {
+      "graph_id": "politisky24_bluesky_v1",
+      "graph_root": "/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/data/exposure_networks/politisky24_bluesky_v1",
+      "edge_direction": "source_position_id -> target_position_id",
+      "edge_meaning": "The source position is a visible peer whose output was plausibly exposed to the target position; derived from source user liking, reposting, or quoting target user content in the raw data.",
+      "interaction_weight_formula": {
+        "Like": 0.35,
+        "Repost": 0.8,
+        "Quote": 0.9
+      }
+    }
+  }
+}

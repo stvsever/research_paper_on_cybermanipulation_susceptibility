@@ -68,23 +68,24 @@ Cross-cutting **safeguards and traceability** run across all stages: ontology co
 <a id="test-runs"></a>
 ## 🔬 Test Runs
 
-The evaluation record spans three test runs. Each has its own README with the full configuration, methodology and headline results.
+The evaluation record spans four test runs. Each has its own README with the full configuration, methodology and headline results.
 
 | Run | Design | Layers | Output |
 |-----|--------|--------|--------|
 | **Run 1** | 60 pseudoprofiles, 4 attack vectors, 3 opinions (crossed factorial, test ontology) | individual | [`evaluation/tests/run_1`](evaluation/tests/run_1) · [README](evaluation/tests/run_1/README.md) |
 | **Run 2** | 100 scenarios from the 10,000-row integrated production set (full profiles, DISARM Plan/Prepare/Execute triplets, opinion clusters) | individual + exposure-network | [`evaluation/tests/run_2`](evaluation/tests/run_2) · [README](evaluation/tests/run_2/README.md) |
 | **Run 3** | the run-2 production design on the current cluster pipeline + the integrated empirical exposure-network layer | individual + exposure-network (cluster) | [`evaluation/tests/run_3`](evaluation/tests/run_3) · [README](evaluation/tests/run_3/README.md) |
+| **Run 4** | 200 scenarios concentrated into 2 issue domains so the empirical exposure network is dense; conformity-calibrated network prompts, baseline-polarity anchoring guard, and a direct sender-reach (`outgoing_visibility_weight`) position metric | individual + exposure-network (working) | [`evaluation/tests/run_4`](evaluation/tests/run_4) · [README](evaluation/tests/run_4/README.md) |
 
-**Run 3 is the current integrated reference.** It produces a four-state, cluster-batched measurement backbone per opinion-cluster leaf: private baseline (B), network-exposure baseline (BN), private post-attack (P), and network-exposure post-attack (PN), at roughly 400 LLM calls for 100 scenarios. Reproduce it with:
+**Run 4 is the current exposure-network reference.** It keeps the four-state, cluster-batched backbone per opinion-cluster leaf (private baseline B, network-exposure baseline BN, private post-attack P, network-exposure post-attack PN) and fixes the network methodology so the exposure layer actually carries signal. It concentrates 200 scenarios into two opinion parent clusters (`Information_Integrity_And_Platforms`, `Democratic_Resilience_And_Institutions`), which lifts the empirical neighborhood density from roughly 3.5 scored peers per measurement (run 3) to about 19.7 and gives roughly 16 profiles per `domain x Execute tactic` condition. With the rebalanced, conformity-calibrated BN/PN prompts the network now amplifies the attack (mean post-network increment of +7.8, 80 percent of measurements amplifying), and the primary receiver-level test confirms the mechanism: exposure to peers shifted toward the attacker's goal drives further adversarial movement (r = +0.34, monotonic). The exposure-network layer is capped at 500 scenarios; above the cap a whole-word `media` keyword filter over the DISARM triplet selects the subset congruent with the social-media exposure substrate (970 of the 10,000 rows). Reproduce it with:
 
 ```bash
-bash scripts/tests/run_3.sh --network        # individual + exposure-network layer
-bash scripts/tests/run_3.sh                   # individual layer only (~200 calls)
-bash scripts/tests/run_3.sh --network --verbose   # add a live progress monitor
+bash scripts/tests/run_4.sh                   # 2-domain individual + exposure-network layer (~820 calls)
+bash scripts/tests/run_4.sh --no-network      # individual layer only (~400 calls)
+bash scripts/tests/run_4.sh --verbose         # add a live progress monitor
 ```
 
-The interactive dashboard is at [`evaluation/tests/run_3/visuals/dashboard_results.html`](evaluation/tests/run_3/visuals/dashboard_results.html) and the comprehensive exposure-network report at [`evaluation/tests/run_3/visuals/network_exposure_analysis/reports`](evaluation/tests/run_3/visuals/network_exposure_analysis/reports). The launcher checks for `OPENROUTER_API_KEY` and verifies the projected OpenRouter budget before running.
+The interactive dashboard is at [`evaluation/tests/run_4/visuals/dashboard_results.html`](evaluation/tests/run_4/visuals/dashboard_results.html) and the comprehensive exposure-network report at [`evaluation/tests/run_4/visuals/network_exposure_analysis/reports`](evaluation/tests/run_4/visuals/network_exposure_analysis/reports). The launcher checks for `OPENROUTER_API_KEY` and verifies the projected OpenRouter budget before running. Run 3 remains available as the prior integrated reference with the same four-state backbone.
 
 ---
 
@@ -101,12 +102,13 @@ research_paper_on_cybermanipulation_susceptibility/
 |-- .gitignore
 |-- docker/
 |-- scripts/
-|   `-- tests/                     (run_1.sh, run_2.sh, run_3.sh)
+|   `-- tests/                     (run_1.sh, run_2.sh, run_3.sh, run_4.sh)
 |-- evaluation/
 |   `-- tests/
 |       |-- run_1/                 (individual layer; see run_1/README.md)
 |       |-- run_2/                 (individual + exposure-network; see run_2/README.md)
-|       `-- run_3/                 (current integrated reference; see run_3/README.md)
+|       |-- run_3/                 (prior integrated reference; see run_3/README.md)
+|       `-- run_4/                 (current exposure-network reference; see run_4/README.md)
 |           |-- config/            (run configuration)
 |           |-- logs/              (per-stage logs)
 |           |-- provenance/        (raw LLM calls + run manifest)

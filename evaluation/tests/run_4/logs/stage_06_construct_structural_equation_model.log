@@ -1,0 +1,21 @@
+2026-06-20 18:28:18 | INFO | __main__ | Stage 06: attacks are near-unique (200 distinct over 200 scenarios); pooling attacks for the conditional-susceptibility index and grouping by DISARM Execute tactic for the ML stack.
+2026-06-20 18:30:14 | INFO | __main__ | Fitting Ridge (all 47 features) ...
+2026-06-20 18:30:18 | INFO | __main__ | Ridge full-feature: CV-R²=-0.022 (±0.023), α=10000.0000
+2026-06-20 18:30:18 | INFO | __main__ | Fitting Elastic Net (LASSO selector) on 47 features ...
+2026-06-20 18:30:21 | INFO | __main__ | Elastic Net: CV-R²=-0.033 (±0.023), α=23.4697, l1_ratio=0.10, 0/47 features selected
+2026-06-20 18:30:21 | INFO | __main__ | Fitting Random Forest on 47 features ...
+2026-06-20 18:31:08 | INFO | __main__ | Random Forest OOB R²=-0.024
+2026-06-20 18:31:08 | INFO | __main__ | Building profile correlation network on 47 features ...
+2026-06-20 18:31:09 | INFO | __main__ | Network: 47 nodes, 49 edges, density=0.045, 18 communities, modularity=0.707
+2026-06-20 18:31:12 | INFO | __main__ | ICC results: {'abs_delta_score': 0.584, 'delta_score': 0.4888, 'adversarial_effectivity': 0.584}
+2026-06-20 18:31:12 | INFO | __main__ | Running advanced inferential layer ...
+2026-06-20 18:31:12 | INFO | __main__ | Advanced/mixed-effects layer fixed effects: 12 moderators
+2026-06-20 18:31:21 | INFO | __main__ | Running scenario-level ML moderation stack ...
+2026-06-20 18:36:12 | WARNING | __main__ | Mantel supplementary failed: assignment destination is read-only
+2026-06-20 18:36:12 | INFO | __main__ | Scenario model ladder:
+               model  cv_r2_mean  cv_r2_sd  rmse_mean  delta_r2_vs_context_baseline  delta_r2_vs_context
+          M0_context   -0.046537  0.057291  17.425923                     -0.012334             0.000000
+M0b_context_baseline   -0.034203  0.060988  17.368459                      0.000000             0.012334
+   M1_profile_linear   -0.505593  0.651961  19.496781                     -0.471390            -0.459056
+  M2_profile_boosted   -0.696114  0.683476  20.841794                     -0.661911            -0.649578
+2026-06-20 18:36:12 | INFO | __main__ | Stage 06 completed: 200 profiles

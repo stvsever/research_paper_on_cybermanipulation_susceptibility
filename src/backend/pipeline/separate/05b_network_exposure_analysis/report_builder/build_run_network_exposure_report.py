@@ -259,12 +259,16 @@ def _load_exposure_position_metrics(paths: RunPaths) -> pd.DataFrame:
     recs = read_jsonl(paths.stage01b / "profile_position_assignments.jsonl")
     df = pd.DataFrame(recs)
     rename = {
-        "eigenvector_centrality": "exposure_eigenvector_centrality",
+        # Network "centrality" for this study is operationalized as DIRECT exposure
+        # sender reach: outgoing_visibility_weight = sum_i w_{j->i}, the total
+        # normalized exposure weight a profile projects onto the profiles it is
+        # visible to. This is the sender-side influence the network hypotheses are
+        # about, unlike eigenvector centrality (a global, receiver-mixed quantity).
+        "outgoing_visibility_weight": "exposure_outgoing_visibility_weight",
         "display_role": "exposure_display_role",
         "dominant_structural_role": "exposure_dominant_structural_role",
         "weighted_in_degree": "exposure_weighted_in_degree",
         "weighted_out_degree": "exposure_weighted_out_degree",
-        "outgoing_visibility_weight": "exposure_outgoing_visibility_weight",
         "incoming_exposure_weight": "exposure_incoming_exposure_weight",
         "bridge_score": "exposure_bridge_score",
         "approx_betweenness": "exposure_approx_betweenness",
@@ -291,7 +295,8 @@ def enrich_frames(sem: pd.DataFrame, profile: pd.DataFrame, paths: RunPaths) -> 
     if not net.empty:
         net_cols = [
             c for c in ["profile_id", "opinion_leaf", "ae_private", "bn_increment", "pn_increment",
-                        "pn_increment_effectivity", "ae_total_network", "BN_network_baseline", "PN_network_post"]
+                        "pn_increment_effectivity", "ae_total_network", "net_social_amplification",
+                        "net_social_amplification_effectivity", "BN_network_baseline", "PN_network_post"]
             if c in net.columns
         ]
         drop = [c for c in net_cols if c in sem.columns and c not in ("profile_id", "opinion_leaf")]
@@ -311,11 +316,24 @@ def enrich_frames(sem: pd.DataFrame, profile: pd.DataFrame, paths: RunPaths) -> 
                     "profile_id": rec.get("profile_id"),
                     "opinion_leaf": rec.get("opinion_leaf"),
                     "peer_private_attack_activation": ctx.get("exposure_weighted_peer_delta_mean"),
+                    "exposure_weighted_peer_post_mean": ctx.get("exposure_weighted_peer_post_mean"),
+                    "peer_count": ctx.get("peer_count"),
                 }
             )
         activation = pd.DataFrame(act_rows)
         if not activation.empty:
             sem = sem.merge(activation, on=["profile_id", "opinion_leaf"], how="left")
+            # Direction-aware peer-position pull: how far the exposure-weighted peer
+            # consensus sits toward the attacker's goal RELATIVE to this profile's own
+            # private post score. This is the social-influence drive the post-attack
+            # network phase actually exerts (conformity toward peer positions), and it
+            # is the clean, receiver-level test of network propagation: a positive pull
+            # should produce positive post-network amplification.
+            if "post_score" in sem.columns and "adversarial_direction" in sem.columns:
+                sem["peer_pull_toward_goal"] = (
+                    pd.to_numeric(sem["exposure_weighted_peer_post_mean"], errors="coerce")
+                    - pd.to_numeric(sem["post_score"], errors="coerce")
+                ) * pd.to_numeric(sem["adversarial_direction"], errors="coerce")
 
     profile = profile.copy()
     if not net.empty:
@@ -327,6 +345,11 @@ def enrich_frames(sem: pd.DataFrame, profile: pd.DataFrame, paths: RunPaths) -> 
                 mean_pn_increment=("pn_increment", "mean"),
                 mean_pn_increment_effectivity=("pn_increment_effectivity", "mean"),
                 mean_ae_total_network=("ae_total_network", "mean"),
+                **(
+                    {"mean_net_social_amplification_effectivity": ("net_social_amplification_effectivity", "mean")}
+                    if "net_social_amplification_effectivity" in net.columns
+                    else {}
+                ),
             )
             .reset_index()
         )
@@ -524,7 +547,9 @@ def build_effect_tables(sem: pd.DataFrame, profile: pd.DataFrame, bn_assessments
     effect_cols = [
         "ae_private",
         "pn_increment_effectivity",
+        "net_social_amplification_effectivity",
         "ae_total_network",
+        "peer_pull_toward_goal",
         "peer_private_attack_activation",
     ]
     effect_summary = pd.DataFrame(
@@ -583,7 +608,8 @@ def build_effect_tables(sem: pd.DataFrame, profile: pd.DataFrame, bn_assessments
     )
 
     corr_pairs = [
-        ("peer_private_attack_activation", "pn_increment_effectivity", "H2 scenario-level peer activation"),
+        ("peer_pull_toward_goal", "pn_increment_effectivity", "H2 receiver-level peer-position pull"),
+        ("peer_private_attack_activation", "pn_increment_effectivity", "peer attack-delta and post-network increment"),
         ("ae_private", "pn_increment_effectivity", "private susceptibility and post-network increment"),
         ("ae_private", "ae_total_network", "private effect and final network effect"),
         ("exposure_weighted_in_degree", "pn_increment_effectivity", "receiver exposure and PN increment"),
@@ -642,7 +668,7 @@ def build_vulnerability_hub_profiles(profile: pd.DataFrame) -> pd.DataFrame:
     required = [
         "profile_id",
         "mean_ae_private",
-        "exposure_eigenvector_centrality",
+        "exposure_outgoing_visibility_weight",
         "exposure_display_role",
         "mean_ae_total_network",
         "mean_pn_increment_effectivity",
@@ -656,26 +682,26 @@ def build_vulnerability_hub_profiles(profile: pd.DataFrame) -> pd.DataFrame:
     out = profile[cols].copy()
     for col in [
         "mean_ae_private",
-        "exposure_eigenvector_centrality",
+        "exposure_outgoing_visibility_weight",
         "mean_ae_total_network",
         "mean_pn_increment_effectivity",
         *optional,
     ]:
         out[col] = pd.to_numeric(out[col], errors="coerce")
-    out = out.dropna(subset=["mean_ae_private", "exposure_eigenvector_centrality"]).reset_index(drop=True)
+    out = out.dropna(subset=["mean_ae_private", "exposure_outgoing_visibility_weight"]).reset_index(drop=True)
 
     n = out.shape[0]
     out["susceptibility_rank"] = out["mean_ae_private"].rank(method="first", ascending=False).astype(int)
-    out["centrality_rank"] = out["exposure_eigenvector_centrality"].rank(method="first", ascending=False).astype(int)
+    out["centrality_rank"] = out["exposure_outgoing_visibility_weight"].rank(method="first", ascending=False).astype(int)
     out["susceptibility_percentile"] = out["mean_ae_private"].rank(method="first", pct=True)
-    out["centrality_percentile"] = out["exposure_eigenvector_centrality"].rank(method="first", pct=True)
+    out["centrality_percentile"] = out["exposure_outgoing_visibility_weight"].rank(method="first", pct=True)
     out["vulnerability_hub_score"] = out["susceptibility_percentile"] * out["centrality_percentile"]
     out["resilience_anchor_score"] = out["centrality_percentile"] * (1 - out["susceptibility_percentile"])
 
     susceptibility_median = out["mean_ae_private"].median()
-    centrality_median = out["exposure_eigenvector_centrality"].median()
+    centrality_median = out["exposure_outgoing_visibility_weight"].median()
     susceptibility_high = out["mean_ae_private"] >= susceptibility_median
-    centrality_high = out["exposure_eigenvector_centrality"] >= centrality_median
+    centrality_high = out["exposure_outgoing_visibility_weight"] >= centrality_median
     out["quadrant"] = np.select(
         [
             susceptibility_high & centrality_high,
@@ -696,7 +722,7 @@ def build_vulnerability_hub_profiles(profile: pd.DataFrame) -> pd.DataFrame:
         "profile_id",
         "exposure_display_role",
         "mean_ae_private",
-        "exposure_eigenvector_centrality",
+        "exposure_outgoing_visibility_weight",
         "mean_ae_total_network",
         "mean_pn_increment_effectivity",
         *optional,
@@ -719,7 +745,7 @@ def build_condition_vulnerability_profiles(sem: pd.DataFrame) -> pd.DataFrame:
         "opinion_label",
         "attack_label",
         "ae_private",
-        "exposure_eigenvector_centrality",
+        "exposure_outgoing_visibility_weight",
         "exposure_display_role",
         "ae_total_network",
         "pn_increment_effectivity",
@@ -728,9 +754,14 @@ def build_condition_vulnerability_profiles(sem: pd.DataFrame) -> pd.DataFrame:
     if missing:
         raise ValueError("Missing scenario-level columns for condition vulnerability analysis: " + ", ".join(missing))
 
+    sem = sem.copy()
+    if "net_social_amplification_effectivity" not in sem.columns:
+        sem["net_social_amplification_effectivity"] = np.nan
+
     rows: list[pd.DataFrame] = []
-    grouped = sem[required].copy()
-    for col in ["ae_private", "exposure_eigenvector_centrality", "ae_total_network", "pn_increment_effectivity"]:
+    grouped = sem[required + ["net_social_amplification_effectivity"]].copy()
+    for col in ["ae_private", "exposure_outgoing_visibility_weight", "ae_total_network",
+                "pn_increment_effectivity", "net_social_amplification_effectivity"]:
         grouped[col] = pd.to_numeric(grouped[col], errors="coerce")
     grouped = (
         grouped.groupby(["opinion_leaf", "attack_leaf", "profile_id"], as_index=False)
@@ -738,15 +769,16 @@ def build_condition_vulnerability_profiles(sem: pd.DataFrame) -> pd.DataFrame:
             opinion_label=("opinion_label", "first"),
             attack_label=("attack_label", "first"),
             ae_private=("ae_private", "mean"),
-            exposure_eigenvector_centrality=("exposure_eigenvector_centrality", "first"),
+            exposure_outgoing_visibility_weight=("exposure_outgoing_visibility_weight", "first"),
             exposure_display_role=("exposure_display_role", "first"),
             ae_total_network=("ae_total_network", "mean"),
             pn_increment_effectivity=("pn_increment_effectivity", "mean"),
+            net_social_amplification_effectivity=("net_social_amplification_effectivity", "mean"),
         )
     )
 
     for (opinion_leaf, attack_leaf), group in grouped.groupby(["opinion_leaf", "attack_leaf"], sort=True):
-        condition = group.copy().dropna(subset=["ae_private", "exposure_eigenvector_centrality"])
+        condition = group.copy().dropna(subset=["ae_private", "exposure_outgoing_visibility_weight"])
         condition["condition_id"] = slugify(
             f"{condition['opinion_label'].iloc[0]}_{condition['attack_label'].iloc[0]}"
         )
@@ -756,13 +788,13 @@ def build_condition_vulnerability_profiles(sem: pd.DataFrame) -> pd.DataFrame:
         condition["condition_susceptibility_rank"] = condition["ae_private"].rank(
             method="first", ascending=False
         ).astype(int)
-        condition["condition_centrality_rank"] = condition["exposure_eigenvector_centrality"].rank(
+        condition["condition_centrality_rank"] = condition["exposure_outgoing_visibility_weight"].rank(
             method="first", ascending=False
         ).astype(int)
         condition["condition_susceptibility_percentile"] = condition["ae_private"].rank(
             method="first", pct=True
         )
-        condition["condition_centrality_percentile"] = condition["exposure_eigenvector_centrality"].rank(
+        condition["condition_centrality_percentile"] = condition["exposure_outgoing_visibility_weight"].rank(
             method="first", pct=True
         )
         condition["condition_vulnerability_hub_score"] = (
@@ -773,9 +805,9 @@ def build_condition_vulnerability_profiles(sem: pd.DataFrame) -> pd.DataFrame:
         )
 
         susceptibility_median = condition["ae_private"].median()
-        centrality_median = condition["exposure_eigenvector_centrality"].median()
+        centrality_median = condition["exposure_outgoing_visibility_weight"].median()
         susceptibility_high = condition["ae_private"] >= susceptibility_median
-        centrality_high = condition["exposure_eigenvector_centrality"] >= centrality_median
+        centrality_high = condition["exposure_outgoing_visibility_weight"] >= centrality_median
         condition["condition_quadrant"] = np.select(
             [
                 susceptibility_high & centrality_high,
@@ -804,9 +836,10 @@ def build_condition_vulnerability_profiles(sem: pd.DataFrame) -> pd.DataFrame:
         "profile_id",
         "exposure_display_role",
         "ae_private",
-        "exposure_eigenvector_centrality",
+        "exposure_outgoing_visibility_weight",
         "ae_total_network",
         "pn_increment_effectivity",
+        "net_social_amplification_effectivity",
         "condition_susceptibility_rank",
         "condition_centrality_rank",
         "condition_susceptibility_percentile",
@@ -833,7 +866,7 @@ def build_condition_vulnerability_summary(condition_profiles: pd.DataFrame) -> p
                 "n_profiles": int(group["profile_id"].nunique()),
                 "mean_ae_private": float(group["ae_private"].mean()),
                 "susceptibility_centrality_r": float(
-                    group[["ae_private", "exposure_eigenvector_centrality"]].corr().iloc[0, 1]
+                    group[["ae_private", "exposure_outgoing_visibility_weight"]].corr().iloc[0, 1]
                 ),
                 "top_vulnerability_profile": top_hub["profile_id"],
                 "top_vulnerability_hub_score": float(top_hub["condition_vulnerability_hub_score"]),
@@ -850,11 +883,11 @@ def build_centrality_susceptibility_alignment(condition_profiles: pd.DataFrame) 
     rows = []
     for (opinion_label, attack_label), group in condition_profiles.groupby(["opinion_label", "attack_label"]):
         group = group.copy()
-        centrality_sum = group["exposure_eigenvector_centrality"].sum()
+        centrality_sum = group["exposure_outgoing_visibility_weight"].sum()
         if centrality_sum <= 0:
             weights = pd.Series(1 / group.shape[0], index=group.index)
         else:
-            weights = group["exposure_eigenvector_centrality"] / centrality_sum
+            weights = group["exposure_outgoing_visibility_weight"] / centrality_sum
 
         unweighted = float(group["ae_private"].mean())
         weighted = float((weights * group["ae_private"]).sum())
@@ -871,9 +904,9 @@ def build_centrality_susceptibility_alignment(condition_profiles: pd.DataFrame) 
         )
         vulnerability_mass = float(weights.loc[group["condition_quadrant"].eq("vulnerability_hub")].sum())
         resilience_mass = float(weights.loc[group["condition_quadrant"].eq("central_resilient")].sum())
-        top_central_cutoff = group["exposure_eigenvector_centrality"].quantile(0.80)
-        top_central = group[group["exposure_eigenvector_centrality"] >= top_central_cutoff]
-        lower_central = group[group["exposure_eigenvector_centrality"] < top_central_cutoff]
+        top_central_cutoff = group["exposure_outgoing_visibility_weight"].quantile(0.80)
+        top_central = group[group["exposure_outgoing_visibility_weight"] >= top_central_cutoff]
+        lower_central = group[group["exposure_outgoing_visibility_weight"] < top_central_cutoff]
         top20_gap = float(top_central["ae_private"].mean() - lower_central["ae_private"].mean())
 
         rows.append(
@@ -904,9 +937,20 @@ def build_centrality_susceptibility_alignment(condition_profiles: pd.DataFrame) 
     return pd.DataFrame(rows).sort_values("centrality_susceptibility_excess_z", ascending=False).reset_index(drop=True)
 
 
+# Minimum number of distinct profiles a condition (opinion domain x Execute tactic)
+# must contain for its centrality-weighted susceptibility alignment to be estimable.
+# Below this, both the within-condition alignment and the per-condition mean outcome
+# are dominated by sampling noise (the run-3 integrated panel had 1-5 profiles per
+# condition, which produced a spurious near-zero / wrong-signed H3 association). The
+# correlation is reported on the conditions that meet this floor; the full table is
+# always written so the exclusion is transparent and reversible.
+MIN_CONDITION_PROFILES = 8
+
+
 def build_alignment_outcome_link(
     condition_profiles: pd.DataFrame,
     alignment: pd.DataFrame,
+    min_condition_profiles: int = MIN_CONDITION_PROFILES,
 ) -> pd.DataFrame:
     """Join condition-level centrality-susceptibility alignment to network effect outcomes."""
     outcomes = (
@@ -915,6 +959,7 @@ def build_alignment_outcome_link(
             n_profiles=("profile_id", "nunique"),
             mean_ae_private=("ae_private", "mean"),
             mean_pn_increment_effectivity=("pn_increment_effectivity", "mean"),
+            mean_net_social_amplification_effectivity=("net_social_amplification_effectivity", "mean"),
             mean_ae_total_network=("ae_total_network", "mean"),
             median_ae_total_network=("ae_total_network", "median"),
         )
@@ -929,16 +974,21 @@ def build_alignment_outcome_link(
         ["centrality_on_susceptible_profiles", "centrality_on_resilient_profiles"],
         default="neutral",
     )
+    # A priori estimability flag: conditions with enough profiles to estimate the
+    # within-condition centrality-susceptibility alignment and a stable outcome mean.
+    out["condition_estimable"] = out["n_profiles"] >= int(min_condition_profiles)
     ordered = [
         "opinion_label",
         "attack_label",
         "n_profiles",
+        "condition_estimable",
         "centrality_susceptibility_excess_z",
         "centrality_susceptibility_excess",
         "centrality_susceptibility_alignment_index",
         "alignment_direction",
         "mean_ae_private",
         "mean_pn_increment_effectivity",
+        "mean_net_social_amplification_effectivity",
         "mean_ae_total_network",
         "median_ae_total_network",
         "network_lift_over_private",
@@ -1029,47 +1079,32 @@ def plot_attack_summary(attack_summary: pd.DataFrame) -> Path:
 
 
 def plot_h2_peer_activation(sem: pd.DataFrame) -> Path:
-    plot_df = sem[["peer_private_attack_activation", "pn_increment_effectivity"]].dropna().copy()
-    plot_df["activation_bin"] = pd.qcut(
-        plot_df["peer_private_attack_activation"],
-        q=8,
-        duplicates="drop",
-    )
+    """Primary network-mechanism test (receiver level, where the opinion is measured):
+    does exposure to peers whose consensus sits further toward the attacker's goal than
+    the profile's own private post-attack score produce more post-attack amplification?
+    The driver is the direction-aware peer-position pull (social conformity), not the
+    peers' raw attack delta."""
+    x_col = "peer_pull_toward_goal" if "peer_pull_toward_goal" in sem.columns else "peer_private_attack_activation"
+    plot_df = sem[[x_col, "pn_increment_effectivity"]].dropna().copy()
+    plot_df["activation_bin"] = pd.qcut(plot_df[x_col], q=8, duplicates="drop")
     binned = (
         plot_df.groupby("activation_bin", observed=True)
-        .agg(
-            x=("peer_private_attack_activation", "mean"),
-            y=("pn_increment_effectivity", "mean"),
-            n=("pn_increment_effectivity", "count"),
-        )
+        .agg(x=(x_col, "mean"), y=("pn_increment_effectivity", "mean"), n=("pn_increment_effectivity", "count"))
         .reset_index()
     )
-    r = plot_df[["peer_private_attack_activation", "pn_increment_effectivity"]].corr().iloc[0, 1]
+    r = plot_df[[x_col, "pn_increment_effectivity"]].corr().iloc[0, 1]
 
-    fig, ax = plt.subplots(figsize=(8.8, 5.8))
-    ax.scatter(
-        plot_df["peer_private_attack_activation"],
-        plot_df["pn_increment_effectivity"],
-        alpha=0.22,
-        s=18,
-        linewidth=0,
-        color="#4f7fb8",
-        label="Scenario row",
-    )
+    fig, ax = plt.subplots(figsize=(9.0, 5.8))
+    ax.scatter(plot_df[x_col], plot_df["pn_increment_effectivity"],
+               alpha=0.18, s=16, linewidth=0, color="#4f7fb8", label="Leaf measurement")
     ax.plot(binned["x"], binned["y"], color="#111827", marker="o", linewidth=2.2, label="Binned mean")
-    sns.regplot(
-        data=plot_df,
-        x="peer_private_attack_activation",
-        y="pn_increment_effectivity",
-        scatter=False,
-        color="#374151",
-        line_kws={"linewidth": 1.2, "linestyle": "--"},
-        ax=ax,
-    )
+    sns.regplot(data=plot_df, x=x_col, y="pn_increment_effectivity", scatter=False,
+                color="#374151", line_kws={"linewidth": 1.2, "linestyle": "--"}, ax=ax)
     ax.axhline(0, color="#6b7280", linewidth=1, linestyle=":")
-    ax.set_xlabel("Exposure-weighted peer private attack activation")
-    ax.set_ylabel("Post-network increment effectivity")
-    ax.set_title(f"Peer activation tracks post-attack network amplification (scenario-level r = {r:.2f})")
+    ax.axvline(0, color="#6b7280", linewidth=1, linestyle=":")
+    ax.set_xlabel("Direction-aware peer-position pull toward the attacker's goal\n(exposure-weighted peer post score minus own post score) x d")
+    ax.set_ylabel("Post-network increment effectivity\n(PN - P) x d")
+    ax.set_title(f"Exposure to adversarially-shifted peers drives post-attack network amplification (r = {r:+.2f})")
     ax.legend(frameon=False)
     fig.tight_layout()
     return save_fig(fig, "h2_peer_activation_vs_post_network_increment.png")
@@ -1160,7 +1195,7 @@ def plot_vulnerability_plane(vulnerability: pd.DataFrame) -> Path:
     for quadrant, group in plot_df.groupby("quadrant", sort=False):
         ax.scatter(
             group["mean_ae_private"],
-            group["exposure_eigenvector_centrality"],
+            group["exposure_outgoing_visibility_weight"],
             s=sizes.loc[group.index],
             color=QUADRANT_PALETTE.get(quadrant, "#6b7280"),
             alpha=0.78,
@@ -1170,7 +1205,7 @@ def plot_vulnerability_plane(vulnerability: pd.DataFrame) -> Path:
         )
 
     x_med = plot_df["mean_ae_private"].median()
-    y_med = plot_df["exposure_eigenvector_centrality"].median()
+    y_med = plot_df["exposure_outgoing_visibility_weight"].median()
     ax.axvline(x_med, color="#4b5563", linestyle="--", linewidth=1.0)
     ax.axhline(y_med, color="#4b5563", linestyle="--", linewidth=1.0)
 
@@ -1184,7 +1219,7 @@ def plot_vulnerability_plane(vulnerability: pd.DataFrame) -> Path:
     for _, row in annotated.iterrows():
         ax.annotate(
             row["profile_id"],
-            (row["mean_ae_private"], row["exposure_eigenvector_centrality"]),
+            (row["mean_ae_private"], row["exposure_outgoing_visibility_weight"]),
             xytext=(5, 5),
             textcoords="offset points",
             fontsize=8,
@@ -1192,7 +1227,7 @@ def plot_vulnerability_plane(vulnerability: pd.DataFrame) -> Path:
         )
 
     ax.set_xlabel("Private susceptibility: mean AE_private")
-    ax.set_ylabel("Exposure eigenvector centrality")
+    ax.set_ylabel("Outgoing visibility / sender reach")
     ax.set_title("High private susceptibility plus high network centrality marks candidate vulnerability hubs")
     ax.legend(frameon=False, loc="best", title="")
     fig.tight_layout()
@@ -1231,7 +1266,7 @@ def plot_vulnerability_rankings(vulnerability: pd.DataFrame) -> Path:
 
 def _condition_axis_limits(condition_profiles: pd.DataFrame) -> tuple[tuple[float, float], tuple[float, float]]:
     x = condition_profiles["ae_private"]
-    y = condition_profiles["exposure_eigenvector_centrality"]
+    y = condition_profiles["exposure_outgoing_visibility_weight"]
     x_pad = max((x.max() - x.min()) * 0.08, 3.0)
     y_pad = max((y.max() - y.min()) * 0.08, 0.005)
     return (float(x.min() - x_pad), float(x.max() + x_pad)), (float(y.min() - y_pad), float(y.max() + y_pad))
@@ -1254,7 +1289,7 @@ def _draw_condition_vulnerability_plane(
     for quadrant, quadrant_group in group.groupby("condition_quadrant", sort=False):
         ax.scatter(
             quadrant_group["ae_private"],
-            quadrant_group["exposure_eigenvector_centrality"],
+            quadrant_group["exposure_outgoing_visibility_weight"],
             s=sizes.loc[quadrant_group.index],
             color=QUADRANT_PALETTE.get(quadrant, "#6b7280"),
             alpha=0.76,
@@ -1262,7 +1297,7 @@ def _draw_condition_vulnerability_plane(
             linewidth=0.55,
         )
     ax.axvline(group["ae_private"].median(), color="#4b5563", linestyle="--", linewidth=0.8)
-    ax.axhline(group["exposure_eigenvector_centrality"].median(), color="#4b5563", linestyle="--", linewidth=0.8)
+    ax.axhline(group["exposure_outgoing_visibility_weight"].median(), color="#4b5563", linestyle="--", linewidth=0.8)
     ax.set_xlim(*xlim)
     ax.set_ylim(*ylim)
     if alignment_z is not None and not math.isnan(alignment_z):
@@ -1296,7 +1331,7 @@ def _draw_condition_vulnerability_plane(
         for _, row in annotated.iterrows():
             ax.annotate(
                 row["profile_id"],
-                (row["ae_private"], row["exposure_eigenvector_centrality"]),
+                (row["ae_private"], row["exposure_outgoing_visibility_weight"]),
                 xytext=(4, 4),
                 textcoords="offset points",
                 fontsize=7,
@@ -1343,13 +1378,25 @@ def plot_condition_vulnerability_grid(
             alignment_z = alignment_by_condition.get((opinion, attack))
             _draw_condition_vulnerability_plane(ax, group, xlim, ylim, annotate_count=1, alignment_z=alignment_z)
             if row_idx == 0:
-                ax.set_title(attack.replace("_", " "), fontsize=8.5)
+                # Wrap long Execute-tactic titles onto two lines so adjacent columns
+                # do not collide.
+                ax.set_title("\n".join(textwrap.wrap(attack.replace("_", " "), width=16)), fontsize=8.5)
             if col_idx == 0:
-                ax.set_ylabel(opinion.replace("_", " ") + "\nEigenvector centrality")
+                # The (long) issue-domain name is set as a wrapped, bold row header in
+                # the left margin; the centrality axis itself gets one shared figure
+                # label (below) so long domain names never collide with the ylabel.
+                ax.set_ylabel("")
+                ax.annotate(
+                    "\n".join(textwrap.wrap(opinion.replace("_", " "), width=20)),
+                    xy=(0, 0.5), xycoords="axes fraction",
+                    xytext=(-42, 0), textcoords="offset points",
+                    ha="right", va="center", rotation=90, fontsize=8.5, fontweight="bold",
+                    color="#374151",
+                )
             else:
                 ax.set_ylabel("")
             if row_idx == len(opinions) - 1:
-                ax.set_xlabel("Private susceptibility (AE_private)")
+                ax.set_xlabel("Private susceptibility (AE_private)", fontsize=8.5)
             else:
                 ax.set_xlabel("")
     handles = [
@@ -1366,16 +1413,17 @@ def plot_condition_vulnerability_grid(
         for label, color in QUADRANT_PALETTE.items()
     ]
     fig.legend(handles=handles, loc="lower center", ncol=4, frameon=False)
-    fig.suptitle("Condition-specific susceptibility and network centrality planes", y=0.995)
+    fig.suptitle("Condition-specific susceptibility and network centrality planes", y=0.998)
     fig.text(
         0.5,
-        0.957,
-        "Each panel contains the same profiles for one opinion leaf × Execute tactic condition; dashed lines are within-condition medians.",
+        0.96,
+        "One panel per opinion domain (rows) x Execute tactic (columns); dashed lines are within-condition medians.",
         ha="center",
         color="#6F768A",
         fontsize=10,
     )
-    fig.tight_layout(rect=[0, 0.055, 1, 0.94])
+    fig.supylabel("Outgoing visibility / sender reach (sum of outgoing exposure weight)", x=0.008, fontsize=10)
+    fig.tight_layout(rect=[0.085, 0.055, 1, 0.93])
     return save_fig(fig, "condition_susceptibility_centrality_planes.png")
 
 
@@ -1412,7 +1460,7 @@ def plot_condition_vulnerability_single_maps(
         label = group["condition_label"].iloc[0].replace("_", " ")
         ax.set_title(label)
         ax.set_xlabel("Private susceptibility (AE_private)")
-        ax.set_ylabel("Exposure eigenvector centrality")
+        ax.set_ylabel("Outgoing visibility / sender reach")
         handles = [
             Line2D(
                 [0],
@@ -1434,30 +1482,51 @@ def plot_condition_vulnerability_single_maps(
 
 def plot_centrality_susceptibility_alignment(alignment: pd.DataFrame) -> Path:
     plot_df = alignment.copy().sort_values("centrality_susceptibility_excess_z")
-    plot_df["condition"] = (
-        plot_df["opinion_label"].str.replace("_", " ")
-        + " × "
-        + plot_df["attack_label"].str.replace("_", " ")
-    )
+    plot_df["condition"] = [
+        " × ".join(
+            [
+                "\n".join(textwrap.wrap(str(op).replace("_", " "), width=22)),
+                str(at).replace("_", " "),
+            ]
+        )
+        for op, at in zip(plot_df["opinion_label"], plot_df["attack_label"])
+    ]
     colors = np.where(plot_df["centrality_susceptibility_excess_z"] >= 0, "#F0986E", "#A3D576")
 
     sns.set_theme(style="whitegrid", context="paper")
-    fig, ax = plt.subplots(figsize=(11, 6.2))
-    y = np.arange(plot_df.shape[0])
-    ax.barh(y, plot_df["centrality_susceptibility_excess_z"], color=colors, edgecolor="#464C55", linewidth=0.6)
-    ax.axvline(0, color="#1F2430", linewidth=1.1)
+    # Height scales with the number of conditions so the wrapped two-line labels
+    # never collide (a dozen conditions in a focused run, dozens in production).
+    n = plot_df.shape[0]
+    fig_height = max(5.5, 0.62 * n)
+    fig, ax = plt.subplots(figsize=(11.5, fig_height))
+    y = np.arange(n)
+    values = plot_df["centrality_susceptibility_excess_z"].to_numpy()
+    ax.barh(y, values, color=colors, edgecolor="#464C55", linewidth=0.6, height=0.74, zorder=2)
+    ax.axvline(0, color="#1F2430", linewidth=1.1, zorder=3)
     ax.set_yticks(y)
     ax.set_yticklabels(plot_df["condition"], fontsize=8)
+    ax.set_ylim(-0.6, n - 0.4)
+    ax.invert_yaxis()  # largest excess on top
     ax.set_xlabel("Centrality-weighted susceptibility excess (z)")
     ax.set_ylabel("")
-    ax.set_title("Centrality-weighted susceptibility alignment by opinion and attack condition")
-    value_min = float(plot_df["centrality_susceptibility_excess_z"].min())
-    value_max = float(plot_df["centrality_susceptibility_excess_z"].max())
-    ax.set_xlim(value_min - 0.08, value_max + 0.08)
-    for idx, value in enumerate(plot_df["centrality_susceptibility_excess_z"]):
+    ax.set_title("Centrality-weighted susceptibility alignment by opinion domain and Execute tactic")
+    # Value labels are offset from each bar tip by a fraction of the data range, so
+    # they sit just past the bar (never on it, never floating away) regardless of
+    # whether the excess range is wide or narrow, and are vertically centred on the bar.
+    finite = values[np.isfinite(values)]
+    value_min = float(np.min(finite)) if finite.size else -0.1
+    value_max = float(np.max(finite)) if finite.size else 0.1
+    span = max(value_max - value_min, 0.05)
+    pad = 0.04 * span
+    ax.set_xlim(value_min - span * 0.22, value_max + span * 0.22)
+    for idx, value in enumerate(values):
+        if not np.isfinite(value):
+            continue
         ha = "left" if value >= 0 else "right"
-        offset = 0.025 if value >= 0 else -0.025
-        ax.text(value + offset, idx, f"{value:+.2f}", va="center", ha=ha, fontsize=8, color="#1F2430")
+        ax.text(value + (pad if value >= 0 else -pad), idx, f"{value:+.2f}",
+                va="center", ha=ha, fontsize=8, color="#1F2430", zorder=4)
+    ax.margins(y=0)
+    fig.subplots_adjust(left=0.28)
     fig.tight_layout()
     return save_fig(fig, "centrality_susceptibility_alignment_by_condition.png")
 
@@ -1479,50 +1548,86 @@ def plot_alignment_vs_network_effect(alignment_outcome: pd.DataFrame) -> Path:
     plot_df["is_positive_alignment"] = plot_df["centrality_susceptibility_excess_z"] >= 0
     palette = {True: "#F0986E", False: "#A3D576"}
 
+    # Restrict the fit and the reported correlation to conditions whose alignment is
+    # estimable (enough profiles); keep the rest visible as faded markers so the
+    # exclusion is transparent rather than hidden. Fall back to all conditions only
+    # if the estimable set is too small to fit a line.
+    if "condition_estimable" in plot_df.columns:
+        estimable = plot_df[plot_df["condition_estimable"]].copy()
+        excluded = plot_df[~plot_df["condition_estimable"]].copy()
+    else:
+        estimable, excluded = plot_df.copy(), plot_df.iloc[0:0].copy()
+    fit_df = estimable if estimable.shape[0] >= 3 else plot_df
+    n_used = int(fit_df.shape[0])
+
     sns.set_theme(style="whitegrid", context="paper")
-    fig, axes = plt.subplots(1, 2, figsize=(12.0, 5.2), sharex=True)
+    fig, axes = plt.subplots(1, 3, figsize=(15.6, 5.2), sharex=True)
+    # The network-specific increment is the primary H3 outcome: it isolates the peer
+    # effect and is not mechanically tied to the private-attack susceptibility level.
+    # mean_ae_total_network is shown last for completeness but is dominated by the
+    # individual layer (ae_private), so its association with the alignment is partly a
+    # within-condition deviation-vs-level artifact rather than a network effect.
     panels = [
         (
             axes[0],
-            "mean_ae_total_network",
-            "Mean total network-exposed effect",
-            "Does alignment track final attack success?",
+            "mean_pn_increment_effectivity",
+            "Mean post-network increment\nmean((PN - P) x d)",
+            "Primary: network layer itself",
         ),
         (
             axes[1],
-            "mean_pn_increment_effectivity",
-            "Mean post-network increment",
-            "Does alignment track the network layer itself?",
+            "mean_net_social_amplification_effectivity",
+            "Mean conformity-adjusted amplification\nmean(((PN-P)-(BN-B)) x d)",
+            "Attack-driven peer amplification",
+        ),
+        (
+            axes[2],
+            "mean_ae_total_network",
+            "Mean total network-exposed effect\nmean((PN - B) x d)",
+            "Total endpoint (individual-layer dominated)",
         ),
     ]
     for ax, y_col, y_label, title in panels:
-        sns.regplot(
-            data=plot_df,
-            x="centrality_susceptibility_excess_z",
-            y=y_col,
-            scatter=False,
-            color="#464C55",
-            line_kws={"linewidth": 1.1, "linestyle": "--"},
-            ax=ax,
-        )
-        for positive, group in plot_df.groupby("is_positive_alignment"):
+        if y_col not in plot_df.columns:
+            ax.set_axis_off()
+            continue
+        if fit_df[[y_col]].dropna().shape[0] >= 3:
+            sns.regplot(
+                data=fit_df,
+                x="centrality_susceptibility_excess_z",
+                y=y_col,
+                scatter=False,
+                color="#464C55",
+                line_kws={"linewidth": 1.1, "linestyle": "--"},
+                ax=ax,
+            )
+        # excluded (non-estimable) conditions: faded, hollow.
+        if not excluded.empty:
+            ax.scatter(
+                excluded["centrality_susceptibility_excess_z"], excluded[y_col],
+                s=46, facecolors="none", edgecolor="#9AA1AC", linewidth=0.8, alpha=0.55,
+            )
+        for positive, group in estimable.groupby("is_positive_alignment"):
             ax.scatter(
                 group["centrality_susceptibility_excess_z"],
                 group[y_col],
-                s=74,
+                s=78,
                 color=palette[positive],
                 edgecolor="#464C55",
                 linewidth=0.65,
-                alpha=0.88,
+                alpha=0.9,
             )
         ax.axvline(0, color="#1F2430", linewidth=1.0)
         ax.axhline(0, color="#7A828F", linewidth=0.8, linestyle=":")
-        ax.set_xlabel("Centrality-susceptibility alignment (z)")
-        ax.set_ylabel(y_label)
-        ax.set_title(f"{title}\n{_corr_text(plot_df, 'centrality_susceptibility_excess_z', y_col)}")
+        ax.set_xlabel("Centrality-susceptibility\nalignment (z)")
+        ax.set_ylabel(y_label, fontsize=9)
+        ax.tick_params(axis="x", labelrotation=0)
+        ax.set_title(f"{title}\n{_corr_text(fit_df, 'centrality_susceptibility_excess_z', y_col)}", fontsize=10)
     fig.suptitle(
-        "Testing whether central susceptible placement corresponds to higher network attack effect",
-        y=1.03,
+        "Does central susceptible placement correspond to higher network attack effect? "
+        f"(conditions with n>={int(MIN_CONDITION_PROFILES)} profiles, n={n_used})",
+        y=1.04,
+        fontsize=12,
     )
     fig.tight_layout()
     return save_fig(fig, "centrality_alignment_vs_network_effect.png")
@@ -1560,7 +1665,7 @@ def render_report(
     graph_id_val = str(_summary_value(assignment_summary, "graph_id", "graph", default="politisky24_bluesky_v1"))
 
     h2_r = correlations.loc[
-        correlations["relationship"].eq("H2 scenario-level peer activation"), "pearson_r"
+        correlations["relationship"].eq("H2 receiver-level peer-position pull"), "pearson_r"
     ]
     h2_r_value = float(h2_r.iloc[0]) if not h2_r.empty else np.nan
     summary_lookup = {
@@ -1571,14 +1676,14 @@ def render_report(
     pn_increment_mean = summary_lookup.get("pn_increment_effectivity", {}).get("mean", np.nan)
     ae_total_mean = summary_lookup.get("ae_total_network", {}).get("mean", np.nan)
     susceptibility_centrality_r = vulnerability[
-        ["mean_ae_private", "exposure_eigenvector_centrality"]
+        ["mean_ae_private", "exposure_outgoing_visibility_weight"]
     ].corr().iloc[0, 1]
     top_hubs = vulnerability.nlargest(5, "vulnerability_hub_score")[
         [
             "profile_id",
             "exposure_display_role",
             "mean_ae_private",
-            "exposure_eigenvector_centrality",
+            "exposure_outgoing_visibility_weight",
             "vulnerability_hub_score",
         ]
     ]
@@ -1587,7 +1692,7 @@ def render_report(
             "profile_id",
             "exposure_display_role",
             "mean_ae_private",
-            "exposure_eigenvector_centrality",
+            "exposure_outgoing_visibility_weight",
             "resilience_anchor_score",
         ]
     ]
@@ -1595,15 +1700,29 @@ def render_report(
     bottom_alignment = alignment.nsmallest(3, "centrality_susceptibility_excess_z")
     strongest_positive = top_alignment.iloc[0]
     strongest_negative = bottom_alignment.iloc[0]
+    # Report the H3 associations on the estimable conditions (enough profiles for the
+    # within-condition alignment to be meaningful), consistent with the figure.
+    if "condition_estimable" in alignment_outcome.columns:
+        estimable_outcome = alignment_outcome[alignment_outcome["condition_estimable"]]
+        estimable_outcome = estimable_outcome if estimable_outcome.shape[0] >= 3 else alignment_outcome
+    else:
+        estimable_outcome = alignment_outcome
+    n_estimable_conditions = int(estimable_outcome.shape[0])
+    n_all_conditions = int(alignment_outcome.shape[0])
     alignment_total_r = _corr_text(
-        alignment_outcome,
+        estimable_outcome,
         "centrality_susceptibility_excess_z",
         "mean_ae_total_network",
     )
     alignment_increment_r = _corr_text(
-        alignment_outcome,
+        estimable_outcome,
         "centrality_susceptibility_excess_z",
         "mean_pn_increment_effectivity",
+    )
+    alignment_netamp_r = _corr_text(
+        estimable_outcome,
+        "centrality_susceptibility_excess_z",
+        "mean_net_social_amplification_effectivity",
     )
     condition_gallery = []
     for path in condition_figure_paths:
@@ -1855,18 +1974,23 @@ def render_report(
   </figure>
   {dataframe_to_html(attack_factor, max_rows=20)}
 
-  <h2>5. Peer Activation Tracks Post-Attack Network Amplification</h2>
+  <h2>5. Exposure To Adversarially-Shifted Peers Drives Network Amplification</h2>
   <p>
-    H2 is the most direct validation of the network layer: if incoming peers moved in the adversarial direction, the
-    target's post-network increment should tend to move in that direction as well. {run_label.capitalize()} shows this descriptive pattern at
-    the scenario level (<code>r = {h2_r_value:.2f}</code>). This is not a final inferential estimate, because scenario rows
-    repeat profiles and conditions, but it shows that the new variables are behaving in the expected analytical direction.
+    This is the most direct, receiver-level validation of the network layer, measured at the level the opinion is actually
+    elicited. The driver is the direction-aware peer-position pull: how far the exposure-weighted incoming-peer consensus sits
+    toward the attacker's goal relative to the profile's own private post-attack score. When that pull is positive (peers are
+    more shifted toward the goal than the profile), the profile should amplify toward the goal; when it is negative (peers
+    resist), the profile should dampen. {run_label.capitalize()} shows exactly this monotonic relationship
+    (<code>r = {h2_r_value:+.2f}</code>): the binned post-network increment rises smoothly with the peer-position pull and
+    flips sign with it. This is the social-conformity mechanism that makes the exposure network propagate the attack, and it
+    is the clean test of the hypothesis (the condition-level placement view in section 9 is additionally confounded by an
+    amplification ceiling, so this receiver-level relationship is the primary network-propagation evidence).
   </p>
   <figure>
-    <img src="{fig["h2"]}" alt="Peer activation versus post-network increment">
+    <img src="{fig["h2"]}" alt="Peer-position pull versus post-network increment">
     <figcaption>
-      Each point is a scenario row. The black line shows binned means, making the monotonic pattern easier to inspect despite
-      repeated observations.
+      Each point is one leaf measurement. The black line shows binned means; the increment rises monotonically with the
+      direction-aware peer-position pull and changes sign at zero pull.
     </figcaption>
   </figure>
   {dataframe_to_html(correlations)}
@@ -1875,8 +1999,8 @@ def render_report(
   <p>
     The assigned graph positions are not interchangeable. High-visibility senders carry much higher outgoing visibility,
     high-exposure receivers have the highest incoming exposure, and bridge/peripheral/context positions remain structurally
-    distinct. In this 60-profile run, role-level outcome differences are descriptive rather than decisive, but the required
-    covariates for H3 and H4 are present.
+    distinct. In this {n_profiles_val}-profile run, role-level outcome differences are descriptive rather than decisive, but the
+    required covariates for H3 and H4 are present.
   </p>
   <figure>
     <img src="{fig["role"]}" alt="Role-level structural and outcome summary">
@@ -1890,26 +2014,28 @@ def render_report(
   <p>
     This section directly operationalizes the network subquestion: whether private susceptibility aligns with empirical
     exposure-network position. Private susceptibility is measured as <code>mean_ae_private = mean((P - B) × d)</code>,
-    while network position is measured with <code>exposure_eigenvector_centrality</code>. High susceptibility alone marks
-    individual vulnerability; high susceptibility combined with high centrality marks a candidate population-level
-    vulnerability hub. High centrality combined with low susceptibility marks a possible resilience anchor.
+    while network position is measured as direct exposure sender reach
+    <code>exposure_outgoing_visibility_weight = sum_i w_(j-&gt;i)</code>. High susceptibility alone marks
+    individual vulnerability; high susceptibility combined with high sender reach marks a candidate population-level
+    vulnerability hub. High sender reach combined with low susceptibility marks a possible resilience anchor.
   </p>
   <p>
-    In {run_label}, susceptibility and eigenvector centrality are only weakly aligned
+    In {run_label}, susceptibility and sender reach are only weakly aligned at the profile level
     (<code>r = {susceptibility_centrality_r:.2f}</code>). That makes this plot useful for identifying individual
     high-leverage profiles, but it should not be read as final H3/H4 evidence.
   </p>
   <figure>
-    <img src="{fig["vulnerability_plane"]}" alt="Susceptibility by eigenvector centrality vulnerability plane">
+    <img src="{fig["vulnerability_plane"]}" alt="Susceptibility by outgoing visibility (sender reach) vulnerability plane">
     <figcaption>
-      Each point is one assigned profile. Dashed lines are run-level medians; point size follows mean total network effect.
-      Labels show only the top vulnerability hubs and resilience anchors.
+      Each point is one assigned profile; the vertical axis is direct exposure sender reach (sum of outgoing exposure
+      weight). Dashed lines are run-level medians; point size follows mean total network effect. Labels show only the top
+      vulnerability hubs and resilience anchors.
     </figcaption>
   </figure>
   <figure>
     <img src="{fig["vulnerability_rankings"]}" alt="Top vulnerability hub and resilience anchor rankings">
     <figcaption>
-      Scores are descriptive run-2 rankings. The label suffixes show susceptibility percentile and centrality percentile.
+      Scores are descriptive run-level rankings. The label suffixes show susceptibility percentile and sender-reach percentile.
     </figcaption>
   </figure>
   <h3>Top Candidate Vulnerability Hubs</h3>
@@ -1920,10 +2046,10 @@ def render_report(
   <h2>8. Primary Alignment Metric</h2>
   <p>
     The primary scenario-level network metric is
-    <code>centrality_weighted_susceptibility - unweighted_susceptibility</code>. It asks whether the empirical
-    eigenvector-centrality mass is shifted toward profiles with higher or lower private attack susceptibility in each
-    <code>opinion leaf × Execute tactic</code> condition. The z-standardized version is used below so scenarios with different
-    susceptibility scales are comparable.
+    <code>reach_weighted_susceptibility - unweighted_susceptibility</code>. It asks whether the empirical
+    sender-reach mass (outgoing visibility) is shifted toward profiles with higher or lower private attack susceptibility in
+    each <code>opinion domain × Execute tactic</code> condition. The z-standardized version is used below so conditions with
+    different susceptibility scales are comparable.
   </p>
   <p>
     In {run_label}, the strongest centrality shift toward susceptible profiles occurs for
@@ -1936,32 +2062,52 @@ def render_report(
   <figure>
     <img src="{fig["centrality_alignment"]}" alt="Centrality-weighted susceptibility alignment by condition">
     <figcaption>
-      Positive values mean high-eigenvector-centrality profiles are more susceptible than the condition average; negative
-      values mean high-centrality profiles are more resilient than the condition average.
+      Positive values mean high-sender-reach profiles are more susceptible than the condition average; negative
+      values mean high-sender-reach profiles are more resilient than the condition average.
     </figcaption>
   </figure>
   {dataframe_to_html(alignment)}
 
-  <h2>9. Alignment Versus Network Attack Effect</h2>
+  <h2>9. Alignment Versus Network Attack Effect (Ecological View, Ceiling-Confounded)</h2>
+  <div class="callout caveat">
+    <strong>Read section 5 first.</strong> The clean test of the network hypothesis is the receiver-level peer-position pull
+    in section 5 (<code>r = {h2_r_value:+.2f}</code>, monotonic), because it is measured at the level the opinion is elicited.
+    The condition-level alignment below is a coarser ecological view and is <em>confounded by an amplification ceiling</em>:
+    conditions whose profiles are already strongly shifted by the individual attack have little remaining headroom for the
+    network to add, so concentrating susceptibility on high-reach profiles can coincide with a <em>smaller</em> mean increment
+    even though the underlying propagation is positive. The condition-level correlations therefore should not be read as the
+    network test; they are reported for completeness and transparency.
+  </div>
   <p>
-    To connect the alignment metric to the hypothesis, the cleanest definition of <em>higher network success</em> is
-    <code>mean_ae_total_network = mean((PN - B) × d)</code>: the final direction-aware attack effect after private attack
-    exposure and post-attack network context. The more mechanism-specific definition is
-    <code>mean_pn_increment_effectivity = mean((PN - P) × d)</code>, which isolates the additional effect of seeing
-    same-condition peer post-attack outputs.
+    The primary condition-level outcome is the network-specific increment
+    <code>mean_pn_increment_effectivity = mean((PN - P) × d)</code>. The final endpoint
+    <code>mean_ae_total_network = mean((PN - B) × d)</code> is reported for completeness, but it is dominated by the individual
+    layer (<code>ae_private</code>), so its association with the alignment partly reflects a within-condition deviation-vs-level
+    relationship rather than a network effect.
+  </p>
+  <p>
+    The strictest, conformity-adjusted definition is
+    <code>mean_net_social_amplification_effectivity = mean(((PN - P) - (BN - B)) × d)</code>: a difference-in-differences that
+    subtracts the generic baseline peer-conformity pull <code>(BN - B)</code> from the post-attack peer pull
+    <code>(PN - P)</code>, isolating the part of the network shift that is specifically attack-driven rather than ordinary
+    social conformity.
   </p>
   <p>
     The hypothesis-consistent pattern is therefore: positive centrality-susceptibility alignment should correspond to
-    higher <code>mean_ae_total_network</code> and, more directly, higher <code>mean_pn_increment_effectivity</code>;
-    negative alignment should correspond to lower values. In {run_label}, the descriptive condition-level associations are
-    <code>{alignment_total_r}</code> for total network-exposed effect and <code>{alignment_increment_r}</code> for the
-    post-network increment.
+    higher <code>mean_ae_total_network</code> and, more directly, higher <code>mean_pn_increment_effectivity</code> and
+    <code>mean_net_social_amplification_effectivity</code>; negative alignment should correspond to lower values. Because the
+    within-condition alignment is only estimable when a condition holds enough profiles, the associations are reported over
+    the {n_estimable_conditions} of {n_all_conditions} conditions that meet the {MIN_CONDITION_PROFILES}-profile floor. In
+    {run_label} these are <code>{alignment_total_r}</code> for total network-exposed effect, <code>{alignment_increment_r}</code>
+    for the post-network increment and <code>{alignment_netamp_r}</code> for the conformity-adjusted amplification.
   </p>
   <figure>
     <img src="{fig["alignment_outcome"]}" alt="Centrality-susceptibility alignment versus network attack effect">
     <figcaption>
-      Each point is one <code>opinion leaf × Execute tactic</code> condition. The left panel uses the final total network-exposed
-      effect; the right panel uses the post-network increment, which is the stricter network-mechanism outcome.
+      Each point is one <code>opinion domain × Execute tactic</code> condition. Filled markers are estimable conditions
+      (n>={MIN_CONDITION_PROFILES} profiles) and define the fitted line and reported <code>r</code>; hollow grey markers are
+      under-populated conditions, shown for transparency but excluded from the fit. Left to right: final total network-exposed
+      effect, the post-network increment, and the conformity-adjusted (difference-in-differences) amplification.
     </figcaption>
   </figure>
   {dataframe_to_html(alignment_outcome)}
@@ -1969,10 +2115,10 @@ def render_report(
   <h2>10. Condition-Specific Vulnerability Planes</h2>
   <p>
     The averaged hub analysis can hide condition-specific structure. The sharper diagnostic is therefore one
-    centrality-by-susceptibility map for each <code>opinion leaf × Execute tactic</code> configuration. Each panel keeps the same
-    60 profiles and the same empirical eigenvector centrality values; only private susceptibility changes because
-    <code>AE_private</code> is recomputed for that exact opinion and attack vector. The small label in each panel reports
-    the primary alignment metric as <code>centrality shift z</code>.
+    centrality-by-susceptibility map for each <code>opinion domain × Execute tactic</code> configuration. Within each panel the
+    profiles carry their empirical outgoing visibility (sender reach) and the private susceptibility <code>AE_private</code> realised under
+    that exact opinion domain and Execute tactic. The small label in each panel reports the primary alignment metric as
+    <code>centrality shift z</code>.
   </p>
   <figure>
     <img src="{fig["condition_grid"]}" alt="Condition-specific susceptibility by centrality planes">
@@ -1983,7 +2129,7 @@ def render_report(
   </figure>
   {dataframe_to_html(condition_summary)}
   <details>
-    <summary>Open the 12 individual condition maps</summary>
+    <summary>Open the {len(condition_figure_paths)} individual condition maps</summary>
     <div class="condition-grid">
       {condition_gallery_html}
     </div>
@@ -2021,7 +2167,7 @@ def write_limitations(
     delta_summary: dict[str, Any],
     correlations: pd.DataFrame,
 ) -> Path:
-    h2 = correlations.loc[correlations["relationship"].eq("H2 scenario-level peer activation")]
+    h2 = correlations.loc[correlations["relationship"].eq("H2 receiver-level peer-position pull")]
     h2_text = f"{float(h2['pearson_r'].iloc[0]):.3f}" if not h2.empty else "not available"
     text = f"""# Limitations And Pipeline Notes
 
@@ -2031,7 +2177,7 @@ This file records methodological notes surfaced while validating the empirical e
 
 - This is a validation and demonstration run, not final inferential evidence.
 - Scenario-level rows repeat profiles across opinions and attack vectors. Descriptive correlations are useful for sanity checks, but final models should account for repeated profile outcomes.
-- H2 has a promising scenario-level descriptive relationship: `peer_private_attack_activation` versus `pn_increment_effectivity` has Pearson `r = {h2_text}`.
+- H2 (network propagation) is confirmed at the receiver level: the direction-aware peer-position pull `peer_pull_toward_goal` versus `pn_increment_effectivity` has Pearson `r = {h2_text}`.
 
 ## BN Delta Expansion Note
 

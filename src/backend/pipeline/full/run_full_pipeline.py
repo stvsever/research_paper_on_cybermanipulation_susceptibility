@@ -94,6 +94,12 @@ def _parse_args() -> argparse.Namespace:
         help="Comma-01_separated attack leaves; takes precedence over --attack-leaf",
     )
     parser.add_argument("--focus-opinion-domain", default=None)
+    parser.add_argument(
+        "--focus-opinion-domains",
+        default=None,
+        help="Comma-separated opinion parent clusters to concentrate the integrated sample into "
+        "(densifies the exposure network for the network-position correlations).",
+    )
     parser.add_argument("--opinion-leaves", default=None, help="Comma-01_separated explicit opinion leaf selection")
     parser.add_argument("--max-opinion-leaves", type=int, default=None)
     parser.add_argument("--profile-candidate-multiplier", type=int, default=2)
@@ -141,6 +147,13 @@ def _parse_args() -> argparse.Namespace:
         type=int,
         default=8,
         help="Bounded number of incoming peer exemplars sent to the network-exposure prompts.",
+    )
+    parser.add_argument(
+        "--network-scenario-cap",
+        type=int,
+        default=500,
+        help="Hard cap on integrated scenarios when the exposure-network layer is on. Above it the "
+        "media-keyword heuristic selects the network-congruent subset. Only enforced with --with-network-exposure.",
     )
 
     stage_choices = ["01", "02", "03", "04", "05", "06", "07", "08", "09"]
@@ -533,6 +546,8 @@ def main() -> None:
         "attack_leaves": args.attack_leaves,
         "opinion_leaves": args.opinion_leaves,
         "focus_opinion_domain": args.focus_opinion_domain,
+        "focus_opinion_domains": args.focus_opinion_domains,
+        "network_scenario_cap": args.network_scenario_cap if args.with_network_exposure else None,
         "max_opinion_leaves": args.max_opinion_leaves,
         "profile_candidate_multiplier": args.profile_candidate_multiplier,
         "primary_moderator": args.primary_moderator,
@@ -652,6 +667,10 @@ def main() -> None:
                       if args.integrated_scenarios_path else []),
                     *(["--attack-leaves", args.attack_leaves] if args.attack_leaves else []),
                     *(["--opinion-leaves", args.opinion_leaves] if args.opinion_leaves else []),
+                    *(["--focus-opinion-domains", args.focus_opinion_domains] if args.focus_opinion_domains else []),
+                    # The exposure-network layer caps the simulated scenario space; over the cap
+                    # stage 01 engages the media-keyword heuristic. Individual-only runs are uncapped.
+                    *(["--network-scenario-cap", str(args.network_scenario_cap)] if args.with_network_exposure else []),
                     "--focus-opinion-domain",
                     args.focus_opinion_domain if args.focus_opinion_domain is not None else "",
                     "--profile-generation-mode",

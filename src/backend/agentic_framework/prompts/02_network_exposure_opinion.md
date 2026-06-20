@@ -31,7 +31,9 @@ For each leaf, `network_context` may include:
 - `peer_score_mean`, `exposure_weighted_peer_mean`    (summary peer baseline scores on this leaf)
 - `peer_exemplars` (alias `peer_assessments`)         (a bounded set of peers, each with `profile_id`, `exposure_weight`, `baseline_score`, `confidence`, `reasoning`)
 
-Use the peer scores and rationales for each leaf as contextual evidence, but do NOT mechanically average them. The person's own profile and that leaf's private `baseline_score` remain primary. Some leaves will stay essentially at the private baseline; others may move when the incoming neighborhood shows a clear, profile-relevant reason (strong arguments, disagreement, or consensus). A leaf with an empty or tiny neighborhood should stay at its private baseline.
+Use the peer scores and rationales for each leaf as contextual evidence. Social influence is real: when the incoming neighborhood shows a clear directional consensus that differs from this person's private baseline, this person genuinely updates a partial, profile-dependent amount toward it. Do NOT, however, simply return the peer average. A leaf with an empty or tiny neighborhood stays at its private baseline; a leaf with a clear, sizeable, same-direction consensus moves.
+
+**Critical: the private `baseline_score` is authoritative for this item's polarity.** It already encodes, with the correct sign, how this person evaluates this exact item. Your job is ONLY to adjust that score by peer influence; never re-derive the item from the profile traits and never flip its sign. If a confident `baseline_score` is strongly negative, the updated score stays negative unless the peer consensus is overwhelmingly and specifically the opposite; the same for strongly positive. A sign reversal of a confident baseline under non-adversarial peer exposure is almost always an error.
 
 # Response scale (read carefully; scoring precision is the core measurement of this study)
 
@@ -54,19 +56,22 @@ Anchor usage rules:
 2. Single-point resolution is meaningful; use fine increments.
 3. Avoid round numbers ending in 00, 50, or 25 unless the position genuinely lands there.
 4. The scale is bipolar and symmetric: sign carries direction, magnitude carries strength.
-5. Movement of exactly 0 from `baseline_score` is admissible when the peer context would not plausibly update this person on that leaf.
+5. Movement of exactly 0 from `baseline_score` is reserved for leaves with an empty or near-empty neighborhood, or where the peer signal is genuinely mixed; when a real, directional peer consensus is present, this person moves.
 
 # Decision principles
 
-1. **Anchor on the private baseline per leaf.** Each leaf's network-exposure score should remain at, or move modestly from, that leaf's `baseline_score`, only shifting clearly when its peer context plausibly changes this profile's reading of the item.
-2. **Use peers as context, not a formula.** Never return the (weighted) peer mean. The output is this person's own updated stance.
-3. **Issue specificity per leaf.** Reason about each item separately; the same person may move on one item and not another. Updates should vary across leaves, not be a single trait- or consensus-driven shift applied uniformly.
-4. **Bounded and plausible.** Most network-context updates are modest; large shifts only when a baseline is weak/ambivalent and the peer rationales give a clear, profile-relevant reason.
+1. **Start at the private baseline, then apply social influence.** `baseline_score` is the starting point and fixes the item's polarity; it is not a near-fixed anchor on magnitude. When a leaf's incoming neighborhood shows a clear directional consensus that differs from the starting point, move a meaningful PARTIAL fraction of the gap toward the exposure-weighted peer position, preserving the baseline's sign unless the consensus is overwhelmingly opposite.
+2. **Scale the move by the strength of the social signal.** Move MORE when more peers and higher total exposure weight point the same way, the peer rationales are coherent and profile-relevant, and the gap to the exposure-weighted peer mean is large. As rough calibration, a clear and sizeable consensus typically pulls a person about 10-35% of the way from `baseline_score` toward the exposure-weighted peer mean (baseline conformity is somewhat weaker than post-attack conformity); a weak or mixed neighborhood pulls little or nothing.
+3. **Scale the move by this person's susceptibility to social influence.** Use the full profile: higher agreeableness, need to belong, social-media reliance, conformity and lower need-for-cognition or self-esteem increase the move; high self-certainty, disagreeableness and strong prior conviction reduce it.
+4. **Use peers as a pull, not a formula.** Never return the (weighted) peer mean; the output is a partial, trait-modulated update that normally lands between `baseline_score` and the peer position.
+5. **Issue specificity per leaf.** Reason about each item separately; the pull differs across leaves because each has its own neighborhood and the person's conviction differs by item. Do not apply one uniform shift.
 
 # Anti-pattern checklist (do NOT do these)
 
 - Returning the peer average as the answer.
-- Ignoring a leaf's private baseline score.
+- Re-deriving the item from the profile and flipping the sign of a confident `baseline_score`.
+- Under-reacting: holding a leaf at `baseline_score` when a clear, sizeable, same-direction peer consensus is present.
+- Ignoring this person's profile when sizing the move (everyone should not move by the same fraction).
 - Treating the peer context as an attack or persuasion campaign.
 - Returning the same shift for every leaf.
 - Anchoring on round numbers (100, 250, 500).

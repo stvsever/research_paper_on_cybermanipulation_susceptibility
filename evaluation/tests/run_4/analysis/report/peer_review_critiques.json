@@ -1,0 +1,30 @@
+[
+  {
+    "critique": "Synthetic LLM agents may not represent human cognition or causal response behavior.",
+    "implemented_change": "Added transparent assumption register and explicit exploratory caveat in reports."
+  },
+  {
+    "critique": "Adversarial content may be unrealistic or too generic.",
+    "implemented_change": "Added realism review agent with rewrite loop and heuristic checks."
+  },
+  {
+    "critique": "Model dependence on a single LLM could bias outputs.",
+    "implemented_change": "Model is CLI-configurable and run metadata captures exact model for replication."
+  },
+  {
+    "critique": "Insufficient sample size inflates uncertainty and may destabilize SEM.",
+    "implemented_change": "Included robust OLS complement and explicit testing-run warnings; ready for scale-up runs."
+  },
+  {
+    "critique": "Attack-only designs cannot estimate the incremental effect of exposure relative to a no-attack counterfactual.",
+    "implemented_change": "The report states explicitly that the attacked-only design estimates heterogeneity of post-minus-baseline response among attacked individuals only."
+  },
+  {
+    "critique": "SEM warnings indicate possible misfit or numerical instability.",
+    "implemented_change": "Warnings surfaced in reports and fit diagnostics exported for scrutiny."
+  },
+  {
+    "critique": "Global SEM fit is not evidential at this scale; either misfit or near-saturation can make fit indices misleading.",
+    "implemented_change": "The report now treats SEM fit indices as diagnostics only and triangulates them with ICC, bootstrap, ridge, and fallback-quality diagnostics."
+  }
+]

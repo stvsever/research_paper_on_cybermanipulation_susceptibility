@@ -304,6 +304,35 @@ def _expand_cluster_rows(rows: List[Dict[str, object]]) -> List[Dict[str, object
     return expanded
 
 
+# Anchoring-guard thresholds. A confident private anchor (|score| >= CONFIDENT)
+# reversing to the opposite confident pole (|network score| >= CONFIDENT, opposite
+# sign) is treated as a scale-polarity re-derivation artifact and held at the
+# anchor; any remaining shift beyond MAX_PEER_SHIFT is clamped to a plausible
+# peer-conformity magnitude. Deliberately conservative so genuine (calibrated)
+# conformity, including moderate reversals from a weak anchor, is preserved.
+_NETWORK_ANCHOR_CONFIDENT = 300
+_NETWORK_ANCHOR_MAX_SHIFT = 600
+
+
+def _anchor_network_score(prior: int, raw: Optional[int]) -> tuple[Optional[int], bool]:
+    """Return (anchored_score, was_corrected) for a network-exposure measurement."""
+    if raw is None:
+        return None, False
+    prior = int(prior)
+    raw = int(raw)
+    confident_reversal = (
+        abs(prior) >= _NETWORK_ANCHOR_CONFIDENT
+        and abs(raw) >= _NETWORK_ANCHOR_CONFIDENT
+        and (raw > 0) != (prior > 0)
+    )
+    if confident_reversal:
+        return prior, True
+    shift = raw - prior
+    if abs(shift) > _NETWORK_ANCHOR_MAX_SHIFT:
+        return prior + (_NETWORK_ANCHOR_MAX_SHIFT if shift > 0 else -_NETWORK_ANCHOR_MAX_SHIFT), True
+    return raw, False
+
+
 def _augment_with_network_exposure(
     input_path: str,
     output_dir: str,
@@ -324,7 +353,24 @@ def _augment_with_network_exposure(
         P  = private post-attack        (stage 04)
         PN = network-exposure post      (stage 04b)
     plus the hypothesis quantities ae_private, bn_increment, pn_increment,
-    pn_increment_effectivity and ae_total_network.
+    pn_increment_effectivity, ae_total_network and the conformity-adjusted
+    net_social_amplification (difference-in-differences).
+
+    Direction-aware quantities use the per-leaf adversarial direction d in {-1,+1}:
+        ae_private               = (P - B) * d        individual attack effect
+        bn_increment             = (BN - B)           baseline peer-conformity pull
+        pn_increment             = (PN - P)           raw post-attack peer pull
+        pn_increment_effectivity = (PN - P) * d       post-attack peer amplification
+        ae_total_network         = (PN - B) * d       final network-exposed effect
+        net_social_amplification_effectivity
+                                 = ((PN - P) - (BN - B)) * d
+
+    net_social_amplification is a difference-in-differences: it subtracts the
+    generic baseline peer-conformity shift (BN - B) from the post-attack peer
+    shift (PN - P), so it isolates the attack-specific propagation through the
+    network from the social pull that peers exert even with no attack. This is
+    the cleaner network-mechanism outcome; pn_increment_effectivity is retained
+    for continuity with earlier runs.
     """
     stage_outputs_root = Path(input_path).resolve().parent.parent
     bn_path = stage_outputs_root / "02b_assess_network_exposure_opinions" / "network_exposure_assessments.jsonl"
@@ -375,12 +421,24 @@ def _augment_with_network_exposure(
     pn_by_key = _index(pn_path, "post_attack_network_exposure_assessment")
 
     records: List[Dict[str, object]] = []
+    n_bn_corrected = 0
+    n_pn_corrected = 0
     for key, vals in private.items():
         d = int(vals["d"])
         b = int(vals["B"])
         p = int(vals["P"])
-        bn = bn_by_key.get(key)
-        pn = pn_by_key.get(key)
+        bn_raw = bn_by_key.get(key)
+        pn_raw = pn_by_key.get(key)
+        # Anchoring guard (safety net for the network-exposure elicitation): a
+        # confident private anchor reversing all the way to the opposite confident
+        # pole is a scale-polarity re-derivation artifact, not peer conformity, so
+        # the measurement is held at the private anchor (zero peer shift); any
+        # remaining implausibly large shift is clamped. Raw values are preserved in
+        # the *_raw columns for full provenance.
+        bn, bn_corr = _anchor_network_score(b, bn_raw)
+        pn, pn_corr = _anchor_network_score(p, pn_raw)
+        n_bn_corrected += int(bn_corr)
+        n_pn_corrected += int(pn_corr)
         records.append(
             {
                 "scenario_id": vals["scenario_id"],
@@ -392,11 +450,23 @@ def _augment_with_network_exposure(
                 "P_private_post": p,
                 "BN_network_baseline": bn,
                 "PN_network_post": pn,
+                "BN_network_baseline_raw": bn_raw,
+                "PN_network_post_raw": pn_raw,
+                "bn_polarity_corrected": bool(bn_corr),
+                "pn_polarity_corrected": bool(pn_corr),
                 "ae_private": (p - b) * d if d else None,
                 "bn_increment": (bn - b) if bn is not None else None,
                 "pn_increment": (pn - p) if pn is not None else None,
                 "pn_increment_effectivity": ((pn - p) * d) if (pn is not None and d) else None,
                 "ae_total_network": ((pn - b) * d) if (pn is not None and d) else None,
+                # Difference-in-differences: post-attack peer pull net of baseline
+                # conformity pull. Isolates attack-driven network amplification.
+                "net_social_amplification": (
+                    (pn - p) - (bn - b) if (pn is not None and bn is not None) else None
+                ),
+                "net_social_amplification_effectivity": (
+                    ((pn - p) - (bn - b)) * d if (pn is not None and bn is not None and d) else None
+                ),
             }
         )
     if not records:
@@ -417,11 +487,15 @@ def _augment_with_network_exposure(
             "n_network_records": int(len(df)),
             "n_with_BN": int(df["BN_network_baseline"].notna().sum()),
             "n_with_PN": int(df["PN_network_post"].notna().sum()),
+            "n_bn_polarity_corrected": int(n_bn_corrected),
+            "n_pn_polarity_corrected": int(n_pn_corrected),
             "mean_ae_private": _mean("ae_private"),
             "mean_bn_increment": _mean("bn_increment"),
             "mean_pn_increment": _mean("pn_increment"),
             "mean_pn_increment_effectivity": _mean("pn_increment_effectivity"),
             "mean_ae_total_network": _mean("ae_total_network"),
+            "mean_net_social_amplification": _mean("net_social_amplification"),
+            "mean_net_social_amplification_effectivity": _mean("net_social_amplification_effectivity"),
         },
     )
     return [abs_path(long_csv), abs_path(summary_json)]

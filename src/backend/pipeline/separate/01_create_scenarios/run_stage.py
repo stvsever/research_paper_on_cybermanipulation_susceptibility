@@ -35,6 +35,7 @@ import json
 import logging
 import math
 import random
+import re
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -110,6 +111,20 @@ class Stage01Config(StageConfig):
     opinion_leaves: Optional[str] = None  # comma-01_separated explicit opinion leaf selection
     profile_generation_mode: str = "deterministic"
     focus_opinion_domain: Optional[str] = None
+    # Integrated-design concentration: restrict the integrated candidate pool to a
+    # comma-separated subset of opinion parent clusters (issue domains) and spread
+    # n_scenarios across only those. Concentrating the same scenario budget into a
+    # few domains is what makes the empirical exposure network dense enough for the
+    # network-position correlations (each opinion leaf is then scored by many more
+    # profiles, so same-leaf incoming-peer neighborhoods are large rather than ~3).
+    focus_opinion_domains: Optional[str] = None
+    # Network-exposure scenario governor. The exposure-network layer is capped at
+    # network_scenario_cap scenarios; when the requested budget exceeds it (e.g. the
+    # production 10K set) the integrated pool is first reduced with a media-keyword
+    # heuristic so the retained scenarios are the ones most congruent with the
+    # social-media (Bluesky) exposure substrate, then capped. Off for plain runs.
+    media_filter: bool = False
+    network_scenario_cap: Optional[int] = None
     max_opinion_leaves: Optional[int] = None
     profile_candidate_multiplier: int = 2
     # current design: meta-node compatibility-aware scenario filtering
@@ -360,27 +375,75 @@ def _iter_jsonl(path: Path):
                 yield json.loads(line)
 
 
+_MEDIA_WORD_RE = re.compile(r"\bmedia\b", re.IGNORECASE)
+
+
+def _attack_mentions_media(attack: Dict[str, Any]) -> bool:
+    """Whole-word, case-insensitive 'media' match in any DISARM triplet phase.
+
+    Checks the leaf label and the full taxonomic path of each of the three
+    Plan / Prepare / Execute phases. This is the heuristic used to keep the
+    exposure-network layer congruent with the social-media (Bluesky) exposure
+    substrate when the requested scenario budget exceeds the network cap: media
+    operations are the ones whose propagation the empirical graph actually
+    describes, so selecting them beats a uniform random draw over all topics.
+    """
+    triplet = (attack or {}).get("triplet") or {}
+    for phase in ("Plan", "Prepare", "Execute"):
+        node = triplet.get(phase) or {}
+        label = str(node.get("label", ""))
+        path = node.get("path") or []
+        path_str = " > ".join(str(part) for part in path) if isinstance(path, list) else str(path)
+        if _MEDIA_WORD_RE.search(label) or _MEDIA_WORD_RE.search(path_str):
+            return True
+    return False
+
+
+def _normalize_domain_set(focus_domains: Optional[List[str]]) -> Optional[set]:
+    if not focus_domains:
+        return None
+    return {_slugify(d) for d in focus_domains if d and d.strip()}
+
+
 def _stratified_domain_sample(
-    path: Path, n_target: int, seed: int
+    path: Path,
+    n_target: int,
+    seed: int,
+    focus_domains: Optional[List[str]] = None,
+    media_filter: bool = False,
 ) -> Tuple[List[Dict[str, Any]], Dict[str, int]]:
-    """Stratified-random selection of n_target rows balanced across the 7 issue
-    domains, in a single streaming pass over the (large) integrated .jsonl.
+    """Stratified-random selection of n_target rows balanced across issue domains,
+    in a single streaming pass over the (large) integrated .jsonl.
 
     Per-domain reservoir sampling (Algorithm R) keeps a bounded random subset of
     each domain's rows; the final allocation then spreads n_target as evenly as
     possible across the domains that exist. Balancing by domain guarantees that
-    every issue domain (and therefore every directional leaf, since a scenario
-    targets a whole domain cluster) appears, and that each leaf receives roughly
-    n_target / n_domains observations, which is what the per-(attack, leaf)
-    conditional-susceptibility task models need for stable estimation.
+    every retained issue domain (and therefore every directional leaf, since a
+    scenario targets a whole domain cluster) appears, and that each leaf receives
+    roughly n_target / n_domains observations, which is what the per-(attack,
+    leaf) conditional-susceptibility task models need for stable estimation.
+
+    Two optional concentrators sharpen this for the exposure-network layer:
+      * ``focus_domains`` restricts the candidate pool to the named parent
+        clusters and spreads the whole budget across just those, multiplying the
+        per-leaf observation count (and therefore the same-leaf incoming-peer
+        density) by 7 / len(focus_domains).
+      * ``media_filter`` keeps only scenarios whose DISARM triplet mentions
+        'media', used when the requested budget exceeds the network cap so the
+        retained subset matches the social-media exposure substrate.
     """
     rng = random.Random(seed)
     cap = max(40, n_target)
+    focus_set = _normalize_domain_set(focus_domains)
     reservoirs: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     seen: Dict[str, int] = defaultdict(int)
 
     for row in _iter_jsonl(path):
         domain = str(((row.get("opinion_cluster") or {}).get("parent_name")) or "UNKNOWN")
+        if focus_set is not None and _slugify(domain) not in focus_set:
+            continue
+        if media_filter and not _attack_mentions_media(row.get("attack") or {}):
+            continue
         seen[domain] += 1
         reservoir = reservoirs[domain]
         if len(reservoir) < cap:
@@ -392,7 +455,18 @@ def _stratified_domain_sample(
 
     domains = sorted(reservoirs.keys())
     if not domains:
-        raise RuntimeError(f"No scenarios found in integrated file: {path}")
+        raise RuntimeError(
+            f"No scenarios found in integrated file: {path}"
+            + (f" matching focus domains {sorted(focus_set)}" if focus_set else "")
+            + (" after the media-keyword filter" if media_filter else "")
+        )
+    if focus_set is not None:
+        missing = sorted(focus_set - {_slugify(d) for d in domains})
+        if missing:
+            raise RuntimeError(
+                f"Requested focus opinion domains not present in integrated set: {missing}. "
+                f"Available (slugified): {sorted({_slugify(d) for d in domains})}"
+            )
 
     base = n_target // len(domains)
     remainder = n_target - base * len(domains)
@@ -552,9 +626,36 @@ def run_stage_integrated(output_dir: str, config: Stage01Config) -> StageArtifac
     if not integrated_path.exists():
         raise RuntimeError(f"Integrated scenarios file not found: {integrated_path}")
 
-    n_target = int(config.n_scenarios or 100)
-    LOGGER.info("Stage 01 integrated mode: selecting %d scenarios from %s", n_target, integrated_path)
-    selected, domain_counts = _stratified_domain_sample(integrated_path, n_target, config.seed)
+    requested = int(config.n_scenarios or 100)
+    focus_domains = (
+        [d.strip() for d in config.focus_opinion_domains.split(",") if d.strip()]
+        if config.focus_opinion_domains
+        else None
+    )
+
+    # Network-exposure scenario governor. When a cap is set (the exposure-network
+    # layer always passes 500) and the requested budget exceeds it, fall back to
+    # the media-keyword heuristic and clamp to the cap so the simulated space stays
+    # bounded and congruent with the empirical exposure substrate.
+    media_filter = bool(config.media_filter)
+    cap = int(config.network_scenario_cap) if config.network_scenario_cap else None
+    n_target = requested
+    if cap is not None and requested > cap:
+        n_target = cap
+        media_filter = True
+        LOGGER.info(
+            "Stage 01: requested %d exceeds the network-exposure cap of %d; "
+            "applying the media-keyword filter and clamping to %d scenarios.",
+            requested, cap, cap,
+        )
+
+    LOGGER.info(
+        "Stage 01 integrated mode: selecting %d scenarios from %s (focus_domains=%s, media_filter=%s)",
+        n_target, integrated_path, focus_domains or "all-7", media_filter,
+    )
+    selected, domain_counts = _stratified_domain_sample(
+        integrated_path, n_target, config.seed, focus_domains=focus_domains, media_filter=media_filter,
+    )
     LOGGER.info(
         "Selected %d scenarios across %d issue domains (source totals: %s)",
         len(selected),
@@ -673,6 +774,15 @@ def run_stage_integrated(output_dir: str, config: Stage01Config) -> StageArtifac
             "n_expanded_leaf_rows_expected": total_leaf_rows,
             "issue_domains_selected": dict(domain_selected),
             "opinion_direction_tally": {str(k): v for k, v in direction_tally.items()},
+            "sampling_provenance": {
+                "n_scenarios_requested": requested,
+                "n_scenarios_selected": len(scenarios),
+                "focus_opinion_domains": focus_domains,
+                "media_keyword_filter_applied": media_filter,
+                "network_scenario_cap": cap,
+                "cap_triggered": bool(cap is not None and requested > cap),
+                "seed": config.seed,
+            },
             "note": (
                 "Integrated cluster panel: each scenario targets one issue domain and all its "
                 "directional leaves; opinions are assessed cluster-at-once and expanded to "
@@ -1044,6 +1154,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--attack-leaves", default=None, help="Comma-01_separated attack leaves; takes precedence over --attack-leaf")
     parser.add_argument("--profile-generation-mode", default="deterministic", choices=["deterministic", "llm", "hybrid"])
     parser.add_argument("--focus-opinion-domain", default=None)
+    parser.add_argument(
+        "--focus-opinion-domains",
+        default=None,
+        help="Comma-separated opinion parent clusters (issue domains) to concentrate the "
+        "integrated sample into. Densifies the exposure network for the position correlations.",
+    )
+    parser.add_argument(
+        "--media-filter",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Restrict the integrated candidate pool to scenarios whose DISARM triplet mentions 'media'.",
+    )
+    parser.add_argument(
+        "--network-scenario-cap",
+        type=int,
+        default=None,
+        help="Hard cap on integrated scenarios for the exposure-network layer; over it the media filter engages.",
+    )
     parser.add_argument("--opinion-leaves", default=None, help="Comma-01_separated explicit opinion leaves; takes precedence over spread sampling")
     parser.add_argument("--max-opinion-leaves", type=int, default=None)
     parser.add_argument("--profile-candidate-multiplier", type=int, default=2)
@@ -1087,6 +1215,9 @@ def main() -> None:
         opinion_leaves=args.opinion_leaves,
         profile_generation_mode=args.profile_generation_mode,
         focus_opinion_domain=args.focus_opinion_domain,
+        focus_opinion_domains=args.focus_opinion_domains,
+        media_filter=args.media_filter,
+        network_scenario_cap=args.network_scenario_cap,
         max_opinion_leaves=args.max_opinion_leaves,
         profile_candidate_multiplier=args.profile_candidate_multiplier,
         enforce_compatibility_rules=args.enforce_compatibility_rules,

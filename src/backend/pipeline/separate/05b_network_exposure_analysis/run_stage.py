@@ -102,7 +102,8 @@ def _write_interactive_html(path: Path, long_df: pd.DataFrame, per_profile: pd.D
         return None
 
     pp = per_profile.copy()
-    x = pd.to_numeric(pp.get("eigenvector_centrality"), errors="coerce")
+    # Network "centrality" axis is direct exposure sender reach (outgoing_visibility_weight).
+    x = pd.to_numeric(pp.get("outgoing_visibility_weight"), errors="coerce")
     y = pd.to_numeric(pp.get("mean_ae_private"), errors="coerce")
     color = pd.to_numeric(pp.get("mean_ae_total_network"), errors="coerce")
     role = pp.get("dominant_structural_role", pd.Series([""] * len(pp)))
@@ -121,7 +122,7 @@ def _write_interactive_html(path: Path, long_df: pd.DataFrame, per_profile: pd.D
     fig = make_subplots(
         rows=1, cols=2,
         subplot_titles=(
-            "Profile: empirical centrality x private susceptibility (color = total network effect)",
+            "Profile: outgoing visibility (sender reach) x private susceptibility (color = total network effect)",
             "Leaf: baseline network increment (BN-B) vs post-network effectivity ((PN-P)*d)",
         ),
     )
@@ -146,7 +147,7 @@ def _write_interactive_html(path: Path, long_df: pd.DataFrame, per_profile: pd.D
         )
     fig.update_layout(template="plotly_white", title=f"{run_id}: interactive empirical exposure-network map",
                       height=560, legend=dict(font=dict(size=9), title="opinion domain"))
-    fig.update_xaxes(title_text="eigenvector centrality", row=1, col=1)
+    fig.update_xaxes(title_text="outgoing visibility (sender reach)", row=1, col=1)
     fig.update_yaxes(title_text="mean AE_private", row=1, col=1)
     fig.update_xaxes(title_text="BN - B", row=1, col=2)
     fig.update_yaxes(title_text="(PN - P) * d", row=1, col=2)
@@ -181,6 +182,11 @@ def run_stage(input_path: str, output_dir: str, config: Stage05bConfig) -> Stage
             mean_pn_increment=("pn_increment", "mean"),
             mean_pn_increment_effectivity=("pn_increment_effectivity", "mean"),
             mean_ae_total_network=("ae_total_network", "mean"),
+            **(
+                {"mean_net_social_amplification_effectivity": ("net_social_amplification_effectivity", "mean")}
+                if "net_social_amplification_effectivity" in long_df.columns
+                else {}
+            ),
         )
         .reset_index()
     )
@@ -204,6 +210,11 @@ def run_stage(input_path: str, output_dir: str, config: Stage05bConfig) -> Stage
     # Hypothesis tests (network-exposure layer design H1-H4).
     ae_private = long_df["ae_private"].dropna()
     pn_eff = long_df["pn_increment_effectivity"].dropna()
+    net_amp = (
+        long_df["net_social_amplification_effectivity"].dropna()
+        if "net_social_amplification_effectivity" in long_df.columns
+        else pd.Series(dtype=float)
+    )
     reach_col = "outgoing_visibility_weight" if "outgoing_visibility_weight" in per_profile.columns else None
     if reach_col is None and "weighted_out_degree" in per_profile.columns:
         reach_col = "weighted_out_degree"
@@ -226,6 +237,9 @@ def run_stage(input_path: str, output_dir: str, config: Stage05bConfig) -> Stage
             "sd_pn_increment_effectivity": round(float(pn_eff.std(ddof=0)), 3) if len(pn_eff) else None,
             "pct_amplifying": round(float((pn_eff > 0).mean() * 100), 1) if len(pn_eff) else None,
             "pct_dampening": round(float((pn_eff < 0).mean() * 100), 1) if len(pn_eff) else None,
+            # Difference-in-differences: post-attack peer pull net of baseline conformity.
+            "mean_net_social_amplification_effectivity": round(float(net_amp.mean()), 3) if len(net_amp) else None,
+            "pct_amplifying_conformity_adjusted": round(float((net_amp > 0).mean() * 100), 1) if len(net_amp) else None,
         },
         "H3_central_susceptible_sender_amplification": {
             "claim": "High outgoing-reach susceptible profiles raise population-level final effect.",

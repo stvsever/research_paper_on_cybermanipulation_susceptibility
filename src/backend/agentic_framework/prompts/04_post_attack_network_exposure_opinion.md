@@ -33,7 +33,7 @@ Each leaf's `network_context` is built from the empirical directed exposure grap
 - `peer_post_mean`, `peer_delta_mean`, `exposure_weighted_peer_post_mean`, `exposure_weighted_peer_delta_mean`
 - `peer_exemplars` (alias `peer_assessments`): each with `profile_id`, `exposure_weight`, `baseline_score`, `post_score`, `attack_delta`, `confidence`, `reasoning`
 
-Use peer post-attack scores, attack deltas and rationales as contextual evidence; do NOT mechanically average them.
+Use peer post-attack scores, attack deltas and rationales as contextual evidence. Social influence is real and is the quantity this phase measures: when the incoming exposure neighborhood shows a clear directional signal that differs from this person's private post-attack score, this person genuinely updates toward it. Do NOT, however, simply return the peer average; the update is a partial, profile-dependent shift, not adoption of the peer mean.
 
 # Response scale (read carefully; scoring precision is the core measurement of this study)
 
@@ -56,7 +56,7 @@ Anchor usage rules:
 2. Single-point resolution is meaningful; use fine increments.
 3. Avoid round numbers ending in 00, 50, or 25 unless the position genuinely lands there.
 4. The scale is bipolar and symmetric: sign carries direction, magnitude carries strength.
-5. Movement of exactly 0 from `private_post_score` is admissible when the peer context would not plausibly update this person on that leaf.
+5. Movement of exactly 0 from `private_post_score` is reserved for leaves with an empty or near-empty neighborhood, or where the peer signal is genuinely mixed; when a real, directional peer consensus is present, this person moves.
 
 # Critical direction rule
 
@@ -70,16 +70,18 @@ Therefore, do NOT force the final score to lie only between `baseline_score` and
 
 # Decision principles
 
-1. **Anchor on the private post-attack score per leaf.** Each leaf's output should remain at, or move modestly from, its `private_post_score`. It moves only when that leaf's peer context plausibly changes this profile's reading.
-2. **Peer context can go either way.** Aligned peers (deltas in the adversarial direction) can amplify; resistant or contrary peers can dampen or partially correct the private post-attack shift. Do not force movement toward the adversarial goal; counter-goal movement is allowed.
-3. **Use peers as context, not a formula.** Never return the (weighted) peer post mean.
-4. **Issue specificity per leaf.** Updates should vary across leaves rather than being one uniform shift; a leaf with an empty/tiny neighborhood stays at its private post-attack score.
-5. **Bounded and plausible.** Most network increments are modest in magnitude.
+1. **Start at the private post-attack score, then apply social influence.** `private_post_score` is the starting point, not a near-fixed anchor. When a leaf's incoming neighborhood shows a clear directional consensus that differs from that starting point, move a meaningful PARTIAL fraction of the gap toward the exposure-weighted peer position.
+2. **Scale the move by the strength of the social signal.** Move MORE when (a) more peers and higher total exposure weight point the same way, (b) the peer rationales are coherent and profile-relevant, and (c) the gap between this person's score and the exposure-weighted peer mean is large. Move LESS when the neighborhood is small, internally split, or low-weight. As rough calibration, a clear and sizeable consensus typically pulls a person about 15-45% of the way from `private_post_score` toward the exposure-weighted peer mean; a weak or mixed neighborhood pulls little or nothing.
+3. **Scale the move by this person's susceptibility to social influence.** Use the full profile: higher agreeableness, need to belong / fear of social exclusion, social-media reliance, conformity and lower need-for-cognition or self-esteem increase the move; high self-certainty, disagreeableness, strong prior conviction and an extreme private score reduce it. A conformity-prone person with a moderate private score can move substantially; a firmly-committed contrarian barely moves.
+4. **Direction is set by the peers, not by the attacker.** Aligned peers (deltas in the adversarial direction) amplify the attack; resistant or contrary peers dampen or partially correct it. Do not force movement toward the adversarial goal; counter-goal movement is correct when the peer consensus points that way.
+5. **Use peers as a pull, not a formula.** Never simply return the (weighted) peer post mean; the output is a partial, trait-modulated update, so it normally lands between `private_post_score` and the peer position rather than on top of either.
+6. **Issue specificity per leaf.** The pull differs across leaves because each leaf has its own neighborhood and the person's conviction differs by item; do not apply one uniform shift. A leaf with an empty/tiny neighborhood stays at its private post-attack score.
 
 # Anti-pattern checklist (do NOT do these)
 
 - Returning the peer average as the answer.
-- Ignoring a leaf's private post-attack score.
+- Under-reacting: holding a leaf at `private_post_score` when a clear, sizeable, same-direction peer consensus is present. Real social influence is the effect being measured; do not suppress it to near-zero.
+- Ignoring this person's profile when sizing the move (everyone should not move by the same fraction).
 - Forcing every leaf toward the adversarial direction.
 - Returning the same increment for every leaf.
 - Anchoring on round numbers; omitting any leaf.

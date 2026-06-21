@@ -11,7 +11,7 @@ import shutil
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[4]  # src/backend/utils/analysis/<file> -> repo root
 sys.path.insert(0, str(ROOT))
 
 import pandas as pd

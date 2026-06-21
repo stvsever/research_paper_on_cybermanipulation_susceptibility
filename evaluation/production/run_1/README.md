@@ -6,7 +6,7 @@ ENTIRE 10,000-row integrated scenario set, launched with
 the whole LLM budget goes to the individual layer. Stages 01 to 05 produce every
 private baseline (B), post-attack (P) and effectivity delta per scenario and leaf;
 the analyses and figures below are computed from those saved scores with
-`scripts/production/analyze_run_1.py`.
+`src/backend/utils/analysis/analyze_run_1.py`.
 
 ## Design
 
@@ -133,7 +133,7 @@ ontology explorer (the opinion and DISARM attack ontologies as interactive trees
 sunbursts), the modular profile-trait network, the conditional-susceptibility index
 and per-attack-tactic views, the moderation and SEM panels, and the per-leaf and
 per-domain effectivity views. It is generated from the stage-05 deltas via a stage-06
-pass on a no-macro subsample (`scripts/production/build_dashboard.py`); the page itself
+pass on a no-macro subsample (`src/backend/utils/analysis/build_dashboard.py`); the page itself
 is portable and needs no server.
 
 ## Headline
@@ -151,7 +151,7 @@ is portable and needs no server.
 
 ```bash
 bash scripts/production/run_1.sh --verbose        # the 10,000-scenario run (stages 01..05)
-.venv/bin/python scripts/production/analyze_run_1.py   # analyses + figures from the saved deltas
+.venv/bin/python src/backend/utils/analysis/analyze_run_1.py   # analyses + figures from the saved deltas
 ```
 
 Analysis tables are written to `analysis/` (family table, within-family and curated

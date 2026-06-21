@@ -99,7 +99,7 @@ The headline results (see the [run README](evaluation/production/run_1/README.md
 
 ```bash
 bash scripts/production/run_1.sh --verbose            # the 10,000-scenario run (stages 01..05)
-.venv/bin/python scripts/production/analyze_run_1.py  # family-wise moderation, inferential tests, figures
+.venv/bin/python src/backend/utils/analysis/analyze_run_1.py  # family-wise moderation, inferential tests, figures
 ```
 
 The launcher checks for `OPENROUTER_API_KEY` and verifies the projected OpenRouter budget before running.

@@ -347,6 +347,153 @@ def _build_feature_hierarchy(feature_columns: List[str]) -> Dict[str, List[str]]
     return {k: sorted(set(v)) for k, v in groups.items() if len(v) >= 2}
 
 
+@dataclass
+class BlockwiseSusceptibilityResult:
+    """Scalable, overfitting-resistant profile-level susceptibility model.
+
+    Each ontology FAMILY (Big Five, the political-psychology inventories,
+    demographics, etc.) is fit as its own regularized sub-model and the
+    sub-models are combined by a heavily-regularized meta-learner. Because no
+    single sub-model ever sees the full ~hundreds-wide feature space, the stack
+    stays well-conditioned no matter how large the profile ontology grows, and
+    its out-of-sample R2 degrades gracefully toward zero (rather than to large
+    negative values) when the trait signal is weak. Everything is evaluated with
+    nested cross-validation so the reported R2 has no stacking leakage.
+    """
+    stacked_oos_r2: float = 0.0
+    n_profiles: int = 0
+    n_families: int = 0
+    family_table: pd.DataFrame = field(default_factory=pd.DataFrame)  # per family: n_features, standalone OOF R2, meta weight
+    profile_scores: pd.DataFrame = field(default_factory=pd.DataFrame)  # profile_id, blockwise_pred, blockwise_index_pct
+    notes: List[str] = field(default_factory=list)
+
+
+def fit_blockwise_family_susceptibility(
+    profile_level_df: pd.DataFrame,
+    *,
+    outcome_column: str,
+    feature_columns: Sequence[str],
+    seed: int = 42,
+    n_outer: int = 5,
+    n_inner: int = 5,
+) -> Optional[BlockwiseSusceptibilityResult]:
+    """Fit the block-wise family-stacked susceptibility model (see dataclass).
+
+    ``profile_level_df`` must hold one row per profile with ``profile_id``, the
+    ``outcome_column`` (typically the profile's mean adversarial effectivity) and
+    the profile feature columns. Returns None if there is not enough data.
+    """
+    try:
+        from sklearn.linear_model import RidgeCV
+        from sklearn.model_selection import KFold, cross_val_predict
+        from sklearn.preprocessing import StandardScaler
+    except Exception:
+        return None
+
+    df = profile_level_df.dropna(subset=[outcome_column]).reset_index(drop=True)
+    cont = [c for c in feature_columns if c in df.columns and c.startswith("profile_cont_")
+            and c not in LEGACY_EXCLUDED_FEATURE_COLUMNS and df[c].nunique(dropna=True) > 1]
+    n = len(df)
+    # Families: group the continuous psychometric / political-psychology constructs
+    # by their first two underscore tokens (the inventory level, e.g. "big_five",
+    # "political_profile", "moral_foundations"). This keys directly off the column
+    # names, so it scales to any profile ontology without hardcoding.
+    from collections import defaultdict as _dd
+    fam_map: Dict[str, List[str]] = _dd(list)
+    for c in cont:
+        toks = c.replace("profile_cont_", "").split("_")
+        fam_map["_".join(toks[:2])].append(c)
+    families = {k: v for k, v in fam_map.items() if len(v) >= 2}
+    if n < 25 or len(families) < 2:
+        return None
+
+    y = df[outcome_column].astype(float).to_numpy()
+    fam_keys = sorted(families)
+    base_alphas = np.logspace(-1, 5, 25)
+    # Heavy meta regularization keeps the combiner stable at small n (the family
+    # sub-model predictions are correlated and noisy, so an under-regularized meta
+    # overfits them).
+    meta_alphas = np.logspace(1, 6, 20)
+    ss_tot = float(np.sum((y - y.mean()) ** 2))
+
+    def _fam_matrix(idx, cols, scaler=None):
+        X = df.iloc[list(idx)][cols].astype(float).fillna(0.0).to_numpy()
+        if scaler is None:
+            scaler = StandardScaler().fit(X)
+        return scaler.transform(X), scaler
+
+    # Repeated nested CV: base sub-models per family generate leakage-free meta
+    # inputs; the stacked OOS R2 is averaged over repeats to damp split noise.
+    n_repeats = 3
+    r2_repeats: List[float] = []
+    for rep in range(n_repeats):
+        outer = KFold(n_splits=min(n_outer, n), shuffle=True, random_state=seed + 100 * rep)
+        oos_pred = np.full(n, np.nan)
+        for tr, te in outer.split(df):
+            Ztr = np.zeros((len(tr), len(fam_keys)))
+            Zte = np.zeros((len(te), len(fam_keys)))
+            inner = KFold(n_splits=min(n_inner, len(tr)), shuffle=True, random_state=seed + 1 + rep)
+            for j, fk in enumerate(fam_keys):
+                cols = families[fk]
+                Xtr, sc = _fam_matrix(tr, cols)
+                Xte, _ = _fam_matrix(te, cols, sc)
+                Ztr[:, j] = cross_val_predict(RidgeCV(alphas=base_alphas), Xtr, y[tr], cv=inner)
+                Zte[:, j] = RidgeCV(alphas=base_alphas).fit(Xtr, y[tr]).predict(Xte)
+            meta = RidgeCV(alphas=meta_alphas).fit(Ztr, y[tr])
+            oos_pred[te] = meta.predict(Zte)
+        r2_repeats.append(1.0 - float(np.sum((y - oos_pred) ** 2)) / max(ss_tot, 1e-10))
+    stacked_oos_r2 = float(np.mean(r2_repeats))
+
+    # Standalone per-family OOF R2 (how well each family alone predicts) + full-data
+    # meta weights (each family's signed contribution to the stack).
+    full_inner = KFold(n_splits=min(n_inner, n), shuffle=True, random_state=seed + 2)
+    Zfull = np.zeros((n, len(fam_keys)))
+    fam_oof_r2: Dict[str, float] = {}
+    for j, fk in enumerate(fam_keys):
+        cols = families[fk]
+        Xf, _ = _fam_matrix(range(n), cols)
+        oof = cross_val_predict(RidgeCV(alphas=base_alphas), Xf, y, cv=full_inner)
+        Zfull[:, j] = oof
+        fam_oof_r2[fk] = 1.0 - float(np.sum((y - oof) ** 2)) / max(ss_tot, 1e-10)
+    meta_full = RidgeCV(alphas=meta_alphas).fit(Zfull, y)
+    meta_w = {fk: float(meta_full.coef_[j]) for j, fk in enumerate(fam_keys)}
+    blockwise_pred_full = meta_full.predict(Zfull)
+
+    fam_rows = [
+        {
+            "family": fk,
+            "n_features": len(families[fk]),
+            "standalone_oof_r2": round(fam_oof_r2[fk], 4),
+            "meta_weight": round(meta_w[fk], 4),
+        }
+        for fk in fam_keys
+    ]
+    family_table = pd.DataFrame(fam_rows).sort_values("standalone_oof_r2", ascending=False).reset_index(drop=True)
+    scores = pd.DataFrame(
+        {
+            "profile_id": df["profile_id"].to_numpy(),
+            "blockwise_pred": blockwise_pred_full,
+            "blockwise_oos_pred": oos_pred,
+        }
+    )
+    scores["blockwise_index_pct"] = scores["blockwise_pred"].rank(method="average", pct=True) * 100.0
+
+    return BlockwiseSusceptibilityResult(
+        stacked_oos_r2=round(stacked_oos_r2, 4),
+        n_profiles=n,
+        n_families=len(fam_keys),
+        family_table=family_table,
+        profile_scores=scores.sort_values("blockwise_index_pct", ascending=False).reset_index(drop=True),
+        notes=[
+            "Profile-level susceptibility = mean outcome per profile, modelled by a block-wise family stack.",
+            "Each ontology family is a regularized sub-model; a heavily-regularized meta-learner combines them.",
+            f"stacked_oos_r2 is nested {min(n_outer, n)}-fold cross-validated (no stacking leakage).",
+            "standalone_oof_r2 is each family's own out-of-fold R2; meta_weight is its signed contribution to the stack.",
+            "Scalable: sub-model conditioning is independent of total feature count, so it extends to the full profile ontology.",
+        ],
+    )
+
+
 def compute_hierarchical_decomposition(
     x_full: np.ndarray,
     y: np.ndarray,

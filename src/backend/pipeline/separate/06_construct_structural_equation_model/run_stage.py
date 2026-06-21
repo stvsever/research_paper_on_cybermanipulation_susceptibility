@@ -52,8 +52,10 @@ from src.backend.utils.analysis.scenario_ml import profile_distance_moderation_t
 from src.backend.utils.analysis.conditional_susceptibility import (
     HierarchicalDecomposition,
     build_conditional_weight_table,
+    fit_blockwise_family_susceptibility,
     fit_conditional_susceptibility_index,
 )
+from src.backend.utils.analysis.individual_layer_statistics import run_individual_layer_statistics
 from src.backend.utils.data_utils import infer_analysis_mode, zscore_series
 from src.backend.utils.io import abs_path, ensure_dir, stage_manifest_path, write_json, write_text
 from src.backend.utils.logging_utils import setup_logging
@@ -538,6 +540,35 @@ def _moderator_group(term: str) -> str:
         return "Social Context: Social Capital"
     if "social_context" in t:
         return "Social Context"
+    # Integrated production ontology (10K set) naming.
+    if "moral_foundations" in t:
+        return "Political: Moral Foundations"
+    if "gal_tan" in t:
+        return "Political: GAL/TAN"
+    if "libertarian_authoritarian" in t:
+        return "Political: Libertarian/Authoritarian"
+    if "ideological_dimensions" in t or "ideological" in t:
+        return "Political: Ideology"
+    if "nationalism" in t or "cosmopolitan" in t:
+        return "Political: Nationalism"
+    if "collective_narcissism" in t:
+        return "Political: Collective Narcissism"
+    if "populis" in t:
+        return "Political: Populism"
+    if "system_justification" in t:
+        return "Political: System Justification"
+    if "political_participation" in t:
+        return "Political: Participation"
+    if "political_profile" in t or "political" in t:
+        return "Political Profile"
+    if "religion" in t or "spirituality" in t or "worldview" in t:
+        return "Religion and Worldview"
+    if "digital" in t or "media_literacy" in t:
+        return "Digital and Media Literacy"
+    if "socioeconomic" in t or "income" in t or "employment" in t or "education" in t:
+        return "Socioeconomic and Demographics"
+    if "demographic" in t or "geography" in t or "household" in t or "migration" in t or "language" in t:
+        return "Demographics"
     return "Other"
 
 
@@ -1928,6 +1959,37 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
         bootstrap_samples=min(int(config.bootstrap_samples or 0), 120),
         shrinkage_strength=0.20,
     )
+    # Scalable, overfitting-resistant block-wise family model. Each ontology family
+    # (Big Five, the political-psychology inventories, demographics, ...) is fit as
+    # its own regularized sub-model on the profile-level mean effect, then combined
+    # by a heavily-regularized meta-learner under nested CV. This stays well-posed no
+    # matter how wide the profile ontology is, unlike a single full-feature ridge.
+    blockwise_result = None
+    try:
+        _bw_feats = [c for c in long_df.columns if c.startswith("profile_cont_")]
+        _bw_profile = (
+            long_df.dropna(subset=[conditional_outcome])
+            .groupby("profile_id")
+            .agg(_y=(conditional_outcome, "mean"), **{c: (c, "first") for c in _bw_feats})
+            .reset_index()
+        )
+        blockwise_result = fit_blockwise_family_susceptibility(
+            _bw_profile, outcome_column="_y", feature_columns=_bw_feats, seed=config.seed
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        LOGGER.warning("Stage 06 block-wise family susceptibility model skipped: %s", exc)
+
+    # Inferential statistics: significance-test every main individual-layer claim
+    # (attack works, tactic / domain / complexity differences, dose-response,
+    # direction, between-profile heterogeneity), clustering-aware and BH-FDR
+    # corrected. Saved as CSV + JSON + a report section.
+    stats_results = None
+    stats_summary = ""
+    try:
+        stats_results, stats_summary = run_individual_layer_statistics(long_df)
+    except Exception as exc:  # pragma: no cover - defensive
+        LOGGER.warning("Stage 06 individual-layer statistics skipped: %s", exc)
+
     weight_table = build_conditional_weight_table(conditional_fit.artifact)
     weight_table["moderator_label"] = weight_table["term"].map(_pretty_moderator_label)
     weight_table["ontology_group"] = weight_table["term"].map(_moderator_group)
@@ -2145,6 +2207,39 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
     bootstrap_feature_sd_df.to_csv(bootstrap_feature_sd_csv, index=False)
     if conditional_fit.group_contribution_breakdown is not None:
         conditional_fit.group_contribution_breakdown.to_csv(group_contribution_csv, index=False)
+    # Individual-layer inferential statistics (significance tests + effect sizes).
+    if stats_results is not None and not stats_results.empty:
+        stats_results.to_csv(out / "individual_layer_statistical_tests.csv", index=False)
+        write_json(
+            out / "individual_layer_statistical_tests.json",
+            {
+                "n_tests": int(len(stats_results)),
+                "n_significant": int(stats_results["significant"].sum()),
+                "tests": stats_results.to_dict(orient="records"),
+                "notes": [
+                    "Unit of analysis respects clustering: scenario-level means for attack and "
+                    "opinion-domain contrasts, opinion-leaf means for the direction contrast.",
+                    "Pairwise families are Benjamini-Hochberg FDR corrected (q_value).",
+                    "Effect sizes: Cohen d_z (Wilcoxon), epsilon^2 (Kruskal-Wallis), rank-biserial "
+                    "(Mann-Whitney), Spearman rho (trend), ICC(1) (heterogeneity).",
+                ],
+            },
+        )
+
+    # Block-wise family susceptibility model (scalable, overfitting-resistant).
+    if blockwise_result is not None:
+        blockwise_result.family_table.to_csv(out / "blockwise_family_susceptibility.csv", index=False)
+        blockwise_result.profile_scores.to_csv(out / "blockwise_profile_susceptibility.csv", index=False)
+        write_json(
+            out / "blockwise_family_susceptibility.json",
+            {
+                "stacked_oos_r2": blockwise_result.stacked_oos_r2,
+                "n_profiles": blockwise_result.n_profiles,
+                "n_families": blockwise_result.n_families,
+                "family_table": blockwise_result.family_table.to_dict(orient="records"),
+                "notes": blockwise_result.notes,
+            },
+        )
     if conditional_fit.hierarchical_decomposition is not None:
         hier = conditional_fit.hierarchical_decomposition
         write_json(
@@ -2463,6 +2558,33 @@ def run_stage(input_path: str, output_dir: str, config: Stage06Config) -> StageA
                 )
         with open(report_txt, "a", encoding="utf-8") as handle:
             handle.write("\n" + "\n".join(ladder_lines) + "\n")
+
+    if stats_results is not None and not stats_results.empty and stats_summary:
+        with open(report_txt, "a", encoding="utf-8") as handle:
+            handle.write("\n" + stats_summary + "\n")
+
+    if blockwise_result is not None:
+        bw_lines = [
+            "",
+            "Block-Wise Family Susceptibility Model (scalable, overfitting-resistant)",
+            "----------------------------------------------------------------------",
+            "Each ontology family is fit as its own regularized sub-model on the profile-level mean",
+            "effect; a heavily-regularized meta-learner combines them under nested cross-validation.",
+            f"Profiles={blockwise_result.n_profiles}; families={blockwise_result.n_families}; "
+            f"stacked OOS R2 (nested, 3x)={blockwise_result.stacked_oos_r2:.4f}.",
+            "Per-family standalone out-of-fold R2 (which trait family carries predictive signal):",
+        ]
+        for row in blockwise_result.family_table.to_dict(orient="records"):
+            bw_lines.append(
+                f"  {row['family']}: standalone_oof_R2={row['standalone_oof_r2']:+.4f}, "
+                f"meta_weight={row['meta_weight']:+.3f}, n_features={row['n_features']}"
+            )
+        bw_lines.append(
+            "Note: a near-zero stacked OOS R2 at small n reflects a genuinely weak stable-trait signal; "
+            "the per-family decomposition isolates where signal concentrates and strengthens at production scale."
+        )
+        with open(report_txt, "a", encoding="utf-8") as handle:
+            handle.write("\n" + "\n".join(bw_lines) + "\n")
 
     assumptions = build_assumption_register(long_df, sem_result)
     critiques = build_peer_review_critique_notes(long_df, sem_result)

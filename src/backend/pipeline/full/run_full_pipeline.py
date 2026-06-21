@@ -106,6 +106,12 @@ def _parse_args() -> argparse.Namespace:
         help="Comma-separated profile subtree substrings to drop from the integrated profile (agent + analyses). "
         "Omit for the curated default reduction; pass an empty string to keep the full profile.",
     )
+    parser.add_argument(
+        "--max-entropy-subsample",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Sub-sample the integrated set with maximum entropy over (issue domain x Execute tactic) to preserve source diversity.",
+    )
     parser.add_argument("--opinion-leaves", default=None, help="Comma-01_separated explicit opinion leaf selection")
     parser.add_argument("--max-opinion-leaves", type=int, default=None)
     parser.add_argument("--profile-candidate-multiplier", type=int, default=2)
@@ -167,6 +173,8 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--stop-after-stage", default="09", choices=stage_choices)
 
     parser.add_argument("--save-raw-llm", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--lean-storage", action=argparse.BooleanOptionalAction, default=False,
+                        help="Stage 05 keeps only compact CSV delta tables; skips the large redundant JSONL mirrors.")
     parser.add_argument("--timeout-sec", type=int, default=90)
     parser.add_argument("--max-concurrency", type=int, default=1)
     parser.add_argument("--log-level", default="INFO")
@@ -197,7 +205,7 @@ def _build_common_stage_args(args: argparse.Namespace, stage_log_file: Path) -> 
 
 
 def _format_duration(seconds: float) -> str:
-    if seconds != seconds or seconds < 0:  # NaN / negative guard
+    if seconds != seconds or seconds < 0 or seconds == float("inf"):  # NaN / negative / inf guard
         return "?"
     total = int(round(seconds))
     if total < 60:
@@ -232,6 +240,7 @@ def _progress_loop(
     completed call), so it needs no instrumentation inside the stage code.
     """
     while not stop_event.wait(4.0):
+      try:
         done = max(0, _raw_call_count(raw_llm_dir) - start_count)
         elapsed = time.time() - start_time
         rate = done / elapsed if elapsed > 0 else 0.0
@@ -256,6 +265,8 @@ def _progress_loop(
             )
         else:
             print(f"      ... {stage.stage_name}: running  | elapsed {_format_duration(elapsed)}", flush=True)
+      except Exception:  # a monitor thread must never crash progress visibility
+        continue
 
 
 def _call_stage(
@@ -679,6 +690,7 @@ def main() -> None:
                     # lets stage 01 apply its curated default reduction; pass an empty string to keep
                     # the full profile.
                     *(["--profile-skip-subtrees", args.profile_skip_subtrees] if args.profile_skip_subtrees is not None else []),
+                    *(["--max-entropy-subsample"] if args.max_entropy_subsample else []),
                     # The exposure-network layer caps the simulated scenario space; over the cap
                     # stage 01 engages the media-keyword heuristic. Individual-only runs are uncapped.
                     *(["--network-scenario-cap", str(args.network_scenario_cap)] if args.with_network_exposure else []),
@@ -775,6 +787,8 @@ def main() -> None:
         if stage.stage_id == "05":
             cmd.extend(["--primary-moderator", args.primary_moderator])
             cmd.extend(["--ontology-root", abs_path(ontology_root)])
+            if args.lean_storage:
+                cmd.append("--lean-storage")
 
         if stage.stage_id == "06":
             cmd.extend(

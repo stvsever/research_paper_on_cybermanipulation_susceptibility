@@ -54,8 +54,10 @@ src/backend/profile_network_workbench/web/.vite/
 *.tmp
 *.bak
 
-# Redundant folder
+# Redundant folders/files (for now)
 /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/ontology/utils
+/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/supplementaries
+/Users/stijnvanseveren/PythonProjects/Project_CSitAoED/run_pipeline_demo.ipynb
 
 # Large regenerable data artifacts that exceed GitHub's 100 MB hard limit.
 # These are rebuilt locally by the samplers/pipeline; the CSV equivalents that the
@@ -64,3 +66,17 @@ src/backend/pipeline/separate/01_create_scenarios/samples/02_integrated/integrat
 src/backend/pipeline/separate/01_create_scenarios/samples/01_separated/attacks/red_plan_prepare_execute_opinion_effect_filtered.json
 **/sem_long_encoded.jsonl
 **/effectivity_deltas.jsonl
+
+# Production run 1 (full 10,000-scenario individual-layer run): the per-row and
+# per-scenario tables exceed GitHub's 100 MB limit and are regenerable. The essential
+# per-(scenario, leaf) deltas (baseline B, post-attack P, delta, adversarial
+# effectivity) are committed compressed as sem_long_raw.csv.gz, and the full source
+# content of any scenario is recoverable by joining the integrated set on scenario_id.
+evaluation/production/run_1/stage_outputs/01_create_scenarios/scenarios.json
+evaluation/production/run_1/stage_outputs/01_create_scenarios/scenarios.jsonl
+evaluation/production/run_1/stage_outputs/**/scenarios_with_*.jsonl
+evaluation/production/run_1/stage_outputs/02_assess_baseline_opinions/baseline_assessments.jsonl
+evaluation/production/run_1/stage_outputs/04_assess_post_attack_opinions/post_attack_assessments.jsonl
+evaluation/production/run_1/stage_outputs/05_compute_effectivity_deltas/sem_long_raw.csv
+evaluation/production/run_1/stage_outputs/05_compute_effectivity_deltas/sem_long_encoded.csv
+evaluation/production/run_1/stage_outputs/05_compute_effectivity_deltas/profile_sem_wide.csv

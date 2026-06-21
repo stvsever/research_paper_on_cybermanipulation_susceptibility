@@ -34,12 +34,30 @@ def run_stage(input_path: str, output_dir: str, config: Stage07Config) -> StageA
         run_id=config.run_id,
     )
 
+    # Paper-ready static individual-layer PNGs (high-res, dendrogram-mounted
+    # matrices, per-tactic and block-wise family figures). Stage 06 outputs sit
+    # next to the OLS params; guarded so a figure failure never blocks the stage.
+    paper_files: list[str] = []
+    try:
+        from src.backend.utils.figures.individual_layer_paper_figures import (
+            generate_individual_layer_paper_figures,
+        )
+        paper_files = generate_individual_layer_paper_figures(
+            sem_long_csv_path=input_path,
+            stage06_dir=str(Path(config.ols_params_path).resolve().parent),
+            output_dir=output_dir,
+            run_id=config.run_id,
+        )
+        LOGGER.info("Stage 07 wrote %d paper-ready individual-layer figures.", len(paper_files))
+    except Exception as exc:  # pragma: no cover - defensive
+        LOGGER.warning("Stage 07 paper figures skipped: %s", exc)
+
     manifest = StageArtifactManifest(
         stage_id="07",
         stage_name="generate_research_visuals",
         input_path=abs_path(input_path),
         primary_output_path=result["dashboard_path"],
-        output_files=result["visual_files"],
+        output_files=[*result["visual_files"], *paper_files],
         record_count=0,
         metadata={"summary_cards": result["summary_cards"]},
     )

@@ -69,6 +69,10 @@ LOGGER = logging.getLogger(__name__)
 class Stage05Config(StageConfig):
     primary_moderator: str = "profile_cont_age_years"
     ontology_root: Optional[str] = None
+    # Lean storage: skip the large redundant JSONL mirrors (sem_long_encoded.jsonl can
+    # reach tens of GB at the 10K scale) and keep only the compact CSV delta tables,
+    # which already carry every B / P / delta / effectivity score per (scenario, leaf).
+    lean_storage: bool = False
 
 
 def _load_adversarial_directions(ontology_root: Optional[str]) -> Dict[str, int]:
@@ -622,6 +626,7 @@ def run_stage(input_path: str, output_dir: str, config: Stage05Config) -> StageA
             "attack_inclusion_route": (scenario.metadata or {}).get("attack_inclusion_route"),
             "attack_execute_tactic": (scenario.metadata or {}).get("attack_execute_tactic"),
             "attack_plan_tactic": (scenario.metadata or {}).get("attack_plan_tactic"),
+            "attack_prepare_tactic": (scenario.metadata or {}).get("attack_prepare_tactic"),
             "post_confidence": float(getattr(post, "confidence", 0.0) or 0.0),
             "baseline_confidence": float(getattr(baseline, "confidence", 0.0) or 0.0),
             "attack_realism_score": review.get("realism_score"),
@@ -721,13 +726,18 @@ def run_stage(input_path: str, output_dir: str, config: Stage05Config) -> StageA
     profile_wide_csv = Path(output_dir) / "profile_sem_wide.csv"
     summary_json = Path(output_dir) / "delta_summary.json"
 
-    write_jsonl(delta_jsonl, (x.model_dump() for x in deltas))
-    write_jsonl(sem_rows_jsonl, (x.model_dump() for x in sem_rows))
+    # The CSV tables (sem_long_raw.csv / sem_long_encoded.csv) carry every B, P,
+    # delta and effectivity score per (scenario, leaf) and are the canonical record.
+    # In lean-storage mode the large JSONL mirrors are skipped: at the 10K scale
+    # sem_long_encoded.jsonl alone is tens of GB and is fully redundant with the CSV.
     df_raw.to_csv(sem_raw_csv, index=False)
     df_encoded.to_csv(sem_encoded_csv, index=False)
-    write_jsonl(sem_encoded_jsonl, df_encoded.to_dict(orient="records"))
     profile_summary_df.to_csv(profile_summary_csv, index=False)
     profile_wide_df.to_csv(profile_wide_csv, index=False)
+    if not getattr(config, "lean_storage", False):
+        write_jsonl(delta_jsonl, (x.model_dump() for x in deltas))
+        write_jsonl(sem_rows_jsonl, (x.model_dump() for x in sem_rows))
+        write_jsonl(sem_encoded_jsonl, df_encoded.to_dict(orient="records"))
 
     summary_payload: Dict[str, object] = {
         "n_records": len(deltas),
@@ -781,14 +791,13 @@ def run_stage(input_path: str, output_dir: str, config: Stage05Config) -> StageA
         input_path=abs_path(input_path),
         primary_output_path=abs_path(sem_encoded_csv),
         output_files=[
-            abs_path(delta_jsonl),
-            abs_path(sem_rows_jsonl),
             abs_path(sem_raw_csv),
             abs_path(sem_encoded_csv),
-            abs_path(sem_encoded_jsonl),
             abs_path(profile_summary_csv),
             abs_path(profile_wide_csv),
             abs_path(summary_json),
+            *([] if getattr(config, "lean_storage", False)
+              else [abs_path(delta_jsonl), abs_path(sem_rows_jsonl), abs_path(sem_encoded_jsonl)]),
             *network_extra_outputs,
         ],
         record_count=len(deltas),
@@ -820,6 +829,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--primary-moderator", default="profile_cont_age_years")
     parser.add_argument("--ontology-root", default=None, help="Path to ontology root; used to load adversarial_manifest.json")
+    parser.add_argument("--lean-storage", action="store_true",
+                        help="Skip the large redundant JSONL mirrors; keep only the compact CSV delta tables.")
     parser.add_argument("--log-file", required=True)
     parser.add_argument("--log-level", default="INFO")
     return parser.parse_args()
@@ -835,6 +846,7 @@ def main() -> None:
         seed=args.seed,
         primary_moderator=args.primary_moderator,
         ontology_root=args.ontology_root,
+        lean_storage=args.lean_storage,
     )
     manifest = run_stage(args.input_path, args.output_dir, config)
     LOGGER.info("Stage 05 completed: %s records", manifest.record_count)

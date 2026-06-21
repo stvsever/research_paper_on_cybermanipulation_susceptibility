@@ -21,7 +21,7 @@
 - [🧬 Abstract](#abstract)
 - [🗂️ Repository Structure](#repository-structure)
 - [🔄 Pipeline](#pipeline)
-- [🔬 Test Runs](#test-runs)
+- [🔬 Pipeline Runs](#pipeline-runs)
 - [⚙️ Setup](#setup)
 - [🚀 Manual Run](#manual-run)
 - [📚 Citation](#citation)
@@ -66,9 +66,16 @@ Cross-cutting **safeguards and traceability** run across all stages: ontology co
 ---
 
 <a id="test-runs"></a>
-## 🔬 Test Runs
+<a id="pipeline-runs"></a>
+## 🔬 Pipeline Runs
 
-The evaluation record spans five test runs. Each has its own README with the full configuration, methodology and headline results.
+The evaluation record has two tiers: small **test runs** that validate methodology
+end to end, and the full-scale **production run**. Each has its own README with the
+complete configuration and headline results.
+
+### Test Runs
+
+Five test runs validate the pipeline and the exposure-network layer at small scale.
 
 | Run | Design | Layers | Output |
 |-----|--------|--------|--------|
@@ -78,15 +85,22 @@ The evaluation record spans five test runs. Each has its own README with the ful
 | **Run 4** | 200 scenarios concentrated into 2 issue domains so the empirical exposure network is dense, on a recalibrated exposure-network layer | individual + exposure-network (working) | [`evaluation/tests/run_4`](evaluation/tests/run_4) · [README](evaluation/tests/run_4/README.md) |
 | **Run 5** | 60 scenarios in a single issue domain with a reduced (about 40 percent smaller) profile and per-attack-tactic conditional estimation, so the individual-layer moderators are interpretable | individual + exposure-network | [`evaluation/tests/run_5`](evaluation/tests/run_5) · [README](evaluation/tests/run_5/README.md) |
 
-**Run 5 is the current reference.** It keeps the run-4 four-state backbone (B, BN, P, PN) and working exposure-network methodology and fixes the individual layer. The pre-built profiles carry ~526 traits across many overlapping taxonomies, which left the moderator models under-determined (run 4 had near-zero CV-R2, no significant moderators, and gamification user-types as the largest nominal contributors). Stage 01 now drops a curated ~40 percent of the profile (the redundant HEXACO/Eysenck/Hexad personality taxonomies and the low-relevance goals/values/safety/criminal/administrative subtrees) and keeps the research core (demographics, socioeconomics, Big Five, the full political-psychology battery, moral foundations, religion, digital literacy); the filter applies in one place so the dropped traits leave both the agent prompt and every analysis. With the reduced profile the moderation is interpretable: the political-psychology block carries about 60 percent of the explained moderation, openness to experience is a significant moderator (b = +2.78, p = 0.030) and neuroticism is positive with a bootstrap CI excluding zero. The conditional susceptibility estimator additionally carries per-DISARM-Execute-tactic tasks, so a specific attack vector can be selected in the dashboard. The network layer continues to amplify the attack (mean post-network increment +8.6, 82 percent amplifying; receiver-level mechanism r = +0.24). Reproduce it with:
+**Run 5 is the test reference.** It keeps the run-4 four-state backbone (B, BN, P, PN) and working exposure-network methodology and fixes the individual layer. The pre-built profiles carry ~526 traits across many overlapping taxonomies, which left the moderator models under-determined (run 4 had near-zero CV-R2 and no significant moderators). Stage 01 drops a curated portion of the profile (the redundant HEXACO/Eysenck/Hexad personality taxonomies and the low-relevance goals/values/safety/criminal/administrative subtrees) and keeps the research core; the filter applies in one place so the dropped traits leave both the agent prompt and every analysis. With the reduced profile the moderation is interpretable (the political-psychology block carries about 60 percent of the explained moderation; openness is a significant moderator, b = +2.78, p = 0.030), and the conditional susceptibility estimator carries per-DISARM-Execute-tactic tasks so a specific attack vector can be selected in the dashboard. Reproduce with `bash scripts/tests/run_5.sh` (add `--no-network` for the individual layer only, or `--verbose` for a live monitor).
+
+### Production Runs
+
+| Run | Design | Layers | Output |
+|-----|--------|--------|--------|
+| **Run 1** | all 10,000 integrated scenarios (stratified across the 7 issue domains), with a deeply reduced research-core profile (about 159 features: full hierarchical Big Five, core demographics, the complete political-psychology battery). Produces every private baseline B, post-attack P and effectivity delta per scenario and leaf | individual only | [`evaluation/production/run_1`](evaluation/production/run_1) · [README](evaluation/production/run_1/README.md) |
+
+**Production run 1 is the full-scale individual-layer measurement.** It runs stages 01 to 05 over the entire integrated set (about 20,000 LLM calls on `deepseek/deepseek-v4-flash`), with the empirical exposure-network layer off. The profile is reduced a second time, from 336 to about 159 features (a 53 percent further reduction, 71 percent versus the full 540-feature integrated profile), keeping the full hierarchical Big Five, the core demographic markers and the political-psychology / ideology / moral-foundations battery, and dropping the political-participation, socioeconomic and life-circumstance taxonomies and the over-detailed identity spectra. Storage is lean: stage 05 keeps only the compact CSV delta tables (every B, P, delta and effectivity score per scenario and leaf), raw LLM provenance is not saved, and no report or figures are generated. The full source content of any scenario is recoverable by joining the integrated set on `scenario_id`. The post-hoc analyses and figures are layered on afterwards from the saved scores. Reproduce with:
 
 ```bash
-bash scripts/tests/run_5.sh                   # single-domain reduced-profile individual + exposure-network (~245 calls)
-bash scripts/tests/run_5.sh --no-network      # individual layer only
-bash scripts/tests/run_5.sh --verbose         # add a live progress monitor
+bash scripts/production/run_1.sh              # full 10,000-scenario individual-layer run
+bash scripts/production/run_1.sh --verbose    # add a live progress monitor (call counts, rate, ETA)
 ```
 
-The interactive dashboard is at [`evaluation/tests/run_5/visuals/dashboard_results.html`](evaluation/tests/run_5/visuals/dashboard_results.html) and the comprehensive exposure-network report at [`evaluation/tests/run_5/visuals/network_exposure_analysis/reports`](evaluation/tests/run_5/visuals/network_exposure_analysis/reports). The launcher checks for `OPENROUTER_API_KEY` and verifies the projected OpenRouter budget before running. Run 4 remains the dense 2-domain exposure-network reference; the `--profile-skip-subtrees` reduction and per-tactic estimation carry forward to the production run.
+The launcher checks for `OPENROUTER_API_KEY` and verifies the projected OpenRouter budget before running.
 
 ---
 
@@ -103,21 +117,28 @@ research_paper_on_cybermanipulation_susceptibility/
 |-- .gitignore
 |-- docker/
 |-- scripts/
-|   `-- tests/                     (run_1.sh, run_2.sh, run_3.sh, run_4.sh, run_5.sh)
+|   |-- tests/                     (run_1.sh, run_2.sh, run_3.sh, run_4.sh, run_5.sh)
+|   `-- production/                (run_1.sh: full 10,000-scenario individual-layer run)
 |-- evaluation/
-|   `-- tests/
-|       |-- run_1/                 (individual layer; see run_1/README.md)
-|       |-- run_2/                 (individual + exposure-network; see run_2/README.md)
-|       |-- run_3/                 (prior integrated reference; see run_3/README.md)
-|       |-- run_4/                 (dense 2-domain exposure-network reference; see run_4/README.md)
-|       `-- run_5/                 (current reference, reduced profile; see run_5/README.md)
+|   |-- tests/
+|   |   |-- run_1/                 (individual layer; see run_1/README.md)
+|   |   |-- run_2/                 (individual + exposure-network; see run_2/README.md)
+|   |   |-- run_3/                 (prior integrated reference; see run_3/README.md)
+|   |   |-- run_4/                 (dense 2-domain exposure-network reference; see run_4/README.md)
+|   |   `-- run_5/                 (test reference, reduced profile; see run_5/README.md)
+|   |       |-- config/            (run configuration)
+|   |       |-- logs/              (per-stage logs)
+|   |       |-- provenance/        (raw LLM calls + run manifest)
+|   |       |-- stage_outputs/     (canonical per-stage data for post-hoc analysis, all B/BN/P/PN phases)
+|   |       |-- analysis/          (datasets, SEM, moderation report)
+|   |       |-- visuals/           (dashboard, figures, embeddings, network_exposure_analysis)
+|   |       |-- publication/       (publication assets + paper)
+|   |       `-- README.md
+|   `-- production/
+|       `-- run_1/                 (full 10,000-scenario individual-layer run; see run_1/README.md)
 |           |-- config/            (run configuration)
-|           |-- logs/              (per-stage logs)
-|           |-- provenance/        (raw LLM calls + run manifest)
-|           |-- stage_outputs/     (canonical per-stage data for post-hoc analysis, all B/BN/P/PN phases)
-|           |-- analysis/          (datasets, SEM, moderation report)
-|           |-- visuals/           (dashboard, figures, embeddings, network_exposure_analysis)
-|           |-- publication/       (publication assets + paper)
+|           |-- logs/              (console log)
+|           |-- stage_outputs/     (stages 01..05: scenarios, baseline B, attack spec, post-attack P, effectivity deltas)
 |           `-- README.md
 `-- src/
     |-- data/                      (empirical exposure-network substrate)

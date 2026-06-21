@@ -129,6 +129,9 @@ class Stage01Config(StageConfig):
     # before it reaches the agent and the analyses. None -> the curated default set
     # (DEFAULT_PROFILE_SKIP_SUBTREES); empty string -> keep the full profile.
     profile_skip_subtrees: Optional[str] = None
+    # Maximum-entropy sub-sampling over (issue domain x Execute tactic) when drawing
+    # the integrated subset (used for the production run to preserve source diversity).
+    max_entropy_subsample: bool = False
     max_opinion_leaves: Optional[int] = None
     profile_candidate_multiplier: int = 2
     # current design: meta-node compatibility-aware scenario filtering
@@ -409,6 +412,87 @@ def _normalize_domain_set(focus_domains: Optional[List[str]]) -> Optional[set]:
     return {_slugify(d) for d in focus_domains if d and d.strip()}
 
 
+def _execute_tactic_of(row: Dict[str, Any]) -> str:
+    ex = (((row.get("attack") or {}).get("triplet") or {}).get("Execute") or {})
+    return str(ex.get("secondary") or "Unspecified")
+
+
+def _max_entropy_sample(
+    path: Path,
+    n_target: int,
+    seed: int,
+    focus_domains: Optional[List[str]] = None,
+    media_filter: bool = False,
+) -> Tuple[List[Dict[str, Any]], Dict[str, int]]:
+    """Maximum-entropy sub-sample of n_target rows over the joint (issue domain x
+    DISARM Execute tactic) grid.
+
+    For a production sub-sample of the 10,000-row set we want the 1,000 retained
+    rows to preserve the source diversity rather than over-represent whichever
+    domain or attack vector is most frequent. Rows are reservoir-bucketed by
+    (domain, Execute tactic) in a single streaming pass, then n_target is
+    water-filled as evenly as possible across the populated cells (subject to each
+    cell's availability). This maximises the entropy of the retained joint
+    distribution; because every integrated row carries a distinct profile, profile
+    configuration diversity is preserved automatically, and balancing the Execute
+    tactic balances the attack-triplet families.
+    """
+    rng = random.Random(seed)
+    focus_set = _normalize_domain_set(focus_domains)
+    cap = max(80, int(math.ceil(n_target / 4)))
+    reservoirs: Dict[Tuple[str, str], List[Dict[str, Any]]] = defaultdict(list)
+    seen: Dict[Tuple[str, str], int] = defaultdict(int)
+
+    for row in _iter_jsonl(path):
+        domain = str(((row.get("opinion_cluster") or {}).get("parent_name")) or "UNKNOWN")
+        if focus_set is not None and _slugify(domain) not in focus_set:
+            continue
+        if media_filter and not _attack_mentions_media(row.get("attack") or {}):
+            continue
+        cell = (domain, _execute_tactic_of(row))
+        seen[cell] += 1
+        reservoir = reservoirs[cell]
+        if len(reservoir) < cap:
+            reservoir.append(row)
+        else:
+            j = rng.randint(0, seen[cell] - 1)
+            if j < cap:
+                reservoir[j] = row
+
+    cells = sorted(reservoirs.keys())
+    if not cells:
+        raise RuntimeError(
+            f"No scenarios found in integrated file for max-entropy sampling: {path}"
+            + (f" matching focus domains {sorted(focus_set)}" if focus_set else "")
+        )
+
+    # Water-filling: even allocation across cells, capped by each cell's availability.
+    availability = {c: len(reservoirs[c]) for c in cells}
+    allocation = {c: 0 for c in cells}
+    remaining = min(n_target, sum(availability.values()))
+    while remaining > 0 and any(allocation[c] < availability[c] for c in cells):
+        open_cells = [c for c in cells if allocation[c] < availability[c]]
+        share = max(1, remaining // len(open_cells))
+        for c in open_cells:
+            add = min(share, availability[c] - allocation[c], remaining)
+            allocation[c] += add
+            remaining -= add
+            if remaining <= 0:
+                break
+
+    selected: List[Dict[str, Any]] = []
+    for c in cells:
+        pool = list(reservoirs[c])
+        rng.shuffle(pool)
+        selected.extend(pool[: allocation[c]])
+    rng.shuffle(selected)
+
+    domain_counts: Dict[str, int] = defaultdict(int)
+    for (domain, _tactic), count in seen.items():
+        domain_counts[domain] += count
+    return selected[:n_target], dict(domain_counts)
+
+
 def _stratified_domain_sample(
     path: Path,
     n_target: int,
@@ -518,9 +602,11 @@ def _stratified_domain_sample(
 # digital/media literacy. Applied to the already-sampled scenarios, so it filters
 # rather than re-samples. Override with --profile-skip-subtrees (comma-separated).
 DEFAULT_PROFILE_SKIP_SUBTREES: List[str] = [
+    # Redundant personality taxonomies (Big Five is retained as the personality core).
     "hexad",
     "hexaco",
     "eysenck",
+    # Goals / values / safety / criminal / administrative meta-subtrees.
     "goals_",
     "goal_orientation",
     "goal_metadata",
@@ -532,6 +618,53 @@ DEFAULT_PROFILE_SKIP_SUBTREES: List[str] = [
     "core_value",
     "alignment_",
     "reproductive_and_family_planning",
+    # --- Second-pass reduction (production run 1, full 10K) ---------------------
+    # Drop the high-cardinality life-circumstance and socioeconomic taxonomies that
+    # are not the research-relevant susceptibility core. The kept core is: full
+    # hierarchical Big Five, the core demographic markers, and the political-
+    # psychology / ideology / moral-foundations battery. This takes the mapped
+    # profile from ~336 to ~159 features (about a 53 percent further reduction).
+    "political_participation",
+    "socioeconomic",
+    "employment",
+    "housing",
+    "migration",
+    "household",
+    "healthcare",
+    "life_course",
+    "language_and_communication",
+    "person_language",
+    "geography",
+    "social_and_community",
+    "person_social",
+    "person_function",
+    "person_digital",
+    "religion_spirituality",
+    "person_education",
+    # Over-detailed identity sub-taxonomies (core demographic markers such as sex,
+    # age, gender identity, citizenship, country of birth, relationship status and
+    # self-identified ethnicity are kept; the fine-grained spectra below are not).
+    "sexual_orientation",
+    "sex_characteristics",
+    "frailty",
+    "biological_age",
+    "anthropometrics",
+    "gender_modality",
+    "gender_type",
+    "gender_expression",
+    "pronouns",
+    "sogi_disclosure",
+    "legal_sex_marker",
+    "romantic_orientation",
+    "relationship_structure",
+    "relationship_legal",
+    "marital_history",
+    "cohabitation",
+    "attachment_style",
+    "marcia_identity",
+    "kohlberg",
+    "perceived_by_others",
+    "ancestry_raw",
 ]
 
 
@@ -705,13 +838,19 @@ def run_stage_integrated(output_dir: str, config: Stage01Config) -> StageArtifac
         skip_subtrees = DEFAULT_PROFILE_SKIP_SUBTREES
     else:
         skip_subtrees = [s.strip().lower() for s in config.profile_skip_subtrees.split(",") if s.strip()]
+    sampler = "max_entropy" if config.max_entropy_subsample else "stratified_by_domain"
     LOGGER.info(
-        "Stage 01 integrated mode: selecting %d scenarios from %s (focus_domains=%s, media_filter=%s, profile_skip_subtrees=%d)",
-        n_target, integrated_path, focus_domains or "all-7", media_filter, len(skip_subtrees),
+        "Stage 01 integrated mode: selecting %d scenarios from %s (sampler=%s, focus_domains=%s, media_filter=%s, profile_skip_subtrees=%d)",
+        n_target, integrated_path, sampler, focus_domains or "all-7", media_filter, len(skip_subtrees),
     )
-    selected, domain_counts = _stratified_domain_sample(
-        integrated_path, n_target, config.seed, focus_domains=focus_domains, media_filter=media_filter,
-    )
+    if config.max_entropy_subsample:
+        selected, domain_counts = _max_entropy_sample(
+            integrated_path, n_target, config.seed, focus_domains=focus_domains, media_filter=media_filter,
+        )
+    else:
+        selected, domain_counts = _stratified_domain_sample(
+            integrated_path, n_target, config.seed, focus_domains=focus_domains, media_filter=media_filter,
+        )
     LOGGER.info(
         "Selected %d scenarios across %d issue domains (source totals: %s)",
         len(selected),
@@ -838,6 +977,7 @@ def run_stage_integrated(output_dir: str, config: Stage01Config) -> StageArtifac
                 "network_scenario_cap": cap,
                 "cap_triggered": bool(cap is not None and requested > cap),
                 "seed": config.seed,
+                "sampler": sampler,
                 "profile_skip_subtrees": skip_subtrees,
                 "n_profile_features_kept": (
                     len(scenarios[0].profile.categorical_attributes) + len(scenarios[0].profile.continuous_attributes)
@@ -1234,6 +1374,12 @@ def parse_args() -> argparse.Namespace:
         help="Hard cap on integrated scenarios for the exposure-network layer; over it the media filter engages.",
     )
     parser.add_argument(
+        "--max-entropy-subsample",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Sub-sample the integrated set with maximum entropy over (issue domain x Execute tactic) to preserve source diversity.",
+    )
+    parser.add_argument(
         "--profile-skip-subtrees",
         default=None,
         help="Comma-separated profile subtree substrings to drop from the integrated profile (agent + analyses). "
@@ -1285,6 +1431,7 @@ def main() -> None:
         focus_opinion_domains=args.focus_opinion_domains,
         media_filter=args.media_filter,
         network_scenario_cap=args.network_scenario_cap,
+        max_entropy_subsample=args.max_entropy_subsample,
         profile_skip_subtrees=args.profile_skip_subtrees,
         max_opinion_leaves=args.max_opinion_leaves,
         profile_candidate_multiplier=args.profile_candidate_multiplier,

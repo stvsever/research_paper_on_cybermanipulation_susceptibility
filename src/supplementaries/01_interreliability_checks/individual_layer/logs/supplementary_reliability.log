@@ -1,0 +1,992 @@
+2026-06-20 23:47:04,253 | INFO | Preparing cross_provider sample: n=20 seed=6201201
+2026-06-20 23:47:04,257 | INFO | Stage 01 integrated mode: selecting 20 scenarios from /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/pipeline/separate/01_create_scenarios/samples/02_integrated/integrated_scenarios_10000.jsonl (focus_domains=all-7, media_filter=False, profile_skip_subtrees=14)
+2026-06-20 23:47:06,355 | INFO | Selected 20 scenarios across 7 issue domains (source totals: {'Defense_And_National_Security': 1429, 'Supranational_And_Regional_Integration': 1428, 'Foreign_Policy_And_Geopolitics': 1429, 'Macroeconomic_And_Fiscal_Policy': 1428, 'Democratic_Resilience_And_Institutions': 1429, 'Critical_Infrastructure_And_Energy_Sovereignty': 1429, 'Information_Integrity_And_Platforms': 1428})
+2026-06-20 23:47:06,382 | INFO | Stage 01 integrated: 20 scenarios, 106 distinct leaves, ~311 expected leaf rows
+2026-06-20 23:47:06,389 | INFO | Preparing test_retest sample: n=30 seed=6201202
+2026-06-20 23:47:06,390 | INFO | Stage 01 integrated mode: selecting 30 scenarios from /Users/stijnvanseveren/PythonProjects/Project_CSitAoED/src/backend/pipeline/separate/01_create_scenarios/samples/02_integrated/integrated_scenarios_10000.jsonl (focus_domains=all-7, media_filter=False, profile_skip_subtrees=14)
+2026-06-20 23:47:08,151 | INFO | Selected 30 scenarios across 7 issue domains (source totals: {'Defense_And_National_Security': 1429, 'Supranational_And_Regional_Integration': 1428, 'Foreign_Policy_And_Geopolitics': 1429, 'Macroeconomic_And_Fiscal_Policy': 1428, 'Democratic_Resilience_And_Institutions': 1429, 'Critical_Infrastructure_And_Energy_Sovereignty': 1429, 'Information_Integrity_And_Platforms': 1428})
+2026-06-20 23:47:08,188 | INFO | Stage 01 integrated: 30 scenarios, 106 distinct leaves, ~457 expected leaf rows
+2026-06-20 23:47:30,523 | INFO | [cross_provider/deepseek_v4_flash] model=deepseek/deepseek-v4-flash
+2026-06-20 23:47:30,523 | INFO | [cross_provider/deepseek_v4_flash] stage 02 baseline
+2026-06-20 23:47:30,525 | INFO | Stage 02: cluster-batched baseline for 20 scenarios
+2026-06-20 23:47:31,323 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:47:31,551 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:47:32,449 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:47:33,179 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:47:33,618 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:47:35,587 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:47:40,080 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:47:50,865 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:47:59,530 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:47:59,886 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:48:02,859 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:48:14,142 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:48:16,252 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:48:21,357 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:48:27,302 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:48:33,799 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:48:50,692 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:48:52,424 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:49:00,375 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:49:02,908 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:18,642 | INFO | [cross_provider/deepseek_v4_flash] stage 03 deterministic attack specs
+2026-06-20 23:50:18,648 | INFO | Stage 03: loaded 435 adversarial directions
+2026-06-20 23:50:19,299 | INFO | Stage 03: loaded 2225 attack metadata entries
+2026-06-20 23:50:19,304 | INFO | [cross_provider/deepseek_v4_flash] stage 04 post attack
+2026-06-20 23:50:19,306 | INFO | Stage 04: loaded 435 adversarial directions
+2026-06-20 23:50:19,308 | INFO | Stage 04: cluster-batched post-attack for 20 scenarios
+2026-06-20 23:50:20,192 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:20,603 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:20,604 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:21,219 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:22,874 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:23,400 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:33,532 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:35,982 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:41,662 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:50,347 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:52,607 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:53,037 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:50:56,253 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:51:01,083 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:51:07,212 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:51:10,457 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:51:15,338 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:51:31,360 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:51:43,288 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:52:14,194 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:53:52,511 | INFO | [cross_provider/deepseek_v4_flash] stage 05 deltas
+2026-06-20 23:53:52,530 | INFO | Loaded adversarial directions from opinion.json: 435 non-zero leaf directions. Operator goal: Maximise aggregate erosion of defence infrastructure, multilateral alliance cohe
+2026-06-20 23:53:53,058 | INFO | [cross_provider/gpt_oss_120b] model=openai/gpt-oss-120b
+2026-06-20 23:53:53,058 | INFO | [cross_provider/gpt_oss_120b] stage 02 baseline
+2026-06-20 23:53:53,061 | INFO | Stage 02: cluster-batched baseline for 20 scenarios
+2026-06-20 23:53:54,085 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:53:54,098 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:53:55,777 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:53:56,965 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:53:57,886 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:53:58,274 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:00,842 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:02,802 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:14,110 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:15,482 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:16,240 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:17,703 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:18,086 | WARNING | Agent cluster_baseline_opinion failed attempt 1/3 for scenario_03845_baseline_cluster: Invalid control character at: line 7 column 190 (char 313)
+2026-06-20 23:54:18,136 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:19,158 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:19,172 | WARNING | Agent cluster_baseline_opinion failed attempt 2/3 for scenario_03845_baseline_cluster: Empty model output
+2026-06-20 23:54:19,952 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:20,376 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:22,419 | WARNING | Agent cluster_baseline_opinion failed attempt 3/3 for scenario_03845_baseline_cluster: Empty model output
+2026-06-20 23:54:22,420 | WARNING | Cluster baseline failed for scenario_03845, deterministic fallback: cluster_baseline_opinion failed after 3 attempts for scenario_03845_baseline_cluster
+2026-06-20 23:54:23,796 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:23,997 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:29,005 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:38,721 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:40,279 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:54:41,960 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:55:23,949 | INFO | [cross_provider/gpt_oss_120b] stage 03 deterministic attack specs
+2026-06-20 23:55:23,955 | INFO | Stage 03: loaded 435 adversarial directions
+2026-06-20 23:55:24,639 | INFO | Stage 03: loaded 2225 attack metadata entries
+2026-06-20 23:55:24,645 | INFO | [cross_provider/gpt_oss_120b] stage 04 post attack
+2026-06-20 23:55:24,648 | INFO | Stage 04: loaded 435 adversarial directions
+2026-06-20 23:55:24,649 | INFO | Stage 04: cluster-batched post-attack for 20 scenarios
+2026-06-20 23:55:25,228 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:55:25,385 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:55:27,535 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:55:28,499 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:55:28,576 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:55:30,345 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:55:32,735 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_00744_post_cluster: Invalid control character at: line 7 column 187 (char 306)
+2026-06-20 23:55:34,404 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:55:48,600 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:55:55,773 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:55:57,158 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:04,358 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:04,403 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:07,660 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_08702_post_cluster: Invalid control character at: line 7 column 175 (char 305)
+2026-06-20 23:56:08,108 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:08,863 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_07999_post_cluster: Invalid control character at: line 7 column 201 (char 320)
+2026-06-20 23:56:09,552 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:10,216 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:10,333 | WARNING | Agent cluster_post_attack_opinion failed attempt 2/3 for scenario_08702_post_cluster: Empty model output
+2026-06-20 23:56:12,034 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:13,710 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:15,330 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:25,049 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:27,579 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:28,740 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:30,064 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:33,219 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:38,352 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:40,016 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_00348_post_cluster: Invalid control character at: line 4 column 60 (char 318)
+2026-06-20 23:56:40,662 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:56:54,103 | INFO | [cross_provider/gpt_oss_120b] stage 05 deltas
+2026-06-20 23:56:54,120 | INFO | Loaded adversarial directions from opinion.json: 435 non-zero leaf directions. Operator goal: Maximise aggregate erosion of defence infrastructure, multilateral alliance cohe
+2026-06-20 23:58:55,300 | INFO | [cross_provider/gpt_oss_120b] model=openai/gpt-oss-120b
+2026-06-20 23:58:55,300 | INFO | [cross_provider/gpt_oss_120b] stage 02 baseline
+2026-06-20 23:58:55,306 | INFO | Stage 02: cluster-batched baseline for 20 scenarios
+2026-06-20 23:58:57,301 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:57,302 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:57,305 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_00744_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:57,305 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_00348_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:57,331 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:57,332 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_03233_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:57,933 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:57,934 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:57,934 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:57,936 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_00744_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:57,936 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_03233_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:57,938 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_00348_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:58,120 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:58,122 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_08196_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:58,355 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:58,357 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_03233_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:58,357 | WARNING | Cluster baseline failed for scenario_03233, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:58,369 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:58,369 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_00744_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:58,369 | WARNING | Cluster baseline failed for scenario_00744, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:58,560 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:58,574 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_08196_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:58,612 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:58,615 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_00348_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:58,615 | WARNING | Cluster baseline failed for scenario_00348, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:58,812 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:58,813 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_05073_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:59,210 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:59,210 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:59,211 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:59,212 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_08196_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:59,212 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_08070_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:59,212 | WARNING | Cluster baseline failed for scenario_08196, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:59,213 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_05615_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:58:59,294 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:58:59,295 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_05073_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:00,116 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:00,118 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_05615_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:00,127 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:00,128 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_04878_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:00,484 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:00,486 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_05073_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:00,486 | WARNING | Cluster baseline failed for scenario_05073, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:00,535 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:00,540 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_08070_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:00,649 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:00,650 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_05615_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:00,650 | WARNING | Cluster baseline failed for scenario_05615, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:00,655 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:00,656 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_04878_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:00,999 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:01,001 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:01,001 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_03845_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,002 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_08070_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,003 | WARNING | Cluster baseline failed for scenario_08070, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,100 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:01,100 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_04878_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,101 | WARNING | Cluster baseline failed for scenario_04878, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,413 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:01,414 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_03845_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,447 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:01,448 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_08702_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,474 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:01,474 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_07999_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,573 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:01,573 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_04561_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,896 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:01,896 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_07999_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,925 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:01,926 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_08702_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,928 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:01,928 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_03845_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:01,928 | WARNING | Cluster baseline failed for scenario_03845, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,004 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:02,004 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_04561_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,314 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:02,315 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_07999_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,315 | WARNING | Cluster baseline failed for scenario_07999, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,376 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:02,377 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_08702_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,378 | WARNING | Cluster baseline failed for scenario_08702, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,386 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:02,387 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_03124_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,491 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:02,492 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_04561_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,492 | WARNING | Cluster baseline failed for scenario_04561, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,777 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:02,778 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_04900_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,795 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:02,796 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_07860_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:02,862 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:02,863 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_03124_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:03,001 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:03,019 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_03158_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:03,247 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:03,248 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_07860_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:03,267 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:03,268 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_04900_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:03,296 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:03,297 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_03124_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:03,297 | WARNING | Cluster baseline failed for scenario_03124, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:03,678 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:03,680 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_04900_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:03,680 | WARNING | Cluster baseline failed for scenario_04900, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:03,701 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:03,702 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_07860_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:03,702 | WARNING | Cluster baseline failed for scenario_07860, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:03,785 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:03,786 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_08219_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:04,081 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:04,082 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_03158_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:04,138 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:04,139 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_00955_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:04,158 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:04,161 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_06197_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:04,253 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:04,255 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_08219_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:04,494 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:04,494 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_03158_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:04,494 | WARNING | Cluster baseline failed for scenario_03158, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:04,560 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:04,561 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_00955_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:04,610 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:04,611 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_06197_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:04,683 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:04,683 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_08219_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:04,683 | WARNING | Cluster baseline failed for scenario_08219, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:05,004 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:05,005 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_07886_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:05,042 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:05,043 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_00955_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:05,043 | WARNING | Cluster baseline failed for scenario_00955, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:05,380 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:05,381 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_06197_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:05,381 | WARNING | Cluster baseline failed for scenario_06197, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:05,522 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:05,523 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_07886_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:06,004 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:06,005 | WARNING | Agent cluster_baseline_opinion chat attempt 3/3 failed for scenario_07886_baseline_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:06,006 | WARNING | Cluster baseline failed for scenario_07886, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:06,016 | INFO | [cross_provider/gpt_oss_120b] stage 03 deterministic attack specs
+2026-06-20 23:59:06,031 | INFO | Stage 03: loaded 435 adversarial directions
+2026-06-20 23:59:08,025 | INFO | Stage 03: loaded 2225 attack metadata entries
+2026-06-20 23:59:08,042 | INFO | [cross_provider/gpt_oss_120b] stage 04 post attack
+2026-06-20 23:59:08,048 | INFO | Stage 04: loaded 435 adversarial directions
+2026-06-20 23:59:08,054 | INFO | Stage 04: cluster-batched post-attack for 20 scenarios
+2026-06-20 23:59:08,596 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:08,597 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_08196_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:08,598 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:08,598 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_00744_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:08,603 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:08,604 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_00348_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:08,634 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:08,636 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_03233_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:09,104 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:09,105 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_08196_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:09,107 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:09,108 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_00744_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:09,303 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:09,304 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_00348_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:09,336 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:09,336 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_03233_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:09,573 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:09,573 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_08196_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:09,574 | WARNING | Cluster post failed for scenario_08196, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:09,618 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:09,618 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_00744_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:09,618 | WARNING | Cluster post failed for scenario_00744, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:09,799 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:09,801 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_00348_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:09,801 | WARNING | Cluster post failed for scenario_00348, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:10,047 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:10,047 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:10,049 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_08070_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:10,049 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_05073_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:10,178 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:10,179 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_03233_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:10,179 | WARNING | Cluster post failed for scenario_03233, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:10,264 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:10,264 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_05615_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:10,868 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:10,870 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_08070_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:11,232 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:11,233 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_05073_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:11,380 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:11,380 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_08070_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:11,380 | WARNING | Cluster post failed for scenario_08070, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:11,518 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:11,519 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_05615_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:11,732 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:11,733 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_05073_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:11,733 | WARNING | Cluster post failed for scenario_05073, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:11,830 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:11,831 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_03845_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:11,939 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:11,955 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_05615_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:11,955 | WARNING | Cluster post failed for scenario_05615, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:12,496 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:12,497 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_08702_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:12,550 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:12,551 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_07999_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:12,584 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:12,584 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_03845_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:13,047 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:13,048 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_03845_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:13,048 | WARNING | Cluster post failed for scenario_03845, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:13,064 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:13,065 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_07999_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:13,223 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:13,224 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_08702_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:13,495 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:13,496 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_04561_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:13,529 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:13,530 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_07999_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:13,530 | WARNING | Cluster post failed for scenario_07999, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:13,675 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:13,676 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_08702_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:13,677 | WARNING | Cluster post failed for scenario_08702, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:13,959 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:13,960 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_04561_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:14,019 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:14,023 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_03124_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:14,194 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:14,194 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_04900_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:14,377 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:14,378 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_04561_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:14,379 | WARNING | Cluster post failed for scenario_04561, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:14,463 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:14,464 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_03124_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:14,632 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:14,633 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_04900_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:14,806 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:14,807 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_07860_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:14,899 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:14,900 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_03124_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:14,900 | WARNING | Cluster post failed for scenario_03124, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,066 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:15,066 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_04900_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,066 | WARNING | Cluster post failed for scenario_04900, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,093 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:15,094 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_04878_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,290 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:15,291 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_07860_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,344 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:15,345 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_03158_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,507 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:15,507 | WARNING | Agent cluster_post_attack_opinion chat attempt 1/3 failed for scenario_08219_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,525 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:15,526 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_04878_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,713 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:15,714 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_07860_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,714 | WARNING | Cluster post failed for scenario_07860, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,783 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:15,784 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_03158_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,983 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:15,984 | WARNING | Agent cluster_post_attack_opinion chat attempt 3/3 failed for scenario_04878_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:15,984 | WARNING | Cluster post failed for scenario_04878, deterministic fallback: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:16,078 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-20 23:59:16,079 | WARNING | Agent cluster_post_attack_opinion chat attempt 2/3 failed for scenario_08219_post_cluster: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-06-20 23:59:17,489 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:59:17,492 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:59:18,195 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-20 23:59:18,334 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:00:31,883 | INFO | [cross_provider/gpt_oss_120b] model=openai/gpt-oss-120b
+2026-06-21 00:00:31,883 | INFO | [cross_provider/gpt_oss_120b] stage 02 baseline
+2026-06-21 00:00:31,897 | INFO | Stage 02: cluster-batched baseline for 20 scenarios
+2026-06-21 00:00:33,026 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-21 00:00:33,027 | WARNING | OpenRouter 429 for openai/gpt-oss-120b; sleeping 45.0s before transport retry 1/5
+2026-06-21 00:01:20,051 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:01:44,898 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-06-21 00:01:44,899 | WARNING | OpenRouter 429 for openai/gpt-oss-120b; sleeping 45.0s before transport retry 1/5
+2026-06-21 00:02:31,864 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:02:44,066 | INFO | [cross_provider/gpt_oss_120b] model=openai/gpt-oss-120b
+2026-06-21 00:02:44,066 | INFO | [cross_provider/gpt_oss_120b] stage 02 baseline
+2026-06-21 00:02:44,069 | INFO | Stage 02: cluster-batched baseline for 20 scenarios
+2026-06-21 00:02:44,669 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:02:44,730 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:02:47,955 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:02:54,312 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:02:56,809 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:00,101 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:10,417 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:12,438 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:22,370 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:25,502 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:30,183 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:31,260 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:32,799 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:43,711 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:46,628 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:03:51,722 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:04:00,692 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:04:04,581 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:04:13,010 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:04:17,495 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:04:30,629 | INFO | [cross_provider/gpt_oss_120b] stage 03 deterministic attack specs
+2026-06-21 00:04:30,638 | INFO | Stage 03: loaded 435 adversarial directions
+2026-06-21 00:04:31,695 | INFO | Stage 03: loaded 2225 attack metadata entries
+2026-06-21 00:04:31,703 | INFO | [cross_provider/gpt_oss_120b] stage 04 post attack
+2026-06-21 00:04:31,706 | INFO | Stage 04: loaded 435 adversarial directions
+2026-06-21 00:04:31,709 | INFO | Stage 04: cluster-batched post-attack for 20 scenarios
+2026-06-21 00:04:32,224 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:04:32,325 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:04:35,577 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:04:42,514 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:04:45,893 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:04:48,500 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:01,379 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:03,887 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:12,525 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:20,051 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:24,025 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:26,672 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:29,415 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:43,558 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:43,565 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:52,980 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:05:53,587 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:06:07,219 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:06:10,133 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:06:20,630 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:06:38,649 | INFO | [cross_provider/gpt_oss_120b] stage 05 deltas
+2026-06-21 00:06:38,667 | INFO | Loaded adversarial directions from opinion.json: 435 non-zero leaf directions. Operator goal: Maximise aggregate erosion of defence infrastructure, multilateral alliance cohe
+2026-06-21 00:06:57,689 | INFO | [cross_provider/qwen3_32b] model=qwen/qwen3-32b
+2026-06-21 00:06:57,689 | INFO | [cross_provider/qwen3_32b] stage 02 baseline
+2026-06-21 00:06:57,693 | INFO | Stage 02: cluster-batched baseline for 20 scenarios
+2026-06-21 00:06:58,519 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:06:59,698 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:00,060 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:00,274 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:00,504 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:04,533 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:06,693 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:23,399 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:34,524 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:36,411 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:47,654 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:48,779 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:49,467 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:07:57,494 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:08:06,538 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:08:11,650 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:08:19,375 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:08:24,427 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:08:38,921 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:08:51,218 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:09:42,574 | INFO | [cross_provider/qwen3_32b] stage 03 deterministic attack specs
+2026-06-21 00:09:42,586 | INFO | Stage 03: loaded 435 adversarial directions
+2026-06-21 00:09:43,607 | INFO | Stage 03: loaded 2225 attack metadata entries
+2026-06-21 00:09:43,614 | INFO | [cross_provider/qwen3_32b] stage 04 post attack
+2026-06-21 00:09:43,618 | INFO | Stage 04: loaded 435 adversarial directions
+2026-06-21 00:09:43,620 | INFO | Stage 04: cluster-batched post-attack for 20 scenarios
+2026-06-21 00:09:45,678 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:09:45,679 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:09:46,094 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:09:46,094 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:09:47,127 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:09:49,288 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:09:54,664 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:10:07,562 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:10:10,517 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:10:33,000 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:10:41,175 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:10:42,085 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:10:44,754 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:10:47,976 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:11:06,524 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:11:07,838 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:11:21,057 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:11:50,266 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:11:50,551 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:11:53,039 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:12:39,694 | INFO | [cross_provider/qwen3_32b] stage 05 deltas
+2026-06-21 00:12:39,717 | INFO | Loaded adversarial directions from opinion.json: 435 non-zero leaf directions. Operator goal: Maximise aggregate erosion of defence infrastructure, multilateral alliance cohe
+2026-06-21 00:12:40,613 | INFO | [cross_provider/nemotron3_nano_30b] model=nvidia/nemotron-3-nano-30b-a3b
+2026-06-21 00:12:40,614 | INFO | [cross_provider/nemotron3_nano_30b] stage 02 baseline
+2026-06-21 00:12:40,619 | INFO | Stage 02: cluster-batched baseline for 20 scenarios
+2026-06-21 00:12:41,823 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:12:41,932 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:12:41,947 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:12:41,997 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:12:46,041 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:12:46,104 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:12:48,869 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:00,321 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:01,312 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:01,398 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:04,429 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:06,510 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:08,460 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:11,839 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:18,338 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:28,122 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:31,546 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:36,492 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:39,376 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:13:45,892 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:14:21,465 | WARNING | Agent cluster_baseline_opinion failed attempt 1/3 for scenario_06197_baseline_cluster: Unterminated string starting at: line 81 column 14 (char 16416)
+2026-06-21 00:14:25,122 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:01,379 | WARNING | Agent cluster_baseline_opinion failed attempt 2/3 for scenario_06197_baseline_cluster: Expecting value: line 80 column 218 (char 16426)
+2026-06-21 00:15:02,548 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:41,060 | WARNING | Agent cluster_baseline_opinion failed attempt 3/3 for scenario_06197_baseline_cluster: Expecting value: line 80 column 218 (char 16426)
+2026-06-21 00:15:41,061 | WARNING | Cluster baseline failed for scenario_06197, deterministic fallback: cluster_baseline_opinion failed after 3 attempts for scenario_06197_baseline_cluster
+2026-06-21 00:15:41,076 | INFO | [cross_provider/nemotron3_nano_30b] stage 03 deterministic attack specs
+2026-06-21 00:15:41,091 | INFO | Stage 03: loaded 435 adversarial directions
+2026-06-21 00:15:42,196 | INFO | Stage 03: loaded 2225 attack metadata entries
+2026-06-21 00:15:42,205 | INFO | [cross_provider/nemotron3_nano_30b] stage 04 post attack
+2026-06-21 00:15:42,208 | INFO | Stage 04: loaded 435 adversarial directions
+2026-06-21 00:15:42,211 | INFO | Stage 04: cluster-batched post-attack for 20 scenarios
+2026-06-21 00:15:43,045 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:43,197 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:43,202 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:43,627 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:44,623 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:45,341 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:49,894 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:52,968 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:55,240 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:15:56,242 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:02,324 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:04,829 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:05,527 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:05,588 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:06,764 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:12,645 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:14,536 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:16,339 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:21,303 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:29,286 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:16:45,197 | INFO | [cross_provider/nemotron3_nano_30b] stage 05 deltas
+2026-06-21 00:16:45,214 | INFO | Loaded adversarial directions from opinion.json: 435 non-zero leaf directions. Operator goal: Maximise aggregate erosion of defence infrastructure, multilateral alliance cohe
+2026-06-21 00:17:29,312 | INFO | [cross_provider/nemotron3_nano_30b] model=nvidia/nemotron-3-nano-30b-a3b
+2026-06-21 00:17:29,312 | INFO | [cross_provider/nemotron3_nano_30b] stage 02 baseline
+2026-06-21 00:17:29,317 | INFO | Stage 02: cluster-batched baseline for 20 scenarios
+2026-06-21 00:17:30,072 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:30,356 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:31,066 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:31,549 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:32,113 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:32,654 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:35,677 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:42,938 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:43,486 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:45,956 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:46,751 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:48,919 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:49,089 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:51,308 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:56,489 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:59,038 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:17:59,271 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:02,509 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:03,777 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:13,126 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:27,426 | INFO | [cross_provider/nemotron3_nano_30b] stage 03 deterministic attack specs
+2026-06-21 00:18:27,434 | INFO | Stage 03: loaded 435 adversarial directions
+2026-06-21 00:18:28,459 | INFO | Stage 03: loaded 2225 attack metadata entries
+2026-06-21 00:18:28,466 | INFO | [cross_provider/nemotron3_nano_30b] stage 04 post attack
+2026-06-21 00:18:28,469 | INFO | Stage 04: loaded 435 adversarial directions
+2026-06-21 00:18:28,472 | INFO | Stage 04: cluster-batched post-attack for 20 scenarios
+2026-06-21 00:18:28,892 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:29,248 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:29,954 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:30,324 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:31,733 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:32,463 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:35,650 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:40,688 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:43,863 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:45,009 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:49,639 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:50,952 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:51,835 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:18:54,901 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:19:01,302 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:19:03,770 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:19:03,923 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:19:09,015 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:19:15,960 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:19:21,530 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:19:41,702 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_05615_post_cluster: Expecting value: line 23 column 15 (char 1197)
+2026-06-21 00:19:43,508 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:19:56,873 | INFO | [cross_provider/nemotron3_nano_30b] stage 05 deltas
+2026-06-21 00:19:56,899 | INFO | Loaded adversarial directions from opinion.json: 435 non-zero leaf directions. Operator goal: Maximise aggregate erosion of defence infrastructure, multilateral alliance cohe
+2026-06-21 00:20:11,250 | INFO | [cross_provider/llama33_70b] model=meta-llama/llama-3.3-70b-instruct
+2026-06-21 00:20:11,251 | INFO | [cross_provider/llama33_70b] stage 02 baseline
+2026-06-21 00:20:11,261 | INFO | Stage 02: cluster-batched baseline for 20 scenarios
+2026-06-21 00:20:11,727 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:20:12,051 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:20:12,463 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:20:15,318 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:20:15,899 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:20:24,228 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:20:45,651 | WARNING | Agent cluster_baseline_opinion failed attempt 1/3 for scenario_03233_baseline_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:20:49,078 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:20:54,009 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:21:09,967 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:21:10,112 | WARNING | Agent cluster_baseline_opinion failed attempt 1/3 for scenario_08070_baseline_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:21:10,726 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:21:20,445 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:21:28,297 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:21:46,071 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:21:46,427 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:22:08,849 | WARNING | Agent cluster_baseline_opinion failed attempt 1/3 for scenario_08702_baseline_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:22:10,458 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:22:15,337 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:22:26,446 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:22:36,574 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:22:41,756 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:22:53,153 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:22:57,655 | WARNING | Agent cluster_baseline_opinion failed attempt 1/3 for scenario_04561_baseline_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:22:59,826 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:23:12,201 | WARNING | Agent cluster_baseline_opinion failed attempt 1/3 for scenario_04900_baseline_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:23:14,384 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:23:22,263 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:23:35,947 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:23:50,736 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:24:06,779 | WARNING | Agent cluster_baseline_opinion failed attempt 1/3 for scenario_08219_baseline_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:24:08,426 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:27:23,207 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_07886_baseline_cluster: The read operation timed out
+2026-06-21 00:27:23,225 | WARNING | Agent cluster_baseline_opinion chat attempt 1/3 failed for scenario_06197_baseline_cluster: The read operation timed out
+2026-06-21 00:27:23,273 | WARNING | Agent cluster_baseline_opinion chat attempt 2/3 failed for scenario_08219_baseline_cluster: The read operation timed out
+2026-06-21 00:27:24,146 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:27:24,218 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:27:24,218 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:28:16,306 | WARNING | Agent cluster_baseline_opinion failed attempt 2/3 for scenario_06197_baseline_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:28:16,980 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:28:48,964 | WARNING | Agent cluster_baseline_opinion failed attempt 2/3 for scenario_07886_baseline_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:28:50,058 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:30:19,094 | INFO | [cross_provider/llama33_70b] stage 03 deterministic attack specs
+2026-06-21 00:30:19,102 | INFO | Stage 03: loaded 435 adversarial directions
+2026-06-21 00:30:21,312 | INFO | Stage 03: loaded 2225 attack metadata entries
+2026-06-21 00:30:21,325 | INFO | [cross_provider/llama33_70b] stage 04 post attack
+2026-06-21 00:30:21,332 | INFO | Stage 04: loaded 435 adversarial directions
+2026-06-21 00:30:21,336 | INFO | Stage 04: cluster-batched post-attack for 20 scenarios
+2026-06-21 00:30:22,107 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:30:22,214 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:30:22,514 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:30:23,869 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:30:25,515 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:31:00,087 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_08196_post_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:31:10,540 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:31:16,159 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:31:20,416 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:31:23,057 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:31:25,497 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_00744_post_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:31:26,783 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:31:36,484 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:32:01,876 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:32:13,003 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:32:17,620 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:33:02,268 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:33:29,941 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_08702_post_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:33:31,501 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:33:34,069 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:33:51,007 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_03845_post_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:33:52,339 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:34:19,154 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:34:55,012 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:35:53,868 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_03124_post_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:35:55,154 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:36:02,780 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_04878_post_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:36:03,781 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:36:15,930 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:36:25,970 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:36:46,665 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:37:07,138 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_07860_post_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:37:08,542 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:37:21,217 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:38:12,363 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_06197_post_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:38:17,587 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_03158_post_cluster: Expecting value: line 1 column 1 (char 0)
+2026-06-21 00:38:20,657 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:38:22,858 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:39:03,316 | INFO | [cross_provider/llama33_70b] stage 05 deltas
+2026-06-21 00:39:03,365 | INFO | Loaded adversarial directions from opinion.json: 435 non-zero leaf directions. Operator goal: Maximise aggregate erosion of defence infrastructure, multilateral alliance cohe
+2026-06-21 00:39:31,803 | INFO | [test_retest/iteration_01] model=deepseek/deepseek-v4-flash
+2026-06-21 00:39:31,804 | INFO | [test_retest/iteration_01] stage 02 baseline
+2026-06-21 00:39:31,819 | INFO | Stage 02: cluster-batched baseline for 30 scenarios
+2026-06-21 00:39:33,401 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:39:33,681 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:39:34,502 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:39:35,534 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:39:40,255 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:39:43,767 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:39:46,437 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:39:50,515 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:39:54,568 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:02,097 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:09,036 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:13,935 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:16,405 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:20,223 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:25,308 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:35,329 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:36,040 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:40,683 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:40,989 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:46,165 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:40:53,519 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:41:09,879 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:41:13,479 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:41:41,753 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:41:54,396 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:41:58,379 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:41:59,957 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:42:07,018 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:42:08,376 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:42:15,431 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:42:50,659 | INFO | [test_retest/iteration_01] stage 03 deterministic attack specs
+2026-06-21 00:42:50,669 | INFO | Stage 03: loaded 435 adversarial directions
+2026-06-21 00:42:51,650 | INFO | Stage 03: loaded 2225 attack metadata entries
+2026-06-21 00:42:51,660 | INFO | [test_retest/iteration_01] stage 04 post attack
+2026-06-21 00:42:51,664 | INFO | Stage 04: loaded 435 adversarial directions
+2026-06-21 00:42:51,667 | INFO | Stage 04: cluster-batched post-attack for 30 scenarios
+2026-06-21 00:42:52,868 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:42:53,543 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:42:54,533 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:42:55,341 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:02,225 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:03,515 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:05,096 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:12,211 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:25,859 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:30,054 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:32,805 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:36,532 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:39,287 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:41,369 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:43:51,703 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:44:05,074 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:44:14,112 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:44:17,908 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:44:33,059 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:44:35,490 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:44:51,919 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:44:52,653 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:44:57,337 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:45:06,178 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:45:15,013 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:45:15,108 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:45:23,208 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:45:31,370 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:45:31,403 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:45:39,048 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:46:31,110 | INFO | [test_retest/iteration_01] stage 05 deltas
+2026-06-21 00:46:31,431 | INFO | Loaded adversarial directions from opinion.json: 435 non-zero leaf directions. Operator goal: Maximise aggregate erosion of defence infrastructure, multilateral alliance cohe
+2026-06-21 00:46:38,651 | INFO | [test_retest/iteration_02] model=deepseek/deepseek-v4-flash
+2026-06-21 00:46:38,652 | INFO | [test_retest/iteration_02] stage 02 baseline
+2026-06-21 00:46:38,900 | INFO | Stage 02: cluster-batched baseline for 30 scenarios
+2026-06-21 00:46:40,365 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:46:41,565 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:46:41,585 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:46:42,401 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:46:47,958 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:00,695 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:02,903 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:07,488 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:08,957 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:11,454 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:13,976 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:19,318 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:23,805 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:28,850 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:29,731 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:41,705 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:45,170 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:53,131 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:55,859 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:47:59,853 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:48:01,087 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:48:03,075 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:48:14,345 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:48:15,543 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:48:30,395 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:48:36,078 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:48:36,974 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:48:45,388 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:48:51,239 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:48:53,435 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:49:18,321 | INFO | [test_retest/iteration_02] stage 03 deterministic attack specs
+2026-06-21 00:49:18,336 | INFO | Stage 03: loaded 435 adversarial directions
+2026-06-21 00:49:19,460 | INFO | Stage 03: loaded 2225 attack metadata entries
+2026-06-21 00:49:19,473 | INFO | [test_retest/iteration_02] stage 04 post attack
+2026-06-21 00:49:19,476 | INFO | Stage 04: loaded 435 adversarial directions
+2026-06-21 00:49:19,480 | INFO | Stage 04: cluster-batched post-attack for 30 scenarios
+2026-06-21 00:49:20,422 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:49:21,340 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:49:21,647 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:49:21,800 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:49:30,559 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:49:40,876 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:49:43,455 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:49:46,442 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:49:59,903 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:02,801 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:03,204 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:07,808 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:10,236 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:11,195 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:12,710 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:25,621 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:31,638 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:44,384 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:49,600 | WARNING | Agent cluster_post_attack_opinion failed attempt 1/3 for scenario_06580_post_cluster: Unterminated string starting at: line 76 column 15 (char 3644)
+2026-06-21 00:50:50,658 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:54,934 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:50:57,932 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:51:04,599 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:51:07,032 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:51:13,748 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:51:20,321 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:51:28,428 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:51:39,067 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:51:39,409 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:51:39,666 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:51:51,701 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:51:54,944 | INFO | HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-21 00:52:47,294 | INFO | [test_retest/iteration_02] stage 05 deltas
+2026-06-21 00:52:47,356 | INFO | Loaded adversarial directions from opinion.json: 435 non-zero leaf directions. Operator goal: Maximise aggregate erosion of defence infrastructure, multilateral alliance cohe

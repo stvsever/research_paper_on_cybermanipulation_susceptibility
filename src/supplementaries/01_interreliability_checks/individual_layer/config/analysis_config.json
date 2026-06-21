@@ -1,0 +1,67 @@
+{
+  "supplementary_name": "01_interreliability_checks",
+  "created_for": "Project_CSitAoED",
+  "scenario_source": "src/backend/pipeline/separate/01_create_scenarios/samples/02_integrated/integrated_scenarios_10000.jsonl",
+  "ontology_root": "src/backend/ontology/separate/production",
+  "primary_model": "deepseek/deepseek-v4-flash",
+  "cross_provider": {
+    "n_scenarios": 20,
+    "seed": 6201201
+  },
+  "test_retest": {
+    "n_scenarios": 30,
+    "seed": 6201202,
+    "iterations": [
+      "iteration_01",
+      "iteration_02"
+    ]
+  },
+  "llm_parameters": {
+    "temperature": 0.15,
+    "top_p": 1.0,
+    "max_repair_iter": 2,
+    "timeout_sec": 180,
+    "max_concurrency": 4,
+    "self_supervise_opinion_coherence": false,
+    "self_supervise_attack_realism": false,
+    "response_format": {
+      "type": "json_object"
+    },
+    "cluster_output_token_budget": {
+      "base_tokens": 900,
+      "per_leaf_tokens": 420,
+      "min_tokens": 1800,
+      "max_tokens": 9000
+    },
+    "reasoning_policy": {
+      "deepseek/deepseek-v4-flash": {
+        "enabled": false,
+        "exclude": true
+      },
+      "qwen/qwen3-32b": {
+        "enabled": false,
+        "exclude": true
+      },
+      "nvidia/nemotron-3-nano-30b-a3b": {
+        "enabled": false,
+        "exclude": true
+      },
+      "openai/gpt-oss-120b": {
+        "max_tokens": 128,
+        "exclude": true
+      }
+    },
+    "provider_routing": {
+      "openai/gpt-oss-120b": {
+        "order": [
+          "WandB"
+        ],
+        "allow_fallbacks": false
+      }
+    }
+  },
+  "nominal_llm_call_budget": {
+    "cross_provider": "20 scenarios x 2 phases x 5 providers = 200 calls",
+    "test_retest": "30 scenarios x 2 phases x 2 iterations = 120 calls"
+  }
+}

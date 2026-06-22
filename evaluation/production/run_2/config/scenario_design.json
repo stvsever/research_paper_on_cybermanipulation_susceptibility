@@ -1,0 +1,98 @@
+{
+  "run_id": "run_2",
+  "purpose": "Production run 2 fixed full factorial scenario design",
+  "design_type": "fixed_full_factorial",
+  "output_root": "evaluation/production/run_2",
+  "ontology_root": "evaluation/production/run_2/config/ontology_mixed",
+  "counts": {
+    "profiles": 100,
+    "opinions": 7,
+    "attacks": 5,
+    "scenarios": 3500,
+    "opinion_attack_conditions": 35
+  },
+  "profile_sampling": {
+    "ontology_axis": "PROFILE",
+    "n_profiles": 100,
+    "seed": 120,
+    "profile_generation_mode": "deterministic",
+    "profile_candidate_multiplier": 8
+  },
+  "opinion_sampling": {
+    "ontology_axis": "OPINION",
+    "panel_file": "evaluation/production/run_2/config/opinion_panel.json",
+    "selection_mode": "explicit_full_paths",
+    "drop_direction_neutral_opinions": true
+  },
+  "attack_sampling": {
+    "ontology_axis": "ATTACK",
+    "panel_file": "evaluation/production/run_2/config/attack_panel.json",
+    "selection_mode": "explicit_leaves",
+    "attack_ratio": 1.0
+  },
+  "pipeline": {
+    "entrypoint": "src/backend/pipeline/full/run_full_pipeline.py",
+    "resume_from_stage": "01",
+    "stop_after_stage": "08b",
+    "analyze_network_exposure_run": true,
+    "use_test_ontology": false,
+    "enforce_compatibility_rules": true,
+    "realism_weight_temperature": 1.5,
+    "generate_visuals": true,
+    "export_static_figures": true,
+    "build_report": false,
+    "ingest_to_db": false
+  },
+  "network_layer": {
+    "assess_network_exposure": true,
+    "network_exposure_top_k": 8,
+    "assess_post_attack_network_exposure": true,
+    "post_attack_network_exposure_top_k": 8,
+    "post_attack_network_min_peers": 1,
+    "exposure_graph_id": "politisky24_bluesky_v1",
+    "exposure_assignment_mode": "ranked_seeded_profiles"
+  },
+  "model_settings": {
+    "openrouter_model": "deepseek/deepseek-v4-flash",
+    "temperature": 0.15,
+    "max_repair_iter": 2,
+    "self_supervise_attack_realism": true,
+    "realism_threshold": 0.72,
+    "self_supervise_opinion_coherence": true,
+    "coherence_threshold": 0.74,
+    "save_raw_llm": true,
+    "timeout_sec": 90,
+    "max_concurrency": 12
+  },
+  "preflight_modes": {
+    "structural": {
+      "output_root": "evaluation/production/run_2/preflight/structural_full_factorial",
+      "n_profiles": 100,
+      "opinions": 7,
+      "attacks": 5,
+      "scenarios": 3500,
+      "stop_after_stage": "01b",
+      "paid_llm_calls_expected": false
+    },
+    "smoke": {
+      "output_root": "evaluation/production/run_2/preflight/smoke",
+      "n_profiles": 30,
+      "opinions": 2,
+      "attacks": 2,
+      "scenarios": 120,
+      "stop_after_stage": "08b",
+      "paid_llm_calls_expected": true,
+      "opinion_paths": [
+        "Issue_Position_Taxonomy > Information_Integrity_And_Platforms > Trust_In_Mainstream_Journalism",
+        "Issue_Position_Taxonomy > Macroeconomic_And_Fiscal_Policy > Trade_With_Authoritarian_States_Support"
+      ],
+      "attack_leaves": [
+        "Quote_Context_Stripping",
+        "Repost_Bot_Amplification"
+      ]
+    }
+  },
+  "automatic_outputs": {
+    "network_exposure_analysis_stage": "08b_analyze_network_exposure_run"
+  }
+}

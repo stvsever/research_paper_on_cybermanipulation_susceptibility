@@ -76,3 +76,27 @@ evaluation/production/run_1/stage_outputs/04_assess_post_attack_opinions/post_at
 evaluation/production/run_1/stage_outputs/05_compute_effectivity_deltas/sem_long_raw.csv
 evaluation/production/run_1/stage_outputs/05_compute_effectivity_deltas/sem_long_encoded.csv
 evaluation/production/run_1/stage_outputs/05_compute_effectivity_deltas/profile_sem_wide.csv
+
+# Production run 2 (network-layer run): commit the curated official package only.
+# Keep manifests, summaries, compact Stage 05 CSVs, reports, figures, and
+# supplementary tables. Exclude raw LLM traces, preflight/smoke workspaces, raw
+# JSONL mirrors, failed sandbox attempts, caches, and oversized export formats.
+evaluation/production/run_2/preflight/
+evaluation/production/run_2/**/provenance/raw_llm/
+evaluation/production/run_2/**/__pycache__/
+evaluation/production/run_2/**/*.pyc
+evaluation/production/run_2/**/*.tiff
+evaluation/production/run_2/**/*.tif
+evaluation/production/run_2/**/live_results.jsonl
+evaluation/production/run_2/**/scenarios_with_*.jsonl
+evaluation/production/run_2/**/*contexts.jsonl
+evaluation/production/run_2/**/condition_stage04b_outputs_failed_sandbox_dns_*/
+evaluation/production/run_2/**/logs_failed_sandbox_dns_*/
+evaluation/production/run_2/counterfactual_alignment_gradient/condition_inputs/
+evaluation/production/run_2/counterfactual_alignment_gradient/condition_stage04b_outputs/
+evaluation/production/run_2/stage_outputs/01_create_scenarios/scenarios.json
+evaluation/production/run_2/stage_outputs/01_create_scenarios/scenarios.jsonl
+evaluation/production/run_2/stage_outputs/02_assess_baseline_opinions/baseline_assessments.jsonl
+evaluation/production/run_2/stage_outputs/02b_assess_network_exposure_opinions/network_exposure_assessments.jsonl
+evaluation/production/run_2/stage_outputs/04_assess_post_attack_opinions/post_attack_assessments.jsonl
+evaluation/production/run_2/stage_outputs/04b_assess_post_attack_network_exposure_opinions/post_attack_network_exposure_assessments.jsonl

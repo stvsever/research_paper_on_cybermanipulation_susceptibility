@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>run_2_alignment_gradient Alignment-Gradient H3/H4 Report</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 34px; color: #172033; background: #fbfcfe; line-height: 1.48; }
+    h1, h2, h3 { color: #111827; }
+    h1 { margin-bottom: 6px; }
+    h2 { margin-top: 36px; border-top: 1px solid #d9deea; padding-top: 22px; }
+    h3 { margin-top: 28px; }
+    p { max-width: 1120px; }
+    .note, figcaption { color: #566174; max-width: 1120px; line-height: 1.5; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin: 18px 0; max-width: 1120px; }
+    .metric { border: 1px solid #d9deea; background: white; padding: 13px; border-radius: 8px; }
+    .metric-label { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: .03em; }
+    .metric-value { font-size: 24px; font-weight: 650; margin-top: 4px; }
+    figure { margin: 14px 0 30px; padding: 16px; border: 1px solid #d9deea; border-radius: 8px; background: white; }
+    figure img { max-width: 100%; display: block; margin: 0 auto 12px; }
+    .data-table { border-collapse: collapse; font-size: 13px; width: 100%; background: white; margin: 12px 0 22px; }
+    .data-table th, .data-table td { border-bottom: 1px solid #e5e7eb; padding: 7px 8px; text-align: left; vertical-align: top; }
+    .data-table th { background: #f3f6fb; color: #374151; }
+    code { background: #eef2f7; padding: 1px 4px; border-radius: 4px; }
+    .callout { border-left: 4px solid #2E4780; background: #f3f6fb; padding: 12px 14px; max-width: 1120px; }
+  </style>
+</head>
+<body>
+  <h1>Counterfactual Alignment-Gradient H3/H4 Network Exposure Report</h1>
+  <p>
+    This branch uses the already-paid private post-attack measurements from production Run 2 and experimentally
+    reassigns profiles to empirical exposure-network positions by condition. The aim is narrow: create a controlled
+    sender-reach susceptibility alignment gradient so H3 and H4 can be tested as network-position mechanisms rather than
+    as incidental correlations from the original fixed assignment.
+  </p>
+  <p>
+    The original production Run 2 remains the source for H1/H2, private susceptibility, and observed-assignment analyses.
+    This counterfactual branch is the primary experimental test for whether susceptible or resilient profiles occupying
+    high-reach sender positions amplifies or attenuates post-attack network effects.
+  </p>
+  <p class="note">Report mode: <code>full</code>; branch root: <code>evaluation/production/run_2/counterfactual_alignment_gradient</code>.</p>
+  <div class="grid">
+    <div class="metric"><div class="metric-label">Condition cells</div><div class="metric-value">35</div></div>
+    <div class="metric"><div class="metric-label">Profiles per cell</div><div class="metric-value">100</div></div>
+    <div class="metric"><div class="metric-label">PN FE slope</div><div class="metric-value">2.40</div></div>
+    <div class="metric"><div class="metric-label">PN p-value</div><div class="metric-value">1.44e-06</div></div>
+    <div class="metric"><div class="metric-label">Total FE slope</div><div class="metric-value">2.70</div></div>
+    <div class="metric"><div class="metric-label">Stage 04b fallbacks/skips</div><div class="metric-value">0/0</div></div>
+  </div>
+  <div class="callout">
+    <strong>Primary result.</strong> The planned condition-level model estimates the effect of continuous
+    <code>achieved_alignment_z</code> while controlling for opinion and attack fixed effects. For the primary mechanism
+    endpoint <code>mean((PN - P) x d)</code>, the estimated alignment coefficient is
+    <strong>2.40</strong> score points per one alignment-z unit
+    (<code>p = 1.44e-06</code>). For the broader final endpoint
+    <code>mean((PN - B) x d)</code>, the coefficient is <strong>2.70</strong>
+    (<code>p = 9.58e-04</code>).
+  </div>
+
+  <h2>1. Experimental Design</h2>
+  <p>
+    The branch has seven quasi-continuous alignment targets and five replicated cells per target, yielding 35 condition
+    cells and 3,500 profile-level Stage 04b assessments. The empirical exposure graph and sender-reach distribution stay
+    fixed. What varies by condition is which generated profile occupies which empirical network position.
+  </p>
+  <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Design element</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Profiles per condition</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td>Opinion x attack condition cells</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>Alignment targets</td>
+      <td>-0.90, -0.60, -0.30, +0.00, +0.30, +0.60, +0.90</td>
+    </tr>
+    <tr>
+      <td>Cells per alignment target</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>Primary predictor</td>
+      <td>achieved_alignment_z</td>
+    </tr>
+    <tr>
+      <td>Primary outcome</td>
+      <td>mean((PN - P) x d)</td>
+    </tr>
+  </tbody>
+</table>
+  <p>
+    The achieved manipulation is tight: target-achieved correlation is <code>0.9999</code>, mean absolute
+    target error is <code>0.0080</code>, and maximum absolute target error is
+    <code>0.0273</code>.
+  </p>
+  <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>alignment_level</th>
+      <th>target_alignment_z</th>
+      <th>n_conditions</th>
+      <th>n_attacks</th>
+      <th>n_opinions</th>
+      <th>mean_achieved_alignment_z</th>
+      <th>max_alignment_abs_error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>resilient_0_90</td>
+      <td>-0.9</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>-0.881499</td>
+      <td>0.027250</td>
+    </tr>
+    <tr>
+      <td>resilient_0_60</td>
+      <td>-0.6</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>-0.592899</td>
+      <td>0.019671</td>
+    </tr>
+    <tr>
+      <td>resilient_0_30</td>
+      <td>-0.3</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>-0.295358</td>
+      <td>0.014184</td>
+    </tr>
+    <tr>
+      <td>neutral_0_00</td>
+      <td>0.0</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0.004926</td>
+      <td>0.016835</td>
+    </tr>
+    <tr>
+      <td>susceptible_0_30</td>
+      <td>0.3</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0.301874</td>
+      <td>0.026373</td>
+    </tr>
+    <tr>
+      <td>susceptible_0_60</td>
+      <td>0.6</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0.603359</td>
+      <td>0.013263</td>
+    </tr>
+    <tr>
+      <td>susceptible_0_90</td>
+      <td>0.9</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0.906639</td>
+      <td>0.020084</td>
+    </tr>
+  </tbody>
+</table>
+
+  <h2>2. Measurement Backbone</h2>
+  <p>
+    The branch keeps the original four-state measurement structure. The manipulated assignment affects only the
+    post-attack network-exposure context used for <code>PN</code>; it does not rerun private baseline or private
+    post-attack opinions.
+  </p>
+  <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Symbol</th>
+      <th>Measurement state</th>
+      <th>Pipeline field</th>
+      <th>Analytical role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>B</td>
+      <td>Private baseline opinion</td>
+      <td>baseline_score</td>
+      <td>Pre-attack private reference point</td>
+    </tr>
+    <tr>
+      <td>BN</td>
+      <td>Baseline after empirical incoming peer context</td>
+      <td>network_exposure_score</td>
+      <td>Pre-attack network-context check</td>
+    </tr>
+    <tr>
+      <td>P</td>
+      <td>Private post-attack opinion</td>
+      <td>post_score</td>
+      <td>Private attack response</td>
+    </tr>
+    <tr>
+      <td>PN</td>
+      <td>Post-attack after same-condition incoming peer context</td>
+      <td>post_attack_network_score</td>
+      <td>Final network-exposed state</td>
+    </tr>
+  </tbody>
+</table>
+  <h3>Core deltas</h3>
+  <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Quantity</th>
+      <th>Formula</th>
+      <th>Question answered</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Private susceptibility</td>
+      <td>AE_private = (P - B) x d</td>
+      <td>How much did one profile privately move toward the attack goal?</td>
+    </tr>
+    <tr>
+      <td>Post-network effectivity</td>
+      <td>PN_increment_effectivity = (PN - P) x d</td>
+      <td>Does the post-attack peer context amplify or dampen the attack direction?</td>
+    </tr>
+    <tr>
+      <td>Total network attack effect</td>
+      <td>AE_total_network = (PN - B) x d</td>
+      <td>What is the final attack-aligned effect after private and network exposure?</td>
+    </tr>
+    <tr>
+      <td>Sender-reach susceptibility alignment</td>
+      <td>weighted mean(AE_private) - unweighted mean(AE_private), z-scaled</td>
+      <td>Are high-reach senders more susceptible or more resilient than the condition average?</td>
+    </tr>
+  </tbody>
+</table>
+
+  <h2>3. Hypothesis Mapping</h2>
+  <p>
+    The statistical unit for H3/H4 is the condition cell, not the profile row. Profile rows are used to compute
+    condition-level susceptibility placement and condition-level network outcomes.
+  </p>
+  <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Hypothesis</th>
+      <th>Operational test</th>
+      <th>Expected direction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>H3. Central susceptible sender amplification</td>
+      <td>Higher achieved_alignment_z predicts higher mean_pn_increment_effectivity.</td>
+      <td>Positive coefficient</td>
+    </tr>
+    <tr>
+      <td>H4. Central resilient sender attenuation</td>
+      <td>Lower achieved_alignment_z predicts lower mean_pn_increment_effectivity and lower final network effect.</td>
+      <td>Same positive coefficient, interpreted from the negative-alignment side</td>
+    </tr>
+  </tbody>
+</table>
+
+  <h2>4. Main Figures: Alignment-Gradient Network Exposure Mechanism</h2>
+  <p>
+    The figures follow the same logic as the original Run 2 network-exposure report: first verify the manipulation,
+    then show where susceptibility lands on sender-reach positions, then test whether achieved alignment predicts the
+    post-attack network mechanism.
+  </p>
+  
+  <h3>Main Figure 1. Alignment Manipulation Check</h3>
+  <p>This figure verifies that the branch successfully turns the original fixed profile-position assignment into a controlled alignment-gradient manipulation. The nominal target levels are design anchors; the continuous achieved alignment is the analysis variable.</p>
+  <figure>
+    <img src="../figures/target_vs_achieved_alignment.png" alt="Target versus achieved alignment">
+    <figcaption><strong>Note.</strong> Each point is one condition cell. The x-axis is the planned sender-reach susceptibility alignment; the y-axis is the achieved alignment after deterministic assignment optimization. Each target appears in five cells, and each attack receives all seven target levels once. Inferential models use <code>achieved_alignment_z</code>, not the nominal level label.</figcaption>
+  </figure>
+
+
+  <h3>Main Figure 2. Condition-Specific Vulnerability Planes</h3>
+  <p>This figure is the direct diagnostic for the counterfactual mechanism. It shows, per condition, whether high-reach sender positions are occupied by profiles that are privately more susceptible or more resilient than the condition average.</p>
+  <figure>
+    <img src="../figures/branch_condition_vulnerability_planes.png" alt="Condition-specific vulnerability planes">
+    <figcaption><strong>Note.</strong> Each panel is one <code>opinion x attack</code> condition. The x-axis is within-condition <code>AE_private</code> z-score; the y-axis is direct sender-reach percentile. The shaded band marks the top 20 percent of sender reach, and outlined points mark the top 10 percent. Color uses a fixed blue-orange signed scale centered at zero: blue means below-condition-average susceptibility or resilience, and orange means above-condition-average susceptibility. No fitted line is shown because the figure visualizes assignment placement, not a within-panel linear model. The panel label <code>sender alignment z</code> is the achieved sender-reach susceptibility alignment: positive values mean high-reach positions are shifted toward susceptible profiles, and negative values mean high-reach positions are shifted toward resilient profiles.</figcaption>
+  </figure>
+
+
+  <h3>Main Figure 3. Full 35-Condition Network Overlay</h3>
+  <p>This figure adapts the original Run 2 network overlay to the branch. The empirical exposure graph is held fixed, while profile-position assignments vary by condition to create the alignment gradient. The edge layer is shown as restrained graph context: faint lines preserve the induced exposure substrate, and sparse arrows make direction visible without overwhelming the susceptibility pattern.</p>
+  <figure>
+    <img src="../figures/branch_full_35_condition_network_overlay.png" alt="Full 35-condition branch network overlay">
+    <figcaption><strong>Note.</strong> Each panel is one branch condition. Node coordinates and directed empirical edges are the same in every panel. Faint lines show all induced <code>edges_prompt_top30</code> exposure edges among the 100 empirical positions. Darker arrows show the sparse directed backbone, selected as the strongest incoming edge per receiver plus the global top 50 edges by <code>exposure_weight</code>; arrows point from <code>visible peer -&gt; exposed receiver</code>. Node size is direct sender-reach percentile based on <code>outgoing_visibility_weight</code>. Node color is the within-condition percentile of <code>AE_private = (P - B) x d</code>: blue indicates lower relative susceptibility or resilience, neutral is the condition median, and orange indicates higher relative susceptibility. Colors compare profiles within a condition, not absolute effect magnitude across conditions. The panel label <code>sender alignment z</code> is the achieved sender-reach susceptibility alignment: positive values indicate susceptible high-reach placement, and negative values indicate resilient high-reach placement.</figcaption>
+  </figure>
+
+
+  <h3>Main Figure 4. Alignment-Gradient Outcome Test</h3>
+  <p>This figure is the primary H3/H4 mechanism test. In the counterfactual alignment-gradient branch, higher sender-reach susceptibility alignment significantly increases post-network amplification, supporting H3. The same positive slope also means that placing resilient profiles in high-reach sender positions attenuates network-wide attack effects, supporting H4. The visual removes opinion and attack fixed effects from both alignment and outcome so the plotted relationship matches the condition-level fixed-effect model used for the statistical claim.</p>
+  <figure>
+    <img src="../figures/alignment_gradient_fixed_effect_outcomes.png" alt="Fixed-effect adjusted alignment-gradient outcome test">
+    <figcaption><strong>Note.</strong> Each point is one <code>opinion x attack</code> condition cell, averaging 100 profiles. <code>B</code> is private baseline, <code>P</code> is private post-attack, <code>PN</code> is post-attack after same-condition incoming peer exposure, and <code>d</code> is the adversarial direction. The left panel is the primary network-mechanism outcome <code>mean((PN - P) x d)</code>; the right panel is the secondary final endpoint <code>mean((PN - B) x d)</code>. Axes are fixed-effect residuals: units on the y-axis remain attack-aligned opinion-score points after removing opinion and attack fixed effects, and units on the x-axis are adjusted sender-reach susceptibility alignment z-values after the same fixed effects; negative values indicate relatively resilient high-reach placement and positive values indicate relatively susceptible high-reach placement. The line is the HC3 fixed-effect coefficient, and the shaded wedge is the 95% HC3 coefficient interval, not a prediction interval. The directional permutation p-value permutes alignment within attack families. Benjamini-Hochberg FDR q-values across the two displayed endpoints are reported in the Figure 4 summary table as a sensitivity check; the planned primary claim is the left-panel HC3 test.</figcaption>
+  </figure>
+
+
+  <h3>Main Figure 5. Marginal Means And Robustness</h3>
+  <p>The marginal means provide an ordered descriptive check across the seven design anchors. The robustness panel tests whether the achieved-alignment coefficient survives robust standard errors and targeted sensitivity exclusions.</p>
+  <figure>
+    <img src="../figures/alignment_level_marginal_means.png" alt="Marginal means by alignment level">
+    <figcaption><strong>Note.</strong> Points are alignment-target means across five condition cells; vertical intervals are standard errors across condition cells. These means are descriptive because the quantitative claim is made with continuous <code>achieved_alignment_z</code>. The companion robustness table below reports classical FE, HC3, within-attack permutation, fallback-row exclusion, and heuristic-warning condition exclusion checks.</figcaption>
+  </figure>
+
+  
+  <h3>Diagnostic Figure 1. Robustness Coefficients</h3>
+  <p>This diagnostic is not a separate hypothesis figure. It summarizes whether the achieved-alignment coefficient is stable across the planned robustness checks.</p>
+  <figure>
+    <img src="../figures/alignment_gradient_robustness_coefficients.png" alt="Robustness coefficients for H3/H4">
+    <figcaption><strong>Note.</strong> Intervals are coefficient plus or minus 1.96 standard errors where a standard error is defined. The permutation p-values are reported in the robustness table because they do not produce a standard-error interval. All models remain condition-level; profile rows are not treated as independent H3/H4 units.</figcaption>
+  </figure>
+
+  
+  <h3>Diagnostic Figure 2. Quality Gate Summary</h3>
+  <p>This final diagnostic verifies that the branch rerun and merged analysis are complete enough to support the mechanism report.</p>
+  <figure>
+    <img src="../figures/alignment_gradient_quality_gates.png" alt="Quality gates">
+    <figcaption><strong>Note.</strong> The branch requires 3,500 merged Stage 04b rows, 3,500 Stage 05 rows, 35 condition cells, zero Stage 04b fallbacks, zero Stage 04b skipped tasks, and maximum absolute target-achieved alignment error below 0.03. All gates must pass before interpreting the H3/H4 mechanism figures.</figcaption>
+  </figure>
+
+
+  <h2>5. Fixed-Effect Models And Robustness</h2>
+  <p>
+    The model table reports the condition-level alignment coefficient for the two planned outcomes. The robustness table
+    adds HC3 standard errors, within-attack permutation p-values, and targeted exclusions for known upstream fallback or
+    heuristic-warning rows. The permutation shuffles achieved alignment within attack family, preserving attack-level
+    outcome structure while breaking the alignment-outcome pairing.
+  </p>
+  <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>outcome</th>
+      <th>model_id</th>
+      <th>estimate</th>
+      <th>std_error</th>
+      <th>p_value</th>
+      <th>r_squared</th>
+      <th>n</th>
+      <th>df_resid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>mean_pn_increment_effectivity</td>
+      <td>main_fe_ols</td>
+      <td>2.399073</td>
+      <td>0.372712</td>
+      <td>0.000001</td>
+      <td>0.925359</td>
+      <td>35</td>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <td>mean_pn_increment_effectivity</td>
+      <td>main_fe_hc3</td>
+      <td>2.399073</td>
+      <td>0.445214</td>
+      <td>0.000018</td>
+      <td>0.925359</td>
+      <td>35</td>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <td>mean_ae_total_network</td>
+      <td>main_fe_ols</td>
+      <td>2.696917</td>
+      <td>0.712553</td>
+      <td>0.000958</td>
+      <td>0.971362</td>
+      <td>35</td>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <td>mean_ae_total_network</td>
+      <td>main_fe_hc3</td>
+      <td>2.696917</td>
+      <td>0.842795</td>
+      <td>0.003979</td>
+      <td>0.971362</td>
+      <td>35</td>
+      <td>23.0</td>
+    </tr>
+  </tbody>
+</table>
+  <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>outcome</th>
+      <th>model_id</th>
+      <th>estimate</th>
+      <th>std_error</th>
+      <th>p_value</th>
+      <th>n</th>
+      <th>excluded_rows</th>
+      <th>excluded_conditions</th>
+      <th>permutation_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>mean_pn_increment_effectivity</td>
+      <td>main_fe_ols</td>
+      <td>2.399073</td>
+      <td>0.372712</td>
+      <td>0.000001</td>
+      <td>35</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>mean_pn_increment_effectivity</td>
+      <td>main_fe_hc3</td>
+      <td>2.399073</td>
+      <td>0.445214</td>
+      <td>0.000018</td>
+      <td>35</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>mean_pn_increment_effectivity</td>
+      <td>within_attack_permutation</td>
+      <td>2.399073</td>
+      <td>0.372712</td>
+      <td>0.000200</td>
+      <td>35</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5000.0</td>
+    </tr>
+    <tr>
+      <td>mean_pn_increment_effectivity</td>
+      <td>exclude_upstream_fallback_rows</td>
+      <td>2.381390</td>
+      <td>0.373945</td>
+      <td>0.000002</td>
+      <td>35</td>
+      <td>11</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>mean_pn_increment_effectivity</td>
+      <td>exclude_post_heuristic_warning_conditions</td>
+      <td>2.315171</td>
+      <td>0.411635</td>
+      <td>0.000012</td>
+      <td>34</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>mean_ae_total_network</td>
+      <td>main_fe_ols</td>
+      <td>2.696917</td>
+      <td>0.712553</td>
+      <td>0.000958</td>
+      <td>35</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>mean_ae_total_network</td>
+      <td>main_fe_hc3</td>
+      <td>2.696917</td>
+      <td>0.842795</td>
+      <td>0.003979</td>
+      <td>35</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>mean_ae_total_network</td>
+      <td>within_attack_permutation</td>
+      <td>2.696917</td>
+      <td>0.712553</td>
+      <td>0.002000</td>
+      <td>35</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5000.0</td>
+    </tr>
+    <tr>
+      <td>mean_ae_total_network</td>
+      <td>exclude_upstream_fallback_rows</td>
+      <td>2.633305</td>
+      <td>0.714939</td>
+      <td>0.001231</td>
+      <td>35</td>
+      <td>11</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>mean_ae_total_network</td>
+      <td>exclude_post_heuristic_warning_conditions</td>
+      <td>2.524880</td>
+      <td>0.786238</td>
+      <td>0.004023</td>
+      <td>34</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+
+  <h2>6. Original Fixed Assignment Versus Counterfactual Branch</h2>
+  <p>
+    The original production Run 2 is still scientifically useful, but it was not designed to create strong variation in
+    susceptible profiles occupying influential sender positions. The table below is included only as context: the branch
+    widens the alignment range intentionally and therefore provides the cleaner H3/H4 mechanism test.
+  </p>
+  <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>source</th>
+      <th>outcome</th>
+      <th>n_conditions</th>
+      <th>alignment_min</th>
+      <th>alignment_max</th>
+      <th>alignment_sd</th>
+      <th>estimate</th>
+      <th>std_error</th>
+      <th>p_value</th>
+      <th>r_squared</th>
+      <th>interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>original_fixed_assignment_run_2</td>
+      <td>mean_pn_increment_effectivity</td>
+      <td>35</td>
+      <td>-0.276558</td>
+      <td>0.289130</td>
+      <td>0.141696</td>
+      <td>1.881844</td>
+      <td>1.946817</td>
+      <td>0.343786</td>
+      <td>0.855101</td>
+      <td>Natural observed assignment; limited alignment range.</td>
+    </tr>
+    <tr>
+      <td>original_fixed_assignment_run_2</td>
+      <td>mean_ae_total_network</td>
+      <td>35</td>
+      <td>-0.276558</td>
+      <td>0.289130</td>
+      <td>0.141696</td>
+      <td>2.399947</td>
+      <td>3.303430</td>
+      <td>0.474861</td>
+      <td>0.966106</td>
+      <td>Natural observed assignment; limited alignment range.</td>
+    </tr>
+    <tr>
+      <td>alignment_gradient_branch</td>
+      <td>mean_pn_increment_effectivity</td>
+      <td>35</td>
+      <td>-0.891799</td>
+      <td>0.920084</td>
+      <td>0.605507</td>
+      <td>2.399073</td>
+      <td>0.372712</td>
+      <td>0.000001</td>
+      <td>0.925359</td>
+      <td>Counterfactual assignment; experimentally widened alignment range.</td>
+    </tr>
+    <tr>
+      <td>alignment_gradient_branch</td>
+      <td>mean_ae_total_network</td>
+      <td>35</td>
+      <td>-0.891799</td>
+      <td>0.920084</td>
+      <td>0.605507</td>
+      <td>2.696917</td>
+      <td>0.712553</td>
+      <td>0.000958</td>
+      <td>0.971362</td>
+      <td>Counterfactual assignment; experimentally widened alignment range.</td>
+    </tr>
+  </tbody>
+</table>
+
+  <h2>7. Quality Gates And Condition Table</h2>
+  <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>metric</th>
+      <th>value</th>
+      <th>expected</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>merged_stage04b_rows</td>
+      <td>3500.000000</td>
+      <td>3500.0</td>
+      <td>pass</td>
+    </tr>
+    <tr>
+      <td>stage05_rows</td>
+      <td>3500.000000</td>
+      <td>3500.0</td>
+      <td>pass</td>
+    </tr>
+    <tr>
+      <td>condition_count</td>
+      <td>35.000000</td>
+      <td>35.0</td>
+      <td>pass</td>
+    </tr>
+    <tr>
+      <td>stage04b_fallback_count</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>pass</td>
+    </tr>
+    <tr>
+      <td>stage04b_skipped_count</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>pass</td>
+    </tr>
+    <tr>
+      <td>max_alignment_abs_error_x1000</td>
+      <td>27.250098</td>
+      <td>30.0</td>
+      <td>pass</td>
+    </tr>
+  </tbody>
+</table>
+  <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>alignment_condition_id</th>
+      <th>opinion_label</th>
+      <th>attack_label</th>
+      <th>target_alignment_z</th>
+      <th>achieved_alignment_z</th>
+      <th>alignment_abs_error</th>
+      <th>n_profiles</th>
+      <th>mean_pn_increment_effectivity</th>
+      <th>mean_ae_total_network</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>condition_01__alliance_commitment_support__headline_and_lede_misframing</td>
+      <td>Alliance_Commitment_Support</td>
+      <td>Headline_And_Lede_Misframing</td>
+      <td>-0.9</td>
+      <td>-0.872750</td>
+      <td>0.027250</td>
+      <td>100</td>
+      <td>11.92</td>
+      <td>32.34</td>
+    </tr>
+    <tr>
+      <td>condition_26__energy_sovereignty_investment_support__repost_bot_amplification</td>
+      <td>Energy_Sovereignty_Investment_Support</td>
+      <td>Repost_Bot_Amplification</td>
+      <td>-0.9</td>
+      <td>-0.883145</td>
+      <td>0.016855</td>
+      <td>100</td>
+      <td>14.72</td>
+      <td>49.97</td>
+    </tr>
+    <tr>
+      <td>condition_20__national_sovereignty_priority__credentialed_domain_persona_fabrication</td>
+      <td>National_Sovereignty_Priority</td>
+      <td>Credentialed_Domain_Persona_Fabrication</td>
+      <td>-0.9</td>
+      <td>-0.880648</td>
+      <td>0.019352</td>
+      <td>100</td>
+      <td>14.91</td>
+      <td>51.46</td>
+    </tr>
+    <tr>
+      <td>condition_14__trade_with_authoritarian_states_support__quote_context_stripping</td>
+      <td>Trade_With_Authoritarian_States_Support</td>
+      <td>Quote_Context_Stripping</td>
+      <td>-0.9</td>
+      <td>-0.879152</td>
+      <td>0.020848</td>
+      <td>100</td>
+      <td>8.67</td>
+      <td>27.91</td>
+    </tr>
+    <tr>
+      <td>condition_32__trust_in_electoral_process__petition_astroturf</td>
+      <td>Trust_In_Electoral_Process</td>
+      <td>Petition_Astroturf</td>
+      <td>-0.9</td>
+      <td>-0.891799</td>
+      <td>0.008201</td>
+      <td>100</td>
+      <td>16.50</td>
+      <td>52.23</td>
+    </tr>
+    <tr>
+      <td>condition_08__alliance_commitment_support__quote_context_stripping</td>
+      <td>Alliance_Commitment_Support</td>
+      <td>Quote_Context_Stripping</td>
+      <td>-0.6</td>
+      <td>-0.602127</td>
+      <td>0.002127</td>
+      <td>100</td>
+      <td>10.48</td>
+      <td>29.27</td>
+    </tr>
+    <tr>
+      <td>condition_33__energy_sovereignty_investment_support__petition_astroturf</td>
+      <td>Energy_Sovereignty_Investment_Support</td>
+      <td>Petition_Astroturf</td>
+      <td>-0.6</td>
+      <td>-0.595774</td>
+      <td>0.004226</td>
+      <td>100</td>
+      <td>14.12</td>
+      <td>48.57</td>
+    </tr>
+    <tr>
+      <td>condition_27__national_sovereignty_priority__repost_bot_amplification</td>
+      <td>National_Sovereignty_Priority</td>
+      <td>Repost_Bot_Amplification</td>
+      <td>-0.6</td>
+      <td>-0.599975</td>
+      <td>0.000025</td>
+      <td>100</td>
+      <td>14.70</td>
+      <td>49.59</td>
+    </tr>
+    <tr>
+      <td>condition_21__trade_with_authoritarian_states_support__credentialed_domain_persona_fabrication</td>
+      <td>Trade_With_Authoritarian_States_Support</td>
+      <td>Credentialed_Domain_Persona_Fabrication</td>
+      <td>-0.6</td>
+      <td>-0.580329</td>
+      <td>0.019671</td>
+      <td>100</td>
+      <td>12.18</td>
+      <td>49.79</td>
+    </tr>
+    <tr>
+      <td>condition_02__unilateralism_preference__headline_and_lede_misframing</td>
+      <td>Unilateralism_Preference</td>
+      <td>Headline_And_Lede_Misframing</td>
+      <td>-0.6</td>
+      <td>-0.586288</td>
+      <td>0.013712</td>
+      <td>100</td>
+      <td>9.07</td>
+      <td>28.84</td>
+    </tr>
+    <tr>
+      <td>condition_15__alliance_commitment_support__credentialed_domain_persona_fabrication</td>
+      <td>Alliance_Commitment_Support</td>
+      <td>Credentialed_Domain_Persona_Fabrication</td>
+      <td>-0.3</td>
+      <td>-0.289482</td>
+      <td>0.010518</td>
+      <td>100</td>
+      <td>20.70</td>
+      <td>61.04</td>
+    </tr>
+    <tr>
+      <td>condition_34__national_sovereignty_priority__petition_astroturf</td>
+      <td>National_Sovereignty_Priority</td>
+      <td>Petition_Astroturf</td>
+      <td>-0.3</td>
+      <td>-0.285816</td>
+      <td>0.014184</td>
+      <td>100</td>
+      <td>15.32</td>
+      <td>51.49</td>
+    </tr>
+    <tr>
+      <td>condition_28__trade_with_authoritarian_states_support__repost_bot_amplification</td>
+      <td>Trade_With_Authoritarian_States_Support</td>
+      <td>Repost_Bot_Amplification</td>
+      <td>-0.3</td>
+      <td>-0.299935</td>
+      <td>0.000065</td>
+      <td>100</td>
+      <td>12.57</td>
+      <td>44.55</td>
+    </tr>
+    <tr>
+      <td>condition_03__trust_in_mainstream_journalism__headline_and_lede_misframing</td>
+      <td>Trust_In_Mainstream_Journalism</td>
+      <td>Headline_And_Lede_Misframing</td>
+      <td>-0.3</td>
+      <td>-0.300888</td>
+      <td>0.000888</td>
+      <td>100</td>
+      <td>12.61</td>
+      <td>31.74</td>
+    </tr>
+    <tr>
+      <td>condition_09__unilateralism_preference__quote_context_stripping</td>
+      <td>Unilateralism_Preference</td>
+      <td>Quote_Context_Stripping</td>
+      <td>-0.3</td>
+      <td>-0.300667</td>
+      <td>0.000667</td>
+      <td>100</td>
+      <td>9.07</td>
+      <td>27.50</td>
+    </tr>
+    <tr>
+      <td>condition_22__alliance_commitment_support__repost_bot_amplification</td>
+      <td>Alliance_Commitment_Support</td>
+      <td>Repost_Bot_Amplification</td>
+      <td>0.0</td>
+      <td>0.000210</td>
+      <td>0.000210</td>
+      <td>100</td>
+      <td>16.29</td>
+      <td>48.89</td>
+    </tr>
+    <tr>
+      <td>condition_35__trade_with_authoritarian_states_support__petition_astroturf</td>
+      <td>Trade_With_Authoritarian_States_Support</td>
+      <td>Petition_Astroturf</td>
+      <td>0.0</td>
+      <td>-0.000068</td>
+      <td>0.000068</td>
+      <td>100</td>
+      <td>14.12</td>
+      <td>49.12</td>
+    </tr>
+    <tr>
+      <td>condition_04__trust_in_electoral_process__headline_and_lede_misframing</td>
+      <td>Trust_In_Electoral_Process</td>
+      <td>Headline_And_Lede_Misframing</td>
+      <td>0.0</td>
+      <td>-0.000243</td>
+      <td>0.000243</td>
+      <td>100</td>
+      <td>14.14</td>
+      <td>34.51</td>
+    </tr>
+    <tr>
+      <td>condition_10__trust_in_mainstream_journalism__quote_context_stripping</td>
+      <td>Trust_In_Mainstream_Journalism</td>
+      <td>Quote_Context_Stripping</td>
+      <td>0.0</td>
+      <td>0.016835</td>
+      <td>0.016835</td>
+      <td>100</td>
+      <td>13.04</td>
+      <td>32.54</td>
+    </tr>
+    <tr>
+      <td>condition_16__unilateralism_preference__credentialed_domain_persona_fabrication</td>
+      <td>Unilateralism_Preference</td>
+      <td>Credentialed_Domain_Persona_Fabrication</td>
+      <td>0.0</td>
+      <td>0.007896</td>
+      <td>0.007896</td>
+      <td>100</td>
+      <td>14.53</td>
+      <td>50.65</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

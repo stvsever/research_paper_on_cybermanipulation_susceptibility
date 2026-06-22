@@ -20,7 +20,7 @@ SEM_CSV = STAGE6 / "sem_coefficients.csv"
 EXPL_CSV = STAGE6 / "exploratory_moderator_comparison.csv"
 
 OUT_DIRS = [
-    PROJECT_ROOT / "research_report" / "assets" / "figures",
+    PROJECT_ROOT / "report" / "assets" / "figures",
     PROJECT_ROOT / "evaluation" / "run_1" / "publication_assets" / "figures",
 ]
 

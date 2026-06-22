@@ -64,7 +64,7 @@ python src/backend/pipeline/full/run_full_pipeline.py \
   --primary-moderator "${PRIMARY_MODERATOR:-posthoc_profile_susceptibility_index}" \
   --bootstrap-samples "${BOOTSTRAP_SAMPLES:-600}" \
   --paper-title "${PAPER_TITLE:-Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Constrained Multi-Agent Simulation Approach}" \
-  --report-root "${REPORT_ROOT:-research_report/report}" \
-  --report-assets-root "${REPORT_ASSETS_ROOT:-research_report/assets}" \
+  --report-root "${REPORT_ROOT:-report/report}" \
+  --report-assets-root "${REPORT_ASSETS_ROOT:-report/assets}" \
   "${extra_flags[@]}" \
   "$@"

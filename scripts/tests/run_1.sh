@@ -72,8 +72,8 @@ mkdir -p "evaluation/tests/logs"
     --output-root        "evaluation/tests/run_1" \
     --run-id             "run_1" \
     --paper-title        "Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Constrained Multi-Agent Simulation Approach" \
-    --report-root        "research_report/report" \
-    --report-assets-root "research_report/assets" \
+    --report-root        "report/report" \
+    --report-assets-root "report/assets" \
     --n-profiles         60 \
     --seed               120 \
     --attack-ratio       1.0 \

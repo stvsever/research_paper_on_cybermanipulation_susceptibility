@@ -1,0 +1,28 @@
+\begin{table}[htbp]
+\floatleft
+\caption{Direction-aware Private and Network-effect Quantities}
+\label{tab:network-deltas}
+\vspace{2pt}
+\begingroup\small
+\begin{tabularx}{\linewidth}{@{}p{0.27\linewidth}p{0.24\linewidth}Y@{}}
+\toprule
+Quantity & Formula & Interpretation \\
+\midrule
+Private susceptibility & $\mathrm{AE}^{\mathrm{private}} = (P-B)d$ &
+Direction-aware private attack success for one profile. \\
+Baseline network increment & $N^B-B$ &
+How baseline peer context shifts the pre-attack opinion. \\
+Post-network increment & $N^P-P$ &
+How same-condition peer context shifts the post-attack opinion. \\
+Post-network effectivity & $(N^P-P)d$ &
+Whether peer context amplifies or dampens the attack direction. \\
+Network-conditioned attack effect & $(N^P-N^B)d$ &
+Direction-aware attack effect between the network-conditioned baseline and post-attack states. \\
+Total network attack effect & $\mathrm{AE}^{\mathrm{total}} = (N^P-B)d$ &
+Final direction-aware attack effect after private and network exposure. \\
+\bottomrule
+\end{tabularx}
+\endgroup
+\apanote{Multiplication by $d$ places all attack effects on the same interpretation scale:
+positive values indicate movement toward the adversarial goal.}
+\end{table}

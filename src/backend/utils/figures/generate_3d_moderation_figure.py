@@ -23,7 +23,7 @@ LONG_CSV = (
     / "05_compute_effectivity_deltas" / "sem_long_encoded.csv"
 )
 OUT_DIRS = [
-    PROJECT_ROOT / "research_report" / "assets" / "figures",
+    PROJECT_ROOT / "report" / "assets" / "figures",
     PROJECT_ROOT / "evaluation" / "run_1" / "publication_assets" / "figures",
 ]
 

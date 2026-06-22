@@ -1,7 +1,7 @@
 """
 Generate figure_5_3d_factorial_effectivity:
 A 3D bar chart of mean adversarial effectivity across the 4 attack × 4 opinion factorial.
-Saved to both research_report/assets/figures/ and evaluation/tests/run_1/publication_assets/figures/.
+Saved to both report/assets/figures/ and evaluation/tests/run_1/publication_assets/figures/.
 """
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 LONG_CSV = PROJECT_ROOT / "evaluation" / "run_1" / "stage_outputs" / "05_compute_effectivity_deltas" / "sem_long_encoded.csv"
 
 OUT_DIRS = [
-    PROJECT_ROOT / "research_report" / "assets" / "figures",
+    PROJECT_ROOT / "report" / "assets" / "figures",
     PROJECT_ROOT / "evaluation" / "run_1" / "publication_assets" / "figures",
 ]
 

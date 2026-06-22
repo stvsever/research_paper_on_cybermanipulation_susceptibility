@@ -1,6 +1,6 @@
 """
 Standalone script: generate supplementary_figure_s5_hierarchical_moderation.
-Saves PDF + PNG to research_report/assets/figures/.
+Saves PDF + PNG to report/assets/figures/.
 """
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ import matplotlib.patches as mpatches
 import numpy as np
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-OUTPUT_DIR = PROJECT_ROOT / "research_report" / "assets" / "figures"
+OUTPUT_DIR = PROJECT_ROOT / "report" / "assets" / "figures"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ── colours ──────────────────────────────────────────────────────────────────

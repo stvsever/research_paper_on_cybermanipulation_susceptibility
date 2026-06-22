@@ -144,8 +144,8 @@ COMMON_ARGS=(
     --output-root           "evaluation/tests/run_4"
     --run-id                "run_4"
     --paper-title           "Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Constrained Multi-Agent Simulation Approach"
-    --report-root           "research_report/report"
-    --report-assets-root    "research_report/assets"
+    --report-root           "report/report"
+    --report-assets-root    "report/assets"
     --integrated-scenarios-path "${INTEGRATED_SCENARIOS}"
     --n-scenarios           200
     --focus-opinion-domains "${FOCUS_DOMAINS}"

@@ -71,8 +71,8 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--output-root", default="evaluation/tests/run_1")
     parser.add_argument("--run-id", default="run_1")
     parser.add_argument("--paper-title", default=DEFAULT_PAPER_TITLE)
-    parser.add_argument("--report-root", default="research_report/report")
-    parser.add_argument("--report-assets-root", default="research_report/assets")
+    parser.add_argument("--report-root", default="report/report")
+    parser.add_argument("--report-assets-root", default="report/assets")
 
     parser.add_argument("--n-scenarios", type=int, default=10)
     parser.add_argument("--n-profiles", type=int, default=None)
@@ -416,13 +416,13 @@ def _copy_outputs(stage_outputs_root: Path, output_root: Path) -> None:
 
     if stage09.exists():
         for filename in ["report_summary.json"]:
-            for source_root in [PROJECT_ROOT / "research_report" / "report", stage09]:
+            for source_root in [PROJECT_ROOT / "report" / "report", stage09]:
                 src = source_root / filename
                 if src.exists():
                     shutil.copy2(src, paper_dir / filename)
                     break
         for filename in ["main.tex", "main.pdf", "references.bib"]:
-            for source_root in [PROJECT_ROOT / "research_report" / "report", stage09]:
+            for source_root in [PROJECT_ROOT / "report" / "report", stage09]:
                 src = source_root / filename
                 if src.exists():
                     shutil.copy2(src, paper_dir / filename)

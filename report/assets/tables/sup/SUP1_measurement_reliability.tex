@@ -1,0 +1,40 @@
+\begin{table}[H]
+\floatleft
+\caption{Measurement Reliability by Outcome and Reliability Tier}
+\label{tab:s1}
+\vspace{2pt}
+\begingroup\small
+\textit{Panel A. Test-retest, primary model re-scored twice ($n=457$, $k=2$ iterations)}\par\vspace{2pt}
+\begin{tabularx}{\linewidth}{@{}Ycccc@{}}
+\toprule
+Outcome & ICC(A,1) & ICC(A,$k$) & Pearson $r$ & Spearman $\rho$ \\
+\midrule
+Baseline opinion ($B$) & 0.79 & 0.89 & 0.80 & 0.77 \\
+Post-attack opinion ($P$) & 0.79 & 0.88 & 0.79 & 0.77 \\
+Signed delta ($P-B$) & 0.53 & 0.70 & 0.55 & 0.38 \\
+Effectivity ($\mathrm{AE}$) & 0.16 & 0.28 & 0.17 & 0.17 \\
+\bottomrule
+\end{tabularx}
+
+\vspace{6pt}
+\textit{Panel B. Cross-provider, five independent model families ($n=311$, $k=5$ raters)}\par\vspace{2pt}
+\begin{tabularx}{\linewidth}{@{}Yccc@{}}
+\toprule
+Outcome & ICC(A,1) & ICC(A,$k$) & Mean pairwise Spearman $\rho$ \\
+\midrule
+Baseline opinion ($B$) & 0.57 & 0.87 & 0.52 \\
+Post-attack opinion ($P$) & 0.43 & 0.79 & 0.46 \\
+Signed delta ($P-B$) & 0.03 & 0.13 & --- \\
+Effectivity ($\mathrm{AE}$) & 0.01 & 0.03 & 0.12 \\
+\bottomrule
+\end{tabularx}
+\endgroup
+\apanote{Absolute-agreement intraclass correlations; ICC(A,1) is the reliability of a single
+rater and ICC(A,$k$) that of the $k$-rater mean. The five cross-provider families are DeepSeek
+V4 Flash, GPT-OSS 120B, Qwen3 32B, Nemotron 3 Nano 30B, and Llama 3.3 70B. Opinion levels are
+reproducible and aggregate well across raters, whereas the direction-adjusted effectivity is
+intrinsically noisier because a difference score amplifies level noise. Under a percentile
+(rank) transform the cross-provider level agreement recovers to a mean pairwise Spearman of
+0.51, while the delta percentile remains at 0.12, so aggregate and direction-level findings are
+emphasised over fine-grained per-scenario delta magnitudes.}
+\end{table}

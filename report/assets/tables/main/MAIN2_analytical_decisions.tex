@@ -1,0 +1,35 @@
+\begin{table}[htbp]
+\floatleft
+\caption{Analytical Decisions Held Constant Across the Multi-agent Simulation}
+\label{tab:design}
+\vspace{2pt}
+\begingroup\small
+\begin{tabularx}{\linewidth}{@{}p{0.26\linewidth}p{0.27\linewidth}Y@{}}
+\toprule
+Decision dimension & Fixed setting & Rationale \\
+\midrule
+Scoring model & DeepSeek V4 Flash via OpenRouter & One instrument across all scenarios removes
+model as a hidden moderator \\
+Reasoning traces & Disabled & Reasoning-only responses break strict JSON scoring and inflate
+variance \\
+Decoding temperature & 0.15 & Near-deterministic scoring while retaining minimal variation \\
+Response format & Fixed JSON schema (score, confidence, rationale) & Comparable, machine-checkable
+outputs per leaf \\
+Opinion scale & Bipolar $-1000$ to $+1000$ (2,001 positions) & High-resolution, signed, and
+direction-ready \\
+Measurement order & Private baseline, then private post-attack & Isolates the attack from social
+or order cues \\
+Response interval & Closed by baseline and direction $d_\ell$ & Confines movement to the
+predefined adversarial axis \\
+Prompt batching & Cluster-batched leaves, leaf-level scoring & Preserves topical context without
+averaging directions \\
+Scenario sampling & Maximum-entropy, bijective profiles & Counteracts range restriction across
+the joint space \\
+\bottomrule
+\end{tabularx}
+\endgroup
+\apanote{Configuration decisions are fixed in advance and reported as design parameters rather
+than left as undocumented analytic flexibility, following the silicon-sample reproducibility
+argument of \citet{cummins2025threat}. Exact run-level provenance appears in
+Table~\ref{tab:s4config}.}
+\end{table}

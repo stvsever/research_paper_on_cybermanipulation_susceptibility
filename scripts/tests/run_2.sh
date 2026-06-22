@@ -91,8 +91,8 @@ mkdir -p "evaluation/tests/run_2/logs"
     --output-root           "evaluation/tests/run_2" \
     --run-id                "run_2" \
     --paper-title           "Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Constrained Multi-Agent Simulation Approach" \
-    --report-root           "research_report/report" \
-    --report-assets-root    "research_report/assets" \
+    --report-root           "report/report" \
+    --report-assets-root    "report/assets" \
     --integrated-scenarios-path "${INTEGRATED_SCENARIOS}" \
     --n-scenarios           100 \
     --seed                  120 \

@@ -153,7 +153,7 @@ research_paper_on_cybermanipulation_susceptibility/
         `-- utils/                 (core: io, schemas, ontology_utils, logging; grouped: figures/, reporting/, analysis/, scenario/, embeddings/, network_exposure/)
 ```
 
-`research_report/`, local virtual environments, editor files, local frontends, and `.env` files are intentionally excluded from the repository.
+The compiled paper and its assets live in `report/` (LaTeX source, figures, tables, and `main.pdf`). Local virtual environments, editor files, local frontends, and `.env` files are intentionally excluded from the repository.
 
 ---
 

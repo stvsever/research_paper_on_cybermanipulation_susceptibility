@@ -50,7 +50,7 @@ DEFAULT_ONTOLOGY_CATALOG = (
 )
 
 DEFAULT_OUTPUT_DIRS = [
-    ROOT / "research_report" / "assets" / "figures",
+    ROOT / "report" / "assets" / "figures",
     ROOT / "evaluation" / "run_1" / "publication_assets" / "figures",
     ROOT / "evaluation" / "run_1" / "paper" / "publication_assets" / "figures",
     ROOT / "evaluation" / "run_1" / "stage_outputs" / "08_generate_publication_assets" / "figures",

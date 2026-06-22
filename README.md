@@ -19,9 +19,9 @@
 ## 📋 Table of Contents
 
 - [🧬 Abstract](#abstract)
-- [🗂️ Repository Structure](#repository-structure)
 - [🔄 Pipeline](#pipeline)
 - [🔬 Pipeline Runs](#pipeline-runs)
+- [🗂️ Repository Structure](#repository-structure)
 - [⚙️ Setup](#setup)
 - [🚀 Manual Run](#manual-run)
 - [📚 Citation](#citation)

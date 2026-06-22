@@ -452,8 +452,7 @@ def _prepare_metrics(df: pd.DataFrame, numeric_df: pd.DataFrame, attack_ref: pd.
     numeric_clean = numeric_clean.loc[:, numeric_clean.notna().mean() > 0.99]
     numeric_clean = numeric_clean.loc[:, numeric_clean.std(ddof=0) > 0]
     highres_corr = numeric_clean.corr(method="spearman")
-    abs_corr = highres_corr.abs().copy()
-    np.fill_diagonal(abs_corr.values, np.nan)
+    abs_corr = _nan_diagonal(highres_corr.abs())
     feature_score = abs_corr.mean(axis=1).sort_values(ascending=False)
     selected_highres = feature_score.head(34).index.tolist()
     highres_corr_top = highres_corr.loc[selected_highres, selected_highres]
@@ -534,13 +533,45 @@ def _panel_label(ax: plt.Axes, label: str) -> None:
     ax.text(-0.03, 1.04, label, transform=ax.transAxes, fontsize=15, fontweight="bold", va="top", ha="left")
 
 
+def _nan_diagonal(frame: pd.DataFrame) -> pd.DataFrame:
+    """Return a copy of a square frame with NaN on the diagonal.
+
+    Writes into a fresh array; recent NumPy returns a read-only view from
+    ``DataFrame.values``, which breaks in-place ``np.fill_diagonal``."""
+    arr = frame.to_numpy(dtype=float, copy=True)
+    np.fill_diagonal(arr, np.nan)
+    return pd.DataFrame(arr, index=frame.index, columns=frame.columns)
+
+
+def _autocrop_white(img: np.ndarray, tol: float = 0.965, pad: int = 6) -> np.ndarray:
+    """Trim the near-white outer border of an embedded PNG.
+
+    The 3D source renders carry wide white margins; removing them lets the
+    scatter fill the panel and sit flush left instead of floating with dead
+    space on either side. Interior whitespace inside the data bounding box is
+    preserved (only the outer margin is cropped)."""
+    arr = img.astype(float)
+    if arr.max() > 1.0:
+        arr = arr / 255.0
+    rgb = arr[..., :3] if arr.ndim == 3 else arr
+    ink = np.any(rgb < tol, axis=-1) if rgb.ndim == 3 else (rgb < tol)
+    if not ink.any():
+        return img
+    rows = np.where(ink.any(axis=1))[0]
+    cols = np.where(ink.any(axis=0))[0]
+    r0, r1 = max(0, rows.min() - pad), min(img.shape[0], rows.max() + 1 + pad)
+    c0, c1 = max(0, cols.min() - pad), min(img.shape[1], cols.max() + 1 + pad)
+    return img[r0:r1, c0:c1]
+
+
 def _embed_source_png(ax: plt.Axes, path: Path, title: str) -> None:
     ax.set_title(title)
     ax.axis("off")
     if not path.exists():
         ax.text(0.5, 0.5, f"Missing source image:\n{path.name}", ha="center", va="center", fontsize=12)
         return
-    ax.imshow(mpimg.imread(path))
+    ax.imshow(_autocrop_white(mpimg.imread(path)), aspect="equal")
+    ax.set_anchor("W")  # flush-left within the panel, removing the right-side gap
 
 
 def _make_figure_01(df: pd.DataFrame, attack_ref: pd.DataFrame, metrics: Dict[str, Any]) -> None:
@@ -711,7 +742,6 @@ def _make_figure_01(df: pd.DataFrame, attack_ref: pd.DataFrame, metrics: Dict[st
     ax5.legend(title="", loc="upper right", fontsize=9)
     _panel_label(ax5, "F")
 
-    fig.suptitle("Supplementary sample diagnostics: realized integrated 10K design", fontsize=22, fontweight="bold")
     fig.savefig(FIGURE_01, dpi=260, bbox_inches="tight")
     plt.close(fig)
 
@@ -763,8 +793,7 @@ def _make_figure_02(df: pd.DataFrame, metrics: Dict[str, Any]) -> None:
     _panel_label(ax1, "B")
 
     ax2 = fig.add_subplot(gs[0, 2])
-    design = metrics["design_cramers"].copy()
-    np.fill_diagonal(design.values, np.nan)
+    design = _nan_diagonal(metrics["design_cramers"])
     sns.heatmap(design, ax=ax2, cmap="mako", vmin=0, vmax=max(0.10, np.nanmax(design.to_numpy())), cbar_kws={"label": "Cramer's V"})
     ax2.set_title("Cross-factor association audit")
     ax2.tick_params(axis="x", labelrotation=45, labelsize=8)
@@ -824,15 +853,13 @@ def _make_figure_02(df: pd.DataFrame, metrics: Dict[str, Any]) -> None:
     _panel_label(ax4, "E")
 
     ax5 = fig.add_subplot(gs[1, 2])
-    cat = metrics["cat_cramers"].copy()
-    np.fill_diagonal(cat.values, np.nan)
+    cat = _nan_diagonal(metrics["cat_cramers"])
     sns.heatmap(cat, ax=ax5, cmap="mako", vmin=0, vmax=max(0.12, np.nanmax(cat.to_numpy())), cbar_kws={"label": "Cramer's V"})
     ax5.set_title("Categorical profile moderator association")
     ax5.tick_params(axis="x", labelrotation=55, labelsize=7)
     ax5.tick_params(axis="y", labelsize=7)
     _panel_label(ax5, "F")
 
-    fig.suptitle("Supplementary sample diagnostics: entropy preservation and moderator readiness", fontsize=22, fontweight="bold")
     fig.savefig(FIGURE_02, dpi=260, bbox_inches="tight")
     plt.close(fig)
 

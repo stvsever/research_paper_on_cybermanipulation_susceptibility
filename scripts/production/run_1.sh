@@ -148,7 +148,7 @@ COMMON_ARGS=(
     --profile-generation-mode deterministic
     --no-self-supervise-opinion-coherence
     --no-self-supervise-attack-realism
-    --coherence-threshold   0.74
+    --coherence-threshold   0.75
     "${VERBOSE_FLAG}"
     --no-generate-visuals
     --no-export-static-figures

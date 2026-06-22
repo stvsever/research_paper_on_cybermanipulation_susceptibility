@@ -114,12 +114,31 @@ def _scenario_frame(df: pd.DataFrame) -> Tuple[pd.DataFrame, Dict[str, List[str]
     prof_cont = [c for c in work.columns if c.startswith("profile_cont_") and not any(d in c for d in _DERIVED)]
     # near-constant guard
     prof_cont = [c for c in prof_cont if pd.to_numeric(work[c], errors="coerce").std(ddof=0) > 1e-9]
+    # Key categorical demographics are encoded as binary numeric moderators so that they
+    # enter the family, univariate, cross-family, and by-domain analyses on the same footing
+    # as the continuous constructs (otherwise sex, gender, and citizenship go unused).
+    cat_src = {
+        "profile_cat_sex": ("demographic_sex_female", lambda s: (s.astype(str) == "Female").astype(float)),
+        "profile_cat_demographic_gender_modality": ("demographic_gender_diverse",
+                                                    lambda s: (s.astype(str) != "Cisgender").astype(float)),
+        "profile_cat_demographic_citizenship_status": ("demographic_citizen",
+                                                       lambda s: (s.astype(str) == "Citizen").astype(float)),
+    }
     agg = {"ae": (_AE, "mean"), "opinion_domain": ("opinion_domain", "first")}
     for c in prof_cont:
         agg[c] = (c, "first")
     if "sex" in work.columns:
         agg["sex"] = ("sex", "first")
+    for src in cat_src:
+        if src in work.columns:
+            agg[src] = (src, "first")
     scn = work.groupby("_scn").agg(**agg).reset_index()
+    for src, (name, fn) in cat_src.items():
+        if src in scn.columns:
+            col = "profile_cont_" + name
+            scn[col] = fn(scn[src])
+            if scn[col].std(ddof=0) > 1e-9:
+                prof_cont.append(col)
     fams: Dict[str, List[str]] = {}
     for c in prof_cont:
         fams.setdefault(_family_of(c), []).append(c)
@@ -229,6 +248,9 @@ _CURATED_PATTERNS = [
     ("Moral Foundations", "MFT authority", "moral_foundations_theory_authority_subversion_mean_pct"),
     ("Moral Foundations", "MFT sanctity", "moral_foundations_theory_sanctity_degradation_mean_pct"),
     ("Demographics", "Age", "age_years"),
+    ("Demographics", "Sex (female)", "demographic_sex_female"),
+    ("Demographics", "Gender diverse", "demographic_gender_diverse"),
+    ("Demographics", "Citizen", "demographic_citizen"),
 ]
 
 
@@ -257,12 +279,6 @@ def _curated_model(scn: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
             continue
         X_parts.append(((x - x.mean()) / x.std(ddof=0)).fillna(0.0).to_numpy())
         labels.append(label); fams.append(fam)
-    # add sex (binary Female) if present
-    if "sex" in scn.columns:
-        female = scn["sex"].astype(str).str.lower().str.startswith("f").astype(float)
-        if female.std(ddof=0) > 1e-9:
-            X_parts.append(((female - female.mean()) / female.std(ddof=0)).to_numpy())
-            labels.append("Sex (female)"); fams.append("Demographics")
     X = np.column_stack(X_parts)
     Xc = sm.add_constant(X)
     res = sm.OLS(y, Xc).fit(cov_type="HC3")
@@ -321,8 +337,10 @@ def _by_domain(scn: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
                 continue
             xs = ((x - x.mean()) / x.std(ddof=0)).fillna(0.0)
             res = sm.OLS(y, sm.add_constant(xs.to_numpy())).fit(cov_type="HC3")
+            ci = res.conf_int()
             out.append({"domain": dom, "family": fam, "moderator": label,
-                        "beta_std": float(res.params[1]), "p_value": float(res.pvalues[1])})
+                        "beta_std": float(res.params[1]), "ci_low": float(ci[1][0]),
+                        "ci_high": float(ci[1][1]), "p_value": float(res.pvalues[1]), "n": int(len(g))})
     df = pd.DataFrame(out)
     if not df.empty:
         # Correct within each (domain, family) cell: each construct family inside a

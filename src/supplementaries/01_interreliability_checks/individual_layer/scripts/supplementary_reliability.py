@@ -990,6 +990,31 @@ def _compute_provider_weighted_reliability(cross: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def _panel_label(ax: plt.Axes, label: str) -> None:
+    """Bold APA-style panel tag (A, B, ...) in each panel's top-left corner.
+
+    Uses ``text2D`` on 3D axes so the tag stays pinned to the panel frame rather
+    than floating in data space."""
+    placer = getattr(ax, "text2D", ax.text)
+    placer(
+        -0.04,
+        1.06,
+        label,
+        transform=ax.transAxes,
+        fontsize=17,
+        fontweight="bold",
+        va="top",
+        ha="left",
+        color="#111111",
+        zorder=10,
+    )
+
+
+def _tag_panels(axes: Sequence[plt.Axes]) -> None:
+    for ax, tag in zip(axes, "ABCDEFGH"):
+        _panel_label(ax, tag)
+
+
 def _make_cross_provider_figures(
     cross: pd.DataFrame,
     provider_summary: pd.DataFrame,
@@ -1201,11 +1226,7 @@ def _make_cross_provider_figures(
     ax5.tick_params(axis="x", labelrotation=35, labelsize=10)
     ax5.tick_params(axis="y", labelsize=10)
 
-    fig.suptitle(
-        "Cross-provider inter-rater reliability on the tiny integrated scenario subset",
-        fontsize=22,
-        fontweight="bold",
-    )
+    _tag_panels([ax0, ax1, ax2, ax3, ax4, ax5])
     out = IMAGES_DIR / "01_cross_provider" / "cross_provider_reliability_main.png"
     fig.savefig(out, dpi=260, bbox_inches="tight")
     fig.savefig(out.with_suffix(".pdf"), bbox_inches="tight")
@@ -1425,11 +1446,7 @@ def _make_cross_provider_robustness_figures(
     ax5.tick_params(axis="x", labelrotation=35, labelsize=10)
     ax5.tick_params(axis="y", labelsize=10)
 
-    fig.suptitle(
-        "Cross-provider raw, percentile, and rank reliability checks on the tiny subset",
-        fontsize=22,
-        fontweight="bold",
-    )
+    _tag_panels([ax0, ax1, ax2, ax3, ax4, ax5])
     out = IMAGES_DIR / "04_rank_robustness" / "cross_provider_rank_robustness_main.png"
     fig.savefig(out, dpi=260, bbox_inches="tight")
     fig.savefig(out.with_suffix(".pdf"), bbox_inches="tight")
@@ -1594,11 +1611,7 @@ def _make_test_retest_figures(
     for label in ax5.get_xticklabels():
         label.set_horizontalalignment("right")
 
-    fig.suptitle(
-        "Test-retest reliability across two identical DeepSeek V4 Flash iterations",
-        fontsize=22,
-        fontweight="bold",
-    )
+    _tag_panels([ax0, ax1, ax2, ax3, ax4, ax5])
     out = IMAGES_DIR / "02_test_retest" / "test_retest_reliability_main.png"
     fig.savefig(out, dpi=260, bbox_inches="tight")
     fig.savefig(out.with_suffix(".pdf"), bbox_inches="tight")

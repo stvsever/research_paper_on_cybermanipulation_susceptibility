@@ -25,7 +25,7 @@ import seaborn as sns
 from matplotlib.patches import Patch
 from scipy import stats as st
 from scipy.cluster.hierarchy import dendrogram, linkage
-from scipy.spatial.distance import pdist
+from scipy.spatial.distance import pdist, squareform
 from scipy.stats import gaussian_kde
 
 from src.backend.utils.analysis.production_moderation import drop_excluded_domains
@@ -181,6 +181,7 @@ def _overview(sem: pd.DataFrame, mod: Dict, out: Path) -> Optional[Path]:
     c.plot(xx, s, color="#1d3557", lw=1.3)
     c.axhline(med, color="#c44e52", ls="--", lw=1.2, label=f"median {med:.0f}")
     c.set_yscale("symlog", linthresh=10)
+    c.set_ylim(bottom=0, top=float(s.max()) * 1.15)  # effectivity is non-negative; drop the empty negative axis
     c.set_title(f"(c) Inter-individual heterogeneity  (IQR {np.percentile(s,25):.0f} to {np.percentile(s,75):.0f}, symlog y)")
     c.set_xlabel("Synthetic individuals ranked by mean susceptibility")
     c.set_ylabel("Mean effectivity (symlog)"); c.legend(frameon=False, fontsize=8)
@@ -199,31 +200,77 @@ def _overview(sem: pd.DataFrame, mod: Dict, out: Path) -> Optional[Path]:
 
 # --------------------------------------------------------------------------- #
 def _domain_susceptibility(sem: pd.DataFrame, out: Path) -> Optional[Path]:
+    """Two panels. (A) Per-domain rainclouds with the scenario-clustered median and a 95%
+    CI, the scenario-level Kruskal-Wallis omnibus, and significance stars for each domain
+    against the least-movable reference domain (Mann-Whitney, BH-FDR). (B) A radar of the
+    per-domain median effectivity, gradient-coloured, with the grand-median reference ring."""
+    from statsmodels.stats.multitest import multipletests
     w = sem.dropna(subset=[_AE]).copy(); w["_scn"] = _scn(w["scenario_id"]); w["dom"] = w["opinion_domain"]
-    order = w.groupby("dom")[_AE].median().sort_values().index.tolist()
+    scn = _scn_level(w)
+    # Order by the scenario-mean median (the analysis unit), consistent with the radar.
+    order = scn.groupby("opinion_domain")["ae"].median().sort_values().index.tolist()
     if len(order) < 2:
         return None
     arrays = [w.loc[w["dom"] == d, _AE].to_numpy() for d in order]
     clusters = [w.loc[w["dom"] == d, "_scn"].to_numpy() for d in order]
     colors = _MAKO(np.linspace(0.25, 0.85, len(order)))
-    scn = _scn_level(w)
-    groups = {d: scn.loc[scn["opinion_domain"] == d, "ae"].to_numpy() for d in order}
-    H, p, adj = _adjacent_q(groups, order)
+    sgroups = {d: scn.loc[scn["opinion_domain"] == d, "ae"].to_numpy() for d in order}
+    H, p = st.kruskal(*[sgroups[d] for d in order])
+    k = len(order); eps2 = max(0.0, (H - k + 1) / (len(scn) - k))
+    ref = order[0]  # least-movable reference (scenario-mean)
+    praw, rbmap = [], {}
+    for d in order[1:]:
+        U, pv = st.mannwhitneyu(sgroups[d], sgroups[ref], alternative="two-sided")
+        praw.append(pv)
+        rbmap[d] = abs(1.0 - (2.0 * U) / (len(sgroups[d]) * len(sgroups[ref])))  # |rank-biserial|
+    q = list(multipletests(praw, method="fdr_bh")[1]) if praw else []
+    qmap = {d: q[i] for i, d in enumerate(order[1:])}
 
-    fig, ax = plt.subplots(figsize=(2.0 * len(order) + 1.5, 7.6))
-    _raincloud_v(ax, arrays, clusters, colors, seed=3)
-    ax.set_xticks(range(len(order)))
-    ax.set_xticklabels(["\n".join(textwrap.wrap(_short_dom(d), 16)) for d in order], fontsize=8.5)
-    ax.axhline(0, color="#1F2430", lw=0.9)
-    bulk = float(np.percentile(w[_AE], 98)); base = float(min(np.percentile(w[_AE], 1), 0))
-    dy = bulk * 0.085
-    _brackets_top(ax, adj, y0=bulk * 1.02, dy=dy)
-    ax.set_ylim(base - 2, bulk * 1.02 + dy * (len(adj) + 1))
-    eps2 = max(0.0, (H - len(order) + 1) / (len(scn) - len(order)))
-    ax.set_title(f"Adversarial effectivity by issue domain (raw points, half-violin density, scenario-clustered median 95% CI)\n"
-                 f"Kruskal-Wallis H={H:.0f}, p={p:.1e}, epsilon^2={eps2:.3f}; brackets = adjacent-domain Mann-Whitney BH-FDR "
-                 f"(* q<.05  ** q<.01  *** q<.001)", fontsize=10)
-    ax.set_ylabel("Adversarial effectivity")
+    fig = plt.figure(figsize=(16.5, 7.6))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.4, 1.0], wspace=0.16)
+    axA = fig.add_subplot(gs[0, 0]); axB = fig.add_subplot(gs[0, 1], projection="polar")
+
+    # (A) rainclouds, ordered by movability.
+    _raincloud_v(axA, arrays, clusters, colors, seed=3)
+    axA.set_xticks(range(len(order)))
+    axA.set_xticklabels(["\n".join(textwrap.wrap(_short_dom(d), 16)) for d in order], fontsize=8.5)
+    axA.axhline(0, color="#1F2430", lw=0.9)
+    bulk = float(np.percentile(w[_AE], 98))
+    for i, d in enumerate(order):
+        if d == ref:
+            axA.text(i, bulk * 1.03, "ref.", ha="center", va="bottom", fontsize=8, color="#6F768A")
+            continue
+        # A domain is starred only when it both clears FDR and exceeds a small-effect floor,
+        # so trivially-significant (large-n) but negligible differences are not flagged.
+        star = _stars(qmap.get(d, np.nan)) if rbmap.get(d, 0.0) >= 0.10 else "ns"
+        axA.text(i, bulk * 1.03, star, ha="center", va="bottom",
+                 fontsize=12 if star != "ns" else 8, fontweight="bold" if star != "ns" else "normal",
+                 color="#11151c")
+    axA.set_ylim(-1, bulk * 1.14)
+    axA.set_ylabel("Adversarial effectivity")
+    axA.set_title(f"(A) Per-domain effectivity   (Kruskal-Wallis $H$ = {H:.0f}, $p$ = {p:.1e}, "
+                  f"$\\varepsilon^2$ = {eps2:.3f})", fontsize=10.5)
+
+    # (B) radar of per-domain median effectivity, most-movable first.
+    dom_desc = order[::-1]
+    rmed = np.array([float(np.median(sgroups[d])) for d in dom_desc])
+    ang = np.linspace(0, 2 * np.pi, len(dom_desc), endpoint=False)
+    grad = _MAKO(np.linspace(0.85, 0.30, len(dom_desc)))
+    axB.set_theta_offset(np.pi / 2); axB.set_theta_direction(-1)
+    rmax = float(rmed.max()) * 1.18; axB.set_ylim(0, rmax)
+    gm = float(np.median(scn["ae"]))
+    axB.plot(np.linspace(0, 2 * np.pi, 220), np.full(220, gm), color="#c44e52", ls="--", lw=1.2,
+             label=f"grand median {gm:.1f}")
+    aa = np.concatenate([ang, ang[:1]]); rr = np.concatenate([rmed, rmed[:1]])
+    axB.plot(aa, rr, color="#1d3557", lw=1.9, zorder=3); axB.fill(aa, rr, color="#457b9d", alpha=0.18, zorder=2)
+    for a_, r_, col in zip(ang, rmed, grad):
+        axB.scatter(a_, r_, s=95, color=col, edgecolor="#11151c", linewidth=0.8, zorder=5)
+        axB.text(a_, r_ + rmax * 0.075, f"{r_:.2f}", ha="center", va="center", fontsize=9, fontweight="bold")
+    axB.set_xticks(ang); axB.set_xticklabels(["\n".join(textwrap.wrap(_short_dom(d), 14)) for d in dom_desc], fontsize=7.5)
+    axB.set_yticks(np.linspace(0, rmax, 4)); axB.set_yticklabels([f"{v:.0f}" for v in np.linspace(0, rmax, 4)], fontsize=6, color="#8a90a0")
+    axB.set_rlabel_position(90); axB.grid(color="#e6e8ec", lw=0.6)
+    axB.legend(loc="lower center", bbox_to_anchor=(0.5, -0.16), frameon=False, fontsize=8)
+    axB.set_title("(B) Median effectivity by issue domain", fontsize=10.5, pad=22)
     fig.tight_layout()
     return _save(fig, out / "domain_susceptibility.png")
 
@@ -238,6 +285,7 @@ def _attack_phase_diagnostics(sem: pd.DataFrame, out: Path) -> Optional[Path]:
     if not levels:
         return None
     w = sem.dropna(subset=[_AE]).copy(); w["_scn"] = _scn(w["scenario_id"]); scn = _scn_level(w)
+    gm = float(np.median(scn["ae"]))  # scenario-level grand median (the analysis unit)
     fig, axes = plt.subplots(2, 2, figsize=(15.5, 9.2), squeeze=False)
     for k, (col, title) in enumerate(levels):
         ax = axes[k // 2][k % 2]; sub = w.dropna(subset=[col])
@@ -252,16 +300,32 @@ def _attack_phase_diagnostics(sem: pd.DataFrame, out: Path) -> Optional[Path]:
         ax.set_xticks(range(len(order)))
         ax.set_xticklabels(["\n".join(textwrap.wrap(str(o).replace("_", " "), 14)) for o in order], fontsize=8)
         ax.axhline(0, color="#1F2430", lw=0.8)
-        groups = {o: scn.loc[scn[col] == o, "ae"].to_numpy() for o in order}
-        groups = {o: v for o, v in groups.items() if len(v) >= 8}
+        # Grand-median reference line, so each tactic's own scenario-clustered median (the
+        # black dot from the raincloud) can be read directly against the overall median.
+        ax.axhline(gm, color="#c44e52", ls="--", lw=1.2, zorder=1,
+                   label=f"grand median {gm:.1f}")
+        # Scenario-level Kruskal-Wallis omnibus, drawn as a single span bracket carrying the
+        # significance level (ns / * / ** / ***), so a detectable phase (here only Plan) is
+        # explicitly flagged rather than left implicit in the title.
+        groups = [scn.loc[scn[col] == o, "ae"].to_numpy() for o in order]
+        groups = [v for v in groups if len(v) >= 8]
+        try:
+            H, p = st.kruskal(*groups) if len(groups) >= 2 else (float("nan"), float("nan"))
+        except Exception:
+            H, p = float("nan"), float("nan")
         bulk = float(np.percentile(sub[_AE], 97)); base = float(min(np.percentile(sub[_AE], 1), 0))
-        H, p, adj = _adjacent_q(groups, list(groups))
-        dy = bulk * 0.12
-        _brackets_top(ax, adj, y0=bulk * 1.02, dy=dy)
-        ax.set_ylim(base - 2, bulk * 1.02 + dy * (len(adj) + 1.2))
-        ax.set_title(f"{title}   (Kruskal p = {p:.2g})", fontsize=10)
+        star = _stars(p); y0 = bulk * 1.02; tick = bulk * 0.04
+        ax.plot([0, 0, len(order) - 1, len(order) - 1], [y0, y0 + tick, y0 + tick, y0],
+                color="#3a3f4a", lw=1.1, clip_on=False, zorder=5)
+        ax.text((len(order) - 1) / 2, y0 + tick * 1.25, star, ha="center", va="bottom",
+                fontsize=12 if star != "ns" else 9,
+                fontweight="bold" if star != "ns" else "normal", color="#11151c", clip_on=False)
+        ax.set_ylim(base - 2, bulk * 1.22)
+        ax.set_title(f"({chr(65 + k)}) {title}   (Kruskal-Wallis $p$ = {p:.2g})", fontsize=10.5)
         if k % 2 == 0:
             ax.set_ylabel("Adversarial effectivity")
+        if k == 0:
+            ax.legend(frameon=False, fontsize=8, loc="upper right")
     fig.tight_layout()
     return _save(fig, out / "attack_phase_diagnostics.png")
 
@@ -283,29 +347,24 @@ def _profile_moderation(mod: Dict, out: Path) -> Optional[Path]:
         axa.text(r.var_explained_pct + 0.005, i, f"{r.var_explained_pct:.2f}%", va="center", fontsize=8.5)
     axa.set_yticks(yy); axa.set_yticklabels([f"{r.family}\n({r.n_features} traits)" for r in f.itertuples()], fontsize=8)
     axa.set_xlim(0, f["var_explained_pct"].max() * 1.25 + 0.02)
-    axa.set_title("(a) Variance of susceptibility explained per profile family\n(adjusted in-sample R^2)")
-    axa.set_xlabel("Variance explained (%)")
+    axa.set_title("(a) Variance explained per trait family")
+    axa.set_xlabel("Adjusted in-sample R^2 (%)")
 
     c = uni.copy()
     fam_order = ["Big Five", "Political Psychology", "Ideology", "Moral Foundations", "Demographics"]
-    c["_f"] = c["family"].map({k: i for i, k in enumerate(fam_order)}).fillna(9)
-    c = c.sort_values(["_f", "beta_std"])
+    # Order by absolute slope so the strongest moderators sit at the top; family is
+    # carried by colour (filled marker = q<.05, so the star annotation is dropped).
+    c = c.reindex(c["beta_std"].abs().sort_values(ascending=True).index)
     for i, r in enumerate(c.itertuples()):
         col = _FAM_COLOR.get(r.family, "#8C8C8C")
-        axb.plot([r.ci_low, r.ci_high], [i, i], color=col, lw=2.0, alpha=0.85, zorder=2,
+        axb.plot([r.ci_low, r.ci_high], [i, i], color=col, lw=2.3, alpha=0.85, zorder=2,
                  solid_capstyle="round")
-        axb.scatter([r.beta_std], [i], s=52, color=col if r.significant else "white",
-                    edgecolors=col, linewidths=1.6, zorder=3)
-        if r.significant:
-            axb.text(r.ci_high + 0.004, i, _stars(r.q_value), va="center", fontsize=10, fontweight="bold")
+        axb.scatter([r.beta_std], [i], s=58, color=col if r.significant else "white",
+                    edgecolors=col, linewidths=1.7, zorder=3)
     axb.axvline(0, color="#1F2430", lw=1.0)
     axb.set_yticks(range(len(c))); axb.set_yticklabels(c["moderator"], fontsize=8); axb.set_ylim(-0.8, len(c) - 0.2)
     axb.set_xlabel("Standardised moderation slope (beta, 95% cluster-robust CI; univariate, FDR within family)")
-    n_within = int(within["significant"].sum()) if within is not None and not within.empty else 0
-    n_cross = int(cur["significant"].sum()) if cur is not None and not cur.empty else 0
-    axb.set_title(f"(b) Trait moderators of susceptibility (filled = q<0.05)\n"
-                  f"openness +, conscientiousness -, neuroticism + are the significant constructs; "
-                  f"{n_within} traits significant at facet level, {n_cross} survive the strict cross-family model")
+    axb.set_title("(b) Construct-level moderators")
     handles = [Patch(facecolor=_FAM_COLOR[k], label=k) for k in fam_order if k in set(c["family"])]
     axb.legend(handles=handles, fontsize=7.5, loc="lower right", frameon=False, title="Family", title_fontsize=8)
     fig.tight_layout()
@@ -314,144 +373,256 @@ def _profile_moderation(mod: Dict, out: Path) -> Optional[Path]:
 
 # --------------------------------------------------------------------------- #
 def _moderator_by_domain(mod: Dict, out: Path) -> Optional[Path]:
+    """Seven-panel domain-conditional moderation figure. (A) The full construct-by-domain
+    standardised-slope heatmap with a family-grouped dendrogram and a factor-family colour
+    strip, mounted tall on the left. (B to G) One radar per issue domain showing the same
+    within-domain slopes as a moderation fingerprint, spokes grouped and coloured by family,
+    with significant constructs (FDR q<.05) starred and a dashed zero reference ring."""
+    from matplotlib.colors import to_rgba
     bd = mod.get("by_domain")
     if bd is None or bd.empty:
         return None
+    fam_order = ["Big Five", "Political Psychology", "Ideology", "Moral Foundations", "Demographics"]
+    fam_of = bd.drop_duplicates("moderator").set_index("moderator")["family"].to_dict()
     mat = bd.pivot_table(index="moderator", columns="domain", values="beta_std", aggfunc="mean")
-    sig = bd.pivot_table(index="moderator", columns="domain", values="significant", aggfunc="max").fillna(False)
+    sig = bd.pivot_table(index="moderator", columns="domain", values="significant", aggfunc="max")
     mat = mat.dropna(how="all")
-    if mat.shape[0] < 2 or mat.shape[1] < 2:
+    if mat.shape[0] < 3 or mat.shape[1] < 2:
         return None
-    try:
-        order = dendrogram(linkage(mat.fillna(0).to_numpy(), method="average"), no_plot=True)["leaves"]
-    except Exception:
-        order = list(range(mat.shape[0]))
-    mat = mat.iloc[order]; sig = sig.reindex(index=mat.index, columns=mat.columns).fillna(False)
-    col_order = mat.mean(axis=0).sort_values().index; mat = mat[col_order]; sig = sig[col_order]
+    move = ["Critical_Infrastructure_And_Energy_Sovereignty", "Supranational_And_Regional_Integration",
+            "Democratic_Resilience_And_Institutions", "Defense_And_National_Security",
+            "Information_Integrity_And_Platforms", "Foreign_Policy_And_Geopolitics"]
+    cols = [c for c in move if c in mat.columns] + [c for c in mat.columns if c not in move]
+    mat = mat[cols]; sig = sig.reindex(index=mat.index, columns=cols).fillna(False)
+    # Family-grouped clustering (family penalty forces families to cluster first).
+    fams0 = [fam_of.get(m, "Other") for m in mat.index]
+    fam_idx = np.array([fam_order.index(f) if f in fam_order else 99 for f in fams0])
+    D = squareform(pdist(mat.fillna(0.0).to_numpy(), metric="euclidean"))
+    D = D + (fam_idx[:, None] != fam_idx[None, :]) * (D.max() * 3.0 + 1.0)
+    link = linkage(squareform(D, checks=False), method="average")
+    leaves = dendrogram(link, no_plot=True)["leaves"]
+    mat = mat.iloc[leaves]; sig = sig.iloc[leaves]
+    fams = [fam_of.get(m, "Other") for m in mat.index]; nrow = mat.shape[0]
+
+    fig = plt.figure(figsize=(21, 13.5))
+    outer = fig.add_gridspec(1, 2, width_ratios=[0.95, 1.3], wspace=0.10)
+
+    # (A) tall dendrogram-mounted heatmap on the left.
+    gsA = outer[0, 0].subgridspec(1, 3, width_ratios=[0.16, 0.035, 1.0], wspace=0.015)
+    axd = fig.add_subplot(gsA[0, 0]); axstrip = fig.add_subplot(gsA[0, 1]); axm = fig.add_subplot(gsA[0, 2])
+    dendrogram(link, ax=axd, orientation="left", color_threshold=0, above_threshold_color="#6b7280"); axd.set_axis_off()
+    strip = np.array([[list(to_rgba(_FAM_COLOR.get(f, "#888")))] for f in fams])
+    axstrip.imshow(strip, aspect="auto", origin="lower"); axstrip.set_xticks([]); axstrip.set_yticks([])
     vmax = float(np.nanmax(np.abs(mat.to_numpy()))) or 0.1
-    fig, ax = plt.subplots(figsize=(2.4 + 1.0 * mat.shape[1], 1.6 + 0.34 * mat.shape[0]))
-    im = ax.imshow(mat.to_numpy(), aspect="auto", cmap="RdBu_r", vmin=-vmax, vmax=vmax)
-    ax.set_xticks(range(mat.shape[1])); ax.set_xticklabels(["\n".join(textwrap.wrap(_short_dom(c), 16)) for c in mat.columns], fontsize=8)
-    ax.set_yticks(range(mat.shape[0])); ax.set_yticklabels(mat.index, fontsize=8)
-    for i in range(mat.shape[0]):
+    im = axm.imshow(mat.to_numpy(), aspect="auto", cmap="RdBu_r", vmin=-vmax, vmax=vmax, origin="lower")
+    axm.set_xticks(range(mat.shape[1]))
+    axm.set_xticklabels(
+        [_short_dom(c).replace(" And ", "\n& ").replace(" and ", "\n& ") for c in mat.columns],
+        fontsize=7.6, rotation=38, ha="right", rotation_mode="anchor",
+    )
+    axm.set_yticks(range(nrow)); axm.set_yticklabels(mat.index, fontsize=8); axm.yaxis.tick_right()
+    for i in range(nrow):
         for j in range(mat.shape[1]):
             if bool(sig.to_numpy()[i, j]):
-                ax.text(j, i, "*", ha="center", va="center", color="#111", fontsize=13, fontweight="bold")
-    ax.grid(False)
-    fig.colorbar(im, ax=ax, fraction=0.045, pad=0.02).set_label("standardised slope (beta)", fontsize=8)
-    nsig = int(bd["significant"].sum())
-    ax.set_title(f"Trait moderators by issue domain (within-domain, FDR per family; * q<0.05, {nsig} significant)",
-                 fontsize=10.5, pad=8)
-    fig.tight_layout()
+                axm.text(j, i, "*", ha="center", va="center", color="#11151c", fontsize=13, fontweight="bold")
+    for sp in axm.spines.values():
+        sp.set_visible(False)
+    axm.grid(False); axm.tick_params(left=False)
+    fig.colorbar(im, ax=axm, fraction=0.028, pad=0.30).set_label("standardised slope (beta)", fontsize=8)
+    axm.set_title("(A) Construct x issue-domain moderation map", fontsize=11.5, loc="left", pad=8)
+
+    # (B to G) one trait-moderation radar per issue domain.
+    cons = bd[["family", "moderator"]].drop_duplicates().copy()
+    cons["_f"] = cons["family"].map({k: i for i, k in enumerate(fam_order)}).fillna(9)
+    cons = cons.sort_values(["_f", "moderator"]).reset_index(drop=True)
+    labels = cons["moderator"].tolist(); rfams = cons["family"].tolist(); nC = len(labels)
+    angles = np.linspace(0, 2 * np.pi, nC, endpoint=False)
+    bmax = max(0.06, float(np.nanpercentile(np.abs(bd["beta_std"].to_numpy()), 98)))
+    domains = bd.groupby("domain")["significant"].sum().sort_values(ascending=False).index.tolist()[:6]
+    gsR = outer[0, 1].subgridspec(3, 2, hspace=0.62, wspace=0.30)
+    for di, dom in enumerate(domains):
+        ax = fig.add_subplot(gsR[di // 2, di % 2], projection="polar")
+        sub = bd[bd["domain"] == dom].set_index("moderator")
+        vals = np.array([float(sub.loc[m, "beta_std"]) if m in sub.index else 0.0 for m in labels])
+        sigf = np.array([bool(sub.loc[m, "significant"]) if m in sub.index else False for m in labels])
+        ax.set_theta_offset(np.pi / 2); ax.set_theta_direction(-1); ax.set_ylim(-bmax, bmax)
+        ax.plot(np.linspace(0, 2 * np.pi, 200), np.zeros(200), color="#5b6270", ls="--", lw=0.9, zorder=1)
+        aa = np.concatenate([angles, angles[:1]]); vv = np.concatenate([vals, vals[:1]])
+        ax.plot(aa, vv, color="#11151c", lw=1.2, zorder=3); ax.fill(aa, vv, color="#1d3557", alpha=0.10, zorder=2)
+        for kk in range(nC):
+            col = _FAM_COLOR.get(rfams[kk], "#888")
+            if sigf[kk]:
+                ax.scatter(angles[kk], vals[kk], s=85, marker="*", color=col, edgecolor="#11151c", linewidth=0.6, zorder=6)
+            else:
+                ax.scatter(angles[kk], vals[kk], s=9, color=col, alpha=0.7, zorder=4)
+        ax.set_xticks(angles); ax.set_xticklabels(labels, fontsize=5.0)
+        for lab, fam in zip(ax.get_xticklabels(), rfams):
+            lab.set_color(_FAM_COLOR.get(fam, "#333"))
+        ax.tick_params(axis="x", pad=0.5)
+        ax.set_yticks([0]); ax.set_yticklabels([]); ax.grid(color="#eceef2", lw=0.5)
+        ns = int(sigf.sum())
+        ax.set_title(f"({chr(66 + di)}) {_short_dom(dom)}  ({ns} sig.)", fontsize=9.5, pad=16)
+    handles = [Patch(facecolor=_FAM_COLOR[k], label=k) for k in fam_order]
+    fig.legend(handles=handles, loc="lower center", ncol=5, frameon=False, fontsize=9.5,
+               bbox_to_anchor=(0.5, 0.004), title="Trait family   (* within-domain q < .05; dashed ring = zero slope)",
+               title_fontsize=9.5)
+    fig.tight_layout(rect=[0, 0.035, 1, 1])
     return _save(fig, out / "moderator_by_domain.png")
 
 
 # --------------------------------------------------------------------------- #
+def _leaf_rainclouds(ax, w: pd.DataFrame, leaf_df: pd.DataFrame, dcol: Dict, ae_col: str, seed: int = 0) -> None:
+    """Horizontal per-leaf rainclouds: for each (domain, leaf) row a half-violin of the
+    leaf's raw effectivity above the row, a jittered subsample below, and a median dot,
+    coloured by parent domain."""
+    rng = np.random.default_rng(seed)
+    for i, r in enumerate(leaf_df.itertuples()):
+        vals = w.loc[(w["dom"] == r.dom) & (w["leaf"] == r.leaf), ae_col].to_numpy()
+        vals = vals[np.isfinite(vals)]
+        if len(vals) == 0:
+            continue
+        col = dcol.get(r.dom, "#888")
+        if len(vals) > 8 and vals.std() > 0:
+            kde = gaussian_kde(vals)
+            xs = np.linspace(np.percentile(vals, 1), np.percentile(vals, 99), 120)
+            dens = kde(xs); dens = dens / dens.max() * 0.42
+            ax.fill_between(xs, i + 0.05, i + 0.05 + dens, color=col, alpha=0.45, lw=0, zorder=2)
+        idx = rng.choice(len(vals), size=min(len(vals), 220), replace=False)
+        ax.scatter(vals[idx], i - 0.10 - rng.uniform(0, 0.18, size=len(idx)), s=5, color=col, alpha=0.30, lw=0, zorder=1)
+        ax.scatter(float(np.median(vals)), i, s=44, color="#11151c", zorder=5)
+    ax.set_ylim(-0.6, len(leaf_df) - 0.3)
+    ax.grid(True, axis="x", color="#eaedf2", lw=0.6)
+
+
 def _opinion_clusters(sem: pd.DataFrame, out: Path) -> Optional[Path]:
-    """2x2 on the opinion-cluster hierarchy: a domain dendrogram-ordered domain x
-    Execute-tactic matrix, a domain x complexity matrix, the within-domain leaf
-    heterogeneity, and the most-movable leaves coloured by parent domain."""
+    """2x2 on opinion structure, all panels data-varying: within-domain leaf
+    heterogeneity, the most-movable and most-resistant opinion leaves as per-leaf
+    rainclouds coloured by parent domain, and the amplify-versus-erode contrast that tests
+    for a directional asymmetry. Leaf rainclouds carry their labels on the right."""
     w = sem.dropna(subset=[_AE, "opinion_leaf_label"]).copy()
     w["dom"] = w["opinion_domain"].map(_short_dom); w["leaf"] = w["opinion_leaf_label"].map(_short_leaf)
-    if "attack_execute_tactic" not in w.columns:
-        return None
-    fig = plt.figure(figsize=(15.5, 11))
-    outer = fig.add_gridspec(2, 2, hspace=0.3, wspace=0.24)
-    inner = outer[0, 0].subgridspec(1, 2, width_ratios=[0.2, 1.0], wspace=0.03)
-    axdend = fig.add_subplot(inner[0, 0]); a = fig.add_subplot(inner[0, 1])
-    b = fig.add_subplot(outer[0, 1]); c = fig.add_subplot(outer[1, 0]); d_ax = fig.add_subplot(outer[1, 1])
-
-    # (a) domain x Execute tactic with a domain dendrogram mounted on the left
-    m1 = w.pivot_table(index="dom", columns=w["attack_execute_tactic"].astype(str), values=_AE, aggfunc="median")
-    link = linkage(m1.to_numpy(), method="average")
-    order = dendrogram(link, ax=axdend, orientation="left", color_threshold=0, above_threshold_color="#6b7280")["leaves"]
-    axdend.set_axis_off()
-    m1 = m1.iloc[order]
-    arr = m1.to_numpy()
-    im = a.imshow(arr, aspect="auto", cmap=_MAKO, origin="lower")  # origin lower aligns with the left dendrogram
-    a.set_xticks(range(m1.shape[1])); a.set_xticklabels(["\n".join(textwrap.wrap(cc.replace("_", " "), 11)) for cc in m1.columns], fontsize=7.5)
-    a.set_yticks(range(m1.shape[0])); a.set_yticklabels(["\n".join(textwrap.wrap(d, 20)) for d in m1.index], fontsize=8)
-    for i in range(m1.shape[0]):
-        for j in range(m1.shape[1]):
-            a.text(j, i, f"{arr[i,j]:.0f}", ha="center", va="center", fontsize=7,
-                   color="white" if arr[i, j] < np.nanmedian(arr) else "#11151c")
-    a.grid(False); fig.colorbar(im, ax=a, fraction=0.046, pad=0.02).set_label("median effectivity", fontsize=8)
-    a.set_title("(a) Issue domain x DISARM Execute tactic (domain dendrogram)")
-
-    # (b) domain x complexity tier
-    if "attack_complexity_tier" in w.columns:
-        m2 = w.pivot_table(index=m1.index.name, columns=w["attack_complexity_tier"].astype(str), values=_AE, aggfunc="median").reindex(m1.index)
-        im2 = b.imshow(m2.to_numpy(), aspect="auto", cmap=_MAKO)
-        b.set_xticks(range(m2.shape[1])); b.set_xticklabels([c.replace("_", " ") for c in m2.columns], fontsize=8)
-        b.set_yticks(range(m2.shape[0])); b.set_yticklabels(["\n".join(textwrap.wrap(d, 22)) for d in m2.index], fontsize=8)
-        for i in range(m2.shape[0]):
-            for j in range(m2.shape[1]):
-                if np.isfinite(m2.to_numpy()[i, j]):
-                    b.text(j, i, f"{m2.to_numpy()[i,j]:.0f}", ha="center", va="center", fontsize=7,
-                           color="white" if m2.to_numpy()[i, j] < np.nanmedian(m2.to_numpy()) else "#11151c")
-        b.grid(False); fig.colorbar(im2, ax=b, fraction=0.046, pad=0.02).set_label("median effectivity", fontsize=8)
-    b.set_title("(b) Issue domain x operation complexity tier")
-
-    # (c) within-domain leaf heterogeneity
+    fig, axes = plt.subplots(2, 2, figsize=(15, 11))
+    a, b, c, d_ax = axes[0, 0], axes[0, 1], axes[1, 0], axes[1, 1]
     leaf_med = w.groupby(["dom", "leaf"])[_AE].median().reset_index()
-    dom_order = leaf_med.groupby("dom")["adversarial_effectivity"].median().sort_values().index.tolist()
+    dom_set = sorted(w["dom"].unique()); dcol = {dm: _PAL[i % len(_PAL)] for i, dm in enumerate(dom_set)}
+
+    # (a) within-domain spread of per-leaf median effectivity.
+    dom_order = leaf_med.groupby("dom")[_AE].median().sort_values().index.tolist()
     parts = [leaf_med.loc[leaf_med["dom"] == d, _AE].to_numpy() for d in dom_order]
-    vp = c.violinplot(parts, vert=False, showmedians=True, widths=0.85)
+    vp = a.violinplot(parts, vert=False, showmedians=True, widths=0.85)
     for pc, col in zip(vp["bodies"], _MAKO(np.linspace(0.25, 0.85, len(dom_order)))):
         pc.set_facecolor(col); pc.set_alpha(0.6)
     for d_i, d in enumerate(dom_order):
         vals = leaf_med.loc[leaf_med["dom"] == d, _AE].to_numpy()
-        c.scatter(vals, np.full(len(vals), d_i + 1) + np.random.default_rng(d_i).uniform(-0.12, 0.12, len(vals)),
+        a.scatter(vals, np.full(len(vals), d_i + 1) + np.random.default_rng(d_i).uniform(-0.12, 0.12, len(vals)),
                   s=14, color="#11151c", alpha=0.5, zorder=3)
-    c.set_yticks(range(1, len(dom_order) + 1)); c.set_yticklabels(["\n".join(textwrap.wrap(d, 22)) for d in dom_order], fontsize=8)
-    c.set_xlabel("Per-leaf median effectivity"); c.set_title("(c) Within-domain spread across opinion leaves")
+    a.set_yticks(range(1, len(dom_order) + 1)); a.set_yticklabels(["\n".join(textwrap.wrap(d, 22)) for d in dom_order], fontsize=8)
+    a.set_xlabel("Per-leaf median effectivity"); a.set_title("(a) Within-domain spread across opinion leaves")
 
-    # (d) most movable leaves coloured by domain
-    top = leaf_med.sort_values(_AE, ascending=False).head(16).iloc[::-1]
-    dom_set = sorted(w["dom"].unique()); dcol = {dm: _PAL[i % len(_PAL)] for i, dm in enumerate(dom_set)}
-    d_ax.barh(range(len(top)), top[_AE], color=[dcol[dm] for dm in top["dom"]], edgecolor="#1F2430", linewidth=0.4)
-    d_ax.set_yticks(range(len(top))); d_ax.set_yticklabels([l[:34] for l in top["leaf"]], fontsize=7.5)
-    d_ax.set_xlabel("Median effectivity"); d_ax.set_title("(d) Most movable opinion leaves (colour = parent domain)")
+    # (b) most-movable opinion leaves as per-leaf rainclouds (distribution + median dot).
+    top = leaf_med.sort_values(_AE, ascending=False).head(12).iloc[::-1].reset_index(drop=True)
+    _leaf_rainclouds(b, w, top, dcol, _AE, seed=7)
+    b.set_xlim(right=80)
+    b.set_yticks(range(len(top))); b.set_yticklabels([l[:30] for l in top["leaf"]], fontsize=7.5); b.yaxis.tick_right()
+    b.set_xlabel("Per-leaf effectivity (black = median)"); b.set_title("(b) Most movable opinion leaves")
+
+    # (c) amplify (d=+1) versus erode (d=-1) leaf effectivity (the direction test).
+    if "adversarial_direction" in w.columns:
+        leaf = w.groupby("opinion_leaf_label").agg(ae=(_AE, "mean"), d=("adversarial_direction", "first")).dropna()
+        erode = leaf.loc[leaf["d"] == -1, "ae"].to_numpy(); ampl = leaf.loc[leaf["d"] == 1, "ae"].to_numpy()
+        groups = [("Erode\n(d = -1)", erode, _PAL[3]), ("Amplify\n(d = +1)", ampl, _PAL[0])]
+        rng = np.random.default_rng(5)
+        for i, (lab, v, col) in enumerate(groups):
+            v = v[np.isfinite(v)]
+            if len(v) > 5 and v.std() > 0:
+                kde = gaussian_kde(v); ys = np.linspace(v.min(), v.max(), 140)
+                dens = kde(ys); dens = dens / dens.max() * 0.34
+                c.fill_betweenx(ys, i + 0.06, i + 0.06 + dens, color=col, alpha=0.40, lw=0)
+            jit = i - 0.08 - rng.uniform(0, 0.26, size=len(v))
+            c.scatter(jit, v, s=16, color=col, alpha=0.5, lw=0)
+            med = float(np.median(v))
+            c.errorbar(i - 0.01, med, yerr=[[med - np.percentile(v, 25)], [np.percentile(v, 75) - med]],
+                       fmt="o", color="#11151c", elinewidth=1.6, capsize=3, ms=6, zorder=5)
+        try:
+            _, pu = st.mannwhitneyu(erode, ampl, alternative="two-sided")
+        except Exception:
+            pu = float("nan")
+        c.set_xticks([0, 1]); c.set_xticklabels([g[0] for g in groups], fontsize=9)
+        c.set_xlim(-0.6, 1.5); c.axhline(0, color="#1F2430", lw=0.8)
+        c.set_ylabel("Per-leaf mean effectivity")
+        c.set_title(f"(c) Effectivity by adversarial direction (Mann-Whitney $p$ = {pu:.2g})")
+
+    # (d) most-resistant opinion leaves as per-leaf rainclouds (distribution + median dot).
+    bot = leaf_med.sort_values(_AE, ascending=True).head(12).reset_index(drop=True)
+    _leaf_rainclouds(d_ax, w, bot, dcol, _AE, seed=9)
+    d_ax.set_xlim(right=80)
+    d_ax.set_yticks(range(len(bot))); d_ax.set_yticklabels([l[:30] for l in bot["leaf"]], fontsize=7.5); d_ax.yaxis.tick_right()
+    d_ax.set_xlabel("Per-leaf effectivity (black = median)"); d_ax.set_title("(d) Most resistant opinion leaves")
     handles = [Patch(facecolor=dcol[dm], label=dm) for dm in dom_set]
-    d_ax.legend(handles=handles, fontsize=6.5, loc="lower right", frameon=False)
-    for a_ in (a, b, c, d_ax):
-        a_.grid(False)
-    fig.tight_layout()
+    a.grid(False)
+    c.grid(True, axis="y", color="#eaedf2", lw=0.7)
+    fig.legend(handles=handles, loc="lower center", ncol=len(dom_set), frameon=False, fontsize=7.5,
+               bbox_to_anchor=(0.5, -0.012), title="Parent issue domain", title_fontsize=8)
+    fig.tight_layout(rect=[0, 0.035, 1, 1])
     return _save(fig, out / "opinion_clusters.png")
 
 
 # --------------------------------------------------------------------------- #
-def _opinion_treemap(sem: pd.DataFrame, out: Path) -> Optional[Path]:
+def _clipped_mean(s: pd.Series, lo_pct: float = 5.0, hi_pct: float = 95.0) -> float:
+    lo, hi = float(np.percentile(s, lo_pct)), float(np.percentile(s, hi_pct))
+    return float(np.mean(np.clip(s, lo, hi)))
+
+
+def _opinion_polar_hierarchy(sem: pd.DataFrame, out: Path) -> Optional[Path]:
+    """One radar per issue domain (panels A to F): each domain's opinion leaves are the
+    spokes and the radius is the leaf's outlier-clipped mean adversarial effectivity
+    (5th–95th percentile clip), so the movability fingerprint of each domain's opinion
+    set is legible at a glance. The dashed ring marks the grand median (unclipped),
+    and the radial scale is shared across domains for comparability."""
     w = sem.dropna(subset=[_AE, "opinion_leaf_label"]).copy()
     w["domain"] = w["opinion_domain"].map(_short_dom); w["leaf"] = w["opinion_leaf_label"].map(_short_leaf)
-    agg = w.groupby(["domain", "leaf"])[_AE].agg(["median", "count"]).reset_index()
-    if agg.empty:
+    leaf_med = (
+        w.groupby(["domain", "leaf"])[_AE]
+        .agg(_clipped_mean)
+        .reset_index()
+    )
+    if leaf_med.empty:
         return None
-    dom_med = agg.groupby("domain").apply(lambda g: np.average(g["median"], weights=g["count"])).sort_values(ascending=False)
-    domains = list(dom_med.index); n = len(domains)
-    vmax = float(np.nanpercentile(agg["median"], 97)); vmin = float(np.nanpercentile(agg["median"], 3))
-    cmap = _MAKO; norm = plt.Normalize(vmin=vmin, vmax=vmax)
-    fig, ax = plt.subplots(figsize=(2.1 * n + 0.6, 9.2)); cw = 1.0 / n; pad = 0.06 * cw
+    domains = leaf_med.groupby("domain")[_AE].median().sort_values(ascending=False).index.tolist()
+    dcol = {dm: _MAKO(x) for dm, x in zip(domains, np.linspace(0.80, 0.30, len(domains)))}
+    gm = float(np.median(w[_AE]))  # leaf-level grand median (= +14), the design-wide reference ring
+    rmax = float(np.nanpercentile(leaf_med[_AE], 99)) * 1.12
+    theta = np.linspace(0, 2 * np.pi, 220)
+    ncol = 3; nrow = int(np.ceil(len(domains) / ncol))
+    fig, axes = plt.subplots(nrow, ncol, figsize=(16.5, 5.4 * nrow), subplot_kw=dict(projection="polar"))
+    axes = np.atleast_1d(axes).ravel()
     for di, dom in enumerate(domains):
-        sub = agg[agg["domain"] == dom].sort_values("median", ascending=False).reset_index(drop=True)
-        m = len(sub); x0 = di * cw + pad; ww = cw - 2 * pad
-        for li, r in enumerate(sub.itertuples()):
-            hh = 1.0 / m; y0 = 1.0 - (li + 1) * hh; rgba = cmap(norm(r.median))
-            ax.add_patch(plt.Rectangle((x0, y0), ww, hh, facecolor=rgba, edgecolor="white", linewidth=0.6))
-            lum = 0.299 * rgba[0] + 0.587 * rgba[1] + 0.114 * rgba[2]
-            txt = (r.leaf[:30] + "...") if len(r.leaf) > 33 else r.leaf
-            fs = 7.2 if m <= 16 else (6.4 if m <= 20 else 5.6)
-            ax.text(x0 + ww / 2, y0 + hh / 2, txt, ha="center", va="center", fontsize=fs,
-                    color="white" if lum < 0.5 else "#11151c", clip_on=True)
-        ax.text(di * cw + cw / 2, 1.012, "\n".join(textwrap.wrap(dom, 18)), ha="center", va="bottom",
-                fontsize=9, fontweight="bold")
-    ax.set_xlim(0, 1); ax.set_ylim(0, 1.10); ax.axis("off")
-    smap = plt.cm.ScalarMappable(cmap=cmap, norm=norm); smap.set_array([])
-    fig.colorbar(smap, ax=ax, fraction=0.022, pad=0.01).set_label("median adversarial effectivity (movability)", fontsize=9)
-    ax.set_title("Opinion-susceptibility hierarchy: issue domains and their leaves (sorted by movability within domain)",
-                 fontsize=11, loc="left")
-    fig.tight_layout()
-    return _save(fig, out / "opinion_susceptibility_treemap.png")
+        ax = axes[di]
+        sub = leaf_med[leaf_med["domain"] == dom].sort_values(_AE, ascending=False)
+        leaves = sub["leaf"].tolist(); vals = sub[_AE].to_numpy()
+        dmed = float(np.median(vals))  # this domain's median leaf movability
+        n = len(leaves); ang = np.linspace(0, 2 * np.pi, n, endpoint=False)
+        ax.set_theta_offset(np.pi / 2); ax.set_theta_direction(-1); ax.set_ylim(0, rmax)
+        # Two reference rings: the shared grand median (red dashed) and this domain's own
+        # median (dark dotted), so each domain's leaves can be read against both at once.
+        ax.plot(theta, np.full(220, gm), color="#c44e52", ls="--", lw=1.0, zorder=1)
+        ax.plot(theta, np.full(220, dmed), color="#11151c", ls=":", lw=1.3, zorder=1)
+        aa = np.concatenate([ang, ang[:1]]); rr = np.concatenate([vals, vals[:1]])
+        ax.plot(aa, rr, color=dcol[dom], lw=1.7, zorder=3); ax.fill(aa, rr, color=dcol[dom], alpha=0.25, zorder=2)
+        ax.scatter(ang, vals, s=22, color=dcol[dom], edgecolor="#11151c", linewidth=0.4, zorder=5)
+        ax.set_xticks(ang); ax.set_xticklabels([l[:22] for l in leaves], fontsize=5.2)
+        ax.set_yticks(np.linspace(0, rmax, 3)); ax.set_yticklabels([f"{v:.0f}" for v in np.linspace(0, rmax, 3)], fontsize=6, color="#8a90a0")
+        ax.set_rlabel_position(0); ax.grid(color="#eceef2", lw=0.5)
+        ax.text(1.0, 1.10, f"domain median {dmed:.1f}", transform=ax.transAxes, ha="right", va="top",
+                fontsize=7.2, color="#11151c", fontweight="bold")
+        ax.set_title(f"({chr(65 + di)}) {dom}", fontsize=9.5, pad=18, loc="left")
+    for di in range(len(domains), len(axes)):
+        axes[di].set_axis_off()
+    handles = [plt.Line2D([0], [0], color="#c44e52", ls="--", lw=1.1, label=f"grand median ({gm:.0f})"),
+               plt.Line2D([0], [0], color="#11151c", ls=":", lw=1.3, label="domain median")]
+    fig.legend(handles=handles, loc="lower center", ncol=2, frameon=False, fontsize=9.5, bbox_to_anchor=(0.5, 0.008))
+    fig.tight_layout(rect=[0, 0.03, 1, 1])
+    return _save(fig, out / "opinion_polar_hierarchy.png")
 
 
 # --------------------------------------------------------------------------- #
@@ -466,7 +637,7 @@ def generate_production_figures(sem_long_csv_path: str, moderation: Dict, output
         lambda: _profile_moderation(moderation, out),
         lambda: _moderator_by_domain(moderation, out),
         lambda: _opinion_clusters(sem, out),
-        lambda: _opinion_treemap(sem, out),
+        lambda: _opinion_polar_hierarchy(sem, out),
     ):
         try:
             p = fn()

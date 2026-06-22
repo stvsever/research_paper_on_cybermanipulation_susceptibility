@@ -1,0 +1,39 @@
+{
+  "run_id": "run_2",
+  "purpose": "Production run 2 mixed ontology source manifest",
+  "prepared_on": "2026-06-21",
+  "ontology_root": "evaluation/production/run_2/config/ontology_mixed",
+  "pipeline_argument": "--ontology-root evaluation/production/run_2/config/ontology_mixed",
+  "use_test_ontology_argument": "--no-use-test-ontology",
+  "components": {
+    "PROFILE": {
+      "source_kind": "current_codebase_test_ontology",
+      "source_path": "/Users/thomasdeschryver/Studio/Work/research/cognitive_sovereignity/Case_study_in_the_analyses_of_experimental_data/research_paper_on_cybermanipulation_susceptibility/src/backend/ontology/separate/test/PROFILE/profile.json",
+      "destination_path": "evaluation/production/run_2/config/ontology_mixed/PROFILE/profile.json",
+      "schema_version": "v4-test-run-1-production",
+      "ontology_role": "deployment",
+      "sha256": "cf14270c41d8a823e379ab482783c58f53e3a8ad279a26a56e714ccaa02883d6"
+    },
+    "ATTACK": {
+      "source_kind": "current_codebase_test_ontology",
+      "source_path": "/Users/thomasdeschryver/Studio/Work/research/cognitive_sovereignity/Case_study_in_the_analyses_of_experimental_data/research_paper_on_cybermanipulation_susceptibility/src/backend/ontology/separate/test/ATTACK/attack.json",
+      "destination_path": "evaluation/production/run_2/config/ontology_mixed/ATTACK/attack.json",
+      "schema_version": "v4-test-run-1-test",
+      "ontology_role": "test",
+      "sha256": "5faf9cab3d214dc21b62d848ac65a6f57fdba0f9c707bb638d6137ccf47f384c"
+    },
+    "OPINION": {
+      "source_kind": "official_updated_production_ontology",
+      "source_path": "/Users/thomasdeschryver/Studio/Work/research/cognitive_sovereignity/Case_study_in_the_analyses_of_experimental_data/research_paper_on_cybermanipulation_susceptibility_official/src/backend/ontology/separate/production/OPINION/opinion.json",
+      "destination_path": "evaluation/production/run_2/config/ontology_mixed/OPINION/opinion.json",
+      "schema_version": "v4-test-run-1-production-r3",
+      "ontology_role": "deployment",
+      "sha256": "d9f43a9723b35b10b13cb9ea7e2a53bf1eb1da4ad558773783c499de6a971333"
+    }
+  },
+  "validation_rules": {
+    "hashes_must_match_before_run": true,
+    "mixed_ontology_folder_is_run_local": true,
+    "no_pipeline_component_root_changes_required": true
+  }
+}

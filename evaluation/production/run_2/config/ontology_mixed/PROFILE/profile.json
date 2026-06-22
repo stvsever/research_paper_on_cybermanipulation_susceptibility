@@ -1,0 +1,663 @@
+{
+  "_metadata": {
+    "taxonomy_description": "Hierarchical taxonomy of inter-individual differences with documented relevance to susceptibility to cyber-manipulation of political opinion. Variables are selected for direct mappability to standard social-science survey instruments (ESS, Eurobarometer, ANES, GSS, British Social Attitudes). The tree mixes (a) continuous trait inventories with facet substructure and (b) categorical single-select dimensions. Structure is discovered generically by the pipeline: no inventory names are hardcoded.",
+    "inventory_rationales": {
+      "Big_Five": "Canonical personality structure (NEO-PI-R facet resolution). Repeatedly implicated as a moderator of persuasibility and misinformation endorsement. Conscientiousness negatively predicts susceptibility; Neuroticism positively predicts reactivity to fear-based appeals; Openness predicts receptivity to novel framings.",
+      "Age": "Chronological age is a robust demographic moderator of digital-media literacy and susceptibility to online manipulation; directly mappable to ESS/ANES/GSS age items.",
+      "Sex": "Biological sex is a standard covariate in persuasion research; mappable to binary-plus-other demographic measures in ESS/Eurobarometer."
+    },
+    "schema_version": "v4-test-run-1-production",
+    "ontology_role": "deployment",
+    "title": "Person / Profile Ontology — Deployment State Space",
+    "per_leaf_metadata_schema": {
+      "schema_version": "v4-test-run-1-baked",
+      "documentation": "Every PROFILE leaf carries STRUCTURAL combinatorial sampling metadata (modality_type, value_format, sampling_role, exclusivity_group, prevalence_weight, is_unknown_marker, construct_type, description). The ontology does NOT encode psychological-amplification hypotheses. Subtree-wide rules live in `_sampling_rules`; per-leaf inline metadata wins.",
+      "fields": [
+        "modality_type",
+        "value_format",
+        "sampling_role",
+        "exclusivity_group",
+        "prevalence_weight",
+        "is_unknown_marker",
+        "construct_type",
+        "description"
+      ]
+    },
+    "stats": {
+      "leaf_count_total": 34,
+      "construct_type_counts": {
+        "demographic": 4,
+        "personality": 30
+      },
+      "modality_type_counts": {
+        "categorical": 4,
+        "continuous": 30
+      },
+      "sampling_role_counts": {
+        "option_value": 3,
+        "unknown_marker": 1,
+        "scale_facet": 30
+      },
+      "sampling_rule_count": 20
+    }
+  },
+  "PERSON_RESEARCH_FACTORS": {
+    "Age": {
+      "Chronological_Age": {
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value",
+        "exclusivity_group": "Age",
+        "prevalence_weight": 1.0,
+        "is_unknown_marker": false,
+        "construct_type": "demographic",
+        "description": "chronological age (within age)"
+      }
+    },
+    "Sex": {
+      "Male": {
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value",
+        "exclusivity_group": "Sex",
+        "prevalence_weight": 1.0,
+        "is_unknown_marker": false,
+        "construct_type": "demographic",
+        "description": "male (within sex)"
+      },
+      "Female": {
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value",
+        "exclusivity_group": "Sex",
+        "prevalence_weight": 1.0,
+        "is_unknown_marker": false,
+        "construct_type": "demographic",
+        "description": "female (within sex)"
+      },
+      "Other": {
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "unknown_marker",
+        "exclusivity_group": "Sex",
+        "prevalence_weight": 0.5,
+        "is_unknown_marker": true,
+        "construct_type": "demographic",
+        "description": "other (within sex)"
+      }
+    },
+    "Personality": {
+      "Big_Five": {
+        "Neuroticism": {
+          "Anxiety": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Neuroticism",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "anxiety (within neuroticism)"
+          },
+          "Anger_Hostility": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Neuroticism",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "anger hostility (within neuroticism)"
+          },
+          "Depression": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Neuroticism",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "depression (within neuroticism)"
+          },
+          "Self_Consciousness": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Neuroticism",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "self consciousness (within neuroticism)"
+          },
+          "Impulsiveness": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Neuroticism",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "impulsiveness (within neuroticism)"
+          },
+          "Stress_Vulnerability": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Neuroticism",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "stress vulnerability (within neuroticism)"
+          }
+        },
+        "Extraversion": {
+          "Warmth": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Extraversion",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "warmth (within extraversion)"
+          },
+          "Gregariousness": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Extraversion",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "gregariousness (within extraversion)"
+          },
+          "Assertiveness": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Extraversion",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "assertiveness (within extraversion)"
+          },
+          "Activity_Level": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Extraversion",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "activity level (within extraversion)"
+          },
+          "Excitement_Seeking": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Extraversion",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "excitement seeking (within extraversion)"
+          },
+          "Positive_Emotions": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Extraversion",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "positive emotions (within extraversion)"
+          }
+        },
+        "Openness_to_Experience": {
+          "Fantasy": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Openness_to_Experience",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "fantasy (within openness to experience)"
+          },
+          "Aesthetics": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Openness_to_Experience",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "aesthetics (within openness to experience)"
+          },
+          "Feelings": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Openness_to_Experience",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "feelings (within openness to experience)"
+          },
+          "Actions": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Openness_to_Experience",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "actions (within openness to experience)"
+          },
+          "Ideas": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Openness_to_Experience",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "ideas (within openness to experience)"
+          },
+          "Values": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Openness_to_Experience",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "values (within openness to experience)"
+          }
+        },
+        "Agreeableness": {
+          "Trust": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Agreeableness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "trust (within agreeableness)"
+          },
+          "Straightforwardness": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Agreeableness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "straightforwardness (within agreeableness)"
+          },
+          "Altruism": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Agreeableness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "altruism (within agreeableness)"
+          },
+          "Compliance": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Agreeableness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "compliance (within agreeableness)"
+          },
+          "Modesty": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Agreeableness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "modesty (within agreeableness)"
+          },
+          "Tender_Mindedness": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Agreeableness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "tender mindedness (within agreeableness)"
+          }
+        },
+        "Conscientiousness": {
+          "Competence": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Conscientiousness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "competence (within conscientiousness)"
+          },
+          "Order": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Conscientiousness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "order (within conscientiousness)"
+          },
+          "Dutifulness": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Conscientiousness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "dutifulness (within conscientiousness)"
+          },
+          "Achievement_Striving": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Conscientiousness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "achievement striving (within conscientiousness)"
+          },
+          "Self_Discipline": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Conscientiousness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "self discipline (within conscientiousness)"
+          },
+          "Deliberation": {
+            "modality_type": "continuous",
+            "value_format": "float",
+            "sampling_role": "scale_facet",
+            "exclusivity_group": "Conscientiousness",
+            "prevalence_weight": 1.0,
+            "is_unknown_marker": false,
+            "construct_type": "personality",
+            "description": "deliberation (within conscientiousness)"
+          }
+        }
+      }
+    }
+  },
+  "_sampling_rules": {
+    "schema_version": "v4-test-run-1-meta",
+    "rule_evaluation": "ordered_merge_last_wins_per_attribute",
+    "pattern_wildcard": "**",
+    "pattern_separator": " > ",
+    "_documentation": "Path-glob rules apply STRUCTURAL sampling attributes to subtrees of the PROFILE ontology. A leaf path matches a pattern when every literal segment in the pattern appears in the same order in the leaf's `>`-joined path; segments separated by `**` match any number of intervening segments. Rules are evaluated in order; LAST matching rule wins per scalar attribute. Per-leaf inline metadata always takes precedence over rule-derived attributes.",
+    "rules": [
+      {
+        "rule_id": "administrative_construct_type",
+        "applies_to_profile_paths": [
+          "**Administrative_and_Data_Context**"
+        ],
+        "construct_type": "administrative"
+      },
+      {
+        "rule_id": "identifier_subtree",
+        "applies_to_profile_paths": [
+          "**Identifiers**",
+          "**Person_Record_ID**",
+          "**Study_Participant_ID**",
+          "**Pseudonymous_ID**",
+          "**Record_Linkage_Key**",
+          "**External_System_ID**",
+          "**Family_Unit_ID**",
+          "**Household_ID**"
+        ],
+        "modality_type": "identifier",
+        "value_format": "string",
+        "sampling_role": "identifier"
+      },
+      {
+        "rule_id": "demographics_construct_type",
+        "applies_to_profile_paths": [
+          "**Demographics_and_Identity**"
+        ],
+        "construct_type": "demographic"
+      },
+      {
+        "rule_id": "vital_status_options",
+        "applies_to_profile_paths": [
+          "**Vital_Status > Status**"
+        ],
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value",
+        "exclusivity_group": "Vital_Status"
+      },
+      {
+        "rule_id": "age_continuous_fields",
+        "applies_to_profile_paths": [
+          "**Chronological_Age > Age_Years**",
+          "**Chronological_Age > Age_Months**",
+          "**Chronological_Age > Age_Days**",
+          "**Perinatal_and_Corrected_Age > Gestational_Age_At_Birth**",
+          "**Perinatal_and_Corrected_Age > Corrected_Age_For_Prematurity**",
+          "**Perinatal_and_Corrected_Age > Postmenstrual_Age**"
+        ],
+        "modality_type": "continuous",
+        "value_format": "int",
+        "sampling_role": "trait_state"
+      },
+      {
+        "rule_id": "age_band_categorical",
+        "applies_to_profile_paths": [
+          "**Age_Bands**"
+        ],
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value"
+      },
+      {
+        "rule_id": "developmental_stage_categorical",
+        "applies_to_profile_paths": [
+          "**Developmental_Stage**"
+        ],
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value",
+        "construct_type": "psychological"
+      },
+      {
+        "rule_id": "date_of_birth_iso",
+        "applies_to_profile_paths": [
+          "**Date_Of_Birth**",
+          "**Year_Of_Birth**",
+          "**Date_Of_Death**",
+          "**Year_Of_Death**",
+          "**Data_Collection_Timestamp**"
+        ],
+        "modality_type": "continuous",
+        "value_format": "iso_date",
+        "sampling_role": "trait_state"
+      },
+      {
+        "rule_id": "political_profile_construct_type",
+        "applies_to_profile_paths": [
+          "**Political_Profile**"
+        ],
+        "construct_type": "political",
+        "modality_type": "continuous",
+        "value_format": "float",
+        "sampling_role": "scale_dimension"
+      },
+      {
+        "rule_id": "issue_position_taxonomy_role",
+        "applies_to_profile_paths": [
+          "**Political_Profile > Issue_Position_Taxonomy**"
+        ],
+        "construct_type": "political",
+        "modality_type": "ordinal",
+        "value_format": "float",
+        "sampling_role": "scale_dimension"
+      },
+      {
+        "rule_id": "political_participation_role",
+        "applies_to_profile_paths": [
+          "**Political_Profile > Political_Participation_Taxonomy**"
+        ],
+        "construct_type": "behavioural",
+        "modality_type": "ordinal",
+        "value_format": "float",
+        "sampling_role": "scale_dimension"
+      },
+      {
+        "rule_id": "personality_construct_type",
+        "applies_to_profile_paths": [
+          "**Personality**"
+        ],
+        "construct_type": "personality",
+        "modality_type": "continuous",
+        "value_format": "float",
+        "sampling_role": "scale_facet"
+      },
+      {
+        "rule_id": "big_five_facets",
+        "applies_to_profile_paths": [
+          "**Personality > Big_Five**",
+          "**Personality > HEXACO**",
+          "**Personality > Eysenck_PEN_Model**",
+          "**Personality > Hexad_User_Types_Model**"
+        ],
+        "construct_type": "personality",
+        "modality_type": "continuous",
+        "value_format": "float",
+        "sampling_role": "scale_facet"
+      },
+      {
+        "rule_id": "cognition_construct_type",
+        "applies_to_profile_paths": [
+          "**Cognition_and_Reasoning**",
+          "**Cognitive_Style**",
+          "**Need_for_Cognition**"
+        ],
+        "construct_type": "cognitive",
+        "modality_type": "continuous",
+        "value_format": "float",
+        "sampling_role": "scale_dimension"
+      },
+      {
+        "rule_id": "language_categorical",
+        "applies_to_profile_paths": [
+          "**Preferred_Language**",
+          "**Native_Language**",
+          "**Spoken_Languages**"
+        ],
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value",
+        "construct_type": "linguistic",
+        "exclusivity_group": "Language_Choice"
+      },
+      {
+        "rule_id": "preferences_construct_type",
+        "applies_to_profile_paths": [
+          "**Preferences**",
+          "**Communication_Preferences**",
+          "**Preferred_Channel**"
+        ],
+        "construct_type": "preference",
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value"
+      },
+      {
+        "rule_id": "consent_options",
+        "applies_to_profile_paths": [
+          "**Consent**"
+        ],
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value",
+        "construct_type": "administrative"
+      },
+      {
+        "rule_id": "data_quality_options",
+        "applies_to_profile_paths": [
+          "**Data_Quality**"
+        ],
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value",
+        "construct_type": "administrative"
+      },
+      {
+        "rule_id": "respondent_options",
+        "applies_to_profile_paths": [
+          "**Respondent**"
+        ],
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value",
+        "construct_type": "administrative",
+        "exclusivity_group": "Respondent"
+      },
+      {
+        "rule_id": "data_source_options",
+        "applies_to_profile_paths": [
+          "**Data_Source**",
+          "**Collection_Mode**"
+        ],
+        "modality_type": "categorical",
+        "value_format": "enum",
+        "sampling_role": "option_value",
+        "construct_type": "administrative"
+      }
+    ],
+    "modality_type_definitions": {
+      "categorical": "Discrete unordered set of mutually exclusive options.",
+      "binary": "Two-option categorical (yes/no, present/absent).",
+      "ordinal": "Discrete ordered categories (e.g. Likert 1..5).",
+      "continuous": "Continuous numeric value (real-valued).",
+      "range": "Numeric range encoded as a string or pair.",
+      "identifier": "Free-form ID string (no statistical interpretation).",
+      "composite": "Container whose direct children jointly describe the construct."
+    },
+    "sampling_role_definitions": {
+      "option_value": "A single mutually-exclusive option under an exclusivity group.",
+      "trait_state": "A state value (continuous or ordinal) for a trait/dimension.",
+      "unknown_marker": "Sentinel option representing missing / withheld information.",
+      "identifier": "Identifier string with no statistical role.",
+      "scale_dimension": "Top-level dimension of a multi-item psychometric scale.",
+      "scale_facet": "Facet / sub-dimension of a multi-item psychometric scale.",
+      "container_metadata": "Container leaf whose value is a metadata sub-block."
+    },
+    "construct_type_definitions": {
+      "administrative": "Process / record-keeping metadata.",
+      "demographic": "Population-descriptor variables (age, sex, location).",
+      "political": "Political ideology, issue positions, partisan attachments.",
+      "personality": "Trait and facet dimensions of personality.",
+      "psychological": "Cognitive, motivational, affective constructs.",
+      "clinical": "Health / clinical status indicators.",
+      "contextual": "Environment, situation, life-event variables.",
+      "behavioural": "Action / participation variables.",
+      "identity": "Self-categorisation and group attachments.",
+      "linguistic": "Language / communication variables.",
+      "cognitive": "Cognitive style / reasoning variables.",
+      "preference": "Preference / choice variables."
+    }
+  }
+}

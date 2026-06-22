@@ -1,0 +1,19 @@
+# Network Exposure Layer Methods Draft
+
+## Transition From Individual Susceptibility To Network Exposure
+
+The individual-layer experiment was designed as a broad exploration of the ontology-defined state space of cybermanipulation susceptibility. In that layer, the central aim is to estimate how attack effects vary across inter-individual profile differences, opinion targets, and manipulation tactics when susceptibility is measured as a private response. This provides the necessary individual-level basis for the network analysis: before asking how an exposure network may amplify or attenuate manipulation effects, we first need to know how strongly different profiles move when exposed to an attack in isolation. The network layer therefore does not repeat the full individual-layer state-space exploration. Instead, it translates that individual susceptibility problem into an applied exposure experiment: a carefully selected, balanced subset of profiles, opinions, and attacks is embedded in an empirical social-media exposure graph to test how private differences in susceptibility interact with network position.
+
+For this network-layer experiment, the scenario space was narrowed deliberately to preserve both scientific control and valid peer-context construction. We used a fixed full-factorial panel of 100 deterministic profiles, seven production opinion leaves, and five social-media-relevant attack leaves, yielding 3,500 profile x opinion x attack scenarios. The seven opinions were selected from the directionally encoded production issue-position taxonomy so that the network run remained aligned with the paper-level opinion domains. The five attacks were selected because their mechanisms are plausible on social-media platforms: headline and lede misframing, quote-context stripping, credentialed-domain persona fabrication, repost-bot amplification, and petition astroturfing. This selection is not intended to exhaust the full ontology. Its purpose is to create a controlled, interpretable network experiment in which the same profile panel can be compared across all opinion x attack conditions while preserving complete same-condition peer sets for network exposure assessment.
+
+This design addresses the network-layer research question: whether private susceptibility becomes more consequential when susceptible or resilient profiles occupy influential positions in a real exposure network. Each generated profile was assigned to an empirical position in the `politisky24_bluesky_v1` exposure graph, where directed edges represent plausible exposure from a visible peer to an exposed receiver. The fixed-position main run estimates the network layer under one deterministic empirical profile-position assignment. The counterfactual alignment-gradient branch then isolates the H3/H4 mechanism by varying the assignment between private susceptibility and sender reach while holding the profiles, opinion targets, attack vectors, and empirical graph fixed. In this way, the network layer extends the individual-layer analysis from the question of who is privately susceptible to the applied question of when those susceptibility differences become structurally amplified through exposure.
+
+## Source Notes
+
+| Claim | Source |
+| --- | --- |
+| Production run 1 as broad individual/private layer | Repository `README.md`, production run table and run 1 summary |
+| Production run 2 as network exposure layer | `evaluation/production/run_2/README.md` |
+| Fixed full-factorial network design | `evaluation/production/run_2/README.md`; `evaluation/production/run_2/METHODOLOGY.md` |
+| Opinion and attack panels | `evaluation/production/run_2/config/opinion_panel.json`; `evaluation/production/run_2/config/attack_panel.json` |
+| Empirical exposure graph and edge interpretation | `evaluation/production/run_2/README.md` |

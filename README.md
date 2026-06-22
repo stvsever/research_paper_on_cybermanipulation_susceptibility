@@ -19,6 +19,7 @@
 ## 📋 Table of Contents
 
 - [🧬 Abstract](#abstract)
+- [📄 Research Report](#research-report)
 - [🔄 Pipeline](#pipeline)
 - [🔬 Pipeline Runs](#pipeline-runs)
 - [🗂️ Repository Structure](#repository-structure)
@@ -32,36 +33,41 @@
 <a id="abstract"></a>
 ## 🧬 Abstract
 
-This repository contains the backend research pipeline and first testing-run artifacts for a study on how **inter-individual differences moderate susceptibility to cyber-manipulation of political opinions**.
+This repository contains the backend research pipeline, the production-run artifacts, and the compiled paper for a study on how **inter-individual differences moderate susceptibility to cyber-manipulation of political opinions**.
 
-The workflow represents `PROFILE`, `ATTACK`, and `OPINION` as explicit hierarchical ontologies, generates ontology-based profile by attack by opinion scenarios, elicits baseline and post-exposure opinions with structured LLM agents, audits response coherence, computes directional adversarial effectivity, and estimates moderation with scenario-level machine-learning and statistical diagnostics.
+The workflow represents `PROFILE`, `ATTACK`, and `OPINION` as explicit hierarchical ontologies, samples ontology-based profile by attack by opinion scenarios, elicits private and network-conditioned opinions with structured LLM agents, audits response coherence, computes directional adversarial effectivity, and estimates moderation and network amplification with scenario-level machine-learning and statistical diagnostics.
+
+---
+
+<a id="research-report"></a>
+## 📄 Research Report
+
+The full write-up, covering the methods, the results for both the individual and exposure-network layers, and the supplementary materials, is compiled to [`report/report/main.pdf`](report/report/main.pdf). The LaTeX source, figures, and tables live under [`report/`](report).
 
 ---
 
 <a id="pipeline"></a>
 ## 🔄 Pipeline
 
-The full workflow runs from ontology-based scenario construction through agentic measurement, directional effect construction, and inferential analysis.
+The full workflow runs from ontology-based scenario construction through agentic measurement, direction-aware effect construction, and inferential analysis, across an individual (private) layer and an empirical exposure-network layer.
 
 <div align="center">
-<img src="src/backend/pipeline/full/pipeline_visualization.png" width="1200" alt="Pipeline overview for ontology-based adversarial opinion susceptibility auditing.">
+<img src="report/assets/figures/main/MAIN1_pipeline.png" width="1200" alt="Ontology-based simulation pipeline with the exposure-network layer.">
 </div>
 
-**I. Ontological State Spaces** — three independent input taxonomies define the admissible state space: `PROFILE` (individual-level attributes), `ATTACK` (manipulative intervention types), and `OPINION` (target belief dimensions, each leaf carrying an adversarial direction: `+1` toward the goal, `-1` away, `0` excluded).
+**I. Ontological State Spaces.** Three independent input taxonomies define the admissible state space: `PROFILE` (individual-level attributes), `ATTACK` (manipulative intervention types), and `OPINION` (target belief dimensions, each leaf carrying an adversarial direction: `+1` toward the goal, `-1` away, `0` excluded).
 
-**II. Scenario Construction** — a crossed scenario generator takes the cross product of admissible leaves, so each observation is a unique tuple `(profile i, attack j, opinion k)`.
+**II. Scenario Construction.** A crossed scenario generator combines admissible leaves, so each observation is a unique tuple `(profile i, attack j, opinion k)`.
 
-**III. Agentic Measurement Pipeline** — per scenario: (1) elicit a baseline opinion score conditioned on the profile, (2) generate an attack artifact instantiating the attack in realistic format, (3) audit and repair the artifact's realism until acceptable, (4) re-elicit the same profile's opinion after exposure, and (5) check response coherence, bounds, and consistency with the reasoning trace, flagging or re-running on failure.
+**III. Agentic Measurement Pipeline.** Per scenario, schema-constrained LLM agents (1) elicit a private baseline opinion, (2) elicit a network baseline after peer-context exposure on the fixed empirical graph, (3) generate an attack artifact, (4) audit and repair its realism, (5) re-elicit the private opinion after exposure, (6) re-elicit the opinion after post-attack peer exposure, and (7) check coherence, bounds, and consistency, flagging or re-running on failure. This produces the four states `B`, `N^B`, `P`, and `N^P`.
 
-**IV. Effect Construction** — compute the signed, direction-aware effectivity `AE_ijk = (P_ijk − B_ijk) × d_k`, where `d_k ∈ {+1, −1, 0}` is the adversarial direction at opinion leaf `k`. `AE > 0` is movement toward the attacker's goal (success), `AE < 0` is resistance/backfire, `AE = 0` is excluded. This yields a structured repeated-outcome dataset (observations nested within profiles).
+**IV. Effect Construction.** Compute the signed, direction-aware effectivity for both layers: the private effect `AE_private = (P − B) × d` and the network effect `AE_network = (N^P − N^B) × d`, where `d ∈ {+1, −1, 0}` is the adversarial direction at opinion leaf `k`. Positive values mean movement toward the attacker's goal, negative values resistance or backfire, and zero is excluded. The result is a structured repeated-outcome dataset (observations nested within profiles).
 
-**V. Inferential Layer** — a multi-stage analysis over the repeated-outcome dataset: (1) repeated-outcome moderation models (path/SEM, mixed-effects, multilevel variance decomposition) testing which profile characteristics explain directional effectivity; (2) task-conditional regularized models (ridge / elastic net / LASSO per attack×opinion task) aggregated into a composite susceptibility index `CSI_i`; (3) uncertainty and rank stability via profile-cluster bootstrap (BCa intervals) and Bayesian rank stability; (4) a profile-feature dependency graph (signed correlation network, centrality, community detection, bridge variables).
+**V. Inferential Layer.** A multi-stage analysis: (1) repeated-outcome moderation models (path/SEM, mixed-effects, multilevel variance decomposition); (2) task-conditional regularized models (ridge / elastic net / LASSO per attack-by-opinion task) aggregated into a composite susceptibility index `CSI`; (3) uncertainty and rank stability via profile-cluster bootstrap; (4) a profile-feature dependency graph (signed correlation network, centrality, community detection, bridge variables); (5) a network-exposure overlay that maps susceptibility onto the exposure graph to test amplification and attenuation by sender position.
 
-**VI. Outputs & Interpretation** — identify which profile characteristics increase or decrease susceptibility and toward which opinions, provide profile-level susceptibility estimates with uncertainty (`CSI` scores and intervals), surface feature interdependencies and key bridge variables, and enable generalizable insight into adversarial persuasion under structured heterogeneity.
+**VI. Outputs & Interpretation.** Identify which profile characteristics raise or lower susceptibility and toward which opinions, provide profile-level susceptibility estimates with uncertainty (`CSI` scores and intervals), surface feature interdependencies and bridge variables, and establish whether susceptible profiles in high-reach network positions amplify or attenuate attack effects.
 
-Cross-cutting **safeguards and traceability** run across all stages: ontology constraints define admissible states, realism audits constrain artifact validity, coherence checks ensure plausible responses, and full provenance logging is kept end-to-end.
-
-> **Note (legacy description).** The figure and stages I to VI above describe the original crossed-factorial design used in run 1 (a dense `profile x attack x opinion` cross product). The current integrated production pipeline (runs 2 and 3) instead samples scenarios from a pre-built 10,000-row integrated set, where each scenario pairs one full high-resolution profile, one near-unique DISARM Plan/Prepare/Execute attack triplet, and one opinion parent cluster scored cluster-at-once. Run 3 additionally runs the empirical exposure-network layer (stages 01b, 02b, 04b) for the four-state B/BN/P/PN backbone. `#TODO: update this pipeline section and figure to the integrated cluster + exposure-network design.`
+Cross-cutting **safeguards and traceability** run across all stages: ontology constraints define admissible states, realism audits constrain artifact validity, coherence checks ensure plausible responses, and full provenance logging is kept end to end.
 
 ---
 
@@ -85,24 +91,25 @@ Five test runs validate the pipeline and the exposure-network layer at small sca
 | **Run 4** | 200 scenarios concentrated into 2 issue domains so the empirical exposure network is dense, on a recalibrated exposure-network layer | individual + exposure-network (working) | [`evaluation/tests/run_4`](evaluation/tests/run_4) · [README](evaluation/tests/run_4/README.md) |
 | **Run 5** | 60 scenarios in a single issue domain with a reduced (about 40 percent smaller) profile and per-attack-tactic conditional estimation, so the individual-layer moderators are interpretable | individual + exposure-network | [`evaluation/tests/run_5`](evaluation/tests/run_5) · [README](evaluation/tests/run_5/README.md) |
 
-**Run 5 is the test reference.** It keeps the run-4 four-state backbone (B, BN, P, PN) and working exposure-network methodology and fixes the individual layer. The pre-built profiles carry ~526 traits across many overlapping taxonomies, which left the moderator models under-determined (run 4 had near-zero CV-R2 and no significant moderators). Stage 01 drops a curated portion of the profile (the redundant HEXACO/Eysenck/Hexad personality taxonomies and the low-relevance goals/values/safety/criminal/administrative subtrees) and keeps the research core; the filter applies in one place so the dropped traits leave both the agent prompt and every analysis. With the reduced profile the moderation is interpretable (the political-psychology block carries about 60 percent of the explained moderation; openness is a significant moderator, b = +2.78, p = 0.030), and the conditional susceptibility estimator carries per-DISARM-Execute-tactic tasks so a specific attack vector can be selected in the dashboard. Reproduce with `bash scripts/tests/run_5.sh` (add `--no-network` for the individual layer only, or `--verbose` for a live monitor).
+**Run 5 is the test reference.** It keeps the run-4 four-state backbone (`B`, `BN`, `P`, `PN`) and working exposure-network methodology, and fixes the individual layer with a reduced research-core profile (dropping the redundant HEXACO/Eysenck/Hexad personality taxonomies and the low-relevance subtrees that left earlier moderator models under-determined). With the reduced profile the moderation is interpretable (openness a significant moderator, b = +2.78, p = 0.030), and the conditional-susceptibility estimator carries per-DISARM-Execute-tactic tasks so a specific attack vector can be selected in the dashboard. Reproduce with `bash scripts/tests/run_5.sh` (`--no-network` for the individual layer only, `--verbose` for a live monitor).
 
 ### Production Runs
 
 | Run | Design | Layers | Output |
 |-----|--------|--------|--------|
-| **Run 1** | all 10,000 integrated scenarios (stratified across the 7 issue domains, 151,448 opinion-leaf measurements), individual layer only. A 159-feature research-core profile: the full hierarchical Big Five, the core demographic markers, and the political-psychology / ideology / moral-foundations battery | individual only | [`evaluation/production/run_1`](evaluation/production/run_1) · [README](evaluation/production/run_1/README.md) |
+| **Run 1** | all 10,000 integrated scenarios (stratified across the 7 issue domains, 151,448 opinion-leaf measurements); a 159-feature research-core profile (full hierarchical Big Five, core demographics, and the political-psychology / ideology / moral-foundations battery) | individual only | [`evaluation/production/run_1`](evaluation/production/run_1) · [README](evaluation/production/run_1/README.md) |
+| **Run 2** | a fixed full-factorial panel of 100 profiles × 7 opinions × 5 social-media attacks (3,500 scenarios) on the empirical `politisky24_bluesky_v1` graph; four-state `B`/`N^B`/`P`/`N^P` backbone plus a counterfactual alignment-gradient branch | exposure-network | [`evaluation/production/run_2`](evaluation/production/run_2) · [README](evaluation/production/run_2/README.md) |
 
-**Production run 1 is the full-scale individual-layer measurement.** It runs stages 01 to 05 over the entire integrated set (about 20,000 LLM calls on `deepseek/deepseek-v4-flash`), with the empirical exposure-network layer off. The profile is reduced a second time, from 336 to about 159 features (a 53 percent further reduction, 71 percent versus the full 540-feature integrated profile), keeping the full hierarchical Big Five, the core demographic markers and the political-psychology / ideology / moral-foundations battery, and dropping the political-participation, socioeconomic and life-circumstance taxonomies and the over-detailed identity spectra. Storage is lean: stage 05 keeps only the compact CSV delta tables (every B, P, delta and effectivity score per scenario and leaf); the full source content of any scenario is recoverable by joining the integrated set on `scenario_id`.
-
-The headline results (see the [run README](evaluation/production/run_1/README.md) and `evaluation/production/run_1/visuals/`): the attack reliably moves private opinions (88 percent of leaves, Cohen d_z = 1.23); what is attacked dominates who is attacked, with the issue domain explaining roughly 30 times more between-scenario variance than the entire 159-trait profile battery and the specific DISARM tactic barely mattering; and susceptibility is highly heterogeneous between individuals (ICC = 0.83) but only weakly along measured trait axes, with the Big Five the leading moderator family (openness more movable, conscientiousness more resistant, neuroticism more movable, all FDR-significant). The single-leaf macroeconomic domain is excluded from the analyses as a statistical outlier. Reproduce with:
+**Production run 1 is the full-scale individual-layer measurement.** It runs stages 01 to 05 over the entire integrated set (about 20,000 LLM calls on `deepseek/deepseek-v4-flash`), with the exposure-network layer off, on a deep research-core profile (~159 features). Storage is lean: stage 05 keeps only the compact CSV delta tables, and any scenario's full source is recoverable by joining the integrated set on `scenario_id`. Headline results: the attack reliably moves private opinions (88 percent of leaves, Cohen d_z = 1.23); what is attacked dominates who is attacked (the issue domain explains roughly 30 times more between-scenario variance than the entire 159-trait profile battery, and the specific DISARM tactic barely matters); and susceptibility is highly heterogeneous between individuals (ICC = 0.83) but only weakly trait-aligned, with the Big Five the leading moderator family (openness and neuroticism more movable, conscientiousness more resistant, all FDR-significant). Reproduce with:
 
 ```bash
 bash scripts/production/run_1.sh --verbose            # the 10,000-scenario run (stages 01..05)
-.venv/bin/python src/backend/utils/analysis/analyze_run_1.py  # family-wise moderation, inferential tests, figures
+.venv/bin/python src/backend/utils/analysis/analyze_run_1.py  # moderation, inferential tests, figures
 ```
 
-The launcher checks for `OPENROUTER_API_KEY` and verifies the projected OpenRouter budget before running.
+**Production run 2 is the full-scale exposure-network measurement.** On a fixed full-factorial panel (100 deterministic profiles × 7 opinions × 5 social-media attacks = 3,500 scenarios) embedded in the empirical `politisky24_bluesky_v1` graph, it adds the four-state backbone (`B`, `N^B`, `P`, `N^P`) and a counterfactual alignment-gradient branch over 35 opinion-by-attack conditions. Headline results: network-conditioned susceptibility is related to but not reducible to private susceptibility (r = .28; the direct effect is not significant once traits are modelled jointly), and an attack's network-wide effect increases substantially when comparatively susceptible profiles occupy higher-reach sender positions (condition-level alignment slope β = 2.40, p < .001). Reproduce with `bash scripts/production/run_2.sh full`.
+
+Both launchers check for `OPENROUTER_API_KEY` and verify the projected OpenRouter budget before running.
 
 ---
 
@@ -117,10 +124,11 @@ research_paper_on_cybermanipulation_susceptibility/
 |-- requirements.txt
 |-- .env.example
 |-- .gitignore
-|-- docker/
+|-- docker/                        (Dockerfile, docker-compose.yml, entrypoint.sh)
+|-- report/                        (compiled paper: report/main.tex + main.pdf; assets/figures + assets/tables)
 |-- scripts/
 |   |-- tests/                     (run_1.sh, run_2.sh, run_3.sh, run_4.sh, run_5.sh)
-|   `-- production/                (run_1.sh: full 10,000-scenario individual-layer run)
+|   `-- production/                (run_1.sh: individual layer; run_2.sh: exposure-network layer)
 |-- evaluation/
 |   |-- tests/
 |   |   |-- run_1/                 (individual layer; see run_1/README.md)
@@ -137,10 +145,16 @@ research_paper_on_cybermanipulation_susceptibility/
 |   |       |-- publication/       (publication assets + paper)
 |   |       `-- README.md
 |   `-- production/
-|       `-- run_1/                 (full 10,000-scenario individual-layer run; see run_1/README.md)
-|           |-- config/            (run configuration)
-|           |-- logs/              (console log)
-|           |-- stage_outputs/     (stages 01..05: scenarios, baseline B, attack spec, post-attack P, effectivity deltas)
+|       |-- run_1/                 (full 10,000-scenario individual-layer run; see run_1/README.md)
+|       |   |-- config/            (run configuration)
+|       |   |-- logs/              (console log)
+|       |   |-- stage_outputs/     (stages 01..05: scenarios, baseline B, attack spec, post-attack P, effectivity deltas)
+|       |   `-- README.md
+|       `-- run_2/                 (exposure-network run: 3,500-scenario panel; see run_2/README.md)
+|           |-- config/            (scenario design, attack/opinion panels, ontology snapshot)
+|           |-- stage_outputs/     (stages 01..08b: four-state B/N^B/P/N^P backbone, deltas, SEM)
+|           |-- network_exposure_analysis/   (figures, tables, validation reports)
+|           |-- counterfactual_alignment_gradient/  (H6/H7 alignment-gradient branch)
 |           `-- README.md
 `-- src/
     |-- data/                      (empirical exposure-network substrate)
@@ -160,6 +174,8 @@ The compiled paper and its assets live in `report/` (LaTeX source, figures, tabl
 <a id="setup"></a>
 ## ⚙️ Setup
 
+### 🐍 Local (virtualenv)
+
 ```bash
 git clone https://github.com/stvsever/research_paper_on_cybermanipulation_susceptibility.git
 cd research_paper_on_cybermanipulation_susceptibility
@@ -172,43 +188,50 @@ cp .env.example .env
 
 Add `OPENROUTER_API_KEY` to `.env` before running the pipeline.
 
+### 🐳 Docker
+
+A reproducible container (Python 3.11 plus Tectonic for report builds) is defined under [`docker/`](docker/). Build the image and run a small end-to-end test pipeline with:
+
+```bash
+cp .env.example .env          # then add OPENROUTER_API_KEY
+docker compose -f docker/docker-compose.yml up --build
+```
+
+Outputs are written to the mounted `evaluation/` and `report/` directories. The run is configured through environment variables (for example `OUTPUT_ROOT`, `RUN_ID`, `N_PROFILES`, `OPENROUTER_MODEL`, `BUILD_REPORT`); set `BUILD_REPORT=true` to compile the paper inside the container.
+
 ---
 
 <a id="manual-run"></a>
 ## 🚀 Manual Run
 
-The launcher `scripts/tests/run_3.sh` is the recommended entry point. The equivalent direct invocation for the current integrated reference run (run 3, with the empirical exposure-network layer) is:
+The launcher `scripts/production/run_1.sh` is the recommended entry point. The equivalent direct invocation for the full individual-layer production run (run 1, network layer off) is:
 
 ```bash
 .venv/bin/python src/backend/pipeline/full/run_full_pipeline.py \
-  --output-root evaluation/tests/run_3 \
-  --run-id run_3 \
+  --output-root evaluation/production/run_1 \
+  --run-id production_run_1 \
   --integrated-scenarios-path src/backend/pipeline/separate/01_create_scenarios/samples/02_integrated/integrated_scenarios_10000.jsonl \
-  --n-scenarios 100 \
-  --seed 120 \
+  --n-scenarios 10000 \
+  --no-max-entropy-subsample \
+  --seed 1001 \
   --attack-ratio 1.0 \
-  --primary-moderator posthoc_profile_susceptibility_index \
-  --bootstrap-samples 200 \
   --no-use-test-ontology \
   --ontology-root src/backend/ontology/separate/production \
   --no-enforce-compatibility-rules \
   --drop-direction-neutral-opinions \
+  --no-with-network-exposure \
   --openrouter-model deepseek/deepseek-v4-flash \
   --temperature 0.15 \
   --max-repair-iter 1 \
   --profile-generation-mode deterministic \
   --no-self-supervise-opinion-coherence \
   --no-self-supervise-attack-realism \
-  --with-network-exposure \
-  --exposure-network-root src/data/exposure_networks/politisky24_bluesky_v1 \
-  --generate-visuals \
-  --export-static-figures \
-  --no-build-report \
+  --lean-storage \
   --resume-from-stage 01 \
-  --stop-after-stage 08
+  --stop-after-stage 05
 ```
 
-Drop `--with-network-exposure` for the individual layer only. Run 1 and run 2 are reproduced with `bash scripts/tests/run_1.sh` and `bash scripts/tests/run_2.sh`.
+Add `--with-network-exposure --exposure-network-root src/data/exposure_networks/politisky24_bluesky_v1` to enable the exposure-network layer; the full network production run is reproduced with `bash scripts/production/run_2.sh full`. The small test runs are reproduced with `bash scripts/tests/run_1.sh` through `run_5.sh`.
 
 ---
 

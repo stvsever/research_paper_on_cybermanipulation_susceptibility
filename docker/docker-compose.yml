@@ -18,15 +18,15 @@ services:
       TEMPERATURE: "${TEMPERATURE:-0.15}"
       MAX_REPAIR_ITER: "${MAX_REPAIR_ITER:-2}"
       BOOTSTRAP_SAMPLES: "${BOOTSTRAP_SAMPLES:-600}"
-      REPORT_ROOT: "${REPORT_ROOT:-research_report/report}"
-      REPORT_ASSETS_ROOT: "${REPORT_ASSETS_ROOT:-research_report/assets}"
+      REPORT_ROOT: "${REPORT_ROOT:-report/report}"
+      REPORT_ASSETS_ROOT: "${REPORT_ASSETS_ROOT:-report/assets}"
       PAPER_TITLE: "${PAPER_TITLE:-Inter-individual Differences in Susceptibility to Cyber-manipulation of Political Opinions: An Ontology-Constrained Multi-Agent Simulation Approach}"
       BUILD_REPORT: "${BUILD_REPORT:-false}"
       RUN_STAGE_CHECKS: "${RUN_STAGE_CHECKS:-true}"
-      # Custom ontology paths (optional — overrides built-in test ontologies)
+      # Custom ontology paths (optional; override the built-in test ontologies)
       PROFILE_ONTOLOGY_PATH: "${PROFILE_ONTOLOGY_PATH:-}"
       ATTACK_ONTOLOGY_PATH: "${ATTACK_ONTOLOGY_PATH:-}"
       OPINION_ONTOLOGY_PATH: "${OPINION_ONTOLOGY_PATH:-}"
     volumes:
       - ../evaluation:/app/evaluation
-      - ../research_report:/app/research_report
+      - ../report:/app/report

@@ -1,0 +1,479 @@
+{
+  "_metadata": {
+    "schema_version": "v4-test-run-1-test",
+    "ontology_role": "test",
+    "deployment_compatible": true,
+    "subset_of": "production/ATTACK/attack.json",
+    "title": "Cyber-manipulation Attack Ontology — Test Subset",
+    "subtitle": "Practical small subset of the deployment ontology used by the run_1 testing run",
+    "design_principles": [
+      "Subtree keys are PascalCase_With_Underscores; leaves default to {} so flatten_leaf_paths enumerates every technique.",
+      "Per-leaf metadata is restricted to UNIQUE structural sampling constraints not derivable from the leaf's parent path.",
+      "Subtree-wide sampling logic is encoded in the top-level _compatibility_rules metanode using path-glob patterns.",
+      "No psychological-amplification predicates anywhere — those are exactly the targets the inferential layer estimates."
+    ],
+    "primary_families": [
+      "Claim_Frame_And_Narrative_Manipulation",
+      "Source_Identity_And_Legitimacy_Manipulation",
+      "Ai_Generated_Synthetic_Media_And_Content",
+      "Multi_Agent_Adversarial_Architecture",
+      "Targeting_Delivery_And_Discoverability_Optimization",
+      "Amplification_Visibility_And_Attention_Manipulation",
+      "Social_Proof_Network_And_Community_Manipulation",
+      "Platform_Information_Environment_And_Media_System_Shaping",
+      "Cognitive_Infrastructure_And_Epistemic_Subversion",
+      "Narrative_Infrastructure_And_Ecosystem_Capture",
+      "Economic_And_Regulatory_Pressure_Weaponisation",
+      "Insider_Threat_Facilitation_And_Human_Recruitment",
+      "Gamification_And_Unwitting_Participant_Mobilisation"
+    ]
+  },
+  "_compatibility_rules": {
+    "schema_version": "v4-test-run-1-meta",
+    "rule_evaluation": "ordered_merge_last_wins_per_attribute",
+    "pattern_wildcard": "**",
+    "pattern_separator": " > ",
+    "rules": [
+      {
+        "rule_id": "multi_agent_requires_orchestration",
+        "applies_to_attack_paths": [
+          "**Multi_Agent_Adversarial_Architecture**"
+        ],
+        "requires_capability": [
+          "agent_orchestration"
+        ],
+        "complexity_tier": "T4_orchestrated",
+        "epistemic_target": "evaluative_attitude"
+      },
+      {
+        "rule_id": "synthetic_media_requires_generative_ai",
+        "applies_to_attack_paths": [
+          "**Ai_Generated_Synthetic_Media_And_Content**"
+        ],
+        "requires_capability": [
+          "generative_ai_models"
+        ],
+        "complexity_tier": "T3_synthetic",
+        "epistemic_target": "factual_belief"
+      },
+      {
+        "rule_id": "deepfake_compatible_domains",
+        "applies_to_attack_paths": [
+          "**Foundation_Model_Video_Generation**",
+          "**Foundation_Model_Audio_Generation**"
+        ],
+        "compatible_opinion_domains": [
+          "Defense_And_National_Security",
+          "Foreign_Policy_And_Geopolitics",
+          "Information_Integrity_And_Platforms",
+          "Democratic_Resilience_And_Institutions"
+        ]
+      },
+      {
+        "rule_id": "ai_retrieval_surface_compatible_domains",
+        "applies_to_attack_paths": [
+          "**Ai_Retrieval_Surface_Poisoning**"
+        ],
+        "compatible_opinion_domains": [
+          "Information_Integrity_And_Platforms",
+          "Democratic_Resilience_And_Institutions",
+          "Defense_And_National_Security",
+          "Foreign_Policy_And_Geopolitics",
+          "Technology_And_Ai_Governance"
+        ],
+        "requires_capability": [
+          "search_index_targetable"
+        ],
+        "complexity_tier": "T3_synthetic",
+        "epistemic_target": "epistemic_routine"
+      },
+      {
+        "rule_id": "amplification_default_tier",
+        "applies_to_attack_paths": [
+          "**Amplification_Visibility_And_Attention_Manipulation**",
+          "**Social_Proof_Network_And_Community_Manipulation**"
+        ],
+        "complexity_tier": "T2_campaign",
+        "epistemic_target": "evaluative_attitude"
+      },
+      {
+        "rule_id": "narrative_atomic_tier",
+        "applies_to_attack_paths": [
+          "**Claim_Frame_And_Narrative_Manipulation > Claim_Level_Deception**",
+          "**Claim_Frame_And_Narrative_Manipulation > Emotional_And_Moral_Engineering**"
+        ],
+        "complexity_tier": "T1_atomic",
+        "epistemic_target": "evaluative_attitude"
+      },
+      {
+        "rule_id": "epistemic_destabilisation_target",
+        "applies_to_attack_paths": [
+          "**Cognitive_Infrastructure_And_Epistemic_Subversion**"
+        ],
+        "complexity_tier": "T2_campaign",
+        "epistemic_target": "epistemic_routine"
+      },
+      {
+        "rule_id": "new_primary_family_representatives",
+        "applies_to_attack_paths": [
+          "**Narrative_Infrastructure_And_Ecosystem_Capture**",
+          "**Economic_And_Regulatory_Pressure_Weaponisation**",
+          "**Insider_Threat_Facilitation_And_Human_Recruitment**",
+          "**Gamification_And_Unwitting_Participant_Mobilisation**"
+        ],
+        "complexity_tier": "T4_orchestrated",
+        "epistemic_target": "evaluative_attitude"
+      },
+      {
+        "rule_id": "economic_regulatory_test_capability",
+        "applies_to_attack_paths": [
+          "**Economic_And_Regulatory_Pressure_Weaponisation**"
+        ],
+        "requires_capability": [
+          "legal_process_or_platform_policy_access"
+        ]
+      },
+      {
+        "rule_id": "insider_recruitment_test_capability",
+        "applies_to_attack_paths": [
+          "**Insider_Threat_Facilitation_And_Human_Recruitment**"
+        ],
+        "requires_capability": [
+          "human_source_recruitment_access"
+        ]
+      },
+      {
+        "rule_id": "gamification_test_capability",
+        "applies_to_attack_paths": [
+          "**Gamification_And_Unwitting_Participant_Mobilisation**"
+        ],
+        "requires_capability": [
+          "interactive_media_or_game_surface"
+        ]
+      }
+    ],
+    "capability_definitions": {
+      "agent_orchestration": "Multi-turn / multi-agent runtime with persistent persona memory.",
+      "generative_ai_models": "Access to foundation models for text, image, audio, video.",
+      "search_index_targetable": "Target population uses search / retrieval surfaces for the relevant issue.",
+      "legal_process_or_platform_policy_access": "Access to formal complaint, monetisation, regulatory, or policy-process channels.",
+      "human_source_recruitment_access": "Ability to identify, approach, and securely task human sources or insiders.",
+      "interactive_media_or_game_surface": "Access to an interactive social, live-event, game, or gamified tasking surface."
+    }
+  },
+  "Political_Opinion_Cybermanipulation_Ontology": {
+    "Primary_Axis": {
+      "Attack_Family": {
+        "Claim_Frame_And_Narrative_Manipulation": {
+          "Claim_Level_Deception": {
+            "Misleading_Framing": {
+              "Headline_And_Lede_Misframing": {
+                "family": "Claim_Frame_And_Narrative_Manipulation",
+                "complexity_tier": "T1_atomic",
+                "temporal_horizon": "hours",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "claim frame and narrative manipulation: headline and lede misframing (within misleading framing)"
+              }
+            },
+            "Context_Stripping": {
+              "Quote_Context_Stripping": {
+                "family": "Claim_Frame_And_Narrative_Manipulation",
+                "complexity_tier": "T1_atomic",
+                "temporal_horizon": "hours",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "claim frame and narrative manipulation: quote context stripping (within context stripping)"
+              }
+            }
+          },
+          "Emotional_And_Moral_Engineering": {
+            "Fear_Appeals": {
+              "Personal_Safety_Fear_Appeal": {
+                "family": "Claim_Frame_And_Narrative_Manipulation",
+                "complexity_tier": "T1_atomic",
+                "temporal_horizon": "hours",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "claim frame and narrative manipulation: personal safety fear appeal (within fear appeals)"
+              }
+            }
+          },
+          "Epistemic_Destabilisation": {
+            "Verification_Fatigue_Induction": {
+              "Constant_Fact_Dispute_Induction": {
+                "family": "Claim_Frame_And_Narrative_Manipulation",
+                "complexity_tier": "T1_atomic",
+                "temporal_horizon": "hours",
+                "epistemic_target": "factual_belief",
+                "requires_capability": [],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "claim frame and narrative manipulation: constant fact dispute induction (within verification fatigue induction)"
+              }
+            }
+          }
+        },
+        "Source_Identity_And_Legitimacy_Manipulation": {
+          "Persona_Fabrication": {
+            "False_Expert_Personas": {
+              "Credentialed_Domain_Persona_Fabrication": {
+                "family": "Source_Identity_And_Legitimacy_Manipulation",
+                "complexity_tier": "T2_campaign",
+                "temporal_horizon": "weeks",
+                "epistemic_target": "trust_dimension",
+                "requires_capability": [],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "source identity and legitimacy manipulation: credentialed domain persona fabrication (within false expert personas)"
+              }
+            }
+          }
+        },
+        "Ai_Generated_Synthetic_Media_And_Content": {
+          "Foundation_Model_Video_Generation": {
+            "Lip_Sync_Deepfake_Generation": {
+              "Politician_Speech_Lip_Sync": {
+                "family": "Ai_Generated_Synthetic_Media_And_Content",
+                "complexity_tier": "T3_synthetic",
+                "temporal_horizon": "days",
+                "epistemic_target": "factual_belief",
+                "requires_capability": [
+                  "generative_ai_models"
+                ],
+                "compatible_opinion_domains": [
+                  "Defense_And_National_Security",
+                  "Foreign_Policy_And_Geopolitics",
+                  "Information_Integrity_And_Platforms",
+                  "Democratic_Resilience_And_Institutions"
+                ],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "AI generated synthetic media and content: politician speech lip sync (within lip sync deepfake generation)"
+              }
+            }
+          },
+          "Foundation_Model_Audio_Generation": {
+            "Voice_Cloning_Generation": {
+              "Single_Speaker_Cloning": {
+                "Politician_Voice_Cloning": {
+                  "family": "Ai_Generated_Synthetic_Media_And_Content",
+                  "complexity_tier": "T3_synthetic",
+                  "temporal_horizon": "days",
+                  "epistemic_target": "factual_belief",
+                  "requires_capability": [
+                    "generative_ai_models"
+                  ],
+                  "compatible_opinion_domains": [
+                    "Defense_And_National_Security",
+                    "Foreign_Policy_And_Geopolitics",
+                    "Information_Integrity_And_Platforms",
+                    "Democratic_Resilience_And_Institutions"
+                  ],
+                  "scenario_role": "target_exposure",
+                  "is_classification_axis": false,
+                  "mechanism_summary": "AI generated synthetic media and content: politician voice cloning (within single speaker cloning)"
+                }
+              }
+            }
+          }
+        },
+        "Multi_Agent_Adversarial_Architecture": {
+          "Persona_Cluster_Orchestration": {
+            "Concerned_Citizen_Cluster": {
+              "Coordinated_Local_Parent_Cluster": {
+                "family": "Multi_Agent_Adversarial_Architecture",
+                "complexity_tier": "T4_orchestrated",
+                "temporal_horizon": "weeks",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [
+                  "agent_orchestration"
+                ],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "multi agent adversarial architecture: coordinated local parent cluster (within concerned citizen cluster)"
+              }
+            }
+          },
+          "Adversarial_Conversation_Loops": {
+            "Counter_Argument_Adaptation": {
+              "Multi_Turn_Counter_Argument_Adaptation": {
+                "family": "Multi_Agent_Adversarial_Architecture",
+                "complexity_tier": "T4_orchestrated",
+                "temporal_horizon": "weeks",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [
+                  "agent_orchestration"
+                ],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "multi agent adversarial architecture: multi turn counter argument adaptation (within counter argument adaptation)"
+              }
+            }
+          }
+        },
+        "Amplification_Visibility_And_Attention_Manipulation": {
+          "Bot_Cyborg_And_Account_Network_Amplification": {
+            "Political_Bot_Amplification": {
+              "Repost_Bot_Amplification": {
+                "family": "Amplification_Visibility_And_Attention_Manipulation",
+                "complexity_tier": "T2_campaign",
+                "temporal_horizon": "days",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "amplification visibility and attention manipulation: repost bot amplification (within political bot amplification)"
+              }
+            }
+          }
+        },
+        "Social_Proof_Network_And_Community_Manipulation": {
+          "Consensus_Fabrication": {
+            "Astroturf_Movements": {
+              "Petition_Astroturf": {
+                "family": "Social_Proof_Network_And_Community_Manipulation",
+                "complexity_tier": "T2_campaign",
+                "temporal_horizon": "weeks",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "social proof network and community manipulation: petition astroturf (within astroturf movements)"
+              }
+            }
+          }
+        },
+        "Platform_Information_Environment_And_Media_System_Shaping": {
+          "Search_Archive_And_Retrieval_Manipulation": {
+            "Ai_Answer_Poisoning": {
+              "Faq_Corpus_Poisoning": {
+                "family": "Platform_Information_Environment_And_Media_System_Shaping",
+                "complexity_tier": "T2_campaign",
+                "temporal_horizon": "weeks",
+                "epistemic_target": "epistemic_routine",
+                "requires_capability": [],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "platform information environment and media system shaping: FAQ corpus poisoning (within AI answer poisoning)"
+              }
+            }
+          },
+          "Discoverability_Engineering": {
+            "Ai_Retrieval_Surface_Poisoning": {
+              "Snippet_Optimised_Adversarial_Content": {
+                "family": "Platform_Information_Environment_And_Media_System_Shaping",
+                "complexity_tier": "T3_synthetic",
+                "temporal_horizon": "weeks",
+                "epistemic_target": "epistemic_routine",
+                "requires_capability": [
+                  "search_index_targetable"
+                ],
+                "compatible_opinion_domains": [
+                  "Information_Integrity_And_Platforms",
+                  "Democratic_Resilience_And_Institutions",
+                  "Defense_And_National_Security",
+                  "Foreign_Policy_And_Geopolitics",
+                  "Technology_And_Ai_Governance"
+                ],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "platform information environment and media system shaping: snippet optimised adversarial content (within AI retrieval surface poisoning)"
+              }
+            }
+          }
+        },
+        "Cognitive_Infrastructure_And_Epistemic_Subversion": {
+          "Epistemic_Trust_Demobilisation": {
+            "Pervasive_Doubt_Engineering": {
+              "family": "Cognitive_Infrastructure_And_Epistemic_Subversion",
+              "complexity_tier": "T2_campaign",
+              "temporal_horizon": "months",
+              "epistemic_target": "epistemic_routine",
+              "requires_capability": [],
+              "scenario_role": "target_exposure",
+              "is_classification_axis": false,
+              "mechanism_summary": "cognitive infrastructure and epistemic subversion: pervasive doubt engineering (within epistemic trust demobilisation)"
+            }
+          }
+        },
+        "Narrative_Infrastructure_And_Ecosystem_Capture": {
+          "Narrative_Prepositioning_And_Dormant_Seeding": {
+            "Semantic_Term_Shift": {
+              "Controlled_Political_Term_Redescription": {
+                "family": "Narrative_Infrastructure_And_Ecosystem_Capture",
+                "complexity_tier": "T4_orchestrated",
+                "temporal_horizon": "years",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "narrative infrastructure and ecosystem capture: controlled political term redescription (within semantic term shift)"
+              }
+            }
+          }
+        },
+        "Economic_And_Regulatory_Pressure_Weaponisation": {
+          "Regulatory_Arbitrage_And_Process_Weaponisation": {
+            "Complaint_Process_Weaponisation": {
+              "Coordinated_Regulatory_Complaint_Filing": {
+                "family": "Economic_And_Regulatory_Pressure_Weaponisation",
+                "complexity_tier": "T4_orchestrated",
+                "temporal_horizon": "months",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [
+                  "legal_process_or_platform_policy_access"
+                ],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "economic and regulatory pressure weaponisation: coordinated regulatory complaint filing (within complaint process weaponisation)"
+              }
+            }
+          }
+        },
+        "Insider_Threat_Facilitation_And_Human_Recruitment": {
+          "Human_Source_Recruitment": {
+            "Financial_And_Career_Recruitment": {
+              "Paid_Tipster_Recruitment": {
+                "family": "Insider_Threat_Facilitation_And_Human_Recruitment",
+                "complexity_tier": "T4_orchestrated",
+                "temporal_horizon": "months",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [
+                  "human_source_recruitment_access"
+                ],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "insider threat facilitation and human recruitment: paid tipster recruitment (within financial and career recruitment)"
+              }
+            }
+          }
+        },
+        "Gamification_And_Unwitting_Participant_Mobilisation": {
+          "Gamified_Recruitment_And_Tasking": {
+            "Challenge_Based_Mobilisation": {
+              "Hashtag_Challenge_Tasking": {
+                "family": "Gamification_And_Unwitting_Participant_Mobilisation",
+                "complexity_tier": "T4_orchestrated",
+                "temporal_horizon": "weeks",
+                "epistemic_target": "evaluative_attitude",
+                "requires_capability": [
+                  "interactive_media_or_game_surface"
+                ],
+                "scenario_role": "target_exposure",
+                "is_classification_axis": false,
+                "mechanism_summary": "gamification and unwitting participant mobilisation: hashtag challenge tasking (within challenge based mobilisation)"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

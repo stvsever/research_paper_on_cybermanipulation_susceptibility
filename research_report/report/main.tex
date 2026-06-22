@@ -296,13 +296,14 @@ research questions organise the work, one on the individual layer and one on the
 \item To what extent, and in which direction, do DISARM-based attacks shift political
 opinions, and which profile characteristics moderate this directional effectivity,
 conditional on the attack used and the opinion targeted?
-\item How does exposure to an individual's social network modulate this susceptibility, and
-are the profile characteristics that predict the network increment ($\Delta_{\text{network}}$)
-the same as those that predict the direct individual effect ($\Delta_{\text{direct}}$)?
+\item How do private susceptibility differences translate into network-conditioned
+cyber-manipulation effects, and does population-level amplification depend on whether
+susceptible or resilient profiles occupy high-reach positions in an empirical exposure network?
 \end{enumerate}
 
-\noindent The methodology and results that follow develop the individual layer; the
-directional hypotheses associated with RQ1 are stated, with the design, in
+\noindent The methodology and results first develop the individual layer and then extend the
+same profile, attack, and opinion framework into the empirical exposure-network layer. The
+directional hypotheses associated with both research questions are stated, with the design, in
 Section~\ref{sec:hypotheses}.
 
 \section{Method}
@@ -333,17 +334,20 @@ independent value and clustered leaves are not treated as independent observatio
 
 \begin{figure}[ht]
 \floatleft
-\caption{Ontology-based Simulation Pipeline for Individual Susceptibility Estimation}
+\caption{Ontology-based Simulation Pipeline with Network Exposure Layer}
 \label{fig:pipeline}
 \vspace{2pt}
-\includegraphics[width=\linewidth]{../assets/figures/main/MAIN1_pipeline.png}
+\includegraphics[width=\linewidth]{../assets/figures/main/MAIN1_pipeline_network_layer.png}
 \apanote{From left to right: (I)~three ontological state spaces (profile, attack, opinion)
 define the admissible universe; (II)~a maximum-entropy sampler crosses one profile, one
-DISARM-red triplet, and one opinion cluster into each scenario; (III)~schema-constrained
-agents return a private baseline $B$ and post-attack $P$ for every leaf; (IV)~direction-aware
-effectivity $\mathrm{AE}=(P-B)\,d$ is constructed; (V)~the inferential layer estimates attack,
-opinion-domain, and profile-moderation effects. The present study runs a 10,000-scenario
-sample with the network-exposure layer disabled.}
+DISARM-red triplet, and one opinion leaf into each scenario; (III)~schema-constrained
+agents elicit private baseline opinions $B$, baseline opinions after exposure to the empirical
+peer network $N^B$, private post-attack opinions $P$, and post-attack opinions after the same
+network exposure $N^P$; (IV)~direction-aware private and network effect measures are
+constructed using the adversarial direction $d$; (V)~the inferential layer estimates
+individual susceptibility, task-conditional effects, profile moderation, and network-exposure
+mechanisms. The fixed exposure graph $G$ is reused across network-conditioned measurements,
+with edges directed from visible peer to exposed receiver.}
 \end{figure}
 
 \subsection{Ontological State Spaces}
@@ -652,11 +656,254 @@ attacked, the proportion of between-scenario effectivity variance attributable t
 out-of-sample variance that the full standardised profile battery explains under five-fold ridge
 cross-validation.
 
+\subsection{Empirical Exposure-Network Layer}\label{sec:network-method}
+
+\subsubsection{Embedding private susceptibility in an empirical exposure network}
+
+The individual-layer experiment was designed as a broad exploration of the ontology-defined state
+space of cybermanipulation susceptibility. In that layer, the central aim is to estimate how attack
+effects vary across inter-individual profile differences, opinion targets, and manipulation tactics
+when susceptibility is measured as a private response. This provides the necessary basis for the
+network analysis: before asking how an exposure network may amplify or attenuate manipulation
+effects, we first need to know how strongly different profiles move when exposed to an attack in
+isolation. The network layer therefore does not repeat the full individual-layer state-space
+exploration. Instead, it translates the individual susceptibility problem into an applied exposure
+experiment: a carefully selected and balanced subset of profiles, opinions, and attacks is embedded
+in an empirical social-media exposure graph to test how private differences in susceptibility
+interact with network position.
+
+\subsubsection{Network-layer scenario panel}
+
+For this network-layer experiment, the scenario space was narrowed deliberately to preserve both
+scientific control and valid peer-context construction. We used a fixed full-factorial panel of 100
+deterministic profiles, seven production opinion leaves, and five social-media-relevant attack
+leaves, yielding 3,500 profile $\times$ opinion $\times$ attack scenarios. The seven opinions were
+selected from the directionally encoded production issue-position taxonomy so that the network run
+remained aligned with the paper-level opinion domains. The five attacks were selected because their
+mechanisms are plausible on social-media platforms: headline and lede misframing, quote-context
+stripping, credentialed-domain persona fabrication, repost-bot amplification, and petition
+astroturfing. This selection is not intended to exhaust the full ontology. Its purpose is to create
+a controlled and interpretable network experiment in which the same profile panel can be compared
+across all opinion $\times$ attack conditions while preserving complete same-condition peer sets
+for network exposure assessment.
+
+\subsubsection{Empirical exposure substrate}
+
+The empirical exposure substrate was derived from PolitiSky24, a Bluesky dataset for the 2024 U.S.
+presidential election that provides user-level political stance labels together with engagement
+metadata, interaction graphs, and user posting histories \citep{rostami2025politisky24}. We use
+this dataset to move the simulation from isolated private responses into a social-media-derived
+network in which information can plausibly propagate between users. Such a network is valuable
+because political influence rarely unfolds as a single person encountering a single message in
+isolation: people interact, observe others' posts, amplify content, and encounter information
+through platform-mediated exposure. PolitiSky24 therefore supplies a contemporary, platform-native
+political interaction structure from which we can reconstruct a realistic exposure substrate for
+modelling how opinions formed privately may be reinforced or attenuated by surrounding social
+information. This substrate does not directly observe what every user read; rather, it provides
+engagement-based interaction traces from which plausible exposure relations can be constructed. In
+our implementation, it is represented as the \texttt{politisky24\_bluesky\_v1} exposure graph,
+where directed edges encode plausible exposure from a visible peer to an exposed receiver.
+
+This design addresses the network-layer research question: whether private susceptibility becomes
+more consequential when susceptible or resilient profiles occupy influential positions in a real
+exposure network. Each generated profile was assigned to one empirical position in this exposure
+graph. The fixed-position analysis estimates the network layer under one deterministic empirical
+profile-position assignment. To test H6 and H7 more directly, we then introduced a counterfactual
+assignment design: within each opinion $\times$ attack condition, profiles were reordered across
+the same empirical network positions so that high-reach sender positions were occupied by profiles
+ranging from comparatively resilient to comparatively susceptible. This manipulation changes the
+alignment between private susceptibility and sender reach, while holding the profile set, opinion
+targets, attack vectors, and empirical graph fixed. It therefore isolates the network-position
+mechanism from changes in who was sampled, what was attacked, which attack was used, or which graph
+carried the exposure process. In this way, the network layer extends the individual-layer analysis
+from the question of who is privately susceptible to the applied question of when those
+susceptibility differences become structurally amplified through exposure.
+
+\subsubsection{Private and network-conditioned opinion states}
+
+The network layer extends the individual baseline-and-post design by measuring each opinion state
+both privately and after exposure to empirical peer context. This creates a four-state measurement
+backbone (Table~\ref{tab:network-states}). First, the agent reports a private baseline opinion
+($B$). Second, the same baseline opinion is re-estimated after the agent is shown incoming peer
+baseline evaluations from its assigned empirical network neighbourhood ($N^B$). Third, after the
+attack operation, the agent reports a private post-attack opinion ($P$). Fourth, the post-attack
+opinion is re-estimated after the agent is shown same-condition incoming peer post-attack
+evaluations ($N^P$). This structure separates private susceptibility from the additional shift
+associated with network-conditioned peer exposure.
+
+\begin{table}[htbp]
+\floatleft
+\caption{Network-layer Opinion-state Measurement Backbone}
+\label{tab:network-states}
+\vspace{2pt}
+\begingroup\small
+\begin{tabularx}{\linewidth}{@{}p{0.16\linewidth}Y@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$B$ & Private baseline opinion. \\
+$N^B$ & Baseline opinion after exposure to incoming peer baseline evaluations. \\
+$P$ & Private post-attack opinion. \\
+$N^P$ & Post-attack opinion after exposure to same-condition incoming peer post-attack
+evaluations. \\
+\bottomrule
+\end{tabularx}
+\endgroup
+\apanote{All four scores are measured on the same bipolar opinion scale. Superscripts on
+$N^B$ and $N^P$ distinguish baseline and post-attack network-conditioned states, not powers.}
+\end{table}
+
+For every opinion leaf, $d$ denotes the adversarial direction of the target: $+1$ means upward
+movement is attack-aligned, and $-1$ means downward movement is attack-aligned. All attack-effect
+quantities are therefore expressed directionally, so positive values indicate movement toward the
+attacker's goal and lower or negative values indicate resistance, attenuation, or movement away from
+that goal. The primary individual susceptibility variable is private adversarial effectivity,
+\(\mathrm{AE}^{\mathrm{private}}\), not the raw difference \(P-B\), because the hypotheses concern
+movement toward the attacker's objective rather than unsigned opinion change. The core network
+deltas are summarised in Table~\ref{tab:network-deltas}.
+
+\begin{table}[htbp]
+\floatleft
+\caption{Direction-aware Private and Network-effect Quantities}
+\label{tab:network-deltas}
+\vspace{2pt}
+\begingroup\small
+\begin{tabularx}{\linewidth}{@{}p{0.27\linewidth}p{0.24\linewidth}Y@{}}
+\toprule
+Quantity & Formula & Interpretation \\
+\midrule
+Private susceptibility & $\mathrm{AE}^{\mathrm{private}} = (P-B)d$ &
+Direction-aware private attack success for one profile. \\
+Baseline network increment & $N^B-B$ &
+How baseline peer context shifts the pre-attack opinion. \\
+Post-network increment & $N^P-P$ &
+How same-condition peer context shifts the post-attack opinion. \\
+Post-network effectivity & $(N^P-P)d$ &
+Whether peer context amplifies or dampens the attack direction. \\
+Network-conditioned attack effect & $(N^P-N^B)d$ &
+Direction-aware attack effect between the network-conditioned baseline and post-attack states. \\
+Total network attack effect & $\mathrm{AE}^{\mathrm{total}} = (N^P-B)d$ &
+Final direction-aware attack effect after private and network exposure. \\
+\bottomrule
+\end{tabularx}
+\endgroup
+\apanote{Multiplication by $d$ places all attack effects on the same interpretation scale:
+positive values indicate movement toward the adversarial goal.}
+\end{table}
+
+\subsubsection{Counterfactual alignment of susceptibility and network influence}
+
+To test whether private susceptibility becomes consequential at the network level, we
+experimentally varied the alignment between a profile's private susceptibility and the network
+influence of the empirical position it occupied. In this analysis, network influence was
+operationalised as direct sender reach: the outgoing exposure potential of a position in the
+empirical graph,
+\begin{equation}
+R_p = \sum_q w_{pq},
+\end{equation}
+where $w_{pq}$ is the normalised exposure weight on the directed edge from visible sender position
+$p$ to exposed receiver position $q$. We used direct sender reach as the primary influence metric
+because the present exposure design models a single network-conditioned update rather than a
+multi-stage cascade. More recursive centrality measures, such as eigenvector centrality or
+multi-step reach, would be appropriate in designs where information can propagate across repeated
+rounds, because they capture whether a position is connected to other influential positions and
+can generate downstream exposure. Such multi-stage extensions are methodologically possible within
+the same framework, but were not included here to keep the experimental design and computational
+cost bounded.
+
+For each opinion $\times$ attack condition, private susceptibility was first computed for every
+profile as \(\mathrm{AE}^{\mathrm{private}} = (P-B)d\) and standardised within that condition. The
+same 100 profiles and the same 100 empirical network positions were then retained, but the mapping
+between profiles and positions was varied so that high-influence positions were occupied by
+profiles ranging from comparatively resilient to comparatively susceptible. To isolate this
+mechanism, we did not change the empirical graph or regenerate the profile panel. Instead, within
+each opinion $\times$ attack condition, the same profiles were reassigned across the same empirical
+positions. These reassignments are counterfactual in the methodological sense: they are controlled
+alternatives to the observed profile-position mapping, used to test how the same exposure network
+behaves when susceptibility is concentrated in different parts of the graph. This lets us study
+propagation as a joint property of the exposure structure and the information being circulated:
+the same graph can produce different network-level effects depending on which profiles occupy
+influential positions and how those profiles respond to the relevant opinion target and attack
+vector.
+
+Direct sender reach was measured by each position's outgoing visibility weight and normalised
+across the 100 positions. For each condition, achieved alignment, \(A_c\), was computed as the
+reach-weighted mean of standardised private susceptibility after assignment. Negative values
+indicate that higher-influence positions were occupied mainly by comparatively resilient profiles;
+positive values indicate that these positions were occupied mainly by comparatively susceptible
+profiles; values near zero indicate little systematic relation between susceptibility and network
+influence.
+
+Seven planned alignment levels were used: \(-0.90\), \(-0.60\), \(-0.30\), \(0.00\), \(+0.30\),
+\(+0.60\), and \(+0.90\). These levels range from resilient high-influence placement to susceptible
+high-influence placement, with intermediate levels producing progressively weaker alignment.
+Across the 35 opinion $\times$ attack condition cells, each level appeared five times, and each
+attack vector was paired with all seven levels once. This balancing prevents the alignment
+manipulation from being reducible to one attack vector, one opinion target, or one region of the
+scenario panel. The design therefore holds constant the profile set, opinion targets, attack
+vectors, and exposure substrate, and changes only the relation between private susceptibility and
+network influence. The planned levels define the assignment pattern, but the exact degree of
+alignment is measured after assignment for each condition. The statistical analysis therefore uses
+this measured alignment as the continuous condition-level predictor; the planned levels serve as
+design anchors rather than as categorical treatment groups.
+
+\subsubsection{Condition-level test of network amplification}
+
+The network-amplification test was conducted at the condition level. A condition was defined as
+one opinion target paired with one attack vector, yielding 35 opinion $\times$ attack cells. Within
+each cell, the same 100 profiles provided the profile-level measurements from which the condition
+mean was estimated. These profile rows were therefore not treated as 3,500 independent inferential
+observations for H6 and H7. Instead, they were used to estimate the average network response for
+each manipulated condition.
+
+The predictor for each condition was achieved sender-reach susceptibility alignment, denoted
+\(A_c\). This variable measures the realised extent to which profiles with higher private attack
+susceptibility occupied higher-reach sender positions. We used achieved alignment, rather than the
+nominal target level, because it captures the actual profile-position assignment obtained in each
+condition.
+
+We evaluated two condition-level outcomes. The primary outcome was post-network amplification,
+\begin{equation}
+Y^{\mathrm{amp}}_c = \frac{1}{100}\sum_{i=1}^{100}(N^P_{ic}-P_{ic})d_c ,
+\end{equation}
+which measures whether peer exposure after the attack moved opinions further in the attack-aligned
+direction beyond the private post-attack state. The secondary outcome was the total network attack
+effect,
+\begin{equation}
+Y^{\mathrm{total}}_c = \frac{1}{100}\sum_{i=1}^{100}(N^P_{ic}-B_{ic})d_c ,
+\end{equation}
+which measures the final direction-aware attack effect after both private attack exposure and
+network-conditioned peer exposure.
+
+For each outcome, we estimated the same condition-level fixed-effects model:
+\begin{equation}
+Y_{k,c} = \beta_0 + \beta_1 A_c + \alpha_{\mathrm{opinion}(c)}
+ + \gamma_{\mathrm{attack}(c)} + \varepsilon_c ,
+\end{equation}
+where \(Y_{k,c}\) is either \(Y^{\mathrm{amp}}_c\) or \(Y^{\mathrm{total}}_c\). Opinion and attack
+fixed effects were included because the design intentionally spans multiple opinion targets and
+attack vectors. The coefficient \(\beta_1\) therefore estimates whether conditions with higher
+achieved alignment show stronger network amplification after accounting for systematic differences
+between opinions and attacks. Because the number of condition cells is modest, inference used HC3
+robust standard errors. As a design-aware robustness check, we also used a directional
+within-attack permutation test: achieved alignment values were randomly reassigned within each
+attack vector, and the same fixed-effects model was refitted. This preserves the attack-balanced
+structure of the design while testing whether the observed positive alignment effect is stronger
+than expected under random reassignment within attack type.
+
+The hypothesis test is directional. H6 predicts \(\beta_1 > 0\): network-wide attack effects
+should increase when more susceptible profiles occupy higher-reach sender positions. H7 is tested
+through the same coefficient from the opposite side of the alignment gradient. If
+\(\beta_1 > 0\), then negative-alignment conditions, where comparatively resilient profiles occupy
+higher-reach sender positions, imply attenuation of network-wide attack effects. The planned
+alignment levels were therefore used to construct the experimental range, but the inferential test
+uses the measured continuous alignment achieved in each condition.
+
 \subsection{Hypotheses}\label{sec:hypotheses}
 
-The individual-layer research question (RQ1) is addressed through four directional hypotheses
-grounded in the evidence reviewed above. Each maps onto an explicit estimator in the analytic
-strategy.
+The individual-layer research question (RQ1) is addressed through four directional hypotheses,
+and the exposure-network research question (RQ2) through three network-layer hypotheses. Each maps
+onto an explicit estimator in the analytic strategy.
 
 \begin{itemize}[leftmargin=2.6em,itemsep=3pt]
 \item[\textbf{H1.}] Adversarial operations produce reliable directional opinion change on average
@@ -672,6 +919,12 @@ high-conscientiousness profiles are comparatively resistant
 or identity show smaller adversarial movement, consistent with motivated reasoning, and
 counter-attitudinal appeals are less effective than attitude-congruent ones
 \citep{decker2023personality}.
+\item[\textbf{H5.}] Network-conditioned susceptibility is related to, but not reducible to,
+private susceptibility.
+\item[\textbf{H6.}] Network-wide attack effects increase when comparatively susceptible profiles
+occupy higher-reach sender positions in the exposure graph.
+\item[\textbf{H7.}] Network-wide attack effects are attenuated when comparatively resilient
+profiles occupy higher-reach sender positions in the exposure graph.
 \end{itemize}
 
 \section{Results}
@@ -867,6 +1120,126 @@ when the family is removed. The full-battery CV $R^2$ is 0.0012. Panel B: standa
 a single cross-family ordinary-least-squares model with HC3 robust standard errors; 3 of 26 curated
 constructs survive false-discovery-rate control, all from the Big Five.}
 \end{table}
+
+\subsection{Profile Predictors of Direct and Network-Conditioned Susceptibility}
+\label{sec:profile-network-bridge}
+
+The preceding section shows that standard profile traits capture only a small part of private
+adversarial effectivity. The exposure-network layer asks a related but distinct question: whether
+the profiles that are more susceptible in isolation are also the profiles whose opinions are most
+amplified after network exposure. To answer this, each profile was summarised across the 35
+opinion-by-attack condition cells in the network experiment, yielding one profile-level mean for
+direct private susceptibility, \(\mathrm{AE}_{\mathrm{private}}=(P-B)d\), and one profile-level mean
+for post-network amplification, \((N^P-P)d\). The unit of inference in this analysis is therefore
+the profile (\(n=100\)), not the scenario row.
+
+Direct private susceptibility and post-network amplification were positively but only moderately
+associated (Figure~\ref{fig:profile-network-bridge}a), \(r=.28\), 95\% bootstrap CI
+\([.08,.47]\). Thus, profiles that moved more strongly after the private attack also tended to show
+larger network-conditioned amplification, but the relationship was far from deterministic. The
+network increment is therefore not simply a restatement of private movability.
+
+The same pattern appears in the profile-predictor models (Figure~\ref{fig:profile-network-bridge}b).
+The direct and network-conditioned coefficient profiles overlapped, but they did not coincide.
+Neuroticism predicted both direct susceptibility and post-network amplification. Openness was more
+strongly tied to the direct private effect, whereas conscientiousness, extraversion, and
+agreeableness were more pronounced in the network-increment model. This suggests that exposure to
+peer context preserves part of the individual susceptibility structure while introducing an
+additional social-context-dependent component.
+
+The strongest evidence for this distinction comes from the direct-adjusted network model
+(Figure~\ref{fig:profile-network-bridge}c). Direct susceptibility alone explained 7.8\% of the
+profile-level variation in post-network amplification. The profile-trait model explained 30.0\%.
+Adding direct susceptibility to the trait model increased explained variance only from
+\(R^2=.300\) to \(R^2=.301\). In that adjusted model, direct susceptibility was no longer a
+meaningful predictor of post-network amplification, \(\beta=.043\), 95\% HC3 CI
+\([-.207,.293]\), \(p=.736\). Together, these results support H5: private susceptibility and
+post-network amplification shared a moderate profile-level association, but network-conditioned
+susceptibility was not reducible to private susceptibility once profile traits were modelled
+jointly. This result motivates the next analysis: if network exposure creates a distinct
+susceptibility component, then the network-wide effect of an attack should depend on where
+susceptible or resilient profiles are positioned in the exposure graph.
+
+\begin{figure}[H]
+\floatleft
+\caption{Network-Conditioned Susceptibility Is Not Reducible to Direct Private Susceptibility}
+\label{fig:profile-network-bridge}
+\vspace{2pt}
+\includegraphics[width=0.99\linewidth]{../assets/figures/main/MAIN6_profile_direct_vs_network.png}
+\apanote{Each point in Panel A is one profile (\(n=100\)), averaged across the 35
+opinion-by-attack condition cells. Direct susceptibility is
+\(\mathrm{AE}_{\mathrm{private}}=(P-B)d\). Post-network amplification is \((N^P-P)d\), where
+\(B\) is the private baseline, \(P\) the private post-attack opinion, \(N^P\) the post-attack
+opinion after network exposure, and \(d\) the adversarial direction. Panel A uses score-point means
+and paired-profile bootstrap uncertainty. Panels B and C use standardised outcomes and predictors;
+models adjust for sex indicators. Panel B shows paired-profile bootstrap confidence intervals, and
+Panel C shows HC3 robust confidence intervals. Positive values indicate movement in the
+attack-aligned direction.}
+\end{figure}
+
+\subsection{Influential Sender Positions Convert Private Susceptibility Into Network Amplification}
+\label{sec:network-results}
+
+We finally tested whether private susceptibility becomes more consequential when it is located at
+influential positions in the exposure graph. The fixed-position production run used one
+profile-position mapping and therefore described the network response under that realised
+assignment. However, that mapping produced only limited variation in the alignment between private
+susceptibility and sender reach. To test H6 and H7 more directly, we used the counterfactual
+alignment design described in Section~\ref{sec:network-method}: the same profiles, opinion targets,
+attack vectors, and empirical graph were held fixed, while the assignment between profiles and
+network positions was varied across 35 opinion $\times$ attack condition cells.
+
+The alignment manipulation behaved as intended. Across the 35 condition cells, each summarising the
+same 100 profiles, planned and achieved alignment were almost perfectly matched
+($r=0.9999$), with a maximum absolute target error of 0.027 and an achieved-alignment range from
+$-0.892$ to $+0.920$. Negative alignment means that comparatively resilient profiles occupied
+higher-reach positions; positive alignment means that comparatively susceptible profiles occupied
+higher-reach positions. In the most resilient high-reach conditions, the top-20 sender positions
+had a mean private-susceptibility $z$ score of approximately $-1.16$; in the most susceptible
+high-reach conditions, the corresponding mean was approximately $+1.16$.
+
+\begin{figure}[H]
+\floatleft
+\caption{Private Susceptibility Becomes Network-consequential When It Aligns With Sender Reach}
+\label{fig:network-amplification}
+\vspace{2pt}
+\includegraphics[width=0.98\linewidth]{../assets/figures/main/MAIN7_susceptibility_network_amplification_.png}
+\apanote{Panel A overlays the empirical exposure graph across all 35 condition cells; node colour
+shows within-condition private susceptibility, \(\mathrm{AE}^{\mathrm{private}}=(P-B)d\), node
+size shows direct sender reach, \(R_p=\sum_q w_{pq}\), and directed edges run from visible sender
+positions to exposed receiver positions. Panel B shows the corresponding condition-specific
+vulnerability planes, with private-susceptibility position on the horizontal axis and sender-reach
+position on the vertical axis. Panel C shows the condition-level fixed-effect outcome test. Each
+point is one opinion $\times$ attack condition cell averaging 100 profiles. The left outcome is
+post-network amplification, \(\mathrm{mean}((N^P-P)d)\); the right outcome is total network attack
+effect, \(\mathrm{mean}((N^P-B)d)\). Axes in Panel C are residualised for opinion and attack fixed
+effects. The shaded wedges show HC3 coefficient uncertainty for the alignment slope, not prediction
+intervals.}
+\end{figure}
+
+Figure~\ref{fig:network-amplification} shows the mechanism visually. Panels A and B confirm that
+the empirical exposure substrate is held fixed while susceptibility is redistributed across
+network influence. Panel C then estimates whether the achieved condition-level alignment,
+\(A_c\), predicts stronger network amplification after removing opinion and attack fixed effects.
+For the primary endpoint, post-network amplification \(\mathrm{mean}((N^P-P)d)\), the alignment
+slope was positive and large: \(\beta=2.399\) score points per one-standard-deviation increase in
+alignment, with HC3 95\% CI \([1.478,3.320]\), \(p=1.79\mathrm{e}{-05}\), and directional
+within-attack permutation \(p=0.00020\). Moving from \(A_c=-0.9\) to \(A_c=+0.9\) therefore
+corresponds to an estimated increase of 4.32 attack-aligned score points in post-network
+amplification.
+
+The secondary endpoint, total network attack effect \(\mathrm{mean}((N^P-B)d)\), showed the same
+direction. The fixed-effect slope was \(\beta=2.697\), with HC3 95\% CI \([0.953,4.440]\),
+\(p=0.00398\), and directional within-attack permutation \(p=0.00200\). Across the same alignment
+range from \(-0.9\) to \(+0.9\), this implies an estimated increase of 4.85 attack-aligned score
+points in the final network-conditioned attack effect.
+
+These results support H6 and H7 as complementary sides of the same network mechanism. H6 is
+supported because network-wide attack effects increased when comparatively susceptible profiles
+occupied higher-reach sender positions. H7 is supported because negative-alignment conditions, in
+which comparatively resilient profiles occupied those higher-reach positions, attenuated the
+network-wide effect. This should be interpreted as a controlled network-mechanism test, not as a
+claim that real platforms naturally assign susceptible users to influential positions.
 
 \section{Discussion}
 
@@ -1115,6 +1488,11 @@ Computing Machinery. \doiurl{10.1145/3586183.3606763}
 Reiljan, A. (2020). `Fear and loathing across party lines' (also) in Europe: Affective
 polarisation in European party systems. \textit{European Journal of Political Research, 59}(2),
 376-396. \doiurl{10.1111/1475-6765.12351}
+
+\bibitem[Rostami et~al.(2025)]{rostami2025politisky24}
+Rostami, P., Rahimzadeh, V., Adibi, A., \& Shakery, A. (2025). \textit{PolitiSky24: U.S.
+political Bluesky dataset with user stance labels} [Preprint]. arXiv.
+\doiurl{10.48550/arXiv.2506.07606}
 
 \bibitem[Ryan et~al.(2025)]{ryan2025impact}
 Ryan, M., Withers, G., \& den Hartog, F. (2025). The impact of extreme cyber-attacks on market

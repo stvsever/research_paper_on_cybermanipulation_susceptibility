@@ -107,7 +107,12 @@ bash scripts/production/run_1.sh --verbose            # the 10,000-scenario run 
 .venv/bin/python src/backend/utils/analysis/analyze_run_1.py  # moderation, inferential tests, figures
 ```
 
-**Production run 2 is the full-scale exposure-network measurement.** On a fixed full-factorial panel (100 deterministic profiles × 7 opinions × 5 social-media attacks = 3,500 scenarios) embedded in the empirical `politisky24_bluesky_v1` graph, it adds the four-state backbone (`B`, `N^B`, `P`, `N^P`) and a counterfactual alignment-gradient branch over 35 opinion-by-attack conditions. Headline results: network-conditioned susceptibility is related to but not reducible to private susceptibility (r = .28; the direct effect is not significant once traits are modelled jointly), and an attack's network-wide effect increases substantially when comparatively susceptible profiles occupy higher-reach sender positions (condition-level alignment slope β = 2.40, p < .001). Reproduce with `bash scripts/production/run_2.sh full`.
+**Production run 2 is the full-scale exposure-network measurement.** On a fixed full-factorial panel (100 deterministic profiles × 7 opinions × 5 social-media attacks = 3,500 scenarios) embedded in the empirical `politisky24_bluesky_v1` graph, it adds the four-state backbone (`B`, `N^B`, `P`, `N^P`) and a counterfactual alignment-gradient branch over 35 opinion-by-attack conditions. Headline results: network-conditioned susceptibility is related to but not reducible to private susceptibility (r = .28; the direct effect is not significant once traits are modelled jointly), and an attack's network-wide effect increases substantially when comparatively susceptible profiles occupy higher-reach sender positions (condition-level alignment slope β = 2.40, p < .001). Reproduce with:
+
+```bash
+bash scripts/production/run_2.sh full                                          # the 3,500-scenario run (stages 01..08b, network analysis + figures)
+bash evaluation/production/run_2/counterfactual_alignment_gradient.sh run-all  # the H6/H7 alignment-gradient mechanism branch
+```
 
 Both launchers check for `OPENROUTER_API_KEY` and verify the projected OpenRouter budget before running.
 
